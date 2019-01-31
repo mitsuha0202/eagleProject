@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	나오냐?
+	
 </body>
 </html>
