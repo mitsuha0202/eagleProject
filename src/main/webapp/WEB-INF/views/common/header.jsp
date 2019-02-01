@@ -40,11 +40,11 @@
     	로그인을 하시면 다양한 정보를 보실 수 있습니다
   </a>
 	<div class="right" style="width:800px"></div>
-  <a class="item" >
+  <a class="item" href="loginView.me">
     	로그인
   </a>
   	
-   <a class="item" >
+   <a class="item" href="memberJoinView.me" >
     	회원가입
   </a>
    <a class="item" >
