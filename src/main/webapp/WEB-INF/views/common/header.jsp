@@ -47,7 +47,7 @@
    <a class="item" >
     	회원가입
   </a>
-   <a class="item" >
+   <a class="item" href="myPageMain.mp">
     	마이페이지
   </a>
 </div>
