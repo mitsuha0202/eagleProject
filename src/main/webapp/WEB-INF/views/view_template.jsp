@@ -33,6 +33,14 @@
         <div class = "two wide column"></div>
         <div class = "twelve wide column" style="margin-top:50px;">
         
+        
+        
+        
+        
+        
+        
+        
+        
           <!-- 내용 넣기 -->
         </div>
         <div class = "two wide column"></div>
