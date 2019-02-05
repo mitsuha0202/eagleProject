@@ -26,6 +26,37 @@
 	.h1 {
 		display: inline-block;
 	}
+	
+	#in {
+		height:40px;
+		width:400px;
+		border:1px solid black;
+		background:#ffffff;
+	
+	}
+	#searchItem {
+		font-size :16px;
+		width:325px;
+		padding:10px;
+		border:0px;
+		outline:none;
+		float:left;
+		
+	}
+	#searchBtn {
+		width:50px;
+		height:100%;
+		border:0px;
+		background:#1b5ac2;
+		outline:none;
+		float:right;
+		color:#ffffff
+	
+	}
+	input:-ms-input-placeholder {color:#a8a8a8;}
+	
+	
+	
 	</style>
 
 </head>
@@ -53,11 +84,16 @@
 </div>
 <h1 class="h1">Eagle's Auction</h1>
 <div class="btn-group" role="group" aria-label="...">
-	<div style=width:300px></div>
-  <button type="button" class="btn btn-default">경매하기</button>
-  <button type="button" class="btn btn-default">물품등록</button>
-  <button type="button" class="btn btn-default">사이버머니결제</button>
-   <button type="button" class="btn btn-default">자유게시판</button>
+	<div style=width:200px></div>
+ 	<div style=width:150px;font-size:30px>경매하기</div>
+ 	<div style=width:150px;font-size:30px>물품등록</div>
+  	<div style=width:250px;font-size:30px>사이버머니 결제</div>
+  	<div style=width:150px;font-size:30px>자유게시판</div>
+  	<div style=width:100px></div>
+	<div id="in">
+		<input type="text" placeholder="검색어 입력" id="searchItem">
+		<button id="searchBtn">검색</button>
+	</div>
 </div>
 
 
