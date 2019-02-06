@@ -26,6 +26,37 @@
 	.h1 {
 		display: inline-block;
 	}
+	
+	#in {
+		height:40px;
+		width:400px;
+		border:1px solid black;
+		background:#ffffff;
+	
+	}
+	#searchItem {
+		font-size :16px;
+		width:325px;
+		padding:10px;
+		border:0px;
+		outline:none;
+		float:left;
+		
+	}
+	#searchBtn {
+		width:50px;
+		height:100%;
+		border:0px;
+		background:#1b5ac2;
+		outline:none;
+		float:right;
+		color:#ffffff
+	
+	}
+	input:-ms-input-placeholder {color:#a8a8a8;}
+	
+	
+	
 	</style>
 
 </head>
@@ -33,31 +64,37 @@
 <body>
 <div class="ui inverted menu">
   <a class="active item">
- 	ÇöÀç½Ã°£
+ 	í˜„ì¬ì‹œê°„
   </a>
   <div style="width:100px"></div>
   <a class="item">
-    	·Î±×ÀÎÀ» ÇÏ½Ã¸é ´Ù¾çÇÑ Á¤º¸¸¦ º¸½Ç ¼ö ÀÖ½À´Ï´Ù
+    	ë¡œê·¸ì¸ì„ í•˜ì‹œë©´ ë‹¤ì–‘í•œ ì •ë³´ë¥¼ ë³´ì‹¤ ìˆ˜ ìˆìŠµë‹ˆë‹¤
   </a>
 	<div class="right" style="width:800px"></div>
   <a class="item" href="loginView.me">
-    	·Î±×ÀÎ
+    	ë¡œê·¸ì¸
   </a>
   	
    <a class="item" href="memberJoinView.me" >
-    	È¸¿ø°¡ÀÔ
+    	íšŒì›ê°€ì…
   </a>
    <a class="item" href="myPageMain.mp">
-    	¸¶ÀÌÆäÀÌÁö
+    	ë§ˆì´í˜ì´ì§€
   </a>
 </div>
 <h1 class="h1">Eagle's Auction</h1>
 <div class="btn-group" role="group" aria-label="...">
-	<div style=width:300px></div>
-  <button type="button" class="btn btn-default">°æ¸ÅÇÏ±â</button>
-  <button type="button" class="btn btn-default">¹°Ç°µî·Ï</button>
-  <button type="button" class="btn btn-default">»çÀÌ¹ö¸Ó´Ï°áÁ¦</button>
-   <button type="button" class="btn btn-default" onclick="goBoard();">ÀÚÀ¯°Ô½ÃÆÇ</button>
+
+	<div style=width:200px></div>
+ 	<div style=width:150px;font-size:30px>ê²½ë§¤í•˜ê¸°</div>
+ 	<div style=width:150px;font-size:30px>ë¬¼í’ˆë“±ë¡</div>
+  	<div style=width:250px;font-size:30px>ì‚¬ì´ë²„ë¨¸ë‹ˆ ê²°ì œ</div>
+  	<div style=width:150px;font-size:30px>ììœ ê²Œì‹œíŒ</div>
+  	<div style=width:100px></div>
+	<div id="in">
+		<input type="text" placeholder="ê²€ìƒ‰ì–´ ì…ë ¥" id="searchItem">
+		<button id="searchBtn">ê²€ìƒ‰</button>
+	</div>
 </div>
 <script>
 	function goBoard() {
