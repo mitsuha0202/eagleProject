@@ -64,38 +64,43 @@
 <body>
 <div class="ui inverted menu">
   <a class="active item">
- 	ÇöÀç½Ã°£
+ 	í˜„ìž¬ì‹œê°„
   </a>
   <div style="width:100px"></div>
   <a class="item">
-    	·Î±×ÀÎÀ» ÇÏ½Ã¸é ´Ù¾çÇÑ Á¤º¸¸¦ º¸½Ç ¼ö ÀÖ½À´Ï´Ù
+    	ë¡œê·¸ì¸ì„ í•˜ì‹œë©´ ë‹¤ì–‘í•œ ì •ë³´ë¥¼ ë³´ì‹¤ ìˆ˜ ìžˆìŠµë‹ˆë‹¤
   </a>
 	<div class="right" style="width:800px"></div>
   <a class="item" href="loginView.me">
-    	·Î±×ÀÎ
+    	ë¡œê·¸ì¸
   </a>
   	
    <a class="item" href="memberJoinView.me" >
-    	È¸¿ø°¡ÀÔ
+    	íšŒì›ê°€ìž…
   </a>
    <a class="item" href="myPageMain.mp">
-    	¸¶ÀÌÆäÀÌÁö
+    	ë§ˆì´íŽ˜ì´ì§€
   </a>
 </div>
 <h1 class="h1">Eagle's Auction</h1>
 <div class="btn-group" role="group" aria-label="...">
+
 	<div style=width:200px></div>
- 	<div style=width:150px;font-size:30px>°æ¸ÅÇÏ±â</div>
- 	<div style=width:150px;font-size:30px>¹°Ç°µî·Ï</div>
-  	<div style=width:250px;font-size:30px>»çÀÌ¹ö¸Ó´Ï °áÁ¦</div>
-  	<div style=width:150px;font-size:30px>ÀÚÀ¯°Ô½ÃÆÇ</div>
+ 	<div style=width:150px;font-size:30px>ê²½ë§¤í•˜ê¸°</div>
+ 	<div style=width:150px;font-size:30px>ë¬¼í’ˆë“±ë¡</div>
+  	<div style=width:250px;font-size:30px>ì‚¬ì´ë²„ë¨¸ë‹ˆ ê²°ì œ</div>
+  	<div style=width:150px;font-size:30px>ìžìœ ê²Œì‹œíŒ</div>
   	<div style=width:100px></div>
 	<div id="in">
-		<input type="text" placeholder="°Ë»ö¾î ÀÔ·Â" id="searchItem">
-		<button id="searchBtn">°Ë»ö</button>
+		<input type="text" placeholder="ê²€ìƒ‰ì–´ ìž…ë ¥" id="searchItem">
+		<button id="searchBtn">ê²€ìƒ‰</button>
 	</div>
 </div>
-
+<script>
+	function goBoard() {
+		location.href="goBoard.bo";
+	}
+</script>
 
 
 
