@@ -52,7 +52,7 @@
 	
 </style>
 <body>
-
+	<jsp:include page="../common/header.jsp"/>
     <h1 class="ui header" align="center" style="margin-top:250px">Eagle's Auction</h1>
 	<div class="loginArea" align="center">
 		<form class="ui form">

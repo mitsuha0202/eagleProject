@@ -57,9 +57,13 @@
   <button type="button" class="btn btn-default">경매하기</button>
   <button type="button" class="btn btn-default">물품등록</button>
   <button type="button" class="btn btn-default">사이버머니결제</button>
-   <button type="button" class="btn btn-default">자유게시판</button>
+   <button type="button" class="btn btn-default" onclick="goBoard();">자유게시판</button>
 </div>
-
+<script>
+	function goBoard() {
+		location.href="goBoard.bo";
+	}
+</script>
 
 
 

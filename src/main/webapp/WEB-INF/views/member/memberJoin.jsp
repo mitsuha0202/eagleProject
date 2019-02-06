@@ -46,6 +46,7 @@
 </style>
 </head>
 <body>
+	<jsp:include page="../common/header.jsp"/>
 	 <h1 class="ui header" align="center" style="margin-top:250px">E a g l e ' s&nbsp;&nbsp;&nbsp;&nbsp;J O I N</h1>
 	 <div class="memberJoin" align="center">
 		 <form class="ui form">
@@ -59,7 +60,7 @@
 					    <input type="text" name="userId" placeholder="ID" style="height:45px">
 					  </div>
 				  </td>
-  				  <td><button class="ui button" type="submit">Submit</button></td>
+  				  <td><button class="ui button" onclick="#">ID중복확인</button></td>
 				 </tr>
 				 <tr>
 				    <td colspan="2"><label align="left">* 비밀번호</label></td>
@@ -82,19 +83,51 @@
 				  	</td>
 				  </tr>
 				  <tr>
-				    <td colspan="2"><label align="left">* 이메일</label></td>
+				    <td colspan="2"><label align="left">* 이름</label></td>
 				 </tr>
 				 <tr>
 				 	<td colspan="2">
 					  <div class="field">
+					    <input type="text" name="userName" placeholder="회원 이름" style="height:45px">
+					  </div>
+				  	</td>
+				  </tr>
+				   <tr>
+				    <td colspan="2"><label align="left">* 연락처</label></td>
+				 </tr>
+				 <tr>
+				 	<td colspan="2">
+					  <div class="field">
+					    <input type="text" name="phone" placeholder="010-0000-0000" style="height:45px">
+					  </div>
+				  	</td>
+				  </tr>
+				  <tr>
+				    <td colspan="2"><label align="left">* 이메일</label></td>
+				 </tr>
+				 <tr>
+				 	<td>
+					  <div class="field">
 					    <input type="email" name="email" placeholder="EAMAIL@EAMAIL.COM" style="height:45px">
 					  </div>
 				  	</td>
-				  </tr>	 
+				  	 <td><button class="ui button" onclick="#">이메일 인증</button></td>
+				  </tr>
+				  <tr>
+				    <td colspan="2"><label align="left">* 인증번호 확인</label></td>
+				 </tr>
+				 <tr>
+				 	<td>
+					  <div class="field">
+					    <input type="text" name="confirm" placeholder="" style="height:45px">
+					  </div>
+				  	</td>
+				  	 <td><button class="ui button" onclick="#">확인</button></td>
+				  </tr>
 			</table>
 			<div class="btnAtra" align="center">
-				<button class="ui button" type="submit">Submit</button>
-				<button class="ui button" type="submit">Submit</button>
+				<button class="ui button" type="submit">가입하기</button>
+				<button class="ui button" type="reset">취소하기</button>
 			</div>
 		</form>
 	</div>
