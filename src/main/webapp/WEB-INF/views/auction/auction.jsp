@@ -21,17 +21,34 @@
  	.column{
      	height: 100%;
      }
+     .h2 {
+     	display:inline-block;
+     }
     
 </style>
 
 </head>
 <body>
 	<!-- navigation - header.jsp -->
-	<jsp:include page="../views/common/header.jsp"/>
+	<jsp:include page="../common/header.jsp"/>
 	<!-- 해당 페이지를 view_template파일과 다른 경로에 만들었다면 include path를 수정해야합니 -->
     <div class="ui grid">
         <div class = "two wide column"></div>
         <div class = "twelve wide column" style="margin-top:50px;">
+        
+        <h2 class="h2">경매하기</h2>
+        <div class="ui category search" style=float:right>
+  	<div class="ui icon input">
+    <input class="prompt" type="text" placeholder="현재카테고리검색">
+    <i class="search icon">    
+    </i>
+  </div>
+  <div class="results"></div>
+	</div>
+        
+        
+        
+        
         
         
         

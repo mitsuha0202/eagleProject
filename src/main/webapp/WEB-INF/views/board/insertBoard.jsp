@@ -21,17 +21,66 @@
  	.column{
      	height: 100%;
      }
+     tr{
+     	padding-bottom: 10px;
+     }
+    .freeBoard{
+    	background: #205181;
+    	width:100%;
+    	height: 200px;
+    }
     
 </style>
 
 </head>
 <body>
 	<!-- navigation - header.jsp -->
-	<jsp:include page="../views/common/header.jsp"/>
+	<jsp:include page="../common/header.jsp"/>
 	<!-- 해당 페이지를 view_template파일과 다른 경로에 만들었다면 include path를 수정해야합니 -->
     <div class="ui grid">
         <div class = "two wide column"></div>
         <div class = "twelve wide column" style="margin-top:50px;">
+        <div class="freeBoard">
+        	<h1 class="ui header" style="font-size:4rem; color:white; margin-left: 20px; padding-top: 20px;">자유게시판</h1>
+        	<h1 class="ui header" style="font-size:2rem; color:white; margin-left: 20px;">경매에 대해 자유롭게 토론해보세요!</h1>
+        </div>
+        <div class="insertArea ui form">
+	     		<form action="#" method="post">
+	     			<table>
+		     			<tr>
+		     					<td colspan="2" align="left"><h1 class="ui header" style="font-size:3rem; margin-top: 50px;">글쓰기</h1>
+		     					<div class="ui divider"></div></td>
+		     					<div class="ui divider"></div>
+		     			</tr>
+	     				<tr>
+		     				<td colspan="2"> <div class="field">
+							    <input type="text" name="bTitle" placeholder="제목을 입력해주세요. 20자이내" style="height:60px; width:1600px;">
+							  </div>
+							</td>
+						</tr>
+						<tr style="height: 10px;">
+
+						</tr>
+						<tr>
+		     				<td colspan="2">  	
+		     					<div class="field">
+							    <textarea placeholder="내용을 입력해주세요. 300자 이내" style="height: 500px;"></textarea>
+							  </div>
+							</td>
+
+	     			</table>
+	     			<br>
+	     			<div class="btnArea" align="center"">
+	     				<button class="ui black basic button" style="width:100px; height:50px;">등록하기</button>
+						<button class="ui black basic button" style="width:100px; height:50px;">취소하기</button>
+					</div>
+	     		</form>
+	     	</div>
+        
+        
+        
+        
+        
         
         
         

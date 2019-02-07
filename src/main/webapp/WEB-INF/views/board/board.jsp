@@ -64,7 +64,7 @@
 		</div>
 	
 	
-		<table class="ui black table" align="center">
+		<table class="ui black table" align="center" id="listArea">
 		  <thead>
 		    <tr>
 			    <th>번호</th>
@@ -99,8 +99,23 @@
 	</div>
 	<script>
 		function insertBoard() {
-			location.href = "insertBoardView.bo"
+			location.href = "insertBoardView.bo";
 		}
+		
+		$(function(){
+			$("#listArea td").mouseenter(function(){
+				$(this).parent().css({"background":"darkgray","cursor":"pointer"})
+			}).mouseout(function(){
+				$(this).parent().css({"background":"white"});
+			}).click(function(){
+				var num=$(this).parent().children().eq(0).text();
+				
+				console.log(num);
+				
+				location.href="boardSelectOne.bo";
+			});
+			
+		})
 	
 	</script>
 </body>

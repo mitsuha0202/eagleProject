@@ -83,12 +83,42 @@
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
 			<param-value>/WEB-INF/config/admin-servlet.xml</param-value>
+
+	<!-- 물품등록 -->
+	<servlet>
+		<servlet-name>item</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/config/item-servlet.xml</param-value>
+
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
+
 		<servlet-name>admin</servlet-name>
 		<url-pattern>*.ad</url-pattern>
+	</servlet-mapping>
+	
+
+		<servlet-name>item</servlet-name>
+		<url-pattern>*.it</url-pattern>
+	</servlet-mapping>
+	
+	<!-- 카테고리 검색(경매하기) -->
+	<servlet>
+		<servlet-name>auction</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/config/auction-servlet.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>auction</servlet-name>
+		<url-pattern>*.au</url-pattern>
 	</servlet-mapping>
 	
 	

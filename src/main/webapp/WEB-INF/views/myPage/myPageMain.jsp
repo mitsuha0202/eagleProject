@@ -207,6 +207,35 @@
 		top: 120px;
 		left: 1150px;
 	}
+	/* 구매현황 버튼 */
+	.purchasestatus{
+		text-align: center;
+		background-color: #205181;
+		border: 1px solid white;
+		color:white;
+		border-radius: 10px;
+		position: absolute;
+		width: 150px;
+		height: 60px;
+	    font-size: 16px;
+	    right: 600px;
+	    top: 450px;
+	}
+	
+	/* 판매현황 버튼 */
+	.salesstatus{
+		text-align: center;
+		background-color: #205181;
+		border: 1px solid white;
+		color:white;
+		border-radius: 10px;
+		position: absolute;
+		width: 150px;
+		height: 60px;
+	    font-size: 16px;
+	    right: 600px;
+	    top: 710px;
+	}
 </style>
 </head>
 <body>
@@ -248,6 +277,7 @@
 	
 	<!-- 구매현황 제목 -->
 	<div class="buyTitle"><h2>구매현황</h2></div>
+	<button class="purchasestatus" onclick="location.href='purchasestatus.mp'">구매현황+</button>
 	
 	<!-- 구매현황 테이블 -->
 	<div class="buyStatus">
@@ -285,6 +315,7 @@
 	
 	<!-- 판매현황 제목 -->
 	<div class="saleTitle"><h2>판매현황</h2></div>
+	<button class="salesstatus" oncli>판매현황+</button>
 	
 	<!-- 판매현황 테이블 -->
 	<div class="saleStatus">
@@ -332,6 +363,10 @@
 		<h4 class="tutorialIcon1" onclick="egAuctionInfo.mp">사이트이용안내</h4>
 		<i class="dollar sign icon" id="accountInfo"></i>
 		<h4 class="tutorialIcon2">자주묻는 질문</h4>		
+		<!-- 문의게시판 -->
+		<i class="clipboard icon" id="queryBoard" onclick="location.href='queryBoard.mp'"></i>
+		<!-- 문의받은 게시판 -->
+		<i class="clipboard icon" id="answerBoard" style="top: 30px;" onclick="location.href='answerBoard.mp'"></i>
 	</div>
 </body>
 </html>
