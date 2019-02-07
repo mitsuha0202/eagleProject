@@ -15,4 +15,9 @@ public class BoardController {
 	public String showInsertBoardView(){
 		return "board/insertBoard";
 	}
+	
+	@RequestMapping("boardSelectOne.bo")
+	public String boardSelectOne(){
+		return "board/boardDetail";
+	}
 }
