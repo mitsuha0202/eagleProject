@@ -82,7 +82,7 @@
     	마이페이지
   </a>
 </div>
-<h1 class="h1">Eagle's Auction</h1>
+<h1 class="h1">Eagle's Auction </h1>
 <div class="btn-group" role="group" aria-label="...">
 
 	<div style=width:200px></div>
