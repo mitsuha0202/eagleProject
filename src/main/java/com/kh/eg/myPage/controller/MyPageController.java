@@ -20,6 +20,7 @@ public class MyPageController {
 	//쪽지함 페이지로 이동
 	@RequestMapping("userMessage.mp")
 	public String userMessagePage() {
+	
 		return "myPage/usesrMessagePage";
 	}
 	//회원정보 수정 페이지로 이동

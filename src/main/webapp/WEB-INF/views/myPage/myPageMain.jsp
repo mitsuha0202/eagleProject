@@ -207,6 +207,35 @@
 		top: 120px;
 		left: 1150px;
 	}
+	/* 구매현황 버튼 */
+	.purchasestatus{
+		text-align: center;
+		background-color: #205181;
+		border: 1px solid white;
+		color:white;
+		border-radius: 10px;
+		position: absolute;
+		width: 150px;
+		height: 60px;
+	    font-size: 16px;
+	    right: 600px;
+	    top: 450px;
+	}
+	
+	/* 판매현황 버튼 */
+	.salesstatus{
+		text-align: center;
+		background-color: #205181;
+		border: 1px solid white;
+		color:white;
+		border-radius: 10px;
+		position: absolute;
+		width: 150px;
+		height: 60px;
+	    font-size: 16px;
+	    right: 600px;
+	    top: 710px;
+	}
 </style>
 </head>
 <body>
@@ -248,6 +277,7 @@
 	
 	<!-- 구매현황 제목 -->
 	<div class="buyTitle"><h2>구매현황</h2></div>
+	<button class="purchasestatus" onclick="location.href='purchasestatus.mp'">구매현황+</button>
 	
 	<!-- 구매현황 테이블 -->
 	<div class="buyStatus">
@@ -285,6 +315,7 @@
 	
 	<!-- 판매현황 제목 -->
 	<div class="saleTitle"><h2>판매현황</h2></div>
+	<button class="salesstatus" oncli>판매현황+</button>
 	
 	<!-- 판매현황 테이블 -->
 	<div class="saleStatus">

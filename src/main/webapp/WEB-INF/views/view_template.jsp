@@ -35,12 +35,6 @@
         
         
         
-        
-        
-        
-        
-        
-        
           <!-- 내용 넣기 -->
         </div>
         <div class = "two wide column"></div>
