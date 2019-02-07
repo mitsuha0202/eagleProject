@@ -83,6 +83,14 @@
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
 			<param-value>/WEB-INF/config/admin-servlet.xml</param-value>
+			</init-param>
+			<load-on-startup>1</load-on-startup>
+			</servlet>
+			<servlet-mapping>
+
+		<servlet-name>admin</servlet-name>
+		<url-pattern>*.ad</url-pattern>
+	</servlet-mapping>
 
 	<!-- 물품등록 -->
 	<servlet>
@@ -91,17 +99,10 @@
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
 			<param-value>/WEB-INF/config/item-servlet.xml</param-value>
-
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
-
-		<servlet-name>admin</servlet-name>
-		<url-pattern>*.ad</url-pattern>
-	</servlet-mapping>
-	
-
 		<servlet-name>item</servlet-name>
 		<url-pattern>*.it</url-pattern>
 	</servlet-mapping>
