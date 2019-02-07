@@ -137,13 +137,13 @@
 	<div class="messageTableArea">
 		<table class="messageTable">
 			<tr>
-				<td class="firstTd"><input type="checkbox" style="width: 17px; height: 17px;"></td>
-				<td class="firstTd"><h5 class="content">보낸사람</h5></td>
-				<td class="firstTd"><h5 class="content">쪽지내용</h5></td>
-				<td class="firstTd"><h5 class="content">받은날짜</h5></td>
+				<td class="firstTd"><h5>번호</h5></td>
+				<td class="firstTd"><h5 class="content">제목</h5></td>
+				<td class="firstTd"><h5 class="content">보낸날짜</h5></td>
+				<td class="firstTd"><h5 class="content">답변여부</h5></td>
 			</tr>
 			<tr>
-				<td><input type="checkbox" style="width: 17px; height: 17px;"></td>
+				<td></td>
 				<td></td>
 				<td></td>
 				<td></td>
@@ -154,7 +154,7 @@
 	<!-- 버튼 div -->
 	<div class="btnArea">
 		<button class="deleteBtn">삭제</button>
-		<button class="queryBtn">문의하기</button>
+		<button class="queryBtn" onclick="location.href='onebyone.mp'">문의하기</button>
 		<button class="closeBtn" onclick="location.href='myPageMain.mp'">닫기</button>
 	</div>
 </body>

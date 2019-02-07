@@ -332,6 +332,10 @@
 		<h4 class="tutorialIcon1" onclick="egAuctionInfo.mp">사이트이용안내</h4>
 		<i class="dollar sign icon" id="accountInfo"></i>
 		<h4 class="tutorialIcon2">자주묻는 질문</h4>		
+		<!-- 문의게시판 -->
+		<i class="clipboard icon" id="queryBoard" onclick="location.href='queryBoard.mp'"></i>
+		<!-- 문의받은 게시판 -->
+		<i class="clipboard icon" id="answerBoard" style="top: 30px;" onclick="location.href='answerBoard.mp'"></i>
 	</div>
 </body>
 </html>
