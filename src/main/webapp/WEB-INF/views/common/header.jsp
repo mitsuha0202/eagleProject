@@ -55,6 +55,9 @@
 	}
 	input:-ms-input-placeholder {color:#a8a8a8;}
 	
+	.Board{
+		cursor: pointer;
+	}
 	
 	
 	</style>
@@ -88,7 +91,7 @@
 	<div style=width:200px></div>
  	<div style=width:150px;font-size:30px>경매하기</div>
  	<div style=width:150px;font-size:30px>물품등록</div>
-  	<div style=width:250px;font-size:30px>자유게시판</div>
+  	<div style=width:250px;font-size:30px onclick="goBoard();" class="Board">자유게시판</div>
   	<div style=width:150px;font-size:30px>사이버머니 결제</div>
   	<div style=width:100px></div>
 	<div id="in">
