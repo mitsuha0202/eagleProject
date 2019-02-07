@@ -81,6 +81,9 @@
    <a class="item" href="myPageMain.mp">
     	마이페이지
   </a>
+  <a class="item" href="blackList.ad">
+    	관리자
+  </a>
 </div>
 <h1 class="h1">Eagle's Auction </h1>
 <div class="btn-group" role="group" aria-label="...">
