@@ -55,6 +55,9 @@
 	}
 	input:-ms-input-placeholder {color:#a8a8a8;}
 	
+	.Board{
+		cursor: pointer;
+	}
 	
 	
 	</style>
@@ -85,14 +88,16 @@
 <h1 class="h1">Eagle's Auction </h1>
 <div class="btn-group" role="group" aria-label="...">
 
+
 	<div style=width:180px></div>
 	
  	<div style=cursor:pointer;width:150px;font-size:20px onclick="location.href='auctionCategory.au'">경매하기</div>
  	
  	<div style=cursor:pointer;width:150px;font-size:20px onclick="location.href='itemRegist.it'">물품등록</div>
  	
-  	<div style=width:150px;font-size:20px>자유게시판</div>
+  	<div style=width:150px;font-size:20px >자유게시판</div>
   	<div style=width:150px;font-size:20px>사이버머니 결제</div>
+
   	<div style=width:100px></div>
 	<div id="in">
 		<input type="text" placeholder="검색어를 입력해주세요" id="searchItem">

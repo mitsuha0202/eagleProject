@@ -44,30 +44,40 @@
 	h1.ui.header{
 		font-size: 4rem;
 	}
-	.ui.form .field>label{
-		font-size: 1.5em;
-	}
-	
+	.column{
+     	height: 100%;
+     }
 	
 	
 </style>
 <body>
+	<!-- navigation - header.jsp -->
 	<jsp:include page="../common/header.jsp"/>
-    <h1 class="ui header" align="center" style="margin-top:250px">Eagle's Auction</h1>
-	<div class="loginArea" align="center">
-		<form class="ui form">
-		  <div class="field">
-		    <label align="left">아이디</label>
-		    <input type="text" name="userId" placeholder="ID" style="height:45px">
-		  </div>
-		  <div class="field">
-		    <label align="left">비밀번호</label>
-		    <input type="password" name="userPwd" placeholder="PASSWORD" style="height:45px">
-		  </div>
-		  <div class="ui inverted segment" style="width:500px">
-  			<button class="ui inverted button" style="width:450px">eagle's Login</button>
-  		  </div>
-		</form>
-	</div>
+	<!-- 해당 페이지를 view_template파일과 다른 경로에 만들었다면 include path를 수정해야합니 -->
+    <div class="ui grid">
+        <div class = "two wide column"></div>
+        <div class = "twelve wide column" style="margin-top:50px;">
+		    <h1 class="ui header" align="center" style="margin-top:150px; margin-bottom:30px; font-size:4rem;">Eagle's Auction</h1>
+			<div class="loginArea" align="center">
+				<form class="ui form">
+				  <div class="field">
+				    <label align="left" style="font-size: 1.5em;">아이디</label>
+				    <input type="text" name="userId" placeholder="ID" style="height:50px">
+				  </div>
+				  <div class="field">
+				    <label align="left" style="font-size: 1.5em;">비밀번호</label>
+				    <input type="password" name="userPwd" placeholder="PASSWORD" style="height:50px">
+				  </div>
+				  <div class="ui inverted segment" style="width:500px; height: 108px;">
+		  			<button class="ui inverted button" style="width:450px">eagle's Login</button>
+		  		  </div>
+				</form>
+			</div>
+	
+	<!-- 내용 넣기 -->
+        </div>
+        <div class = "two wide column"></div>
+   	</div>
+   	<!-- footer -->
 </body>
 </html>

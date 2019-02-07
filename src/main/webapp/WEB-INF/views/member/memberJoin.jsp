@@ -42,94 +42,112 @@
 	.field{
 		width:500px;
 	}
-	
+	.ui button {
+		height: 45px;
+	}
+	.column{
+     	height: 100%;
+     }
 </style>
 </head>
 <body>
+	<!-- navigation - header.jsp -->
 	<jsp:include page="../common/header.jsp"/>
-	 <h1 class="ui header" align="center" style="margin-top:250px">E a g l e ' s&nbsp;&nbsp;&nbsp;&nbsp;J O I N</h1>
-	 <div class="memberJoin" align="center">
-		 <form class="ui form">
-			 <table>
-			 	<tr>
-			 		<td colspan="2"><label align="left">* 아이디</label></td>
-			 	</tr>
-			 	<tr>
-		 		  <td>
-					  <div class="field" style="display:inline-block;">	    
-					    <input type="text" name="userId" placeholder="ID" style="height:45px">
-					  </div>
-				  </td>
-  				  <td><button class="ui button" onclick="#">ID중복확인</button></td>
-				 </tr>
-				 <tr>
-				    <td colspan="2"><label align="left">* 비밀번호</label></td>
-				 </tr>
-				 <tr>
-				 	<td>
-					  <div class="field">
-					    <input type="password" name="userPwd" placeholder="PASSWORD" style="height:45px">
-					  </div>
-				  	</td>
-				  </tr>
-				  <tr>
-				    <td colspan="2"><label align="left">* 비밀번호확인</label></td>
-				 </tr>
-				 <tr>
-				 	<td colspan="2">
-					  <div class="field">
-					    <input type="password" name="userPwd2" placeholder="PASSWORD" style="height:45px">
-					  </div>
-				  	</td>
-				  </tr>
-				  <tr>
-				    <td colspan="2"><label align="left">* 이름</label></td>
-				 </tr>
-				 <tr>
-				 	<td colspan="2">
-					  <div class="field">
-					    <input type="text" name="userName" placeholder="회원 이름" style="height:45px">
-					  </div>
-				  	</td>
-				  </tr>
-				   <tr>
-				    <td colspan="2"><label align="left">* 연락처</label></td>
-				 </tr>
-				 <tr>
-				 	<td colspan="2">
-					  <div class="field">
-					    <input type="text" name="phone" placeholder="010-0000-0000" style="height:45px">
-					  </div>
-				  	</td>
-				  </tr>
-				  <tr>
-				    <td colspan="2"><label align="left">* 이메일</label></td>
-				 </tr>
-				 <tr>
-				 	<td>
-					  <div class="field">
-					    <input type="email" name="email" placeholder="EAMAIL@EAMAIL.COM" style="height:45px">
-					  </div>
-				  	</td>
-				  	 <td><button class="ui button" onclick="#">이메일 인증</button></td>
-				  </tr>
-				  <tr>
-				    <td colspan="2"><label align="left">* 인증번호 확인</label></td>
-				 </tr>
-				 <tr>
-				 	<td>
-					  <div class="field">
-					    <input type="text" name="confirm" placeholder="" style="height:45px">
-					  </div>
-				  	</td>
-				  	 <td><button class="ui button" onclick="#">확인</button></td>
-				  </tr>
-			</table>
-			<div class="btnAtra" align="center">
-				<button class="ui button" type="submit">가입하기</button>
-				<button class="ui button" type="reset">취소하기</button>
-			</div>
-		</form>
-	</div>
+	<!-- 해당 페이지를 view_template파일과 다른 경로에 만들었다면 include path를 수정해야합니 -->
+    <div class="ui grid">
+        <div class = "two wide column"></div>
+        <div class = "twelve wide column" style="margin-top:50px;">
+		 <h1 class="ui header" align="center" style="margin-top:150px">E a g l e ' s&nbsp;&nbsp;&nbsp;&nbsp;J O I N</h1>
+		 <div class="memberJoin" align="center">
+			 <form class="ui form">
+				 <table>
+				 	<tr>
+				 		<td colspan="2"><label align="left" style="font-size: 1.5em;">* 아이디</label></td>
+				 	</tr>
+				 	<tr>
+			 		  <td>
+						  <div class="field" style="display:inline-block;">	    
+						    <input type="text" name="userId" placeholder="ID" style="height:45px">
+						  </div>
+					  </td>
+	  				  <td><button class="ui button" onclick="#">ID중복확인</button></td>
+					 </tr>
+					 <tr>
+					    <td colspan="2"><label align="left" style="font-size: 1.5em;">* 비밀번호</label></td>
+					 </tr>
+					 <tr>
+					 	<td>
+						  <div class="field">
+						    <input type="password" name="userPwd" placeholder="PASSWORD" style="height:45px">
+						  </div>
+					  	</td>
+					  </tr>
+					  <tr>
+					    <td colspan="2"><label align="left" style="font-size: 1.5em;">* 비밀번호확인</label></td>
+					 </tr>
+					 <tr>
+					 	<td colspan="2">
+						  <div class="field">
+						    <input type="password" name="userPwd2" placeholder="PASSWORD" style="height:45px">
+						  </div>
+					  	</td>
+					  </tr>
+					  <tr>
+					    <td colspan="2"><label align="left" style="font-size: 1.5em;">* 이름</label></td>
+					 </tr>
+					 <tr>
+					 	<td colspan="2">
+						  <div class="field">
+						    <input type="text" name="userName" placeholder="회원 이름" style="height:45px">
+						  </div>
+					  	</td>
+					  </tr>
+					   <tr>
+					    <td colspan="2"><label align="left" style="font-size: 1.5em;">* 연락처</label></td>
+					 </tr>
+					 <tr>
+					 	<td colspan="2">
+						  <div class="field">
+						    <input type="text" name="phone" placeholder="010-0000-0000" style="height:45px">
+						  </div>
+					  	</td>
+					  </tr>
+					  <tr>
+					    <td colspan="2"><label align="left" style="font-size: 1.5em;">* 이메일</label></td>
+					 </tr>
+					 <tr>
+					 	<td>
+						  <div class="field">
+						    <input type="email" name="email" placeholder="EAMAIL@EAMAIL.COM" style="height:45px">
+						  </div>
+					  	</td>
+					  	 <td><button class="ui button" onclick="#">이메일 인증</button></td>
+					  </tr>
+					  <tr>
+					    <td colspan="2"><label align="left" style="font-size: 1.5em;">* 인증번호 확인</label></td>
+					 </tr>
+					 <tr>
+					 	<td>
+						  <div class="field">
+						    <input type="text" name="confirm" placeholder="" style="height:45px">
+						  </div>
+					  	</td>
+					  	 <td><button class="ui button" onclick="#">확인</button></td>
+					  </tr>
+				</table>
+				<br>
+				<div class="btnAtra" align="center">
+					<button class="ui button" type="submit">가입하기</button>
+					<button class="ui button" type="reset">취소하기</button>
+				</div>
+			</form>
+		</div>
+		
+		<!-- 내용 넣기 -->
+	        </div>
+	        <div class = "two wide column"></div>
+	   	</div>
+   	
+   	<!-- footer -->
 </body>
 </html>
