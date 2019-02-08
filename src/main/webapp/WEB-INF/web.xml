@@ -122,6 +122,20 @@
 		<url-pattern>*.au</url-pattern>
 	</servlet-mapping>
 	
+	<!-- 경매상세 -->
+	<servlet>
+		<servlet-name>bidding</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/config/bidding-servlet.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>bidding</servlet-name>
+		<url-pattern>*.bi</url-pattern>
+	</servlet-mapping>
 	
 	<filter>
 		<filter-name>encodingFilter</filter-name>
