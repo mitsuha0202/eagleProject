@@ -13,14 +13,14 @@
 	/* 페이지 제목 */
 	.title{
 		position: absolute;
-		top: 200px;
+		top: 260px;
 		left: 70px;
 	}
 	/* 검색부분 div */
 	.searchArea{
 		position: absolute;
 		background-color: lightgray;
-		top: 260px;
+		top: 340px;
 		left: 70px;
 		width: 90%;
 		height: 100px;
@@ -56,7 +56,7 @@
 	/* 테이블 div */
 	.messageTableArea{
 		position: absolute;
-		top: 55%;
+		top: 67%;
 		left: 70px;
 	}
 	/* 테이블 */
@@ -74,7 +74,7 @@
 	/* 버튼영역 */
 	.btnArea{
 		position: absolute;
-		top: 600px;
+		top: 660px;
 		left: 70px;
 	}
 	/* 삭제, 문의버튼 */

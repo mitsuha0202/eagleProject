@@ -13,14 +13,14 @@
 	/* 페이지 제목 */
 	.title{
 		position: absolute;
-		top: 200px;
+		top: 260px;
 		left: 70px;
 	}
 	/* 등급 표시 div */
 	.grade1, .grade2, .grade3{
 		position: absolute;
 		border: 1px solid black;
-		top: 270px;
+		top: 340px;
 		left: 70px;
 		width: 30%;
 		height: 150px;
@@ -28,12 +28,12 @@
 	}
 	/* gold 등급 div */
 	.grade2{
-		top: 270px;
+		top: 340px;
 		left: 519px;
 	}
 	/* 일반 등급 div */
 	.grade3{
-		top: 270px;
+		top: 340px;
 		left: 968px;
 	}
 	/* 등급 글 부분 */
@@ -47,14 +47,14 @@
 		position: absolute;
 		left: 70px;
 		border: 1px solid #205181;
-		top: 65%;
+		top: 75%;
 		width: 90%;
 	}
 	/* 등급에 대한 설명부분 div */
 	.gradeExplan{
 		position: absolute;
 		left: 70px;
-		top: 75%;
+		top: 85%;
 		width: 50%;
 	}
 	/* 등급에 대한 설명p태그 */	
@@ -66,14 +66,14 @@
 		position: absolute;
 		left: 70px;
 		border: 1px solid #205181;
-		top: 96%;
+		top: 104%;
 		width: 90%;
 	}
 	/* 닫기버튼 */
 	.closeBtn{
 		position: absolute;
 		left: 45%;
-		top: 800px;
+		top: 850px;
 		text-align: center;
 		background-color: #205181;
 		border: 1px solid white;
@@ -126,6 +126,9 @@
 	<button class="closeBtn" onclick="location.href='myPageMain.mp'">닫기</button>
 	
 	<script>
+		$(function() {
+			$(".grade1").css({"background":"lightgray"});
+		});
 		/* vip div 색과 내용 */
 		function vipClick() {
 			$("#userGradeGuide").html("<p>VIP<br>100만원 이상, 6회 이상 구매<br><br>수수료 3%</p>");

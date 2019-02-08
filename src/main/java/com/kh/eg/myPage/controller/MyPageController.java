@@ -2,13 +2,17 @@ package com.kh.eg.myPage.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
+
+@SessionAttributes("loginUser")
 
 @Controller
 public class MyPageController {
+	/*@Autowired
+	private MyPageService ms;*/
 	
-	//마이페이지 메인
 	@RequestMapping("myPageMain.mp")
-	public String viewMyPage() {
+	public String myPageMainPage() {
 		return "myPage/myPageMain";
 	}
 	
@@ -21,7 +25,8 @@ public class MyPageController {
 	//쪽지함 페이지로 이동
 	@RequestMapping("userMessage.mp")
 	public String userMessagePage() {
-	
+		/*ArrayList<MyPageBoard> list = ms.selectMessage();*/
+		
 		return "myPage/usesrMessagePage";
 	}
 	
