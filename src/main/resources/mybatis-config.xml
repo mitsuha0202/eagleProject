@@ -4,6 +4,10 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
  
 <configuration>
-	
-	
+	<typeAliases>
+		<typeAlias type="com.kh.eg.member.model.vo.Member" alias="Member"/>
+	</typeAliases>
+	<mappers>
+		<mapper resource="mappers/member-mapper.xml"/>
+	</mappers>
 </configuration>

@@ -59,7 +59,7 @@
         <div class = "twelve wide column" style="margin-top:50px;">
 		    <h1 class="ui header" align="center" style="margin-top:150px; margin-bottom:30px; font-size:4rem;">Eagle's Auction</h1>
 			<div class="loginArea" align="center">
-				<form class="ui form">
+				<form class="ui form" action="login.me" method="post">
 				  <div class="field">
 				    <label align="left" style="font-size: 1.5em;">아이디</label>
 				    <input type="text" name="userId" placeholder="ID" style="height:50px">

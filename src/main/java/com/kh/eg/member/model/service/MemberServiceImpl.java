@@ -18,10 +18,20 @@ private SqlSessionTemplate sqlSession;
 
 @Autowired
 private DataSourceTransactionManager transactionManager;
-
-@Override
-public int insertMember(Member m) {
 	
-	return md.insertMember(sqlSession, m);
-}
+	@Override
+	public int insertMember(Member m) {
+		
+		return md.insertMember(sqlSession, m);
+	}
+	
+	//로그인용 메소드
+	@Override
+	public Member loginUser(Member m) {
+		Member loginUser = null;
+		
+		loginUser = md.selectMember(sqlSession, m);
+		
+		return loginUser;
+	}
 }

@@ -6,4 +6,6 @@ public interface MemberService {
 
 	int insertMember(Member m);
 
+	Member loginUser(Member m);
+
 }
