@@ -3,28 +3,28 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Member">
-	<resultMap type="com.kh.tsp.member.model.vo.Member" id="memberResultSet">
-		<id property="mid" column="MID"/> <!-- 프라이머리 키값만 아이디를 줌 -->
-		<result property="userId" column="USER_ID"/>
-		<result property="userPwd" column="USER_PWD"/>
-		<result property="userName" column="USER_NAME"/>
-		<result property="email" column="EMAIL"/>
-		<result property="birthDay" column="BIRTHDAY"/>
-		<result property="gender" column="GENDER"/>
+	<resultMap type="com.kh.eg.member.model.vo.Member" id="memberResultSet">
+		<id property="mid" column="MEMBERNO"/> <!-- 프라이머리 키값만 아이디를 줌 -->
+		<result property="userName" column="MEMBERNAME"/>
+		<result property="userId" column="MEMBERID"/>
+		<result property="userPwd" column="MEMBERPWD"/>
+		<result property="account" column="ACCOUNTN"/>
 		<result property="phone" column="PHONE"/>
 		<result property="address" column="ADDRESS"/>
-		<result property="enrollDate" column="ENROLL_DATE"/>
-		<result property="modifyDate" column="MODIFY_DATE"/>
-		<result property="status" column="STATUS"/>
+		<result property="rating" column="RATING"/>
+		<result property="emoney" column="EMONEY"/>
+		<result property="wdStatus" column="WDSTATUS"/>
+		<result property="blStatus" column="BLSTATUS"/>
+		<result property="joinDate" column="JOINDATE"/>
 		
 	</resultMap>
 	
-	<select id="loginCheck" resultMap="memberResultSet" parameterType="Member">
+<!-- 	<select id="loginCheck" resultMap="memberResultSet" parameterType="Member">
 		SELECT *
 		FROM MEMBER
-		WHERE USER_ID = #{userId}
-		AND USER_PWD = #{userPwd}
-		AND STATUS = 'Y'
+		WHERE MEMBERID = #{userId}
+		AND MEMBERPWD = #{userPwd}
+		AND BLSTATUS = 'Y'
 	</select>
 	
 	<insert id="insertMember" parameterType="Member">
@@ -34,23 +34,23 @@
 				#{phone}, #{address}, SYSDATE, SYSDATE, DEFAULT )
 	</insert>
 	
-	<!-- 암호화된 비밀번호 조회용 메소드 -->
+	암호화된 비밀번호 조회용 메소드
 	<select id="selectPwd" resultType="java.lang.String"
 								parameterType="java.lang.String">
 	SELECT USER_PWD
 	FROM MEMBER
 	WHERE USER_ID = #{userId}
 	AND STATUS = 'Y'
-	</select>
+	</select> -->
 	
 	<select id="selectLoginUser" resultMap="memberResultSet" parameterType="Member">
 		SELECT *
 		FROM MEMBER
-		WHERE USER_ID = #{userId}
-		AND STATUS = 'Y'
+		WHERE MEMBERID = #{userId}
+		AND BLSTATUS = 'N'
 	</select>
 	
-	<insert id="insertBoard">
+<!-- 	<insert id="insertBoard">
 		INSERT INTO BOARD(BID, BTITLE) VALUES(SEQ_BID.NEXTVAL, '새로운 회원이 가입되었습니다.')
-	</insert>
+	</insert> -->
 </mapper>

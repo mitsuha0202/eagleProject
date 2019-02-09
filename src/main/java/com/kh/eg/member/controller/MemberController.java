@@ -16,34 +16,39 @@ private MemberService ms;
 @Autowired
 private BCryptPasswordEncoder passwordEncoder;
 
-@RequestMapping("insert.me")
-public String insertMember(Member m, Model model) {
-	
-	
-	System.out.println("member : "+ m);
-	
-/*	String encPassword = passwordEncoder.encode(m.getUserPwd());*/
-	
-/*	System.out.println(encPassword);
-	
-	m.setUserPwd(encPassword);
-	
-	if(m.getGender().equals("1") || m.getGender().equals("3")) {
-		m.setGender("M");
-	}else {
-		m.setGender("F");
-	}*/
-	
-	int result = ms.insertMember(m);
-	
-	if(result>0) {
-		return "redirect:goMain.me";
-	}else {
-		model.addAttribute("msg","회원가입 실패!");
-		return "common/errorPage";
-	}	
-/*	return null;*/
-}
+
+	@RequestMapping("goMain.me")
+	public String goMain() {
+		return "main/main";
+	}
+	@RequestMapping("insert.me")
+	public String insertMember(Member m, Model model) {
+		
+		
+		System.out.println("member : "+ m);
+		
+	/*	String encPassword = passwordEncoder.encode(m.getUserPwd());*/
+		
+	/*	System.out.println(encPassword);
+		
+		m.setUserPwd(encPassword);
+		
+		if(m.getGender().equals("1") || m.getGender().equals("3")) {
+			m.setGender("M");
+		}else {
+			m.setGender("F");
+		}*/
+		
+		int result = ms.insertMember(m);
+		
+		if(result>0) {
+			return "redirect:goMain.me";
+		}else {
+			model.addAttribute("msg","회원가입 실패!");
+			return "common/errorPage";
+		}	
+	/*	return null;*/
+	}
 	
 	@RequestMapping("loginView.me")
 	public String showMemberLoginView() {
@@ -53,5 +58,23 @@ public String insertMember(Member m, Model model) {
 	@RequestMapping("memberJoinView.me")
 	public String showMemberJoinView() {
 		return "member/memberJoin";
+	}
+	
+	//로그인용 메소드
+	@RequestMapping("login.me")
+	public String loginCheck(Member m, Model model) {
+		
+		Member loginUser = ms.loginUser(m);
+		
+		if(loginUser != null) {
+		model.addAttribute("loginUser",loginUser);
+		
+		return "redirect:goMain.me";
+		}else {
+			model.addAttribute("msg","로그인 실패!");
+			
+			return "common/errorPage";
+			
+		}
 	}
 }

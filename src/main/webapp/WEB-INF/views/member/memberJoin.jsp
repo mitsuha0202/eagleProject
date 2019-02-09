@@ -59,7 +59,7 @@
         <div class = "twelve wide column" style="margin-top:50px;">
 		 <h1 class="ui header" align="center" style="margin-top:150px">E a g l e ' s&nbsp;&nbsp;&nbsp;&nbsp;J O I N</h1>
 		 <div class="memberJoin" align="center">
-			 <form class="ui form">
+			 <form class="ui form" method="post" enctype="text/plain">
 				 <table>
 				 	<tr>
 				 		<td colspan="2"><label align="left" style="font-size: 1.5em;">* 아이디</label></td>

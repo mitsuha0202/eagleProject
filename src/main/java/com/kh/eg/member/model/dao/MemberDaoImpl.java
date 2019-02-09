@@ -13,5 +13,12 @@ public class MemberDaoImpl implements MemberDao{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
+	//로그인 체크용 메소드
+	@Override
+	public Member selectMember(SqlSessionTemplate sqlSession, Member m) {
+		
+		return sqlSession.selectOne("Member.selectLoginUser",m);
+	}
 
 }
