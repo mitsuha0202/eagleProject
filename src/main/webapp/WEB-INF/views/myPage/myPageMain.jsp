@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,6 +39,7 @@
 		width: 150px;
 		height: 40px;
 	    font-size: 16px;
+	    cursor: pointer;
 	}
 	/* 쪽지함 div */
 	.mpMessageDiv{
@@ -59,6 +61,7 @@
 		width: 150px;
 		height: 40px;
 	    font-size: 16px;
+	    cursor: pointer;
 	}
 	/* 사이버머니 div */
 	.mpMoneyDiv{
@@ -123,6 +126,7 @@
 		width: 150px;
 		height: 40px;
 	    font-size: 16px;
+	    cursor: pointer;
 	}
 	/* 구매현황 제목 */
 	.buyTitle{
@@ -251,8 +255,8 @@
 	<!-- 마이페이지 첫번째네비바 -->
 	<div class="mpUserDiv">
 		<br>
-		<h5 style="color: white">OOO님</h5>
-		<h5 style="color: white">회원등급 VIP</h5><br>
+		<h5 style="color: white"><c:out value="${ sessionScope.loginUser.userName }님"/></h5>
+		<h5 style="color: white">회원등급 <c:out value="${ sessionScope.loginUser.rating }"/></h5><br>
 		<button class="mpUserDivBtn" onclick="location.href='userGradeInfo.mp'">회원등급 혜택안내</button>
 	</div>
 	<div class="mpMessageDiv">

@@ -1,19 +1,35 @@
 package com.kh.eg.myPage.controller;
 
+import java.util.ArrayList;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+
+import com.kh.eg.member.model.vo.Member;
+import com.kh.eg.myPage.model.service.MyPageService;
+import com.kh.eg.myPage.model.vo.MyPageBoard;
 
 @SessionAttributes("loginUser")
 
 @Controller
 public class MyPageController {
-	/*@Autowired
-	private MyPageService ms;*/
+	
+	@Autowired
+	private MyPageService ms;
 	
 	@RequestMapping("myPageMain.mp")
-	public String myPageMainPage() {
-		return "myPage/myPageMain";
+	public String myPageMainPage(Model model, Member m, HttpSession session) {
+		m = (Member)session.getAttribute("loginUser");
+		if(m == null) {
+			return "myPage/noLogin";
+		}else {
+			return "myPage/myPageMain";
+		}
 	}
 	
 	//회원등급 혜택안내 페이지로 이동
@@ -24,8 +40,9 @@ public class MyPageController {
 	
 	//쪽지함 페이지로 이동
 	@RequestMapping("userMessage.mp")
-	public String userMessagePage() {
-		/*ArrayList<MyPageBoard> list = ms.selectMessage();*/
+	public String userMessagePage(Model model, Member m, HttpSession session) {
+		m = (Member)session.getAttribute("loginUser");
+		ArrayList<MyPageBoard> list = ms.selectMessage(m);
 		
 		return "myPage/usesrMessagePage";
 	}

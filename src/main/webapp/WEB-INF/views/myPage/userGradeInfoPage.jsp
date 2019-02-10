@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -93,6 +94,9 @@
 	<!-- 헤더바 밑 선 -->
 	<hr class="firstLine">
 	
+	<!-- 등급판단 input -->
+	<input type="hidden" value="<c:out value="${ sessionScope.loginUser.rating }"/>" id="grade">
+	
 	<!-- 페이지 제목 -->
 	<div class="title"><h1>회원등급 혜택안내</h1></div>
 	
@@ -127,7 +131,18 @@
 	
 	<script>
 		$(function() {
-			$(".grade1").css({"background":"lightgray"});
+			console.log($("#grade").val());
+			if($("#grade").val() == "vip"){
+				$(".grade1").css({"background":"lightgray"});	
+				$("#userGradeGuide").html("<p>VIP<br>100만원 이상, 6회 이상 구매<br><br>수수료 3%</p>");
+			}else if($("#grade").val() == "BRONZE"){
+				$(".grade2").css({"background":"lightgray"});
+				$("#userGradeGuide").html("<p>GOLD<br>50만원 이상, 4회 이상 구매<br><br>수수료 7%</p>");
+			}else{
+				$(".grade3").css({"background":"lightgray"});
+				$("#userGradeGuide").html("<p>일반<br>수수료 10%</p>");
+			}
+			
 		});
 		/* vip div 색과 내용 */
 		function vipClick() {
