@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>구매관리</title>
+<title>낙찰 받지 못한 물품</title>
 </head>
 <style>
       /* 구매현황 테이블 div */
@@ -69,24 +69,27 @@
 	}
 </style>
 <body>
-
-<!-- 헤더바 -->
-	<jsp:include page="../common/header.jsp"/>
+	<!-- 헤더바 -->
+	<jsp:include page="../../common/header.jsp"/>
 	
 	<!-- 헤더바 밑 선 -->
 	<hr class="firstLine">
-	<h1>구매관리</h1>
+	<h1>구매관리(구매종료)</h1>
     <div class="buyStatus">
 		<table class="buyStatusTable">
 			<tr>
-				<td class="firstTd">입찰중물품</td>
-				<td class="firstTd">구매 종료</td>
-				<td class="firstTd">구매 물품 거래 진행중</td>
-				<td class="firstTd">구매거부/반품/미입금/판매거부/미수령신고</td>
+				<td class="firstTd" onclick="location.href='purchasestatus.mp'">입찰중물품</td>
+				<td class="firstTd" onclick="location.href='purchaseend.mp'">구매 종료</td>
+				<td class="firstTd" onclick="location.href='purchaseitemdeal.mp'">구매 물품 거래 진행중</td>
+				<td class="firstTd" onclick="location.href='purchaseother.mp'">구매거부/반품/미입금/판매거부/미수령신고</td>
 			</tr>			
 			<tr>
-				<td><h5>입금요청</h5></td>
-				<td colspan="3"></td>
+				<td><h5>경매상황</h5></td>
+				<!-- td태그 오른쪽 선 안보이게 하기  -->
+				<td style="border-right: hidden;" onclick="location.href='successbid.mp'"><h5>낙찰받은 물품</h5></td>
+				<td style="border-right: hidden;" onclick="location.href='unsuccessbid.mp'"><h5>낙찰 받지 못한 물품</h5></td>
+				<td></td>
+			
 				
 				
 			</tr>
@@ -96,9 +99,9 @@
 		</table>
 		
 		 <h5>꼭 읽어주세요! </h5><br>
-	     <h5>현재 입찰하신 물품중 진행중인 물품 리스트입니다.</h5>
+	     <h5>현재 입찰하신 물품중 낙찰받지 못한 물품 리스트입니다.</h5>
 	     <br>
-	     <h5>진행중인 전체 물품에 대해서 모두 1개가 검색되었습니다.</h5>
+	     <h5>낙찰 받지 못한 물품에 대해서 모두</h5><h5>개가 검색되었습니다.</h5>
 	     
 	     <table class="buyStatusTable">
       
