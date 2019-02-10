@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MyPage">
+	<resultMap type="com.kh.eg.myPage.model.vo.MyPageBoard" id="myPageResultSet">
+		<id property="boardNo" column="BOARDNO"/> <!-- 프라이머리 키값만 아이디를 줌 -->
+		<result property="title" column="TITLE"/>
+		<result property="boardContents" column="BOARDCONTENT"/>
+		<result property="memberNo" column="MEMBERNO"/>
+		<result property="writeDay" column="WRITEDAY"/>
+		<result property="deleteStatus" column="DELETESTATUS"/>
+		<result property="boardStatus" column="BOARDSTATUS"/>
+		<result property="replyStatus" column="REPLYSTATUS"/>
+		<result property="rCommentNo" column="COMMENTNO"/>
+		<result property="rWriteDay" column="WRITEDAY"/>
+		<result property="rContents" column="CONTENTS"/>
+		<result property="rDeleteStatus" column="DELETESTATUS"/>		
+	</resultMap>
+	
+	<select id="selectMessage" resultMap="myPageResultSet" parameterType="java.lang.String">
+		SELECT B.BOARDNO, B.TITLE, B.BOARDCONTENT, B.MEMBERNO, B.WRITEDAY, B.DELETESTATUS, B.BOARDSTATUS, B.REPLYSTATUS, R.COMMENTNO, R.WRITEDAY, R.CONTENTS, R.DELETESTATUS 
+		FROM BOARD B 
+		JOIN REPLY R ON(B.BOARDNO = R.BOARDNO) 
+		WHERE B.DELETESTATUS = 'N' AND B.BOARDSTATUS = 'ONEBYONE' AND B.MEMBERNO = #{memberNo}
+		ORDER BY BOARDNO DESC
+	</select>
+	
+</mapper>

@@ -42,9 +42,9 @@ public class MyPageController {
 	@RequestMapping("userMessage.mp")
 	public String userMessagePage(Model model, Member m, HttpSession session) {
 		m = (Member)session.getAttribute("loginUser");
-		ArrayList<MyPageBoard> list = ms.selectMessage(m);
-		
-		return "myPage/usesrMessagePage";
+		String memberNo= m.getMid();
+		ArrayList<MyPageBoard> list = ms.selectMessage(memberNo);		
+		return null;
 	}
 	
 	//회원정보 수정 페이지로 이동
