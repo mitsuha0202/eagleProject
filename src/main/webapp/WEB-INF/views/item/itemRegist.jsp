@@ -47,6 +47,12 @@
 	height: 150px;
 	display: inline-block;
 	border: 1px solid black;
+	
+}
+.confirm {
+	
+	margin-left: auto;
+	margin-right:auto;
 }
 </style>
 
@@ -195,18 +201,18 @@
 			
 			
 			</tr>
-		
-		
-		
 		</tbody>
-		
-		
-		
-		
-		</table>
-		
-		
 
+		</table>
+		<div class="confirm" align="center">
+		<button class="ui primary button">
+ 			 확인
+		</button>
+		<button class="ui button">
+  		취소
+		</button>
+		</div >
+	
 			<!-- 내용 넣기 -->
 		</div>
 		<div class="two wide column"></div>

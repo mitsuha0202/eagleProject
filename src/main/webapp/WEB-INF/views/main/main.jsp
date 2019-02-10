@@ -78,6 +78,10 @@ table {
 td {
 	border: 1px solid black;
 }
+.may {
+	height:200px;
+	border:1px solid black;
+}
 </style>
 
 
@@ -98,6 +102,9 @@ td {
 						id="more-txt">더보기 </font>
 				</div>
 				<hr>
+				<div class="may" style=width:300px;>
+				
+				</div>
 
 				<table>
 					<tr class="tr">
@@ -153,7 +160,6 @@ td {
 				<div class="more-div" style="display: inline-block; float: right">
 					<i class="chevron circle right icon" id="more-icon"></i> <font
 						id="more-txt">더보기 </font> <br>
-
 
 
 				</div>
