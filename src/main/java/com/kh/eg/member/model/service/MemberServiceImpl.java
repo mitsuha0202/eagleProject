@@ -34,4 +34,13 @@ private DataSourceTransactionManager transactionManager;
 		
 		return loginUser;
 	}
+
+	@Override
+	public int idDuplicationCheck(String userId) {
+		
+		int result = 0;
+		result = md.idDuplicationCheck(sqlSession,userId);
+		
+		return result;
+	}
 }

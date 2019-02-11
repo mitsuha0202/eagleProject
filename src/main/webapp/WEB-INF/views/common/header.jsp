@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -103,7 +104,7 @@ input:-ms-input-placeholder {
 				<a class="item"> 로그인을 하시면 다양한 정보를 보실 수 있습니다 </a>
 				<div class="right" style="width: 800px"></div>
 
-				<a class="item" href="memberJoinView.me"> 회원가입 </a> <a class="item"
+				<a class="item" href="logout.me"> 로그아웃 </a> <a class="item"
 					href="myPageMain.mp"> 마이페이지 </a>
 
 			</div>
