@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>구매 물품 거래 진행중</title>
+<title>거래완료</title>
 </head>
 <style>
       /* 구매현황 테이블 div */
@@ -106,20 +106,21 @@
 		 <h5>꼭 읽어주세요! </h5><br>
 	     <h5>구매물품거래진행중인 페이지 입니다.</h5>
 	     <br>
-	     <h5>입금요청 물품에 대해서 모두</h5><h5>개가 검색되었습니다.</h5>
+	     <h5>거래완료 물품에 대해서 모두</h5><h5>개가 검색되었습니다.</h5>
 	     
 	     <table class="buyStatusTable">
       
       <thead>
         <tr>
-          <th class="firstTd">구분</th>
           <th class="firstTd">물품번호</th>
           <th class="firstTd">이미지</th>
-          <th class="firstTd">물품명</th>
-          <th class="firstTd">구매가격</th>
-          <th class="firstTd">구매정보</th>
-          <th class="firstTd">낙찰/구매일</th>
+          <th class="firstTd">제목</th>
+          <th class="firstTd">현재가</th>
+          <th class="firstTd">입찰 수</th>
           <th class="firstTd">판매자</th>
+          <th class="firstTd">입찰 순위</th>
+          <th class="firstTd">마감일</th>
+          <th class="firstTd">관리</th>
         </tr>
       </thead>
       <tbody>
@@ -132,7 +133,7 @@
           <td></td>
           <td></td>
           <td></td>
-          
+          <td></td>
           
         </tr>
        
