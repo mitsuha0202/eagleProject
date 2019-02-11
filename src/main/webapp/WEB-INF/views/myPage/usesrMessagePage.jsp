@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -118,7 +119,7 @@
 	
 	<!-- 페이지 제목 -->
 	<div class="title"><h1>쪽지보관함</h1></div>
-	
+	<c:if test="${ !empty sessionScope.loginUser }">
 	<!-- 검색부분 div -->
 	<div class="searchArea">
 		<div class="selectSize">
@@ -134,22 +135,31 @@
 	</div>
 	
 	<!-- 검색결과 테이블 -->
-	<div class="messageTableArea">
-		<table class="messageTable">
-			<tr>
-				<td class="firstTd"><h5>번호</h5></td>
-				<td class="firstTd"><h5 class="content">제목</h5></td>
-				<td class="firstTd"><h5 class="content">보낸날짜</h5></td>
-				<td class="firstTd"><h5 class="content">답변여부</h5></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-		</table>
-	</div>
+   <div class="messageTableArea">
+      <table class="messageTable">
+         <tr>
+            <td class="firstTd"><input type="checkbox" style="width: 17px; height: 17px;"></td>
+            <td class="firstTd"><h5>번호</h5></td>
+            <td class="firstTd"><h5 class="content">제목</h5></td>
+            <td class="firstTd"><h5 class="content">보낸날짜</h5></td>
+            <td class="firstTd"><h5 class="content">답변여부</h5></td>
+         </tr>
+         <c:forEach var="b" items="${ list }">
+            <tr>
+               <td><input type="checkbox" style="width: 17px; height: 17px;"></td> 
+               <td>${ b.boardNo }</td>
+               <td>${ b.title }</td>
+               <td>${ b.writeDay }</td>
+               <c:if test="${ b.replyStatus eq 'Y'}">
+                  <td><h5>답변완료</h5></td>
+               </c:if>
+               <c:if test="${ b.replyStatus eq 'N' }">
+                  <td><h5>답변대기</h5></td>
+               </c:if>                  
+            </tr>
+         </c:forEach>
+      </table>
+   </div>
 	
 	<!-- 버튼 div -->
 	<div class="btnArea">
@@ -157,5 +167,10 @@
 		<button class="queryBtn" onclick="location.href='onebyone.mp'">문의하기</button>
 		<button class="closeBtn" onclick="location.href='myPageMain.mp'">닫기</button>
 	</div>
+	</c:if>
+   <c:if test="${ empty sessionScope.loginUser }">
+      <c:set var="message" value="로그인이 필요한 서비스입니다." scope="request"/>
+      <jsp:forward page="../common/errorPage.jsp"/>
+   </c:if>
 </body>
 </html>

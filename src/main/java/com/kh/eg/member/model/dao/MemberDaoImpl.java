@@ -11,7 +11,7 @@ public class MemberDaoImpl implements MemberDao{
 	@Override
 	public int insertMember(SqlSessionTemplate sqlSession, Member m) {
 		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.insert("Member.insertMember", m);
 	}
 	
 	//로그인 체크용 메소드
@@ -19,6 +19,15 @@ public class MemberDaoImpl implements MemberDao{
 	public Member selectMember(SqlSessionTemplate sqlSession, Member m) {
 		
 		return sqlSession.selectOne("Member.selectLoginUser",m);
+	}
+
+	@Override
+	public int idDuplicationCheck(SqlSessionTemplate sqlSession, String userId) {
+		int result = 0;
+		result = sqlSession.selectOne("Member.DuplicationCheck",userId);
+		System.out.println("DaoResult : " + result);
+		
+		return result;
 	}
 
 }
