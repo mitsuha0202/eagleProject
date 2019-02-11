@@ -137,6 +137,23 @@
 		<url-pattern>*.bi</url-pattern>
 	</servlet-mapping>
 	
+	<!-- 결제 -->
+	<servlet>
+		<servlet-name>emoney</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/config/emoney-servlet.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>emoney</servlet-name>
+		<url-pattern>*.em</url-pattern>
+	</servlet-mapping>
+	
+	
+	
 	<filter>
 		<filter-name>encodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
