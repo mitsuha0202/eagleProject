@@ -6,8 +6,10 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.kh.eg.member.model.vo.Member" alias="Member"/>
+		<typeAlias type="com.kh.eg.myPage.model.vo.MyPageBoard" alias="MyPageBoard"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mappers/member-mapper.xml"/>
+		<mapper resource="mappers/myPage-mapper.xml"/>
 	</mappers>
 </configuration>
