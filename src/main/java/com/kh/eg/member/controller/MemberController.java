@@ -1,11 +1,19 @@
 package com.kh.eg.member.controller;
 
+import java.util.HashMap;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.eg.member.model.service.MemberService;
 import com.kh.eg.member.model.vo.Member;
@@ -30,17 +38,6 @@ private BCryptPasswordEncoder passwordEncoder;
 		
 		System.out.println("member : "+ m);
 		
-	/*	String encPassword = passwordEncoder.encode(m.getUserPwd());*/
-		
-	/*	System.out.println(encPassword);
-		
-		m.setUserPwd(encPassword);
-		
-		if(m.getGender().equals("1") || m.getGender().equals("3")) {
-			m.setGender("M");
-		}else {
-			m.setGender("F");
-		}*/
 		
 		int result = ms.insertMember(m);
 		
@@ -80,4 +77,37 @@ private BCryptPasswordEncoder passwordEncoder;
 			
 		}
 	}
+	
+	@RequestMapping("logout.me")
+	public String logout(SessionStatus status) {
+		
+		status.setComplete();
+		
+		return "redirect:goMain.me";
+	}
+	
+	@RequestMapping("duplicationCheck.me")
+	public @ResponseBody HashMap<String, Object> 
+			duplicationCheck(@RequestParam String userId,
+							HttpServletResponse response){
+		
+		System.out.println("여기 찍히냐??");
+		int result = 0;
+		
+		result = ms.idDuplicationCheck(userId);
+		
+		HashMap<String, Object> hmap = new HashMap<String, Object>();
+		
+		System.out.println("result : "+result);
+		hmap.put("result", result);
+		
+		return hmap;
+		
+	}
+
+	
+	
+	
+	
+	
 }

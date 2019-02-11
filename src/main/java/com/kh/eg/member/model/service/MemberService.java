@@ -8,4 +8,6 @@ public interface MemberService {
 
 	Member loginUser(Member m);
 
+	int idDuplicationCheck(String userId);
+
 }

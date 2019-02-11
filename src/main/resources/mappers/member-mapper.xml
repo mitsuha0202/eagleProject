@@ -19,35 +19,35 @@
 		
 	</resultMap>
 	
-<!-- 	<select id="loginCheck" resultMap="memberResultSet" parameterType="Member">
-		SELECT *
-		FROM MEMBER
-		WHERE MEMBERID = #{userId}
-		AND MEMBERPWD = #{userPwd}
-		AND BLSTATUS = 'Y'
-	</select>
+
 	
 	<insert id="insertMember" parameterType="Member">
 		INSERT INTO MEMBER
-		VALUES(SEQ_MID.NEXTVAL, #{userId}, #{userPwd},
-				#{userName}, #{email}, #{birthDay}, #{gender},
-				#{phone}, #{address}, SYSDATE, SYSDATE, DEFAULT )
+		VALUES(MN_SEQ.NEXTVAL, #{userName}, #{userId},
+				#{userPwd}, '110-222' , #{phone}, #{address},
+				'BRONZE', 0, 'N', 'N', SYSDATE )
 	</insert>
 	
-	암호화된 비밀번호 조회용 메소드
+<!-- 	암호화된 비밀번호 조회용 메소드
 	<select id="selectPwd" resultType="java.lang.String"
 								parameterType="java.lang.String">
 	SELECT USER_PWD
 	FROM MEMBER
 	WHERE USER_ID = #{userId}
 	AND STATUS = 'Y'
-	</select> -->
+	</select> --> 
 	
 	<select id="selectLoginUser" resultMap="memberResultSet" parameterType="Member">
 		SELECT *
 		FROM MEMBER
 		WHERE MEMBERID = #{userId}
 		AND BLSTATUS = 'N'
+	</select>
+	
+	<select id="DuplicationCheck" parameterType="java.lang.String" resultType="_int">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE MEMBERID = #{userId}
 	</select>
 	
 <!-- 	<insert id="insertBoard">

@@ -23,14 +23,10 @@ public class MyPageController {
 	private MyPageService ms;
 	
 	@RequestMapping("myPageMain.mp")
-	public String myPageMainPage(Model model, Member m, HttpSession session) {
-		m = (Member)session.getAttribute("loginUser");
-		if(m == null) {
-			return "myPage/noLogin";
-		}else {
-			return "myPage/myPageMain";
-		}
-	}
+	   public String myPageMainPage() {
+	      
+	      return "myPage/myPageMain";
+	   }
 	
 	//회원등급 혜택안내 페이지로 이동
 	@RequestMapping("userGradeInfo.mp")
@@ -39,13 +35,20 @@ public class MyPageController {
 	}
 	
 	//쪽지함 페이지로 이동
-	@RequestMapping("userMessage.mp")
-	public String userMessagePage(Model model, Member m, HttpSession session) {
-		m = (Member)session.getAttribute("loginUser");
-		String memberNo= m.getMid();
-		ArrayList<MyPageBoard> list = ms.selectMessage(memberNo);		
-		return null;
-	}
+	   @RequestMapping("userMessage.mp")
+	   public String userMessagePage(Model model, Member m, HttpSession session) {
+	      m = (Member)session.getAttribute("loginUser");
+	      String memberNo= m.getMid();
+	      ArrayList<MyPageBoard> list = ms.selectMessage(memberNo);
+	      System.out.println(list);
+	      if(list != null) {
+	         model.addAttribute("list", list);
+	         return "myPage/usesrMessagePage";
+	      }else {
+	         model.addAttribute("msg", "1대1 문의 조회 실패");
+	         return "common/errorPage";
+	      }
+	   }
 	
 	//회원정보 수정 페이지로 이동
 	@RequestMapping("userInfoUpdate.mp")
@@ -100,4 +103,6 @@ public class MyPageController {
 	public String onebyone() {
 		return "myPage/onebyoneQuery";
 	}
+	
+	
 }
