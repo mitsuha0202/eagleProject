@@ -28,12 +28,11 @@
 				</span>
 				<span>
 					<label for="Keyword"></label><input id="Keyword" name="Keyword" class="wth240" type="text">
-					<a class="sch" href="#"><img src="../admin/common/images/icoSearch.png" alt="검색" title="검색"></a> 
+					<a class="sch" href="#"><img src="resources/images/icoSearch.png" alt="검색" title="검색"></a> 
 				</span>
 			</div>			
 			
 			<div class="flo_left mt30 mb30">
-				<!-- <span><a class="mbtn wh" href="#">전체선택</a></span> -->
 				<span><a class="mbtn bk" href="#">블랙리스트로 이동</a></span>
 				<span><a class="mbtn rd" href="#">정지</a></span>
 			</div>
@@ -59,10 +58,10 @@
 						<th scope="col">아이디</th>
 						<th scope="col">이름</th>
 						<th scope="col">전화번호</th>
-						<th scope="col">신고횟수</th>
-						<th scope="col">취소,반품횟수</th>
-						<th scope="col">보유 머니</th>
-						<th scope="col">상태</th>
+						<th scope="col">주소</th>
+						<th scope="col">보유머니</th>
+						<th scope="col">블랙리스트 확인</th>
+						<th scope="col">회원 상태</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -78,10 +77,10 @@
 						<td>test1234</td>
 						<td>현빈</td>
 						<td>010-1234-4567</td>
-						<td>1</td>
-						<td>5</td>
+						<td>화성시</td>
 						<td>10000</td>
-						<td>사용불가</td>
+						<td>N</td>
+						<td>N</td>
 					</tr>
 				</tbody>
 			</table>
@@ -96,6 +95,7 @@
 				<span><a class="num" href="#">&gt;</a></span>
 				<span><a class="num" href="#">&gt;&gt;</a></span>
 			</div>
+			
 		</div><!--// contBox E-->
 
 	</div><!--// container E-->

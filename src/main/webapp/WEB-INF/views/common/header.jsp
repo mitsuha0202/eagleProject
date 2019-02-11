@@ -91,7 +91,7 @@ input:-ms-input-placeholder {
 					<div class="right" style="width: 800px"></div>
 					<a class="item" href="loginView.me"> 로그인 </a> <a class="item"
 						href="memberJoinView.me"> 회원가입 </a> <a class="item"
-						href="blackList.ad"> 관리자 </a>
+						href="login.ad"> 관리자 </a>
 				</div>
 			</form>
 		</c:if>
