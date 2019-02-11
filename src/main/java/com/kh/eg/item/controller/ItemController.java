@@ -14,10 +14,10 @@ public class ItemController {
 	@Autowired
 	private ItemService is;
 	
-	/*@RequestMapping("goMain.it")
+	@RequestMapping("goMain.it")
 	public String goMain() {
 		return "main/main";
-	}*/
+	}
 	
 	@RequestMapping("itemRegist.it")
 	public String itemRegist() {
@@ -26,13 +26,13 @@ public class ItemController {
 	
 	
 	
-/*	@RequestMapping("insertItem.it")
+	@RequestMapping("insertItem.it")
 	public String insertItem(Item it,Model model) {
 		
 		System.out.println("item : " +it );
 		
 		
 		return "redirect:goMain.it";
-	}*/
+	}
 
 }
