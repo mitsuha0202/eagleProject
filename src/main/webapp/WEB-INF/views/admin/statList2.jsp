@@ -18,8 +18,8 @@
 						
 			<div class="tabBigBox btab_2ea mt40">
 				<ul>
-					<li><a href="statList1.jsp">카테고리별 통계</a></li>
-					<li class="on"><a href="statList2.jsp">경매금액별 통계</a></li>
+					<li><a href="statList1.ad">카테고리별 통계</a></li>
+					<li class="on"><a href="statList2.ad">경매금액별 통계</a></li>
 				</ul>
 			</div>
 

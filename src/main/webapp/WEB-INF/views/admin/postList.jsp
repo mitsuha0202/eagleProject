@@ -20,7 +20,7 @@
 				<span class="font20 bold">날짜 검색</span>
 				<span>
 					<label for="Keyword"></label><input id="Keyword" name="Keyword" class="wth240" type="text">
-					<a class="sch" href="#"><img src="../admin/common/images/icoSearch.png" alt="검색" title="검색"></a> 
+					<a class="sch" href="#"><img src="resources/images/icoSearch.png" alt="검색" title="검색"></a> 
 				</span>
 			</div>			
 			

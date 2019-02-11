@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Member">
+	<resultMap type="com.kh.eg.member.model.vo.Member" id="memberResultSet">
+		<result property="userName" column="MEMBERNAME"/>
+		<result property="userId" column="MEMBERID"/>
+		<result property="account" column="ACCOUNTN"/>
+		<result property="phone" column="PHONE"/>
+		<result property="address" column="ADDRESS"/>
+		<result property="rating" column="RATING"/>
+		<result property="emoney" column="EMONEY"/>
+		<result property="wdStatus" column="WDSTATUS"/>
+		<result property="blStatus" column="BLSTATUS"/>
+		
+	</resultMap>
+	
+<!-- 	<select id="loginCheck" resultMap="memberResultSet" parameterType="Member">
+		SELECT *
+		FROM MEMBER
+		WHERE MEMBERID = #{userId}
+		AND MEMBERPWD = #{userPwd}
+		AND BLSTATUS = 'Y'
+	</select>
+	
+	<insert id="insertMember" parameterType="Member">
+		INSERT INTO MEMBER
+		VALUES(SEQ_MID.NEXTVAL, #{userId}, #{userPwd},
+				#{userName}, #{email}, #{birthDay}, #{gender},
+				#{phone}, #{address}, SYSDATE, SYSDATE, DEFAULT )
+	</insert>
+	
+	암호화된 비밀번호 조회용 메소드
+	<select id="selectPwd" resultType="java.lang.String"
+								parameterType="java.lang.String">
+	SELECT USER_PWD
+	FROM MEMBER
+	WHERE USER_ID = #{userId}
+	AND STATUS = 'Y'
+	</select> -->
+	
+	<select id="selectLoginUser" resultMap="memberResultSet" parameterType="Member">
+		SELECT *
+		FROM MEMBER
+		WHERE MEMBERID = #{userId}
+		AND BLSTATUS = 'N'
+	</select>
+
+</mapper>
