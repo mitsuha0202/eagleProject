@@ -176,34 +176,7 @@
 		</tbody>
 		
 		</table>
-		<h2>기타 설정</h2>
-		<hr>
-		<table class="ui striped table">
-		<tbody>
-			<tr>
-				<td>즉시구매</td>
-				<td><input type="radio" name="able">불가능 <input type="radio" name="able">가능 
-					&nbsp;&nbsp;&nbsp;<input type="text">원
-				</td>
-			
-			</tr>
-			<tr>
-			<td>자동재경매</td>
-				<td><input type="radio" name="able2">없음 <input type="radio" name="able2">있음 
-					&nbsp;&nbsp;&nbsp;재경매시작가<input type="text">원
-				</td>
-			</tr>
-			<tr>
-				<td>입찰정보</td>
-				<td><input type="radio" name="able3">비공개 <input type="radio" name="able3">공개
-					
-				</td>
-			
-			
-			</tr>
-		</tbody>
-
-		</table>
+		
 		<div class="confirm" align="center">
 		<button class="ui primary button">
  			 확인
