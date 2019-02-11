@@ -111,12 +111,6 @@ input:-ms-input-placeholder {
 		</c:if>
 	</div>
 
-
-
-
-
-
-
 	<h1 class="h1">Eagle's Auction</h1>
 	<div class="btn-group" role="group" aria-label="...">
 
