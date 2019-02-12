@@ -14,11 +14,9 @@ public class ItemDaoImpl implements ItemDao {
 
 	@Override
 	public int insertItem(SqlSessionTemplate sqlSession, Item it) {
+		System.out.println("다오");
+		return sqlSession.insert("Item.insertItem",it);
 		
-		return sqlSession.insert("item.insertItem",it);
 	}
-	
-	
-
 	
 }

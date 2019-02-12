@@ -12,31 +12,9 @@ public class Item {
 	private String categoryNo;
 	private String memberNo;
 	private String auctionCode;
+	private String detail;
 
-	public Item() {
-	}
-
-	public Item(int itemNo, String itemName, String startPrice, String bidUnit, String deliveryPay, String origin,
-			String deleteYN, String categoryNo, String memberNo, String auctionCode) {
-		super();
-		this.itemNo = itemNo;
-		this.itemName = itemName;
-		this.startPrice = startPrice;
-		this.bidUnit = bidUnit;
-		this.deliveryPay = deliveryPay;
-		this.origin = origin;
-		this.deleteYN = deleteYN;
-		this.categoryNo = categoryNo;
-		this.memberNo = memberNo;
-		this.auctionCode = auctionCode;
-	}
-
-	@Override
-	public String toString() {
-		return "Item [itemNo=" + itemNo + ", itemName=" + itemName + ", startPrice=" + startPrice + ", bidUnit="
-				+ bidUnit + ", deliveryPay=" + deliveryPay + ", origin=" + origin + ", deleteYN=" + deleteYN
-				+ ", categoryNo=" + categoryNo + ", memberNo=" + memberNo + ", auctionCode=" + auctionCode + "]";
-	}
+	public Item() {}
 
 	public int getItemNo() {
 		return itemNo;
@@ -117,5 +95,40 @@ public class Item {
 	public void setAuctionCode(String auctionCode) {
 		this.auctionCode = auctionCode;
 	}
+
+	public String getDetail() {
+		return detail;
+	}
+
+	public void setDetail(String detail) {
+		this.detail = detail;
+	}
+
+	@Override
+	public String toString() {
+		return "Item [itemNo=" + itemNo + ", itemName=" + itemName + ", startPrice=" + startPrice + ", bidUnit="
+				+ bidUnit + ", deliveryPay=" + deliveryPay + ", origin=" + origin + ", deleteYN=" + deleteYN
+				+ ", categoryNo=" + categoryNo + ", memberNo=" + memberNo + ", auctionCode=" + auctionCode + ", detail="
+				+ detail + "]";
+	}
+
+	public Item(int itemNo, String itemName, String startPrice, String bidUnit, String deliveryPay, String origin,
+			String deleteYN, String categoryNo, String memberNo, String auctionCode, String detail) {
+		super();
+		this.itemNo = itemNo;
+		this.itemName = itemName;
+		this.startPrice = startPrice;
+		this.bidUnit = bidUnit;
+		this.deliveryPay = deliveryPay;
+		this.origin = origin;
+		this.deleteYN = deleteYN;
+		this.categoryNo = categoryNo;
+		this.memberNo = memberNo;
+		this.auctionCode = auctionCode;
+		this.detail = detail;
+	}
+	
+	
+
 
 }

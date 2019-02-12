@@ -3,6 +3,7 @@ package com.kh.eg.item.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kh.eg.common.CommonUtils;
 import com.kh.eg.item.model.service.ItemService;
 import com.kh.eg.item.model.vo.Item;
+import com.kh.eg.member.model.vo.Member;
 
 @Controller
 public class ItemController {
@@ -28,34 +30,45 @@ public class ItemController {
 		return "main/main";
 	}
 	
-	/*@RequestMapping("itemRegist.it")
+	@RequestMapping("itemRegist.it")
 	public String itemRegist() {
 		return "item/itemRegist";
-	}*/
+	}
 	
 	
 	
-	@RequestMapping("itemRegist.it")
+	@RequestMapping("insertItem.it")
 	public String insertItem(Item it,Model model,HttpServletRequest request,@RequestParam(value="photo",required=false) MultipartFile photo ) {
 		
 		System.out.println("item : " +it );
-		System.out.println();
+		System.out.println("photo:" +photo);
 		
 		String root=request.getSession().getServletContext().getRealPath("resources");
-		
+		Member m=new Member();
+		/*Attachment att=new Attachment();*/
+		m.setUserId("eagle01");
 		String filePath=root+"\\uploadFiles";
 		
 		String originFileName=photo.getOriginalFilename();
 		String ext=originFileName.substring(originFileName.lastIndexOf("."));
 		String changeName=CommonUtils.getRandomString();
 		
+		HashMap<String,Object> hmap=new HashMap<String, Object>();
+		hmap.put("m", m);
+		hmap.put("attachment", photo);
+		hmap.put("item", it);
+		
 		
 		try {
 			photo.transferTo(new File(filePath+"\\" +changeName+ext));
-			is.insertItem(it);
+			System.out.println("contr");
+			//int result = is.insertItem(hmap);
+			int result=is.insertItem(it);
+			System.out.println(result);
 			return "redirect:goMain.it";
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
 			new File(filePath+"\\" + changeName+ ext).delete();
 			model.addAttribute("msg","파일 등록 실패!");
 			return "common/errorPage";
