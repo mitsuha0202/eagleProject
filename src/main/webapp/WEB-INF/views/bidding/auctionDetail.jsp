@@ -77,8 +77,11 @@
  		text-decoration:none !important;
  	}
  	#qaBtn1{
- 		margin-right:0;
- 		padding:auto;
+ 		margin-left:1290px;
+ 	}
+ 	#question{
+ 		height:35px;
+ 		width:130px;
  	}
 </style>
 
@@ -131,7 +134,12 @@
 				      	입찰단위<br>
 				      	
 				      </td>
-				      <td>None</td>
+				      <td>
+				      	1<br>
+				      	최고가밀봉경매<br>
+				     	2019.02.12 11:00 ~ 2019.02.15 11:00<br>
+				      	10,000원<br>
+				      	1,000원</td>
 				    </tr>
 				    <tr>
 				      <td class="tableHeader">
@@ -160,7 +168,10 @@
 			      	판매자 구매후기
 			      </td>
 			      <td>
-			      	None
+			      	inyong123<br>
+			      	DIA<br>
+			      	없 음<br>
+			      	너무 좋습니다
 			      </td>
 			    </tr>
 			</tbody>
@@ -207,11 +218,6 @@
 		      <div class="title">배송/반품</div>
 		    </div>
 		  </a>
-		  <a href="#receipt" class="step">
-		    <div class="content">
-		      <div class="title">영수증 발행안내</div>
-		    </div>
-		  </a>
 		</div>
 		<br>
 		<!-- 물품정보 내용 -->
@@ -240,11 +246,6 @@
 		      <div class="title">배송/반품</div>
 		    </div>
 		  </a>
-		  <a href="#receipt" class="step">
-		    <div class="content">
-		      <div class="title">영수증 발행안내</div>
-		    </div>
-		  </a>
 		</div>
 		<br>
 		<!-- 물품문의 내용 -->
@@ -269,8 +270,8 @@
 		</table>
 		
 		<div id="qaBtn1">
-			<button class="positive ui button">문의하기&nbsp;&nbsp;
-				<i class="pencil alternate icon"></i>
+			<button id="question" class="positive ui button">문의하기&nbsp;&nbsp;	
+			<i class="pencil alternate icon"></i>
 			</button>
 		</div>
 		
@@ -294,49 +295,59 @@
 		      <div class="title">배송/반품</div>
 		    </div>
 		  </a>
-		  <a href="#receipt" class="step">
-		    <div class="content">
-		      <div class="title">영수증 발행안내</div>
-		    </div>
-		  </a>
 		</div>
 		<br>
 		<!-- 배송/반품 내용 -->
 		
+		<div class="ui blue segment" style="width:730px; height:50px;">
+			<i class="volume up icon" style="color:#1b5ac2;"></i>
+			전자상거래등에서 소비자보호에 관한 법률에 의한 반품규정이 판매자가 지정한 반품 조건보다 우선합니다.
+		</div>
+		<br>
 		
+		<table class="ui celled table">
+		  <thead>
+		    <tr>
+			    <th>배송지역</th>
+			    <td>전국※제주권 및 도서산간 지역은 배송비가 추가될 수 있습니다.</td>
+		  	</tr>
+		  	<tr>
+			    <th>배송방법</th>
+			    <td>택배, 선불/착불 [선/착불5,000원]</td>
+		  	</tr>
+		  	<tr>
+			    <th>반품기간</th>
+			    <td>수령일로 부터 7일 이내에 반품을 신청 하실 수 있습니다.</td>
+		  	</tr>
+		  	<tr>
+			    <th>반품비용</th>
+			    <td>원인제공자 부담을 원칙으로 합니다.</td>
+		  	</tr>
+		  </thead>
+		</table>
+		<br>
+		<i class="check circle icon" style="color:#1b5ac2;"></i>
+		<b>반품시 주의사항</b>
+		<br><br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;아래 각호의 경우에는 반품이 되지 않습니다.<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1) 소비자의 책임있는 사유로 상품등이 멸실 / 훼손된 경우(단지 확인을 위한 포장 훼손 제외)<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2) 소비자의 사용 / 소비에 의해 상품 등의 가치가 현저히 감소한 경우<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3) 시간의 경과에 의해 재판매가 곤란할 정도로 상품 등의 가치가 현저히 감소한 경우<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4) 복제가 가능한 상품 등의 포장을 훼손한 경우<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5) 판매 / 생산방식의 특성상, 반품 시 판매자 에게 회복할 수 없는 손해가 발생하는 경우(주문접수 후 개별생산, 맞춤 제작 등)<br>
 		
+		<br><br>
+		<i class="check circle icon" style="color:#1b5ac2;"></i>
+		<b>파손물품 반품시 주의사항</b>
+		<br><br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;물품 수령시 택배기사와 함께 물품의 파손여부를 확인하신 후,<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;반품 신청시 파손이미지를 등록해 주시면 안전하고 신속하게 환불처리를 해드리고 있습니다.
+		
+		<br><br>
 		
 		
 		
 		<br>
-		<!-- 영수증 발행안내 -->
-		
-		<div id="receipt" class="ui steps">
-		  <a href="#productDetail" class="step">
-		    <div class="content">
-		      <div class="title">물품정보</div>
-		    </div>
-		  </a>
-		  <a href="#productQa" class="step">
-		    <div class="content">
-		      <div class="title">물품문의</div>
-		    </div>
-		  </a>
-		  <a href="#delivery" class="step">
-		    <div class="content">
-		      <div class="title">배송/반품</div>
-		    </div>
-		  </a>
-		  <a class="active step">
-		    <div class="content">
-		      <div class="title">영수증 발행안내</div>
-		    </div>
-		  </a>
-		</div>
-        <br>
-        <!-- 영수증 발행안내 내용 -->
-        
-        
         
         
         
