@@ -43,4 +43,12 @@ private DataSourceTransactionManager transactionManager;
 		
 		return result;
 	}
+
+	@Override
+	public int emailDuplicationCheck(String email) {
+		int result = 0;
+		result = md.emailDuplicationCheck(sqlSession,email);
+		
+		return result;
+	}
 }

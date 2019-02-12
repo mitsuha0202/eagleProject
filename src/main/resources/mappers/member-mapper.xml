@@ -16,7 +16,7 @@
 		<result property="wdStatus" column="WDSTATUS"/>
 		<result property="blStatus" column="BLSTATUS"/>
 		<result property="joinDate" column="JOINDATE"/>
-		
+		<result property="email" column="EMAIL"/>
 	</resultMap>
 	
 
@@ -24,8 +24,8 @@
 	<insert id="insertMember" parameterType="Member">
 		INSERT INTO MEMBER
 		VALUES(MN_SEQ.NEXTVAL, #{userName}, #{userId},
-				#{userPwd}, '110-222' , #{phone}, #{address},
-				'BRONZE', 0, 'N', 'N', SYSDATE )
+				#{userPwd}, null , #{phone}, #{address},
+				'BRONZE', 0, 'N', 'N', SYSDATE, #{email} )
 	</insert>
 	
 <!-- 	암호화된 비밀번호 조회용 메소드
@@ -48,6 +48,12 @@
 		SELECT COUNT(*)
 		FROM MEMBER
 		WHERE MEMBERID = #{userId}
+	</select>
+	
+	<select id="emailDuplicationCheck" parameterType="java.lang.String" resultType="_int">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE EMAIL = #{email}
 	</select>
 	
 <!-- 	<insert id="insertBoard">

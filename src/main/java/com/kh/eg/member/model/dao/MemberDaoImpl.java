@@ -30,4 +30,13 @@ public class MemberDaoImpl implements MemberDao{
 		return result;
 	}
 
+	@Override
+	public int emailDuplicationCheck(SqlSessionTemplate sqlSession, String email) {
+		int result = 0;
+		result = sqlSession.selectOne("Member.emailDuplicationCheck",email);
+		System.out.println("EmailDaoResult : " + result);
+		
+		return result;
+	}
+
 }
