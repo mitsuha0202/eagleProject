@@ -124,7 +124,8 @@ input:-ms-input-placeholder {
 			onclick="location.href='itemRegist.it'">물품등록</div>
 
 		<div style="width: 150px; font-size: 20px">자유게시판</div>
-		<div style="width: 150px; font-size: 20px">사이버머니 결제</div>
+		<div style="width: 150px; font-size: 20px"
+			onclick="location.href='emoneyMain.em'">사이버머니 결제</div>
 
 		<div style="width: 100px"></div>
 		<div id="in">

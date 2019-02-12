@@ -6,8 +6,10 @@ import com.kh.eg.emoney.model.vo.emoney;
 
 public interface emoneyDao {
 
-	int insertPay(SqlSessionTemplate sqlSession, emoney em);
+	int insertEmoney(SqlSessionTemplate sqlSession, emoney em);
 	
+	emoney emoneyList(SqlSessionTemplate sqlSession, emoney em);
 	
+	int insertMemberCash(SqlSessionTemplate sqlSession, emoney em);
 	
 }
