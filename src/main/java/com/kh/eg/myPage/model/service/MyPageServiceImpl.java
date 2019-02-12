@@ -22,6 +22,12 @@ public class MyPageServiceImpl implements MyPageService{
 		
 		return md.selectMessage(sqlSession, memberNo);
 	}
+
+	@Override
+	public int deleteMessage(int[] deleteNum) {
+		int result = md.deleteMessage(sqlSession, deleteNum);
+		return result;
+	}
 	
 
 }

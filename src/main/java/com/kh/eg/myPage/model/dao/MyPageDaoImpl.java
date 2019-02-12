@@ -16,4 +16,15 @@ public class MyPageDaoImpl implements MyPageDao{
 		return (ArrayList)sqlSession.selectList("MyPage.selectMessage", memberNo);
 	}
 
+	@Override
+	public int deleteMessage(SqlSessionTemplate sqlSession, int[] deleteNum) {
+		int result1 = sqlSession.delete("MyPage.deleteReply", deleteNum);
+		int result2 = sqlSession.delete("MyPage.deleteMessage", deleteNum);
+		int result = 0;
+		if(result1 > 0 && result2 > 0) {
+			result = 1;
+		}
+		return result;
+	}
+
 }
