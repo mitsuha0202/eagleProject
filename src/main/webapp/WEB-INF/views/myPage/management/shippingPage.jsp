@@ -112,15 +112,14 @@
       
       <thead>
         <tr>
+          <th class="firstTd">구분</th>
           <th class="firstTd">물품번호</th>
           <th class="firstTd">이미지</th>
-          <th class="firstTd">제목</th>
-          <th class="firstTd">현재가</th>
-          <th class="firstTd">입찰 수</th>
+          <th class="firstTd">물품명</th>
+          <th class="firstTd">구매가격</th>
+          <th class="firstTd">구매정보</th>
+          <th class="firstTd">낙찰/구매일</th>
           <th class="firstTd">판매자</th>
-          <th class="firstTd">입찰 순위</th>
-          <th class="firstTd">마감일</th>
-          <th class="firstTd">관리</th>
         </tr>
       </thead>
       <tbody>
@@ -133,7 +132,7 @@
           <td></td>
           <td></td>
           <td></td>
-          <td></td>
+       
           
         </tr>
        

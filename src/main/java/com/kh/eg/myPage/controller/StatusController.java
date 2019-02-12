@@ -5,11 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class StatusController {
-	//판매현황 상세페이지
-	@RequestMapping("salesstatus.mp")
-	public String salesstatusPage() {
-		return "myPage/management/salesstatusMainPage";
-	}
+	
 	
 	
 	
