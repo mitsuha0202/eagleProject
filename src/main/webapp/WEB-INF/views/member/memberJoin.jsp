@@ -48,6 +48,15 @@
 	.column{
      	height: 100%;
      }
+     #emailCheck{
+     	display:none;
+     }
+     #idCkNum{
+     	display:none;
+     }
+     #emailCkNum{
+     	display:none;
+     }
 </style>
 </head>
 <body>
@@ -57,9 +66,9 @@
     <div class="ui grid">
         <div class = "two wide column"></div>
         <div class = "twelve wide column" style="margin-top:50px;">
-		 <h1 class="ui header" align="center" style="margin-top:150px">E a g l e ' s&nbsp;&nbsp;&nbsp;&nbsp;J O I N</h1>
+		 <h1 class="ui header" align="center" style="margin-top:100px">E a g l e ' s&nbsp;&nbsp;&nbsp;&nbsp;J O I N</h1>
 		 <div class="memberJoin" align="center">
-			 <form class="ui form"  action="insert.me" method="post">
+			 <form class="ui form" id="joinForm"  action="insert.me" method="post">
 				 <table>
 				 	<tr>
 				 		<td colspan="2"><label align="left" style="font-size: 1.5em;">* 아이디</label></td>
@@ -67,7 +76,7 @@
 				 	<tr>
 			 		  <td>
 						  <div class="field" style="display:inline-block;">	    
-						    <input type="text" id="userId" name="userId" placeholder="ID" style="height:45px">
+						    <input type="text" id="userId" name="userId" placeholder="아이디를 입력해주세요.(4~12글자. 영문,숫자만 가능)" style="height:45px">
 						  </div>
 					  </td>
 	  				  <td><button class="ui button" id="idCheckBtn" type="button" onclick="return duplicationCheck();">ID중복확인</button></td>
@@ -78,7 +87,7 @@
 					 <tr>
 					 	<td>
 						  <div class="field">
-						    <input type="password" name="userPwd" placeholder="PASSWORD" style="height:45px">
+						    <input type="password" name="userPwd" id="userPwd" placeholder="PASSWORD" style="height:45px">
 						  </div>
 					  	</td>
 					  </tr>
@@ -88,7 +97,7 @@
 					 <tr>
 					 	<td colspan="2">
 						  <div class="field">
-						    <input type="password" name="userPwd2" placeholder="PASSWORD" style="height:45px">
+						    <input type="password" name="userPwd2" id="userPwd2" placeholder="PASSWORD" style="height:45px">
 						  </div>
 					  	</td>
 					  </tr>
@@ -98,7 +107,7 @@
 					 <tr>
 					 	<td colspan="2">
 						  <div class="field">
-						    <input type="text" name="userName" placeholder="회원 이름" style="height:45px">
+						    <input type="text" name="userName" id="userName" placeholder="회원 이름" style="height:45px">
 						  </div>
 					  	</td>
 					  </tr>
@@ -108,7 +117,7 @@
 					 <tr>
 					 	<td colspan="2">
 						  <div class="field">
-						    <input type="text" name="phone" placeholder="010-0000-0000" style="height:45px">
+						    <input type="text" name="phone" id="phone" placeholder="010-0000-0000" style="height:45px">
 						  </div>
 					  	</td>
 					  </tr>
@@ -118,7 +127,7 @@
 					 <tr>
 					 	<td colspan="2">
 						  <div class="field">
-						    <input type="text" name="address" placeholder="OO시 OO구 OO동" style="height:45px">
+						    <input type="text" name="address" id="address" placeholder="OO시 OO구 OO동" style="height:45px">
 						  </div>
 					  	</td>
 					  </tr>
@@ -128,10 +137,10 @@
 					 <tr>
 					 	<td>
 						  <div class="field">
-						    <input type="email" name="email" placeholder="EAMAIL@EAMAIL.COM" style="height:45px">
+						    <input type="email" name="email" id="email" placeholder="EAMAIL@EAMAIL.COM" style="height:45px">
 						  </div>
 					  	</td>
-					  	 <td><button class="ui button" onclick="#">이메일 인증</button></td>
+					  	 <td><button class="ui button" type="button" onclick="return registerEmail();" id="emailCheckBtn">이메일 인증</button></td>
 					  </tr>
 					  <tr>
 					    <td colspan="2"><label align="left" style="font-size: 1.5em;">* 인증번호 확인</label></td>
@@ -139,15 +148,20 @@
 					 <tr>
 					 	<td>
 						  <div class="field">
-						    <input type="text" name="confirm" placeholder="" style="height:45px">
+						    <input type="text" name="confirm" placeholder="인증번호를 입력해주세요." id="emailCode" style="height:45px">
 						  </div>
 					  	</td>
-					  	 <td><button class="ui button" onclick="#">확인</button></td>
+					  	 <td><button class="ui button" type="button" onclick="emailConfirm();" id="emailConfirmBtn">확인</button></td>
+					  	 
 					  </tr>
 				</table>
+				<button id="emailCheck"></button>
+				<button id="idCkNum"></button>
+				<button id="emailCkNum"></button>
+
 				<br>
 				<div class="btnAtra" align="center">
-					<button class="ui button" type="submit">가입하기</button>
+					<button class="ui button" type="submit" onclick="return join();">가입하기</button>
 					<button class="ui button" type="reset">취소하기</button>
 				</div>
 			</form>
@@ -164,28 +178,142 @@
 	<script>
 		function duplicationCheck() {
 			var userId = $("#userId").val();
-			console.log(userId);
-			$.ajax({
-	            async: true,
-	            type : 'POST',
-	            data : {userId:userId},
-	            url : "duplicationCheck.me",
-	            success : function(data) {
-	                if (data.result > 0) {
-	                    alert("아이디가 존재합니다. 다른 아이디를 입력해주세요.");     
-	                } else {
-	                	alert("사용가능한 아이디입니다.")
-	                    var idCheckBtn = $("#idCheckBtn").text("확인 완료").attr("disabled",true);
-	                    idck = 1;	                    
-	                }
-	            },
-	            error : function(error) {
-	                
-	                alert("error : " + error);
-	            }
-	        });
-			return false;
+			var getCheck = /^[a-zA-Z0-9]{4,12}$/
+			
+			
+			if(userId == ""){
+				alert("아이디를 입력해주세요.");
+				$("#userId").focus();
+				return false;
+			}else{
+				if(!getCheck.test(userId)){
+					alert("형식에 맞게 입력주세요");
+					$("#userId").val("");
+			        $("#userId").focus();
+			        return false;
+				}else{
+					$.ajax({
+			            async: true,
+			            type : 'POST',
+			            data : {userId:userId},
+			            url : "duplicationCheck.me",
+			            success : function(data) {
+			                if (data.result > 0) {
+			                    alert("아이디가 존재합니다. 다른 아이디를 입력해주세요.");     
+			                } else {
+			                	alert("사용가능한 아이디입니다.")
+			                    var idCheckBtn = $("#idCheckBtn").text("확인 완료").attr("disabled",true);
+			                	var idCkNum =$("#idCkNum").text(1);        
+			                }
+			            },
+			            error : function(error) {
+			                
+			                alert("error : " + error);
+			            }
+			        });
+					return false;
+				}
+			}	
 	}
+	</script>
+	<script>
+		function registerEmail() {
+			var userId = $("#userId").val();
+			var email = $("#email").val();
+			var emailConfirm = $("#emailConfirm").val();
+
+			$.ajax({
+				 async: true,
+	            type : 'POST',
+	            data : {email:email,
+	            	    userId:userId},
+	            url : "registerEmail.me",
+	            success : function(data) {
+					if(data.result > 0){
+						alert("이미 인증된 이메일입니다. 다른 이메일을 입력해주세요.")
+					}else{
+						alert("인증 번호가 전송 되었습니다.메일을 확인해주세요.")
+						var emailCheck = $("#emailCheck").text(data.key);
+					}
+				},
+				error : function(error) {
+					alert("error : "+ error)
+				}
+			});
+		}
+	</script>
+	<script>
+		function emailConfirm(){
+			var check = $("#emailCheck").text();
+			var emailCode = $("#emailCode").val();
+			if(check == emailCode ){
+				alert("인증 완료!")
+				var emailConfirmBtn =$("#emailConfirmBtn").text("인증완료").attr("disabled",true);
+				var emailCkNum =$("#emailCkNum").text(1);
+			}else{
+				alert("인증번호가 올바르지 않습니다.");
+			}
+			
+		}
+	</script>
+	<script>
+		function join(){
+			var userId = $("#userId").val();
+			var userPwd = $("#userPwd").val();
+			var userPwd2 = $("#userPwd2").val();
+			var userName = $("#userName").val();
+			var phone = $("#phone").val();
+			var address = $("#address").val();
+			var email = $("#email").val();
+			var idCkNum = $("#idCkNum").html();
+			var emailCkNum = $("#emailCkNum").html();
+			var idCheckBtn = $("#idCheckBtn").val();
+			var emailConfirmBtn=$("#emailConfirmBtn").val();
+			
+			if(userId == ""){
+				alert("아이디를 입력해주세요");
+				$("#userId").focus();
+				return false;
+			}else if(idCheckBtn == "확인 완료" ){
+				alert("아이디 중복확인을 완료해주세요.");
+				$("#userId").focus();
+				return false;
+			}else if(userPwd == ""){
+				alert("비밀번호를 입력해주세요");
+				$("#userPwd").focus();
+				return false;
+			}else if(userPwd == userPwd2){
+				alert("비밀번호가 일치하지 않습니다.");
+				$("#userPwd").focus();
+				return false;
+			}else if(userName == ""){
+				alert("이름을 입력해주세요.");
+				$("#userName").focus();
+				return false;
+			}else if(phone == ""){
+				alert("연락처를 입력해주세요.")
+				$("#phone").focus();
+				return false;
+			}else if(address == ""){
+				alert("주소를 입력해주세요");
+				$("#address").focus();
+				return false;
+			}else if(email == ""){
+				alert("이메일을 입력해주세요.")
+				$("#email").focus();
+				return false;
+			}else if(emailCkNum == 1){
+				alert("이메일 인증을 완료해주세요.");
+				$("#email").focus();
+				return false;
+			}else{
+				alert("회원가입 성공!")
+				$("#joinForm").submit();
+				return true;
+			}
+			
+			
+		}
 	</script>
 </body>
 </html>

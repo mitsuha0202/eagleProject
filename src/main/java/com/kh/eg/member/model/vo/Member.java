@@ -14,13 +14,14 @@ public class Member {
 	private String wdStatus;
 	private String blStatus;
 	private String joinDate;
+	private String email;
 	
 	
 	public Member() {}
 
 
 	public Member(String mid, String userName, String userId, String userPwd, String account, String phone,
-			String address, String rating, int emoney, String wdStatus, String blStatus, String joinDate) {
+			String address, String rating, int emoney, String wdStatus, String blStatus, String joinDate, String email) {
 		super();
 		this.mid = mid;
 		this.userName = userName;
@@ -34,6 +35,7 @@ public class Member {
 		this.wdStatus = wdStatus;
 		this.blStatus = blStatus;
 		this.joinDate = joinDate;
+		this.email = email;
 	}
 
 
@@ -155,13 +157,24 @@ public class Member {
 	public void setJoinDate(String joinDate) {
 		this.joinDate = joinDate;
 	}
+	
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 
 	@Override
 	public String toString() {
 		return "Member [mid=" + mid + ", userName=" + userName + ", userId=" + userId + ", userPwd=" + userPwd
 				+ ", account=" + account + ", phone=" + phone + ", address=" + address + ", rating=" + rating
-				+ ", emoney=" + emoney + ", wdStatus=" + wdStatus + ", blStatus=" + blStatus + ", joinDate=" + joinDate
+				+ ", emoney=" + emoney + ", wdStatus=" + wdStatus + ", blStatus=" + blStatus + ", joinDate=" + joinDate+", email="+email
 				+ "]";
 	}
 	

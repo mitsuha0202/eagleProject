@@ -10,4 +10,6 @@ public interface MemberService {
 
 	int idDuplicationCheck(String userId);
 
+	int emailDuplicationCheck(String email);
+
 }
