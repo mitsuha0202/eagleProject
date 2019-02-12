@@ -7,10 +7,6 @@
 <title>충전내역페이지</title>
 </head>
 <body>
-	<!-- 메뉴바 -->
-	<jsp:include page="../common/header.jsp"/>
-	
-	<!-- /////////////////////////////////////////////////// -->
 	
 	<table align="center" id="listArea" class="table table-striped"  border:1px; solid #dddddd">
 		 		<thead>

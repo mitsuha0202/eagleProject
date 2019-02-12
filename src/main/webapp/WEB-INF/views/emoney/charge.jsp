@@ -18,9 +18,13 @@
 		<div class="title">
 			<h1>충전</h1>
 		</div>
-		<br>
+		<br><br>
 		<button ></button>
-		<div><h5>사용 가능 금액 : 0원</h5></div>
+		<div>
+			<td><h5>사용 가능 금액 : 0원</h5></td>
+			<td></td>
+			
+		</div>
 		<br>
 		<div class="payChargeArea">
 			<table class="chargeTable">
@@ -52,27 +56,15 @@
 					<tr>
 						<br>						
 						
-						<td>충전방법
+						<td>결제
 						
 						<td>
-							<button class="btn btn-warning" name="kakaopay">카카오페이</button>
+							<button class="btn btn-warning" name="kakaopay" id="kakaopayBtn" onclick="chargeAPI.em">카카오페이</button>
 					</tr>
 
 			</table>
 		</div>
 	</div>
-	<script>
-		<%-- function kakaopay(){
-			location.href="/eg/views/pay/kakaopay.jsp?chargeMoney=" + charge + "&memberCode="+<%= loginUser.getMember_code()%>;
-		} --%>
-	
-	
-	</script>
-
-	<form>
-		
-	
-	</form>
 
 
 </body>
