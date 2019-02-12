@@ -319,7 +319,7 @@
 	
 	<!-- 판매현황 제목 -->
 	<div class="saleTitle"><h2>판매현황</h2></div>
-	<button class="salesstatus" oncli>판매현황+</button>
+	<button class="salesstatus" onclick="location.href='salesstatus.mp'">판매현황+</button>
 	
 	<!-- 판매현황 테이블 -->
 	<div class="saleStatus">

@@ -75,28 +75,25 @@
 	
 	<!-- 헤더바 밑 선 -->
 	<hr class="firstLine">
-	<h1>구매관리(구매 물품 거래 진행중)</h1>
+	<h1>판매관리(판매 물품 거래 진행중)</h1>
     <div class="buyStatus">
 		<table class="buyStatusTable">
 			<tr>
-				<td class="firstTd" onclick="location.href='purchasestatus.mp'" colspan="2">입찰중물품</td>
-				<td class="firstTd" onclick="location.href='purchaseend.mp'" colspan="2">구매 종료</td>
-				<td class="firstTd" onclick="location.href='purchaseitemdeal.mp'" colspan="2">구매 물품 거래 진행중</td>
-				<td class="firstTd" onclick="location.href='purchaseother.mp'" colspan="2">구매거부/반품/미입금/판매거부/미수령신고</td>
+				<td class="firstTd" onclick="location.href='salesstatus.mp'" colspan="2">판매진행중</td>
+				<td class="firstTd" onclick="location.href='endofsale.mp'"colspan="2">판매 종료</td>
+				<td class="firstTd" onclick="location.href='salesitemprogress.mp'" colspan="2">판매 물품 거래 진행중</td>
+				<td class="firstTd" onclick="location.href='salesother.mp'" colspan="2">구매거부/반품/미입금/판매거부/미수령신고</td>
 			</tr>			
 			<tr>
 				<td><h5>거래상태</h5></td>
 				<!-- td태그 오른쪽 선 안보이게 하기  -->
-				<td style="border-right: hidden;" onclick="location.href='purchaseitemdeal.mp'"><h5>입금요청</h5></td>
-				<td style="border-right: hidden;" onclick="location.href='paymentconfirm.mp'"><h5>입금확인중</h5></td>
-				<td style="border-right: hidden;" onclick="location.href='requestdelivery.mp'"><h5>배송요청</h5></td>
-				<td style="border-right: hidden;" onclick="location.href='shipping.mp'"><h5>배송중</h5></td>
-				<td style="border-right: hidden;" onclick="location.href='purchasedecisionwaiting.mp'"><h5>구매결정대기</h5></td>
-				<td style="border-right: hidden;" onclick="location.href='afterreceipt.mp'"><h5>수령이후/송금예정</h5></td>
-				<td onclick="location.href='transactioncomplete.mp'"><h5>거래완료 물품</h5></td>
-			
-				
-				
+				<td style="border-right: hidden;" onclick="location.href='salesitemprogress.mp'"><h5>입금요청</h5></td>
+				<td style="border-right: hidden;" onclick="location.href='paymentconfirm2.mp'"><h5>입금확인중</h5></td>
+				<td style="border-right: hidden;" onclick="location.href='requestdelivery2.mp'"><h5>배송요청</h5></td>
+				<td style="border-right: hidden;" onclick="location.href='shipping2.mp'"><h5>배송중</h5></td>
+				<td style="border-right: hidden;" onclick="location.href='purchasedecisionwaiting2.mp'"><h5>구매결정대기</h5></td>
+				<td style="border-right: hidden;" onclick="location.href='afterreceipt2.mp'"><h5>수령이후/송금예정</h5></td>
+				<td onclick="location.href='transactioncomplete2.mp'"><h5>거래완료 물품</h5></td>
 			</tr>
 			
 			
@@ -104,7 +101,7 @@
 		</table>
 		
 		 <h5>꼭 읽어주세요! </h5><br>
-	     <h5>구매물품거래진행중인 페이지 입니다.</h5>
+	     <h5>현재 진행중인 물품으로 경매현황을 파악 하실 수 있습니다.</h5>
 	     <br>
 	     <h5>배송요청 물품에 대해서 모두</h5><h5>개가 검색되었습니다.</h5>
 	     
@@ -112,14 +109,13 @@
       
       <thead>
         <tr>
-           <th class="firstTd">구분</th>
           <th class="firstTd">물품번호</th>
           <th class="firstTd">이미지</th>
-          <th class="firstTd">물품명</th>
-          <th class="firstTd">구매가격</th>
-          <th class="firstTd">구매정보</th>
-          <th class="firstTd">낙찰/구매일</th>
-          <th class="firstTd">판매자</th>
+          <th class="firstTd">제목</th>
+          <th class="firstTd">금액정보</th>
+          <th class="firstTd">낙찰일</th>
+          
+          
         </tr>
       </thead>
       <tbody>
@@ -129,10 +125,8 @@
           <td></td>
           <td></td>
           <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-         
+        
+          
           
         </tr>
        

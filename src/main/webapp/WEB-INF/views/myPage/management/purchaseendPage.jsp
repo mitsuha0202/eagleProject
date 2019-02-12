@@ -110,18 +110,17 @@
           <th class="firstTd">물품번호</th>
           <th class="firstTd">이미지</th>
           <th class="firstTd">제목</th>
-          <th class="firstTd">현재가</th>
+          <th class="firstTd">낙찰가</th>
           <th class="firstTd">입찰 수</th>
-          <th class="firstTd">판매자</th>
-          <th class="firstTd">입찰 순위</th>
           <th class="firstTd">마감일</th>
-          <th class="firstTd">관리</th>
+          <th class="firstTd">판매자</th>
+          <th class="firstTd">입찰결과</th>
+          
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>1</td>
-          <td></td>
           <td></td>
           <td></td>
           <td></td>

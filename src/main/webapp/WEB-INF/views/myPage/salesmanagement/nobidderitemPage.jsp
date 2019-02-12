@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>배송요청</title>
+<title>경매입찰자가 없는 물품</title>
 </head>
 <style>
       /* 구매현황 테이블 div */
@@ -75,27 +75,21 @@
 	
 	<!-- 헤더바 밑 선 -->
 	<hr class="firstLine">
-	<h1>구매관리(구매 물품 거래 진행중)</h1>
+	<h1>판매관리(판매진행중)</h1>
     <div class="buyStatus">
 		<table class="buyStatusTable">
 			<tr>
-				<td class="firstTd" onclick="location.href='purchasestatus.mp'" colspan="2">입찰중물품</td>
-				<td class="firstTd" onclick="location.href='purchaseend.mp'" colspan="2">구매 종료</td>
-				<td class="firstTd" onclick="location.href='purchaseitemdeal.mp'" colspan="2">구매 물품 거래 진행중</td>
-				<td class="firstTd" onclick="location.href='purchaseother.mp'" colspan="2">구매거부/반품/미입금/판매거부/미수령신고</td>
+				<td class="firstTd" onclick="location.href='salesstatus.mp'">판매진행중</td>
+				<td class="firstTd" onclick="location.href='endofsale.mp'">판매 종료</td>
+				<td class="firstTd" onclick="location.href='salesitemprogress.mp'">판매 물품 거래 진행중</td>
+				<td class="firstTd" onclick="location.href='salesother.mp'">구매거부/반품/미입금/판매거부/미수령신고</td>
 			</tr>			
 			<tr>
-				<td><h5>거래상태</h5></td>
+				<td><h5>판매진행물품</h5></td>
 				<!-- td태그 오른쪽 선 안보이게 하기  -->
-				<td style="border-right: hidden;" onclick="location.href='purchaseitemdeal.mp'"><h5>입금요청</h5></td>
-				<td style="border-right: hidden;" onclick="location.href='paymentconfirm.mp'"><h5>입금확인중</h5></td>
-				<td style="border-right: hidden;" onclick="location.href='requestdelivery.mp'"><h5>배송요청</h5></td>
-				<td style="border-right: hidden;" onclick="location.href='shipping.mp'"><h5>배송중</h5></td>
-				<td style="border-right: hidden;" onclick="location.href='purchasedecisionwaiting.mp'"><h5>구매결정대기</h5></td>
-				<td style="border-right: hidden;" onclick="location.href='afterreceipt.mp'"><h5>수령이후/송금예정</h5></td>
-				<td onclick="location.href='transactioncomplete.mp'"><h5>거래완료 물품</h5></td>
-			
-				
+				<td style="border-right: hidden;" onclick="location.href='salesstatus.mp'"><h5>진행중인 전체 물품</h5></td>
+				<td style="border-right: hidden;" onclick="location.href='bidderitem.mp'"><h5>경매입찰자가 있는 물품</h5></td>
+				<td onclick="location.href='nobidderitem.mp'"><h5>경매입찰자가 없는 물품</h5></td>
 				
 			</tr>
 			
@@ -104,22 +98,23 @@
 		</table>
 		
 		 <h5>꼭 읽어주세요! </h5><br>
-	     <h5>구매물품거래진행중인 페이지 입니다.</h5>
+	     <h5>현재 진행중인 물품으로 경매현황을 파악 하실 수 있습니다.</h5>
 	     <br>
-	     <h5>배송요청 물품에 대해서 모두</h5><h5>개가 검색되었습니다.</h5>
+	     <h5>경매입찰자가 없는 물품에 대해서 모두</h5><h5>개가 검색되었습니다.</h5>
 	     
 	     <table class="buyStatusTable">
       
       <thead>
         <tr>
-           <th class="firstTd">구분</th>
           <th class="firstTd">물품번호</th>
           <th class="firstTd">이미지</th>
-          <th class="firstTd">물품명</th>
-          <th class="firstTd">구매가격</th>
-          <th class="firstTd">구매정보</th>
-          <th class="firstTd">낙찰/구매일</th>
-          <th class="firstTd">판매자</th>
+          <th class="firstTd">제목</th>
+          <th class="firstTd">현재가</th>
+          <th class="firstTd">입찰</th>
+          <th class="firstTd">조회</th>
+          <th class="firstTd">시작일</th>
+          <th class="firstTd">마감일</th>
+          <th class="firstTd">관리</th>
         </tr>
       </thead>
       <tbody>
@@ -132,7 +127,7 @@
           <td></td>
           <td></td>
           <td></td>
-         
+          <td></td>
           
         </tr>
        
