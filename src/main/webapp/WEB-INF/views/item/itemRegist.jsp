@@ -65,9 +65,10 @@
 	<div class="ui grid">
 		<div class="two wide column"></div>
 		<div class="twelve wide column" style="margin-top: 30px;">
+		
 			<h1>온라인 물품 등록</h1>
 			<hr>
-
+			<form action="insertItem.it" method="post" encType="multipart/form-data">
 			<h2>카테고리 선택</h2>
 			<br> <br>
 				<table class="ui striped table">
@@ -107,21 +108,21 @@
 					<tbody>
 					<tr>
 						<td>물품 제목</td>
-						<td><input type="text" placeholder="내용을 입력해주세요"></td>
+						<td><input type="text" name="itemName" placeholder="내용을 입력해주세요"></td>
 						
 					</tr>
 				
 			
 					<tr class="top aligned">
 						<td>물품설명</td>
-						<td><input type="text" placeholder="내용을 입력해주세요"></td>
+						<td><input type="text"  name="detail" placeholder="내용을 입력해주세요"></td>
 						
 						
 					</tr>
 					
 					<tr>
 						<td>원산지</td>
-						<td><input type="text" placeholder="내용을 입력해주세요"></td>
+						<td><input type="text" name="origin" placeholder="내용을 입력해주세요"></td>
 						
 						
 					</tr>
@@ -129,7 +130,7 @@
 						<td>이미지등록</td>
 						<td>이미지를 넣어주세요<div><br><br><br><br><br><br><br><br><br><br><br>
 						
-						</div><input type="file" placeholder="내용을 입력해주세요"></td>
+						</div><input type="file" name="photo" placeholder="내용을 입력해주세요"></td>
 						
 						
 					</tr>
@@ -143,12 +144,20 @@
 				<tr>
 					<td>경매 방법 선택</td>
 					<td>
-						<select>
-							<option>선택하세요</option>
-							<option>최고가 밀봉경매</option>
-							<option>다운경매</option>
+						<select name="acutionCode">
+							<option >선택하세요</option>
+							<option value="최고가 밀봉경매">최고가 밀봉경매</option>
+							<option value="다운경매">다운경매</option>
 						</select>
 					</td>
+				</tr>
+				<tr>
+					<td>시작가</td>
+					<td><input type="text" name="startPrice"></td>
+				</tr>
+				<tr>
+					<td>입찰단위</td>
+					<td><input type="text" name="bidUnit"></td>
 				</tr>
 			
 			</tbody>
@@ -160,13 +169,10 @@
 		<hr>
 		<table class="ui striped table">
 		<tbody>
-			<tr>
-				<td>배송 방법 </td>
-				<td><input type="radio" name="trans">택배 <input type="radio" name="trans">우편 </td>
-			</tr>
+			
 			<tr>
 				<td>비용부담</td>
-				<td><input type="radio" name="pay">선결제&nbsp;&nbsp;<input type="radio" name="pay">무료
+				<td><input type="radio" name="deliveryPay" value="선결제">선결제&nbsp;&nbsp;<input type="radio" name="deliveryPay" value="무료">무료
 				<br>
 				선결제 비용 <input type="text">원 &nbsp;&nbsp;&nbsp;착불비용<input type="text">원
 				</td>
@@ -178,14 +184,14 @@
 		</table>
 		
 		<div class="confirm" align="center">
-		<button class="ui primary button">
+		<button type="submit"class="ui primary button">
  			 확인
 		</button>
 		<button class="ui button">
   		취소
 		</button>
 		</div >
-	
+	</form>
 			<!-- 내용 넣기 -->
 		</div>
 		<div class="two wide column"></div>
