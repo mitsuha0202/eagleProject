@@ -75,7 +75,7 @@
 	/* 버튼영역 */
 	.btnArea{
 		position: absolute;
-		top: 660px;
+		top: 800px;
 		left: 70px;
 	}
 	/* 삭제, 문의버튼 */
@@ -89,6 +89,7 @@
 		width: 150px;
 		height: 40px;
 	    font-size: 16px;
+
 	}
 	.queryBtn{
 		left: 1100px;
@@ -96,7 +97,7 @@
 	/* 닫기버튼 */
 	.closeBtn{
 		position: absolute;
-		top: 70px;
+		top: 100px;
 		left: 1100px;
 		text-align: center;
 		background-color: #205181;
@@ -106,6 +107,10 @@
 		width: 150px;
 		height: 40px;
 	    font-size: 16px;
+	}
+	#checkAll, .checkChild{
+		width: 17px;
+		height: 17px;	
 	}
 </style>
 </head>
@@ -138,7 +143,7 @@
    <div class="messageTableArea">
       <table class="messageTable">
          <tr>
-            <td class="firstTd"><input type="checkbox" style="width: 17px; height: 17px;"></td>
+            <td class="firstTd"><input type="checkbox" id="checkAll" onclick="check();"></td>
             <td class="firstTd"><h5>번호</h5></td>
             <td class="firstTd"><h5 class="content">제목</h5></td>
             <td class="firstTd"><h5 class="content">보낸날짜</h5></td>
@@ -146,7 +151,7 @@
          </tr>
          <c:forEach var="b" items="${ list }">
             <tr>
-               <td><input type="checkbox" style="width: 17px; height: 17px;"></td> 
+               <td><input type="checkbox" class="checkChild"></td> 
                <td>${ b.boardNo }</td>
                <td>${ b.title }</td>
                <td>${ b.writeDay }</td>
@@ -163,7 +168,7 @@
 	
 	<!-- 버튼 div -->
 	<div class="btnArea">
-		<button class="deleteBtn">삭제</button>
+		<button class="deleteBtn" onclick="return listDelete();">삭제</button>
 		<button class="queryBtn" onclick="location.href='onebyone.mp'">문의하기</button>
 		<button class="closeBtn" onclick="location.href='myPageMain.mp'">닫기</button>
 	</div>
@@ -172,5 +177,42 @@
       <c:set var="message" value="로그인이 필요한 서비스입니다." scope="request"/>
       <jsp:forward page="../common/errorPage.jsp"/>
    </c:if>
+   
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+   <script>
+   		function check() {
+	   		if( $("#checkAll").is(':checked') ){
+	       		$(".checkChild").prop("checked", true);
+	     	}else{
+	       		$(".checkChild").prop("checked", false);
+	     	}
+   		}
+   		
+   		function listDelete() {
+   			var sendArr = new Array();
+   			var checkbox = $(".checkChild:checked");
+   		 	checkbox.each(function(i){
+   		 		var tr = checkbox.parent().parent().eq(i);
+   		 		var td = tr.children();
+   	            var docNum = td.eq(1).text();
+   	            sendArr.push(docNum);
+   	            
+ 				console.log(sendArr);
+   		 	});
+	 		$.ajax({
+	 			url:"duplicationCheck.me",
+	 			type:"post",
+	 			data:{deleteNumList:sendArr},
+	 			success:function(data){
+	 				alert("삭제가 완료되었습니다.");	 					
+	 			},
+	 			/* status는 에러의 상태를 나타냄 */
+	 			error:function(status){
+	 				console.log(status);
+	 			}
+	 		});
+	 		return false;	   		 	
+		}
+   </script>
 </body>
 </html>
