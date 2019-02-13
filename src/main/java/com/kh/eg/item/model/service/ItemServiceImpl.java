@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Service;
 
+import com.kh.eg.attachment.model.vo.Attachment;
 import com.kh.eg.item.model.dao.ItemDao;
 import com.kh.eg.item.model.vo.Item;
 
@@ -25,9 +26,14 @@ private DataSourceTransactionManager transactionManager;
 		
 		
 		int result=0;
+		int itemNo=id.selectItemNoNextval(sqlSession);
+		((Item)hmap.get("item")).setItemNo(itemNo);
+		System.out.println((Attachment)hmap.get("attachment"));
+		((Attachment)hmap.get("attachment")).setItemNo(itemNo+"");
 		int result1=id.insertItem(sqlSession,hmap);
+		int result2=id.insertAttachment(sqlSession,hmap);
 		
-		if(result1>0) {
+		if(result1>0&&result2>0) {
 			result=1;
 		}else {
 			result=0;

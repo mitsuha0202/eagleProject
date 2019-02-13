@@ -34,24 +34,23 @@ public class ItemController {
 	
 	@RequestMapping("itemRegist.it")
 	public String itemRegist() {
-		return "item/itemRegist";
-	}
-	@RequestMapping("loginView.it")
-	public String log() {
-		return "member/memberLogin";
-	}
 	
+			return "item/itemRegist";
+		}
+		
 	
 	
 	@RequestMapping("insertItem.it")
 	public String insertItem(Item it,Model model,HttpServletRequest request,@RequestParam(value="photo",required=false) MultipartFile photo ) {
-		
+
 		System.out.println("item : " +it );
 		System.out.println("photo:" +photo);
 		
 		String root=request.getSession().getServletContext().getRealPath("resources");
 		Member m=new Member();
 		Attachment att=new Attachment();
+		
+		
 		m.setUserId("eagle01");
 		String filePath=root+"\\uploadFiles";
 		
@@ -60,6 +59,12 @@ public class ItemController {
 		String ext=originFileName.substring(originFileName.lastIndexOf("."));
 		String changeName=CommonUtils.getRandomString();
 		
+		att.setOriginName(originFileName);
+		att.setChangeName(changeName);
+		att.setRoot(filePath);
+		
+		
+		
 		Item item=new Item();
 		item.setAuctionCode(request.getParameter("auctionCode"));
 		System.out.println(item.getAuctionCode());
@@ -67,14 +72,14 @@ public class ItemController {
 		
 		HashMap<String,Object> hmap=new HashMap<String, Object>();
 		hmap.put("m", m);
-		hmap.put("attachment", photo);
+		hmap.put("attachment", att);
 		hmap.put("item", it);
 		
 		
 		try {
 			photo.transferTo(new File(filePath+"\\" +changeName+ext));
 			System.out.println("contr");
-			int result = is.insertItem(hmap);
+			int result = is.insertItem(hmap);	
 			//int result=is.insertItem(it);
 			System.out.println(result);
 			return "redirect:goMain.it";

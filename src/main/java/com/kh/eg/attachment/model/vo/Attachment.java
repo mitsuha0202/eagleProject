@@ -3,7 +3,7 @@ package com.kh.eg.attachment.model.vo;
 public class Attachment implements java.io.Serializable {
 
 	private String attachmentNo;
-	private String orginName;
+	private String originName;
 	private String changeName;
 	private String root;
 	private int fileLevel;
@@ -25,13 +25,13 @@ public class Attachment implements java.io.Serializable {
 	}
 
 
-	public String getOrginName() {
-		return orginName;
+	public String getOriginName() {
+		return originName;
 	}
 
 
-	public void setOrginName(String orginName) {
-		this.orginName = orginName;
+	public void setOriginName(String originName) {
+		this.originName = originName;
 	}
 
 
@@ -85,19 +85,24 @@ public class Attachment implements java.io.Serializable {
 	}
 
 
+	public String getItemNo() {
+		return itemNo;
+	}
+
+
 	@Override
 	public String toString() {
-		return "Attachment [attachmentNo=" + attachmentNo + ", orginName=" + orginName + ", changeName=" + changeName
+		return "Attachment [attachmentNo=" + attachmentNo + ", originName=" + originName + ", changeName=" + changeName
 				+ ", root=" + root + ", fileLevel=" + fileLevel + ", addStatus=" + addStatus + ", boardNo=" + boardNo
 				+ ", itemNo=" + itemNo + "]";
 	}
 
 
-	public Attachment(String attachmentNo, String orginName, String changeName, String root, int fileLevel,
+	public Attachment(String attachmentNo, String originName, String changeName, String root, int fileLevel,
 			String addStatus, String boardNo, String itemNo) {
 		super();
 		this.attachmentNo = attachmentNo;
-		this.orginName = orginName;
+		this.originName = originName;
 		this.changeName = changeName;
 		this.root = root;
 		this.fileLevel = fileLevel;
@@ -107,15 +112,10 @@ public class Attachment implements java.io.Serializable {
 	}
 
 
-	public String getItemNo() {
-		return itemNo;
-	}
-
-
 	public void setItemNo(String itemNo) {
 		this.itemNo = itemNo;
 	}
-	
-	
+
+
 	
 }

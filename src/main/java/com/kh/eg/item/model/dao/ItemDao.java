@@ -10,4 +10,9 @@ public interface ItemDao {
 
 	int insertItem(SqlSessionTemplate sqlSession, HashMap<String, Object> hmap);
 
+	int insertAttachment(SqlSessionTemplate sqlSession, HashMap<String, Object> hmap);
+
+
+	int selectItemNoNextval(SqlSessionTemplate sqlSession);
+
 }

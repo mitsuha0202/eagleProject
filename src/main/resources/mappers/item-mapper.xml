@@ -17,14 +17,43 @@
 		<result property="detail" column="DETAIL"/>
 	</resultMap>
 	
-	<insert id="insertItem" parameterType="Item">
+	<resultMap type="com.kh.eg.attachment.model.vo.Attachment" id="attachmentResultSet">
+		<id property="attachmentNo" column="ATTACHMENTNO"/>
+		<result property="orginName" column="ORIGINNAME"/>
+		<result property="changeName" column="CHANGENAME"/>
+		<result property="root" column="ROOT"/>
+		<result property="fileLevel" column="FILELEVEL"/>
+		<result property="addStatus" column="ADDSTATUS"/>
+		<result property="deleteYN" column="DELETEYN"/>
+		<result property="boardNo" column="BOARDNO"/>
+		<result property="ITEMNO" column="itemNo"/>
+		
+	</resultMap>
+	
+	
+	
+	<insert id="insertItem" >
 	INSERT INTO AuctionItem
-	VALUES(PN_SEQ.NEXTVAL,#{itemName},#{startPrice},#{bidUnit},
-	#{deliveryPay},#{origin}, 'N' ,'1',#{mid}, #{auctionCode} ,#{detail} )
-
+	VALUES(#{item.itemNo},#{item.itemName},#{item.startPrice},#{item.bidUnit},
+	#{item.deliveryPay},#{item.origin}, 'N' ,'1',#{item.mid}, #{item.auctionCode} ,#{item.detail} )
+	</insert>
+	<insert id="insertAttachment">
+	INSERT INTO ATTACHMENT VALUES(PN_SEQ.NEXTVAL, #{attachment.originName},#{attachment.changeName},
+	#{attachment.root},0,'Y',null,#{attachment.itemNo}
+	)
+	
 	
 	</insert>
-
+	
+	
+	<select id="selectItemNo" resultType="_int">
+	SELECT PN_SEQ.NEXTVAL FROM dual  
+	
+	
+	
+	</select>
+	
+	
 
 
 </mapper>
