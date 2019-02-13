@@ -16,7 +16,7 @@ public class MyPageServiceImpl implements MyPageService{
 	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
-
+	
 	@Override
 	public ArrayList<MyPageBoard> selectMessage(String memberNo) {
 		

@@ -19,10 +19,12 @@
 		text-align: center;
 		width: 1355px;
 		height: 50px;
+		cursor: pointer;
 	}
 	/* 테이블 맨윗줄 선 */
 	.firstTd{
 		border-top: 3.5px solid #205181;
+		cursor: pointer;
 	}
 	
 	/* 물품검색 조회리스트 */
