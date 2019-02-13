@@ -12,17 +12,15 @@
 		<result property="origin" column="ORIGIN"/>
 		<result property="deleteYN" column="DELETEYN"/>
 		<result property="categoryNo" column="CATEGORYNO"/>
-		<result property="memberNo" column="MEMBERNO"/>
+		<result property="mid" column="MEMBERNO"/>
 		<result property="auctionCode" column="AUCTIONCODE"/>
 		<result property="detail" column="DETAIL"/>
 	</resultMap>
 	
 	<insert id="insertItem" parameterType="Item">
-	INSERT INTO AuctionItem(itemNo,itemName,
-	startPrice,bidUnit,deliveryPay,origin,deleteYN,
-	auctionCode,detail)
+	INSERT INTO AuctionItem
 	VALUES(PN_SEQ.NEXTVAL,#{itemName},#{startPrice},#{bidUnit},
-	#{deliveryPay},#{origin}, 'N' , #{auctionCode} ,#{detail} )
+	#{deliveryPay},#{origin}, 'N' ,'1',#{mid}, #{auctionCode} ,#{detail} )
 
 	
 	</insert>

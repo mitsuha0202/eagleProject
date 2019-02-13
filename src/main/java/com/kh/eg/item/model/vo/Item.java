@@ -10,7 +10,7 @@ public class Item {
 	private String origin;
 	private String deleteYN;
 	private String categoryNo;
-	private String memberNo;
+	private String mid;
 	private String auctionCode;
 	private String detail;
 
@@ -80,12 +80,12 @@ public class Item {
 		this.categoryNo = categoryNo;
 	}
 
-	public String getMemberNo() {
-		return memberNo;
+	public String getMid() {
+		return mid;
 	}
 
-	public void setMemberNo(String memberNo) {
-		this.memberNo = memberNo;
+	public void setMid(String mid) {
+		this.mid = mid;
 	}
 
 	public String getAuctionCode() {
@@ -108,12 +108,12 @@ public class Item {
 	public String toString() {
 		return "Item [itemNo=" + itemNo + ", itemName=" + itemName + ", startPrice=" + startPrice + ", bidUnit="
 				+ bidUnit + ", deliveryPay=" + deliveryPay + ", origin=" + origin + ", deleteYN=" + deleteYN
-				+ ", categoryNo=" + categoryNo + ", memberNo=" + memberNo + ", auctionCode=" + auctionCode + ", detail="
+				+ ", categoryNo=" + categoryNo + ", mid=" + mid + ", auctionCode=" + auctionCode + ", detail="
 				+ detail + "]";
 	}
 
 	public Item(int itemNo, String itemName, String startPrice, String bidUnit, String deliveryPay, String origin,
-			String deleteYN, String categoryNo, String memberNo, String auctionCode, String detail) {
+			String deleteYN, String categoryNo, String mid, String auctionCode, String detail) {
 		super();
 		this.itemNo = itemNo;
 		this.itemName = itemName;
@@ -123,7 +123,7 @@ public class Item {
 		this.origin = origin;
 		this.deleteYN = deleteYN;
 		this.categoryNo = categoryNo;
-		this.memberNo = memberNo;
+		this.mid = mid;
 		this.auctionCode = auctionCode;
 		this.detail = detail;
 	}
