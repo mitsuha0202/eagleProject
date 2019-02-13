@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%-- <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -7,10 +7,6 @@
 <title>충전내역페이지</title>
 </head>
 <body>
-	<!-- 메뉴바 -->
-	<jsp:include page="../common/header.jsp"/>
-	
-	<!-- /////////////////////////////////////////////////// -->
 	
 	<table align="center" id="listArea" class="table table-striped"  border:1px; solid #dddddd">
 		 		<thead>
@@ -24,4 +20,4 @@
 	
 	
 </body>
-</html>
+</html> --%>

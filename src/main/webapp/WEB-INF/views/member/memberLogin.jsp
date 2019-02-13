@@ -4,6 +4,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <title>eagle's Login</title>
 <!-- jquery -->
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -47,7 +49,9 @@
 	.column{
      	height: 100%;
      }
-	
+	#kakao-login-btn{
+		width:500px;
+	}
 	
 </style>
 <body>
@@ -71,13 +75,50 @@
 				  <div class="ui inverted segment" style="width:500px; height: 108px;">
 		  			<button class="ui inverted button" style="width:450px">eagle's Login</button>
 		  		  </div>
+	  		  	<div>
+				    <a id="kakao-login-btn"></a>
+				    <a href="http://developers.kakao.com/logout"></a>
+				</div>
 				</form>
 			</div>
-	
+
 	<!-- 내용 넣기 -->
         </div>
         <div class = "two wide column"></div>
    	</div>
    	<!-- footer -->
+   	
+   	<script type='text/javascript'>
+      //<![CDATA[
+        // 사용할 앱의 JavaScript 키를 설정해 주세요.
+        Kakao.init('a6799519e64fb49ae7136b45b458aa2b');
+        // 카카오 로그인 버튼을 생성합니다.
+        Kakao.Auth.createLoginButton({
+          container: '#kakao-login-btn',
+          success: function(authObj) {
+            /* alert(JSON.stringify(authObj)); */
+            Kakao.API.request({
+            	url:'/v1/user/me',
+            	success:function(data){
+            		var userId = data.id;
+            		var userEmail = data.kaccount_email;
+            		var userEmail_verified = data.kaccount_email_verified;
+            		
+            		if(userEmail == null || !userEmail_verified){
+            			alert("이메일 인증 필수! 이메일 정보제공을 동의 해주세요.");
+            			Kakao.Auth.logout();
+            		}else{
+            			location.href="kakaoLogin.me?userId="+userId+"&userEmail="+userEmail+"&password=0202";
+            			alert("카카오 로그인 성공!");
+            		}
+            	}
+            })
+          },
+          fail: function(err) {
+             alert(JSON.stringify(err));
+          }
+        });
+      //]]>
+    </script>
 </body>
 </html>

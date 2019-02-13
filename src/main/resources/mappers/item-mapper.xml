@@ -3,10 +3,28 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Item">
-	<resultMap type="com.kh.eg.member.model.vo.Item" id="itemResultSet">
-		
-		
+	<resultMap type="com.kh.eg.item.model.vo.Item" id="itemResultSet">
+		<id property="itemNo" column="ITEMNO"/>
+		<result property="itemName" column="ITEMNAME"/>
+		<result property="startPrice" column="STARTPRICE"/>
+		<result property="bidUnit" column="BIDUNIT"/>
+		<result property="deliveryPay" column="DELIVERYPAY"/>
+		<result property="origin" column="ORIGIN"/>
+		<result property="deleteYN" column="DELETEYN"/>
+		<result property="categoryNo" column="CATEGORYNO"/>
+		<result property="mid" column="MEMBERNO"/>
+		<result property="auctionCode" column="AUCTIONCODE"/>
+		<result property="detail" column="DETAIL"/>
 	</resultMap>
 	
+	<insert id="insertItem" parameterType="Item">
+	INSERT INTO AuctionItem
+	VALUES(PN_SEQ.NEXTVAL,#{itemName},#{startPrice},#{bidUnit},
+	#{deliveryPay},#{origin}, 'N' ,'1',#{mid}, #{auctionCode} ,#{detail} )
+
+	
+	</insert>
+
+
 
 </mapper>

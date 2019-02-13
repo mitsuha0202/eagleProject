@@ -75,7 +75,7 @@
 	/* 버튼영역 */
 	.btnArea{
 		position: absolute;
-		top: 660px;
+		top: 800px;
 		left: 70px;
 	}
 	/* 삭제, 문의버튼 */
@@ -89,6 +89,7 @@
 		width: 150px;
 		height: 40px;
 	    font-size: 16px;
+
 	}
 	.queryBtn{
 		left: 1100px;
@@ -96,7 +97,7 @@
 	/* 닫기버튼 */
 	.closeBtn{
 		position: absolute;
-		top: 70px;
+		top: 100px;
 		left: 1100px;
 		text-align: center;
 		background-color: #205181;
@@ -106,6 +107,10 @@
 		width: 150px;
 		height: 40px;
 	    font-size: 16px;
+	}
+	#checkAll, .checkChild{
+		width: 17px;
+		height: 17px;	
 	}
 </style>
 </head>
@@ -123,30 +128,31 @@
 	<!-- 검색부분 div -->
 	<div class="searchArea">
 		<div class="selectSize">
-			<select class="form-control">
-	  		<option>쪽지내용</option>
-	  		<option>보낸사람</option>
+			<select class="form-control" id="searchId">
+	  		<option>쪽지제목</option>
+	  		<option>답변여부</option>
 			</select>
 		</div>
 		<div class="inputSize">
-			<input class="form-control" id="searchContent" placeholder="내용을 입력해주세요.">
+			<input class="form-control" id="searchContent" placeholder="검색할 내용을 입력해주세요.">
 		</div>
-		<button class="searchBtn">검색</button>
+		<button class="searchBtn" onclick="search();">검색</button>
 	</div>
 	
 	<!-- 검색결과 테이블 -->
    <div class="messageTableArea">
       <table class="messageTable">
          <tr>
-            <td class="firstTd"><input type="checkbox" style="width: 17px; height: 17px;"></td>
+            <td class="firstTd"><input type="checkbox" id="checkAll" onclick="check();"></td>
             <td class="firstTd"><h5>번호</h5></td>
             <td class="firstTd"><h5 class="content">제목</h5></td>
             <td class="firstTd"><h5 class="content">보낸날짜</h5></td>
             <td class="firstTd"><h5 class="content">답변여부</h5></td>
          </tr>
+         <c:if test="${ !empty list }">
          <c:forEach var="b" items="${ list }">
             <tr>
-               <td><input type="checkbox" style="width: 17px; height: 17px;"></td> 
+               <td><input type="checkbox" class="checkChild"></td> 
                <td>${ b.boardNo }</td>
                <td>${ b.title }</td>
                <td>${ b.writeDay }</td>
@@ -158,12 +164,18 @@
                </c:if>                  
             </tr>
          </c:forEach>
+         </c:if>
+         <c:if test="${ empty list }">
+         	<tr>
+         		<td colspan="5"><h5>검색된 내용이 없습니다.</h5></td>
+         	</tr>
+         </c:if>
       </table>
    </div>
 	
 	<!-- 버튼 div -->
 	<div class="btnArea">
-		<button class="deleteBtn">삭제</button>
+		<button class="deleteBtn" onclick="listDelete();">삭제</button>
 		<button class="queryBtn" onclick="location.href='onebyone.mp'">문의하기</button>
 		<button class="closeBtn" onclick="location.href='myPageMain.mp'">닫기</button>
 	</div>
@@ -172,5 +184,35 @@
       <c:set var="message" value="로그인이 필요한 서비스입니다." scope="request"/>
       <jsp:forward page="../common/errorPage.jsp"/>
    </c:if>
+   
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+   <script>
+   		function check() {
+	   		if( $("#checkAll").is(':checked') ){
+	       		$(".checkChild").prop("checked", true);
+	     	}else{
+	       		$(".checkChild").prop("checked", false);
+	     	}
+   		}
+   		
+   		function listDelete() {
+   			var sendArr = new Array();
+   			var checkbox = $(".checkChild:checked");
+   		 	checkbox.each(function(i){
+   		 		var tr = checkbox.parent().parent().eq(i);
+   		 		var td = tr.children();
+   	            var docNum = td.eq(1).text();
+   	            sendArr.push(docNum);
+   	            
+ 				location.href="deleteMessage.mp?deleteNum=" + sendArr +",";
+   		 	}); 		 	
+		}
+   		
+   		function search() {
+			var search = $("#searchId").val();
+			var searchTitle = $("#searchContent").val();
+			location.href = "searchMessage.mp?search="+search+"&searchTitle="+searchTitle;
+		}
+   </script>
 </body>
 </html>

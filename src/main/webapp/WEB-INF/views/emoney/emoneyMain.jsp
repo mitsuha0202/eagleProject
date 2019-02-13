@@ -12,25 +12,31 @@
 	
 	<!-- /////////////////////////////////////////////////// -->
 	
-	<div class="title"><h1>사이버머니</h1></div>
 	
-	<div class="paymentArea">
+	<br><br><br>
+	<div class="container">
+		
+		<div class="title"><h1>사이버머니</h1></div>
+		<br><br><br>
 		<tr>
-			<th></th>
-			<th></th>
-			<th></th>			
-		</tr>
-	</div>	
-	<div>
-		<tr>
-			<td>보유 금액 : 10000원</td>
+			<td>보유 금액 : </td>
+			<td></td>
 		</tr>
 		<tr>
-			<button onclick="location.href=''">충전하기</button>			
+			<button onclick="location.href='charge.em'">충전하기</button>			
 		</tr>
-		<tr>
+		<br><br><br>
+		<table align="center" id="listArea" class="table table-striped"  border:1px; solid #dddddd">
+		 		<thead>
+		 			<tr>
+						<th style="width: 20% background-color:#eeeeee; text-align: center;">결제번호</th>
+						<th style="width: 5% background-color:#eeeeee; text-align: center;">금액</th>
+						<th style="width: 5% background-color:#eeeeee; text-align: center;">결제날짜</th>
+						<th style="width: 3% background-color:#eeeeee; text-align: center;">사용구분</th>
+					</tr>
+		<!-- <tr>
 			<button onclick="location.href=''">환급하기</button>
-		</tr>
+		</tr> -->
 	</div>
 
 

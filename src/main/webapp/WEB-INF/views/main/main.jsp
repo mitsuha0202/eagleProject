@@ -115,7 +115,7 @@ td {
 					</tr>
 					<tr class="tr">
 						<td colspan="2">판매자 아이디</td>
-						<td >leeyeonhee</td>
+						<td >${userId}</td>
 					</tr>
 					<tr class="tr">
 						<td colspan="2">남은 시간</td>
@@ -144,7 +144,7 @@ td {
 					</tr>
 					<tr class="tr">
 						<td colspan="2">판매자 아이디</td>
-						<td >leeyeonhee</td>
+						<td >${userId }</td>
 					</tr>
 					<tr class="tr">
 						<td colspan="2">남은 시간</td>
@@ -166,14 +166,14 @@ td {
 				<hr>
 				<table>
 					<tr class="tr">
-						<td colspan="2">입찰  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  건</td>
+						<td colspan="2">입찰  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;건</td>
 						<td>조회 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   회</td>
 						
 
 					</tr>
 					<tr class="tr">
 						<td colspan="2">판매자 아이디</td>
-						<td >leeyeonhee</td>
+						<td >${userId}</td>
 					</tr>
 					<tr class="tr">
 						<td colspan="2">남은 시간</td>

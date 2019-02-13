@@ -18,12 +18,37 @@
 		<result property="rDeleteStatus" column="DELETESTATUS"/>		
 	</resultMap>
 	
+	<!-- 게시글 조회 -->
 	<select id="selectMessage" resultMap="myPageResultSet" parameterType="java.lang.String">
-		SELECT B.BOARDNO, B.TITLE, B.BOARDCONTENT, B.MEMBERNO, B.WRITEDAY, B.DELETESTATUS, B.BOARDSTATUS, B.REPLYSTATUS, R.COMMENTNO, R.WRITEDAY, R.CONTENTS, R.DELETESTATUS 
+		SELECT B.BOARDNO, B.TITLE, B.BOARDCONTENT, B.MEMBERNO, B.WRITEDAY, B.DELETESTATUS, B.BOARDSTATUS, B.REPLYSTATUS 
 		FROM BOARD B 
-		JOIN REPLY R ON(B.BOARDNO = R.BOARDNO) 
 		WHERE B.DELETESTATUS = 'N' AND B.BOARDSTATUS = 'ONEBYONE' AND B.MEMBERNO = #{memberNo}
 		ORDER BY BOARDNO DESC
 	</select>
 	
+	<!-- 댓글 삭제 -->
+	<delete id="deleteReply" parameterType="int">
+		DELETE FROM REPLY 
+		WHERE BOARDNO = #{deleteNum}
+	</delete>
+	
+	<!-- 게시글 삭제 -->
+	<delete id="deleteMessage" parameterType="int">
+		DELETE FROM BOARD 
+		WHERE BOARDNO = #{deleteNum} AND BOARDSTATUS = 'ONEBYONE'
+	</delete>
+	
+	<!-- 게시글 등록 -->
+	<insert id="insertMessage" parameterType="MyPageBoard">
+		INSERT INTO BOARD
+		VALUES(BN_SEQ.NEXTVAL, #{title}, #{boardContents}, #{memberNo}, SYSDATE, 'N', 'ONEBYONE', 'N')
+	</insert>
+	
+	<!-- 쪽지제목으로 게시글 조회 -->
+	<select id="searchMessage" resultMap="myPageResultSet" parameterType="java.lang.String">
+		SELECT * FROM BOARD
+		WHERE DELETESTATUS = 'N' 
+		AND TITLE LIKE '%' || #{searchTitle} || '%' 
+		AND BOARDSTATUS = 'ONEBYONE' 
+	</select>
 </mapper>

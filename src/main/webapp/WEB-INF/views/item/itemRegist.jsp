@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
 <!-- jquery -->
 <script
@@ -59,15 +61,27 @@
 </head>
 <body>
 	<br>
-
+	
 	<!-- navigation - header.jsp -->
 	<!-- 해당 페이지를 view_template파일과 다른 경로에 만들었다면 include path를 수정해야합니 -->
 	<div class="ui grid">
 		<div class="two wide column"></div>
 		<div class="twelve wide column" style="margin-top: 30px;">
+		
+		<c:if test="${ empty sessionScope.loginUser }">
+		<form action="${ contextPath }/loginView.it" method="post">
+		<script>
+		alert("로그인을 해주세요!")
+		</script>
+		
+		</form>	
+		</c:if>
+			<c:if test="${!empty sessionScope.loginUser }">
+			
 			<h1>온라인 물품 등록</h1>
 			<hr>
-
+			<form action="insertItem.it" method="post" encType="multipart/form-data">
+			<input type="hidden" name="mid" value="${ sessionScope.loginUser.mid}">
 			<h2>카테고리 선택</h2>
 			<br> <br>
 				<table class="ui striped table">
@@ -84,8 +98,14 @@
 			
 			<br> <br>
 			<div class="scroll">
-				-선택하세요- <br> 미술 <br> 음악앨범 <br> 의류 <br> 생활가전 <br>
-				비디오게임 <br> 피규어 <br> 레고
+				-선택하세요- 
+				<br> 미술 
+				<br> 음악앨범 
+				<br> 의류 
+				<br> 생활가전 
+				<br> 비디오게임
+				<br> 피규어
+				<br> 레고
 
 			</div>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -107,21 +127,21 @@
 					<tbody>
 					<tr>
 						<td>물품 제목</td>
-						<td><input type="text" placeholder="내용을 입력해주세요"></td>
+						<td><input type="text" name="itemName" placeholder="내용을 입력해주세요"></td>
 						
 					</tr>
 				
 			
 					<tr class="top aligned">
 						<td>물품설명</td>
-						<td><input type="text" placeholder="내용을 입력해주세요"></td>
+						<td><input type="text"  name="detail" placeholder="내용을 입력해주세요"></td>
 						
 						
 					</tr>
 					
 					<tr>
 						<td>원산지</td>
-						<td><input type="text" placeholder="내용을 입력해주세요"></td>
+						<td><input type="text" name="origin" placeholder="내용을 입력해주세요"></td>
 						
 						
 					</tr>
@@ -129,7 +149,7 @@
 						<td>이미지등록</td>
 						<td>이미지를 넣어주세요<div><br><br><br><br><br><br><br><br><br><br><br>
 						
-						</div><input type="file" placeholder="내용을 입력해주세요"></td>
+						</div><input type="file" name="photo" placeholder="내용을 입력해주세요"></td>
 						
 						
 					</tr>
@@ -143,12 +163,23 @@
 				<tr>
 					<td>경매 방법 선택</td>
 					<td>
-						<select>
-							<option>선택하세요</option>
-							<option>최고가 밀봉경매</option>
-							<option>다운경매</option>
-						</select>
+						
+  							<select name="auctionCode">
+    						<option value="선택">선택해주세요</option>
+    						<option value="다운경매">다운경매</option>
+    						<option value="최고가밀봉경매">최고가밀봉경매</option>
+    						<option value="행운경매">행운경매</option>
+  								</select>
+					
 					</td>
+				</tr>
+				<tr>
+					<td>시작가</td>
+					<td><input type="text" name="startPrice"></td>
+				</tr>
+				<tr>
+					<td>입찰단위</td>
+					<td><input type="text" name="bidUnit"></td>
 				</tr>
 			
 			</tbody>
@@ -160,15 +191,14 @@
 		<hr>
 		<table class="ui striped table">
 		<tbody>
-			<tr>
-				<td>배송 방법 </td>
-				<td><input type="radio" name="trans">택배 <input type="radio" name="trans">우편 </td>
-			</tr>
+			
 			<tr>
 				<td>비용부담</td>
-				<td><input type="radio" name="pay">선결제&nbsp;&nbsp;<input type="radio" name="pay">무료
+				<td><input type="radio" name="deliveryPay" value="선결제" id="pre">선결제&nbsp;&nbsp;
+				<input type="radio" name="deliveryPay" value="착불" id="after">착불
+				&nbsp;&nbsp;<input type="radio" name="deliveryPay" id="free" value="무료">무료
 				<br>
-				선결제 비용 <input type="text">원 &nbsp;&nbsp;&nbsp;착불비용<input type="text">원
+				선결제 비용 <input type="text" id="preP">원 &nbsp;&nbsp;&nbsp;착불비용<input type="text" id="afterP">원
 				</td>
 			</tr>
 			
@@ -178,19 +208,40 @@
 		</table>
 		
 		<div class="confirm" align="center">
-		<button class="ui primary button">
+		<button type="submit"class="ui primary button">
  			 확인
 		</button>
 		<button class="ui button">
   		취소
 		</button>
 		</div >
-	
+	</form>
+	</c:if>
 			<!-- 내용 넣기 -->
 		</div>
 		<div class="two wide column"></div>
 	</div>
-
+	
+	<script>
+	
+	$("input:radio[name=deliveryPay]").change(function(){
+		
+		if($("#pre:checked").val()=="Y") {
+			$("#afterP").prop("disabled",true);
+			$("#preP").prop("disabled",false);
+			
+		}else if($("#after:checked").val()=='Y') {
+			$("#preP").prop("disabled",true);
+			$("#afterP").prop("disabled",false);
+		}else if($("#free:checked").val()=='Y') {
+			$("#preP").prop("disabled",true);
+			$("#afterP").prop("disabled",true);
+			
+		}
+		
+	});
+	
+	</script>
 	<!-- footer -->
 </body>
 </html>

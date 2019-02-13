@@ -10,4 +10,8 @@ public interface MemberService {
 
 	int idDuplicationCheck(String userId);
 
+	int emailDuplicationCheck(String email);
+
+	int insertKakaoUser(Member m);
+
 }

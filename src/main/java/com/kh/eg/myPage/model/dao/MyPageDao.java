@@ -8,6 +8,16 @@ import com.kh.eg.myPage.model.vo.MyPageBoard;
 
 public interface MyPageDao {
 
+	//1대1 게시글들 조회
 	ArrayList<MyPageBoard> selectMessage(SqlSessionTemplate sqlSession, String memberNo);
+
+	//1대1 게시글 삭제
+	int deleteMessage(SqlSessionTemplate sqlSession, int[] deleteNum);
+
+	//1대1 게시글 등록
+	int insertMessage(SqlSessionTemplate sqlSession, MyPageBoard myPage);
+
+	//1대1 게시글 검색
+	ArrayList<MyPageBoard> searchMessage(SqlSessionTemplate sqlSession, String searchTitle, String searchTitle2);
 	
 }
