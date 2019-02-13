@@ -265,7 +265,7 @@
 		<br>
 		<h5>쪽지 0건</h5>
 		<button class="mpMessageDivBtn" onclick="location.href='userMessage.mp'">나의 쪽지함</button><br>
-		<button class="mpMessageDivBtn" onclick="location.href='userInfoUpdate.mp'">나의정보수정</button>
+		<button class="mpMessageDivBtn" onclick="location.href='userInfoUpdatePage.mp'">나의정보수정</button>
 	</div>
 	<div class="mpMoneyDiv">
 		<br>
