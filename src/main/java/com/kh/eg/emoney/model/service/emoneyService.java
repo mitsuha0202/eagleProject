@@ -10,4 +10,6 @@ public interface emoneyService {
 	
 	int insertMemberCash(emoney em);
 	
+	emoney selectMemberNowCash(emoney em);
+	
 }

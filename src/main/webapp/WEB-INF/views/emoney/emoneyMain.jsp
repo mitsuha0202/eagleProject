@@ -19,7 +19,8 @@
 		<div class="title"><h1>사이버머니</h1></div>
 		<br><br><br>
 		<tr>
-			<td>보유 금액 : 10000원</td>
+			<td>보유 금액 : </td>
+			<td></td>
 		</tr>
 		<tr>
 			<button onclick="location.href='charge.em'">충전하기</button>			

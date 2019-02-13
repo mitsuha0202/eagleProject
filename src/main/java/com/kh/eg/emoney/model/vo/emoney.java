@@ -19,7 +19,7 @@ public class emoney implements java.io.Serializable {
 	private String payStatus;
 	private String refundNo;
 
-	private emoney() {}
+	public emoney() {}
 
 	public String getUseNo() {
 		return useNo;

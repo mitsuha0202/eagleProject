@@ -17,22 +17,32 @@ private emoneyService es;*/
 	public String emoneyMain() {
 		return "emoney/emoneyMain";
 	}
-	//결제하기 버튼 클릭시 결제방법 선택 페이지
+	//결제하기 버튼 클릭시 결제 페이지
 	@RequestMapping("charge.em")
 	public String charge() {
 		return "emoney/charge";
 	}
-	//결제내역 리스트 페이지
+	
+	
+	
+	/*//결제내역 리스트 페이지
 	@RequestMapping("emoneyList.em")
 	public String emoneyList() {
 		return "emoney/emoneyList";
-	}
+	}*/
+	
 	//충전api 페이지
 	@RequestMapping("chargeAPI.em")
-	public String API() {
+	public String chargeAPI() {
 		return "emoney/chargeAPI";
 	}
 	
+	/*//API에 전송할 값 넣는 메소드
+	@RequestMapping("saveCharge.em")
+	public String saveCharge() {
+		return "emoney/charge";
+	}
+	*/
 	
 	
 	

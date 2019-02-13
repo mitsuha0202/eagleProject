@@ -27,6 +27,13 @@ public class emoneyDaoImpl implements emoneyDao{
 		return 0;
 	}
 
+	//현재 유저의 금액 출력하는 메소드
+	@Override
+	public emoney selectMemberNowCash(SqlSessionTemplate sqlSession, emoney em) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 	
 }
