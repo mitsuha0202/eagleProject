@@ -128,15 +128,15 @@
 	<!-- 검색부분 div -->
 	<div class="searchArea">
 		<div class="selectSize">
-			<select class="form-control">
-	  		<option>쪽지내용</option>
-	  		<option>보낸사람</option>
+			<select class="form-control" id="searchId">
+	  		<option>쪽지제목</option>
+	  		<option>답변여부</option>
 			</select>
 		</div>
 		<div class="inputSize">
-			<input class="form-control" id="searchContent" placeholder="내용을 입력해주세요.">
+			<input class="form-control" id="searchContent" placeholder="검색할 내용을 입력해주세요.">
 		</div>
-		<button class="searchBtn">검색</button>
+		<button class="searchBtn" onclick="search();">검색</button>
 	</div>
 	
 	<!-- 검색결과 테이블 -->
@@ -149,6 +149,7 @@
             <td class="firstTd"><h5 class="content">보낸날짜</h5></td>
             <td class="firstTd"><h5 class="content">답변여부</h5></td>
          </tr>
+         <c:if test="${ !empty list }">
          <c:forEach var="b" items="${ list }">
             <tr>
                <td><input type="checkbox" class="checkChild"></td> 
@@ -163,6 +164,12 @@
                </c:if>                  
             </tr>
          </c:forEach>
+         </c:if>
+         <c:if test="${ empty list }">
+         	<tr>
+         		<td colspan="5"><h5>검색된 내용이 없습니다.</h5></td>
+         	</tr>
+         </c:if>
       </table>
    </div>
 	
@@ -197,8 +204,14 @@
    	            var docNum = td.eq(1).text();
    	            sendArr.push(docNum);
    	            
- 				location.href="deleteMessage.mp?deleteNum=" + sendArr;
+ 				location.href="deleteMessage.mp?deleteNum=" + sendArr +",";
    		 	}); 		 	
+		}
+   		
+   		function search() {
+			var search = $("#searchId").val();
+			var searchTitle = $("#searchContent").val();
+			location.href = "searchMessage.mp?search="+search+"&searchTitle="+searchTitle;
 		}
    </script>
 </body>
