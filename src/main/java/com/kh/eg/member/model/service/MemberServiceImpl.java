@@ -51,4 +51,12 @@ private DataSourceTransactionManager transactionManager;
 		
 		return result;
 	}
+
+	@Override
+	public int insertKakaoUser(Member m) {
+		
+		int result = md.insertSnsUser(sqlSession, m);
+		
+		return result;
+	}
 }

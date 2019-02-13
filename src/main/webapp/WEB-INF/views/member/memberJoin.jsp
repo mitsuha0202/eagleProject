@@ -18,6 +18,8 @@
    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+   <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e5d140ada9ab99588e987fbd8b384d3a&libraries=services"></script>
 <style>
 	h1 {
 	  margin: 0;
@@ -48,7 +50,7 @@
 	.column{
      	height: 100%;
      }
-     #emailCheck{
+/*      #emailCheck{
      	display:none;
      }
      #idCkNum{
@@ -56,7 +58,7 @@
      }
      #emailCkNum{
      	display:none;
-     }
+     } */
 </style>
 </head>
 <body>
@@ -122,14 +124,20 @@
 					  	</td>
 					  </tr>
 					  	   <tr>
-					    <td colspan="2"><label align="left" style="font-size: 1.5em;">* 주소</label></td>
+					     <td colspan="2"><label align="left" style="font-size: 1.5em;">* 주소</label></td>
+					    
 					 </tr>
 					 <tr>
-					 	<td colspan="2">
+					 	<!-- <td colspan="2">
 						  <div class="field">
 						    <input type="text" name="address" id="address" placeholder="OO시 OO구 OO동" style="height:45px">
 						  </div>
-					  	</td>
+					  	</td> -->
+					  	<td><input type="text" id="sample5_address" placeholder="주소" name="address" style="height: 46px;"></td>
+					    <td><button class="ui button" type="button" onclick="return sample5_execDaumPostcode()" value="주소 검색">주소 검색</button><br></td>
+					    <tr>
+					    	<td colspan="2"><div id="map" style="width:600px;height:300px;margin-top:10px;display:none"></div></td>
+					    </tr> 
 					  </tr>
 					  <tr>
 					    <td colspan="2"><label align="left" style="font-size: 1.5em;">* 이메일</label></td>
@@ -151,13 +159,11 @@
 						    <input type="text" name="confirm" placeholder="인증번호를 입력해주세요." id="emailCode" style="height:45px">
 						  </div>
 					  	</td>
-					  	 <td><button class="ui button" type="button" onclick="emailConfirm();" id="emailConfirmBtn">확인</button></td>
+					  	 <td><button class="ui button" type="button" onclick="return emailConfirm();" id="emailConfirmBtn">확인</button></td>
 					  	 
 					  </tr>
 				</table>
-				<button id="emailCheck"></button>
-				<button id="idCkNum"></button>
-				<button id="emailCkNum"></button>
+
 
 				<br>
 				<div class="btnAtra" align="center">
@@ -166,7 +172,9 @@
 				</div>
 			</form>
 		</div>
-		
+				<div id="emailCheck"><div>
+				<div id="idCkNum"><div>
+				<div id="emailCkNum"><div>
 		<!-- 내용 넣기 -->
 	        </div>
 	        <div class = "two wide column"></div>
@@ -240,6 +248,7 @@
 					alert("error : "+ error)
 				}
 			});
+			return false;
 		}
 	</script>
 	<script>
@@ -253,7 +262,7 @@
 			}else{
 				alert("인증번호가 올바르지 않습니다.");
 			}
-			
+			return false;
 		}
 	</script>
 	<script>
@@ -263,21 +272,22 @@
 			var userPwd2 = $("#userPwd2").val();
 			var userName = $("#userName").val();
 			var phone = $("#phone").val();
-			var address = $("#address").val();
+			var sample5_address = $("#sample5_address").val();
 			var email = $("#email").val();
 			var idCkNum = $("#idCkNum").html();
 			var emailCkNum = $("#emailCkNum").html();
-			var idCheckBtn = $("#idCheckBtn").text();
-			var emailConfirmBtn=$("#emailConfirmBtn").text();
+			var idCheckBtn = $("#idCheckBtn").html();
+			var emailConfirmBtn=$("#emailConfirmBtn").html();
 			console.log(userId);
 			console.log("userPwd : "+userPwd);
 			console.log("userPwd2 : "+userPwd2);
 			console.log(userName);
 			console.log(phone);
-			console.log(address);
+			console.log(sample5_address);
 			console.log(email);
 			console.log(idCheckBtn);
 			console.log(emailConfirmBtn);
+			console.log(emailConfirmBtn == '확인');
 			if(userId == ""){
 				alert("아이디를 입력해주세요");
 				$("#userId").focus();
@@ -290,7 +300,7 @@
 				alert("비밀번호를 입력해주세요");
 				$("#userPwd").focus();
 				return false;
-			}else if(userPwd === userPwd2){
+			}else if(userPwd != userPwd2){
 				alert("비밀번호가 일치하지 않습니다.");
 				$("#userPwd").focus();
 				return false;
@@ -302,7 +312,7 @@
 				alert("연락처를 입력해주세요.")
 				$("#phone").focus();
 				return false;
-			}else if(address == ""){
+			}else if(sample5_address == ""){
 				alert("주소를 입력해주세요");
 				$("#address").focus();
 				return false;
@@ -310,7 +320,7 @@
 				alert("이메일을 입력해주세요.")
 				$("#email").focus();
 				return false;
-			}else if(emailConfirmBtn == "확인"){
+			}else if(emailConfirmBtn == '확인'){
 				alert("이메일 인증을 완료해주세요.");
 				$("#email").focus();
 				return false;
@@ -323,5 +333,54 @@
 			
 		}
 	</script>
+	
+	<script>
+    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+        mapOption = {
+            center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
+            level: 5 // 지도의 확대 레벨
+        };
+
+    //지도를 미리 생성
+    var map = new daum.maps.Map(mapContainer, mapOption);
+    //주소-좌표 변환 객체를 생성
+    var geocoder = new daum.maps.services.Geocoder();
+    //마커를 미리 생성
+    var marker = new daum.maps.Marker({
+        position: new daum.maps.LatLng(37.537187, 127.005476),
+        map: map
+    });
+
+
+    function sample5_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                var addr = data.address; // 최종 주소 변수
+
+                // 주소 정보를 해당 필드에 넣는다.
+                document.getElementById("sample5_address").value = addr;
+                // 주소로 상세 정보를 검색
+                geocoder.addressSearch(data.address, function(results, status) {
+                    // 정상적으로 검색이 완료됐으면
+                    if (status === daum.maps.services.Status.OK) {
+
+                        var result = results[0]; //첫번째 결과의 값을 활용
+
+                        // 해당 주소에 대한 좌표를 받아서
+                        var coords = new daum.maps.LatLng(result.y, result.x);
+                        // 지도를 보여준다.
+                        mapContainer.style.display = "block";
+                        map.relayout();
+                        // 지도 중심을 변경한다.
+                        map.setCenter(coords);
+                        // 마커를 결과값으로 받은 위치로 옮긴다.
+                        marker.setPosition(coords)
+                    }
+                });
+            }
+        }).open();
+        return false;
+    }
+</script>
 </body>
 </html>
