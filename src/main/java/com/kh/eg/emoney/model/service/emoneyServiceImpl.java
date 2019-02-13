@@ -17,7 +17,11 @@ public class emoneyServiceImpl implements emoneyService {
 	//결제시 결제내역정보 인설트하는 메소드
 	@Override
 	public int insertEmoney(emoney em) {
-		// TODO Auto-generated method stub
+		
+		
+		
+		
+		
 		return 0;
 	}
 
@@ -33,6 +37,13 @@ public class emoneyServiceImpl implements emoneyService {
 	public int insertMemberCash(emoney em) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	
+	//현재 유저의 보유금액 출력 메소드
+	@Override
+	public emoney selectMemberNowCash(emoney em) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

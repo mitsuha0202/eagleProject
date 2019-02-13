@@ -136,4 +136,11 @@
     <servlet-name>SelectMemberList</servlet-name>
     <url-pattern>/selectList</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>saveChargeServlet</display-name>
+    <servlet-name>saveCharge</servlet-name>
+    <servlet-class>com.kh.eg.emoney.controller.saveCharge</servlet-class>
+  </servlet>
+ 
 </web-app>

@@ -12,4 +12,8 @@ public interface emoneyDao {
 	
 	int insertMemberCash(SqlSessionTemplate sqlSession, emoney em);
 	
+	emoney selectMemberNowCash(SqlSessionTemplate sqlSession, emoney em);
+	
+	
+	
 }
