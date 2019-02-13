@@ -2,6 +2,7 @@ package com.kh.eg.myPage.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,14 +40,8 @@ import com.kh.eg.myPage.model.vo.MyPageBoard;
 		   @RequestMapping("userMessage.mp")
 		   public String userMessagePage(Model model, Member m, HttpSession session) {
 		      m = (Member)session.getAttribute("loginUser");
-		      String memberNo = "";
-		      ArrayList<MyPageBoard> list = null;
-		      if(m != null) {
-		    	  memberNo= m.getMid();
-		      }
-		      if(!memberNo.equals("")) {
-		    	  list = ms.selectMessage(memberNo);
-		      }
+		      String memberNo= m.getMid();
+		      ArrayList<MyPageBoard> list = ms.selectMessage(memberNo);
 		      if(list != null) {
 		         model.addAttribute("list", list);
 		         return "myPage/usesrMessagePage";
@@ -112,7 +107,13 @@ import com.kh.eg.myPage.model.vo.MyPageBoard;
 		
 		//1대1 문의 삭제 
 		@RequestMapping("deleteMessage.mp")
-		public String deleteMessage(@RequestParam String[] deleteNum, Model model) {
+		public String deleteMessage(HttpServletRequest request, Model model) {
+			String[] delete = request.getQueryString().split(",");
+			String[] deleteNum = new String[delete.length];
+			for(int i=0; i<deleteNum.length; i++) {
+				deleteNum[i] = delete[i].substring(delete[i].length()-1, delete[i].length());
+			}
+			
 			int[] num = new int[deleteNum.length];
 			for(int i=0; i<deleteNum.length; i++) {
 				num[i] = Integer.parseInt(deleteNum[i]);
@@ -122,6 +123,32 @@ import com.kh.eg.myPage.model.vo.MyPageBoard;
 				return "redirect:userMessage.mp";
 			}else {
 				model.addAttribute("msg", "1대1문의글 삭제 실패");
+				return "common/errorPage";
+			}
+		}
+		
+		//1대1 문의 작성
+		@RequestMapping("insertMessage.mp")
+		public String insertMessage(Model model, MyPageBoard myPage) {
+			int result = ms.insertMessage(myPage);
+	
+			if(result >0) {
+				return "redirect:userMessage.mp";
+			}else {
+				return "common/errorPage";
+			}
+		}
+		
+		//1대1 문의 검색
+		@RequestMapping("searchMessage.mp")
+		public String searchMessage(@RequestParam(value="search") String search, @RequestParam(value="searchTitle") String searchTitle, Model model) {
+			System.out.println("제목: " + searchTitle);
+			ArrayList<MyPageBoard> list = ms.searchMessage(search, searchTitle);
+			if(list != null) {
+				model.addAttribute("list", list);
+				return "myPage/usesrMessagePage";
+			}else {
+				model.addAttribute("msg", "검색조회 실패");
 				return "common/errorPage";
 			}
 		}

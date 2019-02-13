@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,16 +39,25 @@
 	.writeForm{
 		width: 1000px;
 	}
-	#form{
-		width: 500px;
+	#form1{
+		width: 800px;
+		position: absolute;
+		top: 20px;
+	}
+	#form2{
+		width: 800px;
+		position: absolute;
+		top: 60px; 
 	}
 	#formTextArea{
-		width: 500px;
+		width: 800px;
 		height: 140px;
+		position: absolute;
+		top: 100px;
 	}
 	.successBtn{
 		position: absolute;
-		top: 770px;
+		top: 300px;
 		left: 550px;
 		text-align: center;
 		background-color: #205181;
@@ -60,7 +70,7 @@
 	}
 	.cancelBtn{
 		position: absolute;
-		top: 770px;
+		top: 300px;
 		left: 750px;
 		text-align: center;
 		background-color: #205181;
@@ -91,22 +101,14 @@
 	</div>
 	
 	<div class="writeFormDiv">
-		<table class="writeForm">
-			<tr>
-				<td>제목</td>
-				<td><input class="form-control" id="form"></td>
-			</tr>
-			<tr>
-				<td>작성자</td>
-				<td><input class="form-control" value="" id="form"></td>
-			</tr>
-			<tr>
-				<td>내용</td>
-				<td><textarea class="form-control" id="formTextArea"></textarea></td>
-			</tr>
-		</table>
+		<form action="insertMessage.mp" method="post">
+				<input class="form-control" id="form1" name="title" placeholder="제목을 입력해주세요.">
+				<input class="form-control" value="${ sessionScope.loginUser.userName  }님" id="form2" name="name" readonly="readonly">
+				<input type="hidden" name="memberNo" value="${ sessionScope.loginUser.mid  }">
+				<textarea class="form-control" id="formTextArea" name="boardContents" placeholder="내용을 입력해주세요."></textarea>
+				<button class="successBtn" type="submit">등록</button>
+				<button class="cancelBtn" type="reset" onclick="location.href='userMessage.mp'">취소</button>
+		</form>
 	</div>
-	<button class="successBtn" onclick="location.href='userMessage.mp'">등록</button>
-	<button class="cancelBtn" onclick="location.href='userMessage.mp'">취소</button>
 </body>
 </html>
