@@ -72,7 +72,7 @@ input:-ms-input-placeholder {
 	color: #a8a8a8;
 }
 
-.Board {
+.board {
 	cursor: pointer;
 }
 </style>
@@ -123,7 +123,7 @@ input:-ms-input-placeholder {
 		<div style="cursor: pointer; width: 150px; font-size: 20px"
 			onclick="location.href='itemRegist.it'">물품등록</div>
 
-		<div style="width: 150px; font-size: 20px">자유게시판</div>
+		<div style="width: 150px; font-size: 20px" class="board" onclick="location='goBoard.bo'">자유게시판</div>
 		<div style="width: 150px; font-size: 20px"
 			onclick="location.href='emoneyMain.em'">사이버머니 결제</div>
 

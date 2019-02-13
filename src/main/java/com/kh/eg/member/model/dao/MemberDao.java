@@ -14,4 +14,6 @@ public interface MemberDao {
 
 	int emailDuplicationCheck(SqlSessionTemplate sqlSession, String email);
 
+	int insertSnsUser(SqlSessionTemplate sqlSession, Member m);
+
 }
