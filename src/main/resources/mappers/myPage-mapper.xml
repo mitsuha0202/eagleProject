@@ -25,5 +25,12 @@
 		WHERE B.DELETESTATUS = 'N' AND B.BOARDSTATUS = 'ONEBYONE' AND B.MEMBERNO = #{memberNo}
 		ORDER BY BOARDNO DESC
 	</select>
-	
+	<delete id="deleteReply" parameterType="int">
+		DELETE FROM REPLY 
+		WHERE BOARDNO = #{deleteNum}
+	</delete>
+	<delete id="deleteMessage" parameterType="int">
+		DELETE FROM BOARD 
+		WHERE BOARDNO = #{deleteNum} AND BOARDSTATUS = 'ONEBYONE'
+	</delete>
 </mapper>

@@ -168,7 +168,7 @@
 	
 	<!-- 버튼 div -->
 	<div class="btnArea">
-		<button class="deleteBtn" onclick="return listDelete();">삭제</button>
+		<button class="deleteBtn" onclick="listDelete();">삭제</button>
 		<button class="queryBtn" onclick="location.href='onebyone.mp'">문의하기</button>
 		<button class="closeBtn" onclick="location.href='myPageMain.mp'">닫기</button>
 	</div>
@@ -197,21 +197,8 @@
    	            var docNum = td.eq(1).text();
    	            sendArr.push(docNum);
    	            
- 				console.log(sendArr);
-   		 	});
-	 		$.ajax({
-	 			url:"duplicationCheck.me",
-	 			type:"post",
-	 			data:{deleteNumList:sendArr},
-	 			success:function(data){
-	 				alert("삭제가 완료되었습니다.");	 					
-	 			},
-	 			/* status는 에러의 상태를 나타냄 */
-	 			error:function(status){
-	 				console.log(status);
-	 			}
-	 		});
-	 		return false;	   		 	
+ 				location.href="deleteMessage.mp?deleteNum=" + sendArr;
+   		 	}); 		 	
 		}
    </script>
 </body>
