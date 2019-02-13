@@ -3,6 +3,7 @@ package com.kh.eg.item.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.eg.attachment.model.vo.Attachment;
 import com.kh.eg.common.CommonUtils;
 import com.kh.eg.item.model.service.ItemService;
 import com.kh.eg.item.model.vo.Item;
@@ -34,6 +36,10 @@ public class ItemController {
 	public String itemRegist() {
 		return "item/itemRegist";
 	}
+	@RequestMapping("loginView.it")
+	public String log() {
+		return "member/memberLogin";
+	}
 	
 	
 	
@@ -45,13 +51,19 @@ public class ItemController {
 		
 		String root=request.getSession().getServletContext().getRealPath("resources");
 		Member m=new Member();
-		/*Attachment att=new Attachment();*/
+		Attachment att=new Attachment();
 		m.setUserId("eagle01");
 		String filePath=root+"\\uploadFiles";
 		
+		System.out.println("item+ " +it.getMid());
 		String originFileName=photo.getOriginalFilename();
 		String ext=originFileName.substring(originFileName.lastIndexOf("."));
 		String changeName=CommonUtils.getRandomString();
+		
+		Item item=new Item();
+		item.setAuctionCode(request.getParameter("auctionCode"));
+		System.out.println(item.getAuctionCode());
+		
 		
 		HashMap<String,Object> hmap=new HashMap<String, Object>();
 		hmap.put("m", m);
@@ -62,8 +74,8 @@ public class ItemController {
 		try {
 			photo.transferTo(new File(filePath+"\\" +changeName+ext));
 			System.out.println("contr");
-			//int result = is.insertItem(hmap);
-			int result=is.insertItem(it);
+			int result = is.insertItem(hmap);
+			//int result=is.insertItem(it);
 			System.out.println(result);
 			return "redirect:goMain.it";
 		} catch (Exception e) {
