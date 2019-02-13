@@ -202,7 +202,7 @@
 			                    alert("아이디가 존재합니다. 다른 아이디를 입력해주세요.");     
 			                } else {
 			                	alert("사용가능한 아이디입니다.")
-			                    var idCheckBtn = $("#idCheckBtn").text("확인 완료").attr("disabled",true);
+			                    var idCheckBtn = $("#idCheckBtn").text("확인완료").attr("disabled",true);
 			                	var idCkNum =$("#idCkNum").text(1);        
 			                }
 			            },
@@ -267,14 +267,22 @@
 			var email = $("#email").val();
 			var idCkNum = $("#idCkNum").html();
 			var emailCkNum = $("#emailCkNum").html();
-			var idCheckBtn = $("#idCheckBtn").val();
-			var emailConfirmBtn=$("#emailConfirmBtn").val();
-			
+			var idCheckBtn = $("#idCheckBtn").text();
+			var emailConfirmBtn=$("#emailConfirmBtn").text();
+			console.log(userId);
+			console.log("userPwd : "+userPwd);
+			console.log("userPwd2 : "+userPwd2);
+			console.log(userName);
+			console.log(phone);
+			console.log(address);
+			console.log(email);
+			console.log(idCheckBtn);
+			console.log(emailConfirmBtn);
 			if(userId == ""){
 				alert("아이디를 입력해주세요");
 				$("#userId").focus();
 				return false;
-			}else if(idCheckBtn == "확인 완료" ){
+			}else if(idCheckBtn == 'ID중복확인' ){
 				alert("아이디 중복확인을 완료해주세요.");
 				$("#userId").focus();
 				return false;
@@ -282,7 +290,7 @@
 				alert("비밀번호를 입력해주세요");
 				$("#userPwd").focus();
 				return false;
-			}else if(userPwd == userPwd2){
+			}else if(userPwd === userPwd2){
 				alert("비밀번호가 일치하지 않습니다.");
 				$("#userPwd").focus();
 				return false;
@@ -302,7 +310,7 @@
 				alert("이메일을 입력해주세요.")
 				$("#email").focus();
 				return false;
-			}else if(emailCkNum == 1){
+			}else if(emailConfirmBtn == "확인"){
 				alert("이메일 인증을 완료해주세요.");
 				$("#email").focus();
 				return false;
