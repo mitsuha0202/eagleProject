@@ -68,14 +68,10 @@
 		<div class="two wide column"></div>
 		<div class="twelve wide column" style="margin-top: 30px;">
 		
-		<c:if test="${ empty sessionScope.loginUser }">
-		<form action="${ contextPath }/loginView.it" method="post">
-		<script>
-		alert("로그인을 해주세요!")
-		</script>
 		
-		</form>	
-		</c:if>
+		
+		
+		
 			<c:if test="${!empty sessionScope.loginUser }">
 			
 			<h1>온라인 물품 등록</h1>
@@ -166,9 +162,9 @@
 						
   							<select name="auctionCode">
     						<option value="선택">선택해주세요</option>
-    						<option value="다운경매">다운경매</option>
-    						<option value="최고가밀봉경매">최고가밀봉경매</option>
-    						<option value="행운경매">행운경매</option>
+    						<option value="AC003">다운경매</option>
+    						<option value="AC001">최고가밀봉경매</option>
+    						<option value="AC002">행운경매</option>
   								</select>
 					
 					</td>

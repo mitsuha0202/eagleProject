@@ -8,6 +8,7 @@
 		<typeAlias type="com.kh.eg.member.model.vo.Member" alias="Member"/>
 		<typeAlias type="com.kh.eg.myPage.model.vo.MyPageBoard" alias="MyPageBoard"/>
 		<typeAlias type="com.kh.eg.item.model.vo.Item" alias="Item"/>
+		<typeAlias type="com.kh.eg.attachment.model.vo.Attachment" alias="Attachment"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mappers/member-mapper.xml"/>

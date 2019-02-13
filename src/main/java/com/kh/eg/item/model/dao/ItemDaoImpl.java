@@ -19,5 +19,18 @@ public class ItemDaoImpl implements ItemDao {
 		System.out.println("다오");
 		return sqlSession.insert("Item.insertItem",hmap);
 	}
+
+	@Override
+	public int insertAttachment(SqlSessionTemplate sqlSession, HashMap<String, Object> hmap) {
+		System.out.println("attachmentDao");
+		
+		return sqlSession.insert("Item.insertAttachment",hmap);
+	}
+
+	@Override
+	public int selectItemNoNextval(SqlSessionTemplate sqlSession) {
+		
+		return sqlSession.selectOne("Item.selectItemNo");
+	}
 	
 }

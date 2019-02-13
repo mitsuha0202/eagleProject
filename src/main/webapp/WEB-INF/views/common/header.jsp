@@ -119,10 +119,16 @@ input:-ms-input-placeholder {
 
 		<div style="cursor: pointer; width: 150px; font-size: 20px"
 			onclick="location.href='auctionCategory.au'">경매하기</div>
-
+		
+		
+		<c:if test="${ empty sessionScope.loginUser }">
+		<div style="cursor: pointer; width: 150px; font-size: 20px"
+			onclick="alert('로그인을 해주세요'); location.href='loginView.me'">물품등록</div>
+</c:if>
+		<c:if test="${ !empty sessionScope.loginUser }">
 		<div style="cursor: pointer; width: 150px; font-size: 20px"
 			onclick="location.href='itemRegist.it'">물품등록</div>
-
+		</c:if>
 		<div style="width: 150px; font-size: 20px" class="board" onclick="location='goBoard.bo'">자유게시판</div>
 		<div style="width: 150px; font-size: 20px"
 			onclick="location.href='emoneyMain.em'">사이버머니 결제</div>
