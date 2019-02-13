@@ -87,13 +87,19 @@
 				<td>카테고리</td>
 				<td>물품번호</td>
 				<td>물품명</td>
-				<td>현재가</td>
-				<td>입찰여부</td>
+				<td>시작가</td>
 				<td>판매자</td>
 				<td>마감일</td>				
 			</tr>
 			<tr>
+				<td><input type="checkbox" class="form-control" style="width: 17px; height: 17px; margin-left: auto; margin-right: auto;"></td>
 				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>	
 			</tr>
 		</table>
 	</div>

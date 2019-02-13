@@ -19,10 +19,12 @@
 		text-align: center;
 		width: 1355px;
 		height: 50px;
+		cursor: pointer;
 	}
 	/* 테이블 맨윗줄 선 */
 	.firstTd{
 		border-top: 3.5px solid #205181;
+		cursor: pointer;
 	}
 	
 	/* 물품검색 조회리스트 */
@@ -104,7 +106,7 @@
 	     <h5>미수령신고 물품에 대해서 모두</h5><h5>개가 검색되었습니다.</h5>
 	     
 	     <table class="buyStatusTable">
-      
+      		
       <thead>
         <tr>
          <th class="firstTd">물품번호</th>

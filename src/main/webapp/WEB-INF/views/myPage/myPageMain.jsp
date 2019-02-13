@@ -224,6 +224,7 @@
 	    font-size: 16px;
 	    right: 600px;
 	    top: 450px;
+	    cursor: pointer;
 	}
 	
 	/* 판매현황 버튼 */
@@ -239,6 +240,7 @@
 	    font-size: 16px;
 	    right: 600px;
 	    top: 710px;
+	    cursor: pointer;
 	}
 </style>
 </head>
