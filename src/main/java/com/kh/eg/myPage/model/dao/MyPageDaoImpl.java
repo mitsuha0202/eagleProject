@@ -49,7 +49,7 @@ public class MyPageDaoImpl implements MyPageDao{
 	public ArrayList<WishList> selectWishList(SqlSessionTemplate sqlSession, String memberNo) {
 		// TODO Auto-generated method stub
 		return (ArrayList)sqlSession.selectList("MyPage.selectWishList", memberNo);
-
+	}
 
 	//게시글 개수 조회
 	@Override
