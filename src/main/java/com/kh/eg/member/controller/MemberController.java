@@ -45,6 +45,7 @@ private JavaMailSender mailSender;
 		
 		System.out.println("member : "+ m);
 		
+		m.setUserPwd(passwordEncoder.encode(m.getUserPwd()));
 		
 		int result = ms.insertMember(m);
 		

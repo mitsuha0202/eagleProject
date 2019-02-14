@@ -16,4 +16,6 @@ public interface MemberDao {
 
 	int insertSnsUser(SqlSessionTemplate sqlSession, Member m);
 
+	String selectEncPassword(SqlSessionTemplate sqlSession, Member m);
+
 }

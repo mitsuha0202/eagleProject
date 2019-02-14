@@ -50,7 +50,7 @@
 	.column{
      	height: 100%;
      }
-/*      #emailCheck{
+      #emailCheck{
      	display:none;
      }
      #idCkNum{
@@ -58,7 +58,7 @@
      }
      #emailCkNum{
      	display:none;
-     } */
+     } 
 </style>
 </head>
 <body>
