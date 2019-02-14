@@ -40,7 +40,7 @@ public class saveChargeServlet extends HttpServlet {
 		System.out.println("buyer_code : " + buyer_code);
 		//System.out.println("buyer_name : " + buyer_name);
 		System.out.println("amount : " + amount);
-		amount = (int) ((int)amount*0.7);
+		amount = (int) ((int)amount*0.9);
 		emoney em = new emoney();
 		em.setMemberNo(buyer_code);
 		em.setAmount(amount);

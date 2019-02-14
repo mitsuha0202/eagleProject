@@ -10,7 +10,7 @@ import com.kh.eg.emoney.model.service.emoneyService;
 @Controller
 public class emoneyController {
 /*@Autowired
-private emoneyService es;*/ 
+private emoneyService es;*/
 	
 	//사이버머니 결제 메인페이지
 	@RequestMapping("emoneyMain.em")
