@@ -2,13 +2,18 @@ package com.kh.eg.myPage.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.eg.member.model.vo.Member;
 import com.kh.eg.myPage.model.vo.MyPageBoard;
+import com.kh.eg.myPage.model.vo.PageInfo;
 import com.kh.eg.myPage.model.vo.WishList;
 
 public interface MyPageService {
 
+	//전체 게시물 수 조회용 메소드
+	int getListCount(String memberNo); 
+	
 	//1대1 문의 게시글 조회
-	ArrayList<MyPageBoard> selectMessage(String memberNo);
+	ArrayList<MyPageBoard> selectMessage(PageInfo pi, String memberNo);
 	
 	//1대1 문의 게시글 삭제
 	int deleteMessage(int[] num);
@@ -29,5 +34,11 @@ public interface MyPageService {
 	
 	//위시리스트 등록해놓은거 검색
 	ArrayList<WishList> selectWishList(String memberNo);
+	
+	//회원정보 업데이트
+	int updateMember(Member member);
+
+	//회원정보 삭제
+	int deleteUserInfo(String mid);
 	
 }
