@@ -67,10 +67,7 @@
 	<div class="ui grid">
 		<div class="two wide column"></div>
 		<div class="twelve wide column" style="margin-top: 30px;">
-		
-		
-		
-		
+	
 		
 			<c:if test="${!empty sessionScope.loginUser }">
 			
@@ -78,6 +75,7 @@
 			<hr>
 			<form action="insertItem.it" method="post" encType="multipart/form-data">
 			<input type="hidden" name="mid" value="${ sessionScope.loginUser.mid}">
+			
 			<h2>카테고리 선택</h2>
 			<br> <br>
 				<table class="ui striped table">
@@ -143,10 +141,11 @@
 					</tr>
 						<tr>
 						<td>이미지등록</td>
-						<td>이미지를 넣어주세요<div><br><br><br><br><br><br><br><br><br><br><br>
-						
-						</div><input type="file" name="photo" placeholder="내용을 입력해주세요"></td>
-						
+						<td>이미지를 넣어주세요<div>
+						<div class="imgs_wrap"> </div>        			
+							<img id="foo"src="#" style=width:500px; />
+						</div><input  multiple="multiple" type="file"  id="imgInp" name="photo" placeholder="내용을 입력해주세요"></td>
+								
 						
 					</tr>
 				</tbody>
@@ -204,7 +203,7 @@
 		</table>
 		
 		<div class="confirm" align="center">
-		<button type="submit"class="ui primary button">
+		<button type="submit"class="ui primary button" onclick="alert('등록되었습니다')">
  			 확인
 		</button>
 		<button class="ui button">
@@ -217,9 +216,34 @@
 		</div>
 		<div class="two wide column"></div>
 	</div>
-	
-	<script>
-	
+	<script type="text/javascript">
+
+    function readURL(input) {
+
+      if (input.files && input.files[0]) {
+
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+			
+           $('#foo').attr('src', e.target.result); 
+			
+        }
+
+        reader.readAsDataURL(input.files[0]);
+
+      }
+
+    }
+
+
+    $("#imgInp").change(function() {
+
+      readURL(this);
+
+    });
+
+
 	$("input:radio[name=deliveryPay]").change(function(){
 		
 		if($("#pre:checked").val()=="Y") {
@@ -237,7 +261,10 @@
 		
 	});
 	
+	
+	
 	</script>
+	
 	<!-- footer -->
 </body>
 </html>
