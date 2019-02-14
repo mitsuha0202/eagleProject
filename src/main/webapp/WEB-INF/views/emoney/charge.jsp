@@ -40,59 +40,57 @@
 												
 							<label class="btn btn-secondary" style="margin: 2px;">						
 							<input type="radio" name="options" id="r2" autocomplete="off">
-							<button onclick="p1()">5000원</button>
+							<button onclick="p2()">5000원</button>
 							</label>
 							 
 							<label class="btn btn-secondary" style="margin: 2px;"> 
 							<input type="radio" name="options" id="r3" autocomplete="off">
-							<button onclick="p1()">10000원</button>
+							<button onclick="p3()">10000원</button>
 							</label>
 						
 							<label class="btn btn-secondary" style="margin: 2px;"> 
 							<input type="radio"name="options" id="r4" autocomplete="off">
-							<button onclick="p1()">50000원</button>
+							<button onclick="p4()">50000원</button>
 							</label>
 							 
 							<label class="btn btn-secondary" style="margin: 2px;"> 
 							<input type="radio" name="options" id="r5" autocomplete="off">
-							<button onclick="p1()">100000원</button>
+							<button onclick="p5()">100000원</button>
 							</label>
 						</div>
 					</tr>
-					<script>
+					
 					<script>
 					/* ajax를 사용해서 버튼 누를때마다 결제 값이 바뀌도록 하기  */
-				
-					function minusBtn1() {
+					function p1() {
 						var num = Number($("#r1").text());
-						if (num > 0)
-							$("#la1").text(num - 1);
+						
 						
 					}
-					function plusBtn1() {
+					function p2() {
 						var num = Number($("#r2").text());
-						$("#la1").text(num + 1);
+						
 					}
-					function minusBtn2() {
+					function p3() {
 						var num = Number($("#r3").text());
-						if (num > 0)
-							$("#la2").text(num - 1);
+						
 					}
-					function plusBtn2() {
+					function p4() {
 						var num = Number($("#r4").text());
-						$("#la2").text(num + 1);
+						
 					}
-					function minusBtn3() {
+					function p5() {
 						var num = Number($("#r5").text());
-						if (num > 0)
-							$("#la3").text(num - 1);
-					}
+						
+				
+					
+					
 					
 					
 					
 				</script>
 					
-					</script>
+					
 					
 					<br>
 					
@@ -116,25 +114,36 @@
 	<script>
 	$(function(){
 		$("#calcBtn").click(function(){
+			if(){
 			var num1 = Number($("#la1").text());
+			= chargeMoney 				
+			}
+			if(){
 			var num2 = Number($("#la2").text());
+			= chargeMoney				
+			}
+			if(){
 			var num3 = Number($("#la3").text());
+			= chargeMoney
+			}
+			if(){
 			var num4 = Number($("#la4").text());
-			chargeMoney = (num1*5000) + (num2*10000) + (num3*30000) + (num4*50000);
-			console.log(chargeMoney); //합 결과 출력
+			= chargeMoney
+			}
+			
 			/* 숫자 받고 ajax하기  */
 			
 			var haveMoney = Number($("#tdHaveMoney").text());
 			
 			
 			 $.ajax({
-				url : "/dsm/charge.pa",
+				url : "/eg/saveCharge.em",
 				data : {chargeMoney : chargeMoney},
 				type : "post",
 				success : function(data){
-					$("#tdChargeCashMoney").text(data*(0.7));
+					$("#tdChargeCashMoney").text(data*(0.9));
 					$("#tdResultMoney").text(data);
-					$("#afterChargeCash").text(<%= nowCash%> + (data*(0.7))); //50000원 부분을 db에서 현재 내가 보유하고 있는 캐시를 뽑아와서 넣기
+					$("#afterChargeCash").text(<%= nowCash%> + (data*(0.9))); //50000원 부분을 db에서 현재 내가 보유하고 있는 캐시를 뽑아와서 넣기
 					//$("#afterChargeCash").text(Number($("#afterChargeCash").text()) + data);
 					//$("#tdResultMoney").text(data+haveMoney);
 				},
