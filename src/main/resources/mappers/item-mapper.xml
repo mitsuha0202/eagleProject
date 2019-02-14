@@ -35,7 +35,7 @@
 	<insert id="insertItem" >
 	INSERT INTO AuctionItem
 	VALUES(#{item.itemNo},#{item.itemName},#{item.startPrice},#{item.bidUnit},
-	#{item.deliveryPay},#{item.origin}, 'N' ,'1',#{item.mid}, #{item.auctionCode} ,#{item.detail} )
+	#{item.deliveryPay},#{item.origin}, 'N' ,'1',#{item.mid}, #{item.auctionCode} ,#{item.detail},'0')
 	</insert>
 	<insert id="insertAttachment">
 	INSERT INTO ATTACHMENT VALUES(PN_SEQ.NEXTVAL, #{attachment.originName},#{attachment.changeName},
@@ -50,6 +50,11 @@
 	SELECT PN_SEQ.NEXTVAL FROM dual  
 	
 	
+	
+	</select>
+	
+	<select id="selectList">
+		SELECT ITEMNO 
 	
 	</select>
 	

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -99,22 +100,23 @@ h4 {
 			</div>
 			<hr>
 			<table class="ui basic table" style=width:250px;>
+			<c:forEach var="hamp" items="${hmap}"}>
 			<tr class="tr">
-				<td colspan="2">입찰 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 건</td>
-				<td>조회 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 회</td>
-
+				<td colspan="2">입찰 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${hmap.BID.ITEMNO} 건</td>
+				<td>조회 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${hmap.AUCTIONITEM.ITEMCOUNT} 회</td>
 
 			</tr>
+			
 			<tr class="tr">
 				<td colspan="2">판매자 아이디</td>
-				<td>leeyeonhee</td>
+				<td>${i.mid}</td>
 			</tr>
 			<tr class="tr">
 				<td colspan="2">남은 시간</td>
 				<td>00</td>
 
 			</tr>
-
+		</c:forEach>
 		</table>
 		</div>
 
