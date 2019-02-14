@@ -18,6 +18,16 @@
 		<result property="rDeleteStatus" column="DELETESTATUS"/>		
 	</resultMap>
 	
+	<resultMap type="com.kh.eg.myPage.model.vo.WishList" id="wishListResultSet">
+		<id property="wishlistno" column ="WISHLISTNO"/>
+		<result property="categoryname" column="CATEGORYNAME"/>
+		<result property="itemno" column="ITEMNO"/>
+		<result property="itemname" column="ITEMNAME"/>
+		<result property="startprice" column="STARTPRICE"/>
+		<result property="membername" column="MEMBERNAME"/>
+		<result property="endday" column="ENDDAY"/>
+	</resultMap>
+	
 	<!-- 게시글 조회 -->
 	<select id="selectMessage" resultMap="myPageResultSet" parameterType="java.lang.String">
 		SELECT B.BOARDNO, B.TITLE, B.BOARDCONTENT, B.MEMBERNO, B.WRITEDAY, B.DELETESTATUS, B.BOARDSTATUS, B.REPLYSTATUS 
@@ -50,5 +60,10 @@
 		WHERE DELETESTATUS = 'N' 
 		AND TITLE LIKE '%' || #{searchTitle} || '%' 
 		AND BOARDSTATUS = 'ONEBYONE' 
+	</select>
+	
+	<!-- 위시리스트 -->
+	<select id="selectWishList" resultMap="wishListResultSet" parameterType="java.lang.String">
+		SELECT w.wishlistno,c.categoryname, a.itemno,a.itemname,a.startprice,m.membername,d.endday FROM WISHLIST W JOIN AUCTIONITEM A ON (W.MEMBERNO = A.MEMBERNO) JOIN CATEGORY C ON (A.CATEGORYNO = C.CATEGORYNO) JOIN MEMBER M ON(A.MEMBERNO = M.MEMBERNO) JOIN AUCTIONDETAIL D ON(D.ITEMNO = A.ITEMNO) WHERE w.deletestatus = 'N' and m.memberno =  #{memberNo}
 	</select>
 </mapper>

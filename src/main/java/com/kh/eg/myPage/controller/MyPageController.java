@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.kh.eg.member.model.vo.Member;
 import com.kh.eg.myPage.model.service.MyPageService;
 import com.kh.eg.myPage.model.vo.MyPageBoard;
+import com.kh.eg.myPage.model.vo.WishList;
 
 @SessionAttributes("loginUser")
 
@@ -50,6 +51,23 @@ import com.kh.eg.myPage.model.vo.MyPageBoard;
 		         return "common/errorPage";
 		      }
 		   }
+		   
+		//위시리스트 페이지로 이동
+		@RequestMapping("wishList.mp")
+		public String wishList(Model model, Member m , HttpSession session) {
+			m = (Member)session.getAttribute("loginUser");
+			String memberNo = m.getMid();
+			ArrayList<WishList> list = ms.selectWishList(memberNo);
+			System.out.println(list.size());
+			if(list != null) {
+				model.addAttribute("list",list);
+				return "myPage/wishListPage";
+			}else {
+				model.addAttribute("msg","위시리스트 조회 실패");
+				return "common/errorPage";
+			}
+			
+		}
 		
 		//회원정보 수정 페이지로 이동
 		@RequestMapping("userInfoUpdatePage.mp")
@@ -63,11 +81,7 @@ import com.kh.eg.myPage.model.vo.MyPageBoard;
 			return "myPage/userDeletePage";
 		}
 		
-		//위시리스트 페이지로 이동
-		@RequestMapping("wishList.mp")
-		public String wishList() {
-			return "myPage/wishListPage";
-		}
+		
 		
 		//계좌관리 페이지로 이동
 		@RequestMapping("userAccount.mp")

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.eg.myPage.model.dao.MyPageDao;
 import com.kh.eg.myPage.model.vo.MyPageBoard;
+import com.kh.eg.myPage.model.vo.WishList;
 
 @Service
 public class MyPageServiceImpl implements MyPageService{
@@ -44,6 +45,14 @@ public class MyPageServiceImpl implements MyPageService{
 	public ArrayList<MyPageBoard> searchMessage(String search, String searchTitle) {
 		
 		return md.searchMessage(sqlSession, search, searchTitle);
+	}
+	
+	//위시리스트 등록해놓은거 검색
+	@Override
+	public ArrayList<WishList> selectWishList(String memberNo) {
+		
+		
+		return md.selectWishList(sqlSession,memberNo);
 	}
 	
 

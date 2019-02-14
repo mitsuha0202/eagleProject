@@ -3,6 +3,7 @@ package com.kh.eg.myPage.model.service;
 import java.util.ArrayList;
 
 import com.kh.eg.myPage.model.vo.MyPageBoard;
+import com.kh.eg.myPage.model.vo.WishList;
 
 public interface MyPageService {
 
@@ -17,5 +18,8 @@ public interface MyPageService {
 
 	//1대1 문의 게시글 검색
 	ArrayList<MyPageBoard> searchMessage(String searchTitle, String searchTitle2);
+	
+	//위시리스트 등록해놓은거 검색
+	ArrayList<WishList> selectWishList(String memberNo);
 	
 }
