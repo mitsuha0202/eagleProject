@@ -20,15 +20,10 @@ public class MyPageDaoImpl implements MyPageDao{
 	//1대1 문의함 게시글 삭제
 	@Override
 	public int deleteMessage(SqlSessionTemplate sqlSession, int[] deleteNum) {
-		int result1 = 0;
-		int result2 = 0;
-		for(int i=0; i<deleteNum.length; i++) {
-			result1 = sqlSession.delete("MyPage.deleteReply", deleteNum[i]);
-			result2 = sqlSession.delete("MyPage.deleteMessage", deleteNum[i]);
-		}
 		int result = 0;
-		if(result1 > 0 && result2 > 0) {
-			result = 1;
+		for(int i=0; i<deleteNum.length; i++) {
+			sqlSession.delete("MyPage.deleteReply", deleteNum[i]);
+			result = sqlSession.delete("MyPage.deleteMessage", deleteNum[i]);
 		}
 		return result;
 	}
@@ -45,5 +40,19 @@ public class MyPageDaoImpl implements MyPageDao{
 	public ArrayList<MyPageBoard> searchMessage(SqlSessionTemplate sqlSession, String search, String searchTitle) {
 			
 		return (ArrayList)sqlSession.selectList("MyPage.searchMessage", searchTitle);
+	}
+
+	//게시글 개수 조회
+	@Override
+	public int countMessage(SqlSessionTemplate sqlSession, String memberNo) {
+		
+		return  sqlSession.selectOne("MyPage.countMessage", memberNo); 
+	}
+
+	//1대1 게시글 상세보기 
+	@Override
+	public MyPageBoard selectOneBoard(SqlSessionTemplate sqlSession, String boardNo) {
+
+		return sqlSession.selectOne("MyPage.selectOneBoard", boardNo);
 	}
 }

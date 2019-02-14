@@ -263,8 +263,9 @@
 	</div>
 	<div class="mpMessageDiv">
 		<br>
-		<h5>쪽지 0건</h5>
+		<h5 id="messageCount">쪽지 0건</h5>
 		<button class="mpMessageDivBtn" onclick="location.href='userMessage.mp'">나의 쪽지함</button><br>
+		<input type="hidden" id="userMid" value="${ sessionScope.loginUser.mid }">
 		<button class="mpMessageDivBtn" onclick="location.href='userInfoUpdatePage.mp'">나의정보수정</button>
 	</div>
 	<div class="mpMoneyDiv">
@@ -374,5 +375,24 @@
 		<!-- 문의받은 게시판 -->
 		<i class="clipboard icon" id="answerBoard" style="top: 30px;" onclick="location.href='answerBoard.mp'"></i>
 	</div>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script>
+		$(function() {
+			var userId = $("#userMid").val();
+			$.ajax({
+				url:"countMessage.mp",
+				type:"get",
+				data:{userId:userId},
+				success:function(data){
+					$("#messageCount").text("쪽지 " + data + "건");
+				},
+				/* status는 에러의 상태를 나타냄 */
+				error:function(status){
+					$("#messageCount").text("쪽지 0건");
+				}
+			});
+		});
+	</script>
 </body>
 </html>

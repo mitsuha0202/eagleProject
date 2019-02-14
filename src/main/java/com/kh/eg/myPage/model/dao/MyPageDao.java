@@ -10,7 +10,7 @@ public interface MyPageDao {
 
 	//1대1 게시글들 조회
 	ArrayList<MyPageBoard> selectMessage(SqlSessionTemplate sqlSession, String memberNo);
-
+	
 	//1대1 게시글 삭제
 	int deleteMessage(SqlSessionTemplate sqlSession, int[] deleteNum);
 
@@ -19,5 +19,11 @@ public interface MyPageDao {
 
 	//1대1 게시글 검색
 	ArrayList<MyPageBoard> searchMessage(SqlSessionTemplate sqlSession, String searchTitle, String searchTitle2);
+
+	//게시글 개수 조회
+	int countMessage(SqlSessionTemplate sqlSession, String memberNo);
+
+	//1대1 게시글 상세보기
+	MyPageBoard selectOneBoard(SqlSessionTemplate sqlSession, String boardNo);
 	
 }

@@ -2,6 +2,7 @@ package com.kh.eg.myPage.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.kh.eg.member.model.vo.Member;
@@ -25,15 +27,24 @@ import com.kh.eg.myPage.model.vo.MyPageBoard;
 		private MyPageService ms;
 		
 		@RequestMapping("myPageMain.mp")
-		   public String myPageMainPage() {
-		      
-		      return "myPage/myPageMain";
+		public String myPageMainPage() {
+			
+		   return "myPage/myPageMain";
 		   }
 		
 		//회원등급 혜택안내 페이지로 이동
 		@RequestMapping("userGradeInfo.mp")
 		public String userGradeInfoPage() {
+			
 			return "myPage/userGradeInfoPage";
+		}
+		
+		//게시글 개수 조회
+		@RequestMapping("countMessage.mp")
+		public @ResponseBody String countMessage(@RequestParam String userId) {
+		      int count = ms.countMessage(userId);
+		      String messageCount = String.valueOf(count);
+		      return messageCount;
 		}
 		
 		//쪽지함 페이지로 이동
@@ -111,9 +122,8 @@ import com.kh.eg.myPage.model.vo.MyPageBoard;
 			String[] delete = request.getQueryString().split(",");
 			String[] deleteNum = new String[delete.length];
 			for(int i=0; i<deleteNum.length; i++) {
-				deleteNum[i] = delete[i].substring(delete[i].length()-1, delete[i].length());
+				deleteNum[i] = delete[i].substring(10, delete[i].length());
 			}
-			
 			int[] num = new int[deleteNum.length];
 			for(int i=0; i<deleteNum.length; i++) {
 				num[i] = Integer.parseInt(deleteNum[i]);
@@ -142,7 +152,6 @@ import com.kh.eg.myPage.model.vo.MyPageBoard;
 		//1대1 문의 검색
 		@RequestMapping("searchMessage.mp")
 		public String searchMessage(@RequestParam(value="search") String search, @RequestParam(value="searchTitle") String searchTitle, Model model) {
-			System.out.println("제목: " + searchTitle);
 			ArrayList<MyPageBoard> list = ms.searchMessage(search, searchTitle);
 			if(list != null) {
 				model.addAttribute("list", list);
@@ -162,5 +171,22 @@ import com.kh.eg.myPage.model.vo.MyPageBoard;
 			member.setAddress(temp);
 			System.out.println(member);
 			return null;
+		}
+		
+		//1대1 문의 상세보기
+		@RequestMapping("detailMessage.mp")
+		public String detailMessagePage(HttpServletRequest request, Model model) {
+			String temp = request.getQueryString();
+			String boardNo = temp.substring(6, temp.length());
+			System.out.println(boardNo);
+			MyPageBoard myBoard = ms.selectOneBoard(boardNo);
+			System.out.println(myBoard);
+			if(myBoard != null) {
+				model.addAttribute("myBoard", myBoard);
+				return "myPage/userMessageDetailPage";
+			}else {
+				model.addAttribute("msg", "상세보기 실패");
+				return "common/errorPage";
+			}
 		}
 	}

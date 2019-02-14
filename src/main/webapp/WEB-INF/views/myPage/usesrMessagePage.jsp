@@ -153,7 +153,7 @@
          <c:forEach var="b" items="${ list }">
             <tr>
                <td><input type="checkbox" class="checkChild"></td> 
-               <td>${ b.boardNo }</td>
+               <td name="choice">${ b.boardNo }</td>
                <td>${ b.title }</td>
                <td>${ b.writeDay }</td>
                <c:if test="${ b.replyStatus eq 'Y'}">
@@ -187,6 +187,7 @@
    
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
    <script>
+   		/* 체크박스 */
    		function check() {
 	   		if( $("#checkAll").is(':checked') ){
 	       		$(".checkChild").prop("checked", true);
@@ -195,6 +196,7 @@
 	     	}
    		}
    		
+   		/* 삭제 리스트 */
    		function listDelete() {
    			var sendArr = new Array();
    			var checkbox = $(".checkChild:checked");
@@ -208,11 +210,23 @@
    		 	}); 		 	
 		}
    		
+   		/* 검색 */
    		function search() {
 			var search = $("#searchId").val();
 			var searchTitle = $("#searchContent").val();
 			location.href = "searchMessage.mp?search="+search+"&searchTitle="+searchTitle;
 		}
+   		
+   		/* 상세보기  */
+   		$("td[name=choice]").mouseenter(function() {
+			$(this).css({"cursor":"pointer"});
+		}).mouseout(function() {
+			/* $(this).parent().css({"background":"white"}); */
+		}).click(function() {
+			var docno = $(this).parent().children().eq(1).text();
+			console.log(docno);
+			location.href="detailMessage.mp?docno=" + docno; 
+		}); 
    </script>
 </body>
 </html>
