@@ -21,6 +21,12 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<!-- beanNameViewResolver는 없는 자원에 대해 논리적 이름을 가지고 view를 지정한다. -->
+	<beans:bean id="viewResolver"
+				class="org.springframework.web.servlet.view.BeanNameViewResolver">
+				<beans:property name="order" value="1"/>		
+	</beans:bean>
+	
 	<context:component-scan base-package="com.kh.eg" />
 	
 	

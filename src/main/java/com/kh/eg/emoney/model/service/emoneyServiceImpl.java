@@ -10,11 +10,11 @@ import com.kh.eg.emoney.model.vo.emoney;
 @Service
 public class emoneyServiceImpl implements emoneyService {
 	/*@Autowired
-	private emoneyDao ed;*/
+	private emoneyDao ed;
 	@Autowired
-	private SqlSessionTemplate sqlSession;
+	private SqlSessionTemplate sqlSession;*/
 
-	//결제시 결제내역정보 인설트하는 메소드
+	//결제시 결제정보 인설트하는 메소드
 	@Override
 	public int insertEmoney(emoney em) {
 		

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="Member">
+<mapper namespace="emoney">
 	<resultMap type="com.kh.eg.emoney.model.vo.emoney" id="emoneyResultSet">
 		<result property="useNo" column="USENO"/>
 		<result property="useDay" column="USEDAY"/>
@@ -22,31 +22,9 @@
 		
 	</resultMap>
 	
-<!-- 	<select id="loginCheck" resultMap="memberResultSet" parameterType="Member">
-		SELECT *
-		FROM MEMBER
-		WHERE MEMBERID = #{userId}
-		AND MEMBERPWD = #{userPwd}
-		AND BLSTATUS = 'Y'
-	</select>
 	
-	<insert id="insertMember" parameterType="Member">
-		INSERT INTO MEMBER
-		VALUES(SEQ_MID.NEXTVAL, #{userId}, #{userPwd},
-				#{userName}, #{email}, #{birthDay}, #{gender},
-				#{phone}, #{address}, SYSDATE, SYSDATE, DEFAULT )
-	</insert>
 	
-	암호화된 비밀번호 조회용 메소드
-	<select id="selectPwd" resultType="java.lang.String"
-								parameterType="java.lang.String">
-	SELECT USER_PWD
-	FROM MEMBER
-	WHERE USER_ID = #{userId}
-	AND STATUS = 'Y'
-	</select> -->
-	
-	<insert id="insertEmoney">
+	<insert id="insertEmoney" parameterType="emoney">
 		INSERT 
 		INTO EMONEYC 
 		VALUES(MCN_SEQ.NEXTVAL, #{amount},SYSDATE,  #{cardNo}, #{memberNo}, #{payStatus}, #{refundNo} );
@@ -58,9 +36,24 @@
 		FROM EMONEYR		
 	</select>
 	
-	<!-- <insert id="insertMemberCash">
+	<!-- <select id="selectMemberNowCash">
+		SELECT M.EMONEY_NOWCASH FROM (SELECT M.EMONEY_NOWCASH, MEMBER)
 	
+	
+	</select> -->
+	
+	
+	<!-- <insert id="insertMemberCash">
+		
+		
 	</insert> -->
+	
+	<!-- <update id="updateEmoney">
+		
+	
+	</update> -->
+	
+	
 	
 
 </mapper>
