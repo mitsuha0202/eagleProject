@@ -3,6 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="MyPage">
+
 	<resultMap type="com.kh.eg.myPage.model.vo.MyPageBoard" id="myPageResultSet">
 		<id property="boardNo" column="BOARDNO"/> <!-- 프라이머리 키값만 아이디를 줌 -->
 		<result property="title" column="TITLE"/>
@@ -20,10 +21,17 @@
 	
 	<!-- 게시글 조회 -->
 	<select id="selectMessage" resultMap="myPageResultSet" parameterType="java.lang.String">
-		SELECT B.BOARDNO, B.TITLE, B.BOARDCONTENT, B.MEMBERNO, B.WRITEDAY, B.DELETESTATUS, B.BOARDSTATUS, B.REPLYSTATUS 
-		FROM BOARD B 
-		WHERE B.DELETESTATUS = 'N' AND B.BOARDSTATUS = 'ONEBYONE' AND B.MEMBERNO = #{memberNo}
+		SELECT *
+		FROM BOARD  
+		WHERE DELETESTATUS = 'N' AND BOARDSTATUS = 'ONEBYONE' AND MEMBERNO = #{memberNo}
 		ORDER BY BOARDNO DESC
+	</select>
+	
+	<!-- 게시글 수 조회 -->
+	<select id="countMessage" resultType="_int" parameterType="java.lang.String">
+		SELECT COUNT(*)
+		FROM BOARD  
+		WHERE DELETESTATUS = 'N' AND BOARDSTATUS = 'ONEBYONE' AND MEMBERNO = #{memberNo}
 	</select>
 	
 	<!-- 댓글 삭제 -->
@@ -51,4 +59,12 @@
 		AND TITLE LIKE '%' || #{searchTitle} || '%' 
 		AND BOARDSTATUS = 'ONEBYONE' 
 	</select>
+	
+	<select id="selectOneBoard" resultMap="myPageResultSet" parameterType="java.lang.String">
+		SELECT * FROM BOARD 
+		WHERE DELETESTATUS = 'N'
+		AND BOARDSTATUS = 'ONEBYONE'
+		AND BOARDNO = #{boardNo}
+	</select>
+	
 </mapper>
