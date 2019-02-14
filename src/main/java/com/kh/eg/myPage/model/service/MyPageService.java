@@ -3,6 +3,7 @@ package com.kh.eg.myPage.model.service;
 import java.util.ArrayList;
 
 import com.kh.eg.myPage.model.vo.MyPageBoard;
+import com.kh.eg.myPage.model.vo.WishList;
 
 public interface MyPageService {
 
@@ -25,5 +26,8 @@ public interface MyPageService {
 	MyPageBoard selectOneBoard(String boardNo);
 
 
+	
+	//위시리스트 등록해놓은거 검색
+	ArrayList<WishList> selectWishList(String memberNo);
 	
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -91,16 +92,18 @@
 				<td>판매자</td>
 				<td>마감일</td>				
 			</tr>
+			<c:forEach var="w" items="${ list }">
 			<tr>
 				<td><input type="checkbox" class="form-control" style="width: 17px; height: 17px; margin-left: auto; margin-right: auto;"></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>	
+				<td>${w.wishlistno}</td>
+				<td>${w.categoryname }</td>
+				<td>${w.itemno }</td>
+				<td>${w.itemname }</td>
+				<td>${w.startprice }</td>
+				<td>${w.membername }</td>
+				<td>${w.endday }</td>	
 			</tr>
+			</c:forEach>
 		</table>
 	</div>
 	<button class="wishDeleteBtn">삭제</button>

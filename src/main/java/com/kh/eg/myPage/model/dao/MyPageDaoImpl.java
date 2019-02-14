@@ -3,9 +3,11 @@ package com.kh.eg.myPage.model.dao;
 import java.util.ArrayList;
 
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import com.kh.eg.myPage.model.vo.MyPageBoard;
+import com.kh.eg.myPage.model.vo.WishList;
 
 @Repository
 public class MyPageDaoImpl implements MyPageDao{
@@ -42,6 +44,13 @@ public class MyPageDaoImpl implements MyPageDao{
 		return (ArrayList)sqlSession.selectList("MyPage.searchMessage", searchTitle);
 	}
 
+	//위시리스트 등록해놓은거 검색
+	@Override
+	public ArrayList<WishList> selectWishList(SqlSessionTemplate sqlSession, String memberNo) {
+		// TODO Auto-generated method stub
+		return (ArrayList)sqlSession.selectList("MyPage.selectWishList", memberNo);
+
+
 	//게시글 개수 조회
 	@Override
 	public int countMessage(SqlSessionTemplate sqlSession, String memberNo) {
@@ -54,5 +63,6 @@ public class MyPageDaoImpl implements MyPageDao{
 	public MyPageBoard selectOneBoard(SqlSessionTemplate sqlSession, String boardNo) {
 
 		return sqlSession.selectOne("MyPage.selectOneBoard", boardNo);
+
 	}
 }

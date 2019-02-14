@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.eg.myPage.model.vo.MyPageBoard;
+import com.kh.eg.myPage.model.vo.WishList;
 
 public interface MyPageDao {
 
@@ -25,5 +26,9 @@ public interface MyPageDao {
 
 	//1대1 게시글 상세보기
 	MyPageBoard selectOneBoard(SqlSessionTemplate sqlSession, String boardNo);
+	
+	
+	//위시리스트 등록해놓은거 검색
+	ArrayList<WishList> selectWishList(SqlSessionTemplate sqlSession, String memberNo);
 	
 }
