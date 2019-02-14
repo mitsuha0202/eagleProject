@@ -52,8 +52,8 @@ import com.kh.eg.myPage.model.vo.MyPageBoard;
 		   }
 		
 		//회원정보 수정 페이지로 이동
-		@RequestMapping("userInfoUpdate.mp")
-		public String userInfoUpdate() {
+		@RequestMapping("userInfoUpdatePage.mp")
+		public String userInfoUpdatePage() {
 			return "myPage/userInfoUpdate";
 		}
 		
@@ -151,5 +151,16 @@ import com.kh.eg.myPage.model.vo.MyPageBoard;
 				model.addAttribute("msg", "검색조회 실패");
 				return "common/errorPage";
 			}
+		}
+		
+		//유저정보 수정 
+		@RequestMapping("userInfoUpate.mp")
+		public String userInfoUpdate(Member member, Model model, HttpServletRequest request) {
+			String detailAddress = request.getParameter("detailAddress");
+			String temp = member.getAddress();
+			temp += " " + detailAddress;
+			member.setAddress(temp);
+			System.out.println(member);
+			return null;
 		}
 	}
