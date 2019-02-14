@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.eg.myPage.model.dao.MyPageDao;
 import com.kh.eg.myPage.model.vo.MyPageBoard;
+import com.kh.eg.myPage.model.vo.WishList;
 
 @Service
 public class MyPageServiceImpl implements MyPageService{
@@ -18,7 +19,6 @@ public class MyPageServiceImpl implements MyPageService{
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
-
 	//1대1 문의함 게시글들 조회
 	@Override
 	public ArrayList<MyPageBoard> selectMessage(String memberNo) {
@@ -45,6 +45,29 @@ public class MyPageServiceImpl implements MyPageService{
 		
 		return md.searchMessage(sqlSession, search, searchTitle);
 	}
+
+	
+	//위시리스트 등록해놓은거 검색
+	@Override
+	public ArrayList<WishList> selectWishList(String memberNo) {
+		
+		
+		return md.selectWishList(sqlSession,memberNo);
+	}
 	
 
+
+	//게시글 개수 조회
+	@Override
+	public int countMessage(String memberNo) {
+		
+		return md.countMessage(sqlSession, memberNo);
+	}
+
+	//1대1 게시글 상세보기 
+	@Override
+	public MyPageBoard selectOneBoard(String boardNo) {
+		
+		return md.selectOneBoard(sqlSession, boardNo);
+	}	
 }

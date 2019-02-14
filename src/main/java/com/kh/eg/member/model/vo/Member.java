@@ -1,6 +1,6 @@
 package com.kh.eg.member.model.vo;
 
-public class Member {
+public class Member implements java.io.Serializable{
 	
 	private String mid;
 	private String userName;

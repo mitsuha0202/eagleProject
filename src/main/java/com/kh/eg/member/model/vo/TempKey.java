@@ -2,7 +2,7 @@ package com.kh.eg.member.model.vo;
 
 import java.util.Random;
 
-public class TempKey {
+public class TempKey implements java.io.Serializable {
 
     private boolean lowerCheck;
     private int size;

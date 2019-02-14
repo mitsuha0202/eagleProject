@@ -13,11 +13,37 @@ public class Item {
 	private String mid;
 	private String auctionCode;
 	private String detail;
+	private String itemcount;
 
 	public Item() {}
 
+	public Item(int itemNo, String itemName, String startPrice, String bidUnit, String deliveryPay, String origin,
+			String deleteYN, String categoryNo, String mid, String auctionCode, String detail, String itemcount) {
+		super();
+		this.itemNo = itemNo;
+		this.itemName = itemName;
+		this.startPrice = startPrice;
+		this.bidUnit = bidUnit;
+		this.deliveryPay = deliveryPay;
+		this.origin = origin;
+		this.deleteYN = deleteYN;
+		this.categoryNo = categoryNo;
+		this.mid = mid;
+		this.auctionCode = auctionCode;
+		this.detail = detail;
+		this.itemcount = itemcount;
+	}
+
 	public int getItemNo() {
 		return itemNo;
+	}
+
+	public String getItemcount() {
+		return itemcount;
+	}
+
+	public void setItemcount(String itemcount) {
+		this.itemcount = itemcount;
 	}
 
 	public void setItemNo(int itemNo) {
@@ -108,8 +134,8 @@ public class Item {
 	public String toString() {
 		return "Item [itemNo=" + itemNo + ", itemName=" + itemName + ", startPrice=" + startPrice + ", bidUnit="
 				+ bidUnit + ", deliveryPay=" + deliveryPay + ", origin=" + origin + ", deleteYN=" + deleteYN
-				+ ", categoryNo=" + categoryNo + ", mid=" + mid + ", auctionCode=" + auctionCode + ", detail="
-				+ detail + "]";
+				+ ", categoryNo=" + categoryNo + ", mid=" + mid + ", auctionCode=" + auctionCode + ", detail=" + detail
+				+ ", itemcount=" + itemcount + "]";
 	}
 
 	public Item(int itemNo, String itemName, String startPrice, String bidUnit, String deliveryPay, String origin,

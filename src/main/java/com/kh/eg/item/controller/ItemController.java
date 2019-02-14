@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,8 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.kh.eg.attachment.model.vo.Attachment;
 import com.kh.eg.common.CommonUtils;
@@ -23,7 +27,6 @@ import com.kh.eg.member.model.vo.Member;
 
 @Controller
 public class ItemController {
-	
 	@Autowired
 	private ItemService is;
 	
@@ -41,8 +44,9 @@ public class ItemController {
 	
 	
 	@RequestMapping("insertItem.it")
-	public String insertItem(Item it,Model model,HttpServletRequest request,@RequestParam(value="photo",required=false) MultipartFile photo ) {
-
+	public String insertItem(Item it,Model model,HttpServletRequest request,@RequestParam(value="photo",required=false)MultipartFile photo) {
+		
+		
 		System.out.println("item : " +it );
 		System.out.println("photo:" +photo);
 		
@@ -51,10 +55,13 @@ public class ItemController {
 		Attachment att=new Attachment();
 		
 		
-		m.setUserId("eagle01");
+		//m.setUserId("eagle01");
 		String filePath=root+"\\uploadFiles";
 		
 		System.out.println("item+ " +it.getMid());
+		
+			
+		
 		String originFileName=photo.getOriginalFilename();
 		String ext=originFileName.substring(originFileName.lastIndexOf("."));
 		String changeName=CommonUtils.getRandomString();
@@ -92,7 +99,12 @@ public class ItemController {
 		} 
 		
 		
+		
 	}
+	
+	
+	
+	
 
 }
 

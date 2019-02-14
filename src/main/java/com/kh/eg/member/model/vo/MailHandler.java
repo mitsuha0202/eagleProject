@@ -9,7 +9,7 @@ import javax.mail.internet.MimeMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 
-public class MailHandler {
+public class MailHandler implements java.io.Serializable {
     private JavaMailSender mailSender;
        private MimeMessage message;
        private MimeMessageHelper messageHelper;
