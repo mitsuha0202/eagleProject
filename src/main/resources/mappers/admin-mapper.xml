@@ -2,8 +2,8 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="Member">
-	<resultMap type="com.kh.eg.member.model.vo.Member" id="memberResultSet">
+<mapper namespace="AdminVo">
+	<resultMap type="com.kh.eg.admin.model.vo.AdminVo" id="adminResultSet">
 		<result property="userName" column="MEMBERNAME"/>
 		<result property="userId" column="MEMBERID"/>
 		<result property="account" column="ACCOUNTN"/>
@@ -40,11 +40,15 @@
 	AND STATUS = 'Y'
 	</select> -->
 	
-	<select id="selectLoginUser" resultMap="memberResultSet" parameterType="Member">
-		SELECT *
+	<select id="selectMemberList" resultMap="adminResultSet" parameterType="java.lang.String">
+		SELECT rating, userId, userName, phone, address, emoney, wdStatus, blStatus
 		FROM MEMBER
-		WHERE MEMBERID = #{userId}
-		AND BLSTATUS = 'N'
+		WHERE BLSTATUS = 'N'
+	</select>
+	<select id="selectListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE BLSTATUS = 'N' AND WDSTATUS = 'N'
 	</select>
 
 </mapper>

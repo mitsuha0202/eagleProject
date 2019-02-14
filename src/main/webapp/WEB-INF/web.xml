@@ -145,5 +145,24 @@
     <servlet-name>saveCharge</servlet-name>
     <servlet-class>com.kh.eg.emoney.controller.saveCharge</servlet-class>
   </servlet>
- 
+  <servlet>
+    <description></description>
+    <display-name>AdSelectMemberList</display-name>
+    <servlet-name>AdSelectMemberList</servlet-name>
+    <servlet-class>com.kh.eg.admin.controller.AdSelectMemberList</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AdSelectMemberList</servlet-name>
+    <url-pattern>/adMemberList</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AdMemberList</display-name>
+    <servlet-name>AdMemberList</servlet-name>
+    <servlet-class>com.kh.eg.admin.controller.AdMemberList</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AdMemberList</servlet-name>
+    <url-pattern>/memberList</url-pattern>
+  </servlet-mapping>
 </web-app>

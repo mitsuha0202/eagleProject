@@ -10,6 +10,6 @@ public interface AdMemberService {
 
 	int getListCount() throws AdMemberselectException;
 
-	ArrayList<AdminVo> selectMemberList(PageInfo pi) throws AdMemberselectException;
+	ArrayList<AdminVo> selectBoardList(PageInfo pi) throws AdMemberselectException;
 
 }
