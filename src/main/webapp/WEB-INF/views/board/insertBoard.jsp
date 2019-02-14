@@ -45,7 +45,7 @@
         	<h1 class="ui header" style="font-size:2rem; color:white; margin-left: 20px;">경매에 대해 자유롭게 토론해보세요!</h1>
         </div>
         <div class="insertArea ui form">
-	     		<form action="#" method="post">
+	     		<form action="insertBoard.bo" method="post">
 	     			<table>
 		     			<tr>
 		     					<td colspan="2" align="left"><h1 class="ui header" style="font-size:3rem; margin-top: 50px;">글쓰기</h1>
@@ -64,15 +64,15 @@
 						<tr>
 		     				<td colspan="2">  	
 		     					<div class="field">
-							    <textarea placeholder="내용을 입력해주세요. 300자 이내" style="height: 500px;"></textarea>
+							    <textarea placeholder="내용을 입력해주세요. 300자 이내" name="bContent" style="height: 500px;"></textarea>
 							  </div>
 							</td>
 
 	     			</table>
 	     			<br>
 	     			<div class="btnArea" align="center"">
-	     				<button class="ui black basic button" style="width:100px; height:50px;">등록하기</button>
-						<button class="ui black basic button" style="width:100px; height:50px;">취소하기</button>
+	     				<button class="ui black basic button"  type="button" style="width:100px; height:50px;" onclick="return insertBoard();">등록하기</button>
+						<button class="ui black basic button" type="button" style="width:100px; height:50px;" onclick="return reset();">취소하기</button>
 					</div>
 	     		</form>
 	     	</div>
@@ -90,5 +90,10 @@
    	</div>
    	
    	<!-- footer -->
+   	<script>
+   		function insertBoard() {
+			location.href="insertBoard.bo";
+		}
+   	</script>
 </body>
 </html>

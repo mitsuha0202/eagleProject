@@ -4,6 +4,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.kh.eg.member.model.dao.MemberDao;
@@ -15,7 +16,8 @@ public class MemberServiceImpl implements MemberService{
 private MemberDao md;
 @Autowired
 private SqlSessionTemplate sqlSession;
-
+@Autowired
+private BCryptPasswordEncoder passwordEncoder;
 @Autowired
 private DataSourceTransactionManager transactionManager;
 	
@@ -30,8 +32,14 @@ private DataSourceTransactionManager transactionManager;
 	public Member loginUser(Member m) {
 		Member loginUser = null;
 		
-		loginUser = md.selectMember(sqlSession, m);
+		String encPassword = md.selectEncPassword(sqlSession, m);
 		
+		if(!passwordEncoder.matches(m.getUserPwd(), encPassword)) {
+			loginUser = null;
+		}else {
+			loginUser = md.selectMember(sqlSession, m);
+		}
+
 		return loginUser;
 	}
 

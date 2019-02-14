@@ -28,20 +28,20 @@
 				'BRONZE', 0, 'N', 'N', SYSDATE, #{email} )
 	</insert>
 	
-<!-- 	암호화된 비밀번호 조회용 메소드
+ 	
 	<select id="selectPwd" resultType="java.lang.String"
 								parameterType="java.lang.String">
-	SELECT USER_PWD
+	SELECT MEMBERPWD
 	FROM MEMBER
-	WHERE USER_ID = #{userId}
-	AND STATUS = 'Y'
-	</select> --> 
+	WHERE MEMBERID = #{userId}
+	AND WDSTATUS = 'N'
+	</select>  
 	
 	<select id="selectLoginUser" resultMap="memberResultSet" parameterType="Member">
 		SELECT *
 		FROM MEMBER
 		WHERE MEMBERID = #{userId}
-		AND BLSTATUS = 'N'
+		AND WDSTATUS = 'N'
 	</select>
 	
 	<select id="DuplicationCheck" parameterType="java.lang.String" resultType="_int">

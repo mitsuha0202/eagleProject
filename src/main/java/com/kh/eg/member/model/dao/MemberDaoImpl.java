@@ -46,4 +46,10 @@ public class MemberDaoImpl implements MemberDao{
 		return result;
 	}
 
+	@Override
+	public String selectEncPassword(SqlSessionTemplate sqlSession, Member m) {
+		
+		return sqlSession.selectOne("Member.selectPwd", m.getUserId());
+	}
+
 }

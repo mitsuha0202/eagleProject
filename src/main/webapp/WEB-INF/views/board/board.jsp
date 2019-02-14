@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -75,20 +76,15 @@
 		  	</tr>
 		  </thead>
 		  <tbody>
+		  <c:forEach var="b" items="${ list }">
 		    <tr>
-		      <td>1</td>
-		      <td>경매물건 거지같네</td>
-		      <td>김거지</td>
-		      <td>02-03</td>
-		      <td>1</td>
+		      <td>${b.bid}</td>
+		      <td>${b.bTitle}</td>
+		      <td>${b.bMid}</td>
+		      <td>${b.writeDay}</td>
+		      <td></td>
 		    </tr>
-		    <tr>
-		      <td>2</td>
-		      <td>경매물건 좋네</td>
-		      <td>김좋네</td>
-		      <td>02-03</td>
-		      <td>1</td>
-		    </tr>
+		  </c:forEach>
 		  </tbody>
 		</table>
 
@@ -99,7 +95,11 @@
 	</div>
 	<script>
 		function insertBoard() {
+			if(${loginUser} == null){
+				alert("글쓰기는 회원만 이용하실 수 있습니다.");
+			}else{
 			location.href = "insertBoardView.bo";
+			}
 		}
 		
 		$(function(){
