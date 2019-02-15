@@ -27,6 +27,8 @@ private SqlSessionTemplate sqlSession;
 		hmap.put("bid", ad.selectBid(sqlSession,itemNo));
 		return hmap;
 		
+		
+		
 	}
 
 	

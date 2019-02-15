@@ -11,5 +11,7 @@ public interface AuctionService {
 	HashMap<String, Object> selectItem(int itemNo);
 
 	
+	
+	
 
 }

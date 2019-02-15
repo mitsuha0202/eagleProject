@@ -13,4 +13,6 @@ public interface AuctionDao {
 
 	Object selectBid(SqlSessionTemplate sqlSession, int itemNo);
 
+	
+	
 }

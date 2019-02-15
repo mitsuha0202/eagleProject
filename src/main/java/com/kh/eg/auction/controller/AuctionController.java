@@ -33,6 +33,8 @@ public class AuctionController {
 		hmap.put("item",list1);
 		hmap.put("bid",list2);
 		
+		
+		
 		hmap=as.selectItem(itemNo);
 				
 			  if(hmap != null) {
