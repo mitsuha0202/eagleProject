@@ -6,6 +6,8 @@ import java.util.HashMap;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.eg.attachment.model.vo.Attachment;
+import com.kh.eg.bidding.model.vo.Bid;
 import com.kh.eg.item.model.vo.Item;
 
 
@@ -13,15 +15,24 @@ import com.kh.eg.item.model.vo.Item;
 public class AuctionDaoImpl implements AuctionDao {
 
 	@Override
-	public HashMap<String, Object> selectItem(SqlSessionTemplate sqlSession, int itemNo) {
-	
-		return (HashMap)sqlSession.selectList("Item.selectList", itemNo);
+	public ArrayList<Attachment> selectAttachment(SqlSessionTemplate sqlSession) {
+		// TODO Auto-generated method stub
+		return (ArrayList)sqlSession.selectList("Item.selectAttachment");
 	}
 
 	@Override
-	public HashMap<String, Object> selectBid(SqlSessionTemplate sqlSession, int itemNo) {
-		return (HashMap)sqlSession.selectList("Item.selectBidList", itemNo);
+	public ArrayList<Bid> selectBid(SqlSessionTemplate sqlSession) {
+		// TODO Auto-generated method stub
+		return (ArrayList)sqlSession.selectList("Item.selectBid");
 	}
+
+	@Override
+	public ArrayList<Item> selectItem(SqlSessionTemplate sqlSession) {
+		
+		return (ArrayList)sqlSession.selectList("Item.selectItem");
+	}
+
+	
 
 
 	

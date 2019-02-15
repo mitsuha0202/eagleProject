@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.kh.eg.attachment.model.vo.Attachment;
 import com.kh.eg.auction.model.service.AuctionService;
 import com.kh.eg.auction.model.service.AuctionServiceImpl;
 import com.kh.eg.auction.model.vo.PageInfo;
@@ -26,25 +27,39 @@ public class AuctionController {
 	@RequestMapping("auctionCategory.au")
 	public String selectAuction(HttpServletRequest request,Model model,Item it ) {
 		
-		int itemNo=it.getItemNo();
-		HashMap<String,Object> hmap=new HashMap<String, Object>();
-		ArrayList<Bid> list2=new ArrayList<Bid>();
-		ArrayList<Item> list1=new ArrayList<Item>();
-		hmap.put("item",list1);
-		hmap.put("bid",list2);
+		ArrayList<Bid> list2=as.selectBid();
+		System.out.println(list2);
+		ArrayList<Item> list1=as.selectItem();
+		for(int i=0;i<list1.size();i++) {
+			int count=0;
+			System.out.println(list1);
+			for(int j=0;j<list2.size();j++) {
+				System.out.println(list2);
+				if(list2.get(j).getItemNo()==(list1.get(i).getItemNo())) {
+					count++;
+				}
+			}
+			list1.get(i).setBidCount(count);
+			
+		};
 		
+		ArrayList<Attachment>list3=as.selectAttachment();
 		
+		for(int i=0;i<list1.size();i++) {
+			for(int j=0;j<list3.size();j++) {
+				System.out.println(list3);
+				if(list1.get(j).getItemNo()==(list3.get(j).getItemNo())) {
+					list1.get(i).setAtta(list3.get(j));break;
+				}
+			}
+		}
+
+		model.addAttribute(list1);
 		
-		hmap=as.selectItem(itemNo);
-				
-			  if(hmap != null) {
-			         model.addAttribute("hmap", hmap);
-			         return "auction/auction";
-			      }else {
-			         model.addAttribute("msg", " 조회 실패");
-			         return "common/errorPage";
-			      }
+		return "auction/auction";
 	}
+	
+	
 	
 	
 }

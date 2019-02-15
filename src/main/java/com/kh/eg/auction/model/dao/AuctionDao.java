@@ -5,13 +5,20 @@ import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.kh.eg.attachment.model.vo.Attachment;
+import com.kh.eg.bidding.model.vo.Bid;
 import com.kh.eg.item.model.vo.Item;
 
 public interface AuctionDao {
 
-	HashMap<String, Object> selectItem(SqlSessionTemplate sqlSession, int itemNo);
 
-	Object selectBid(SqlSessionTemplate sqlSession, int itemNo);
+	ArrayList<Attachment> selectAttachment(SqlSessionTemplate sqlSession);
+
+	ArrayList<Bid> selectBid(SqlSessionTemplate sqlSession);
+
+	ArrayList<Item> selectItem(SqlSessionTemplate sqlSession);
+
+	/*Object selectAttachment(SqlSessionTemplate sqlSession, int itemNo);*/
 
 	
 	

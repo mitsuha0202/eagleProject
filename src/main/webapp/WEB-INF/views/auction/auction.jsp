@@ -48,6 +48,10 @@ h4 {
 .nay {
 	float: right;
 }
+.may {
+	height:200px;
+	border:1px solid black;
+}
 </style>
 
 </head>
@@ -99,25 +103,33 @@ h4 {
 				
 			</div>
 			<hr>
+			<c:forEach var="l" items="${list1}">
+			<div class="may" style=width:300px;>
+				<img src="/resources/uploadFiles/${l.atta.changeName}">
+				
+				</div>
 			<table class="ui basic table" style=width:250px;>
-			<c:forEach var="hamp" items="${hmap}"}>
+			
 			<tr class="tr">
-				<td colspan="2">입찰 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${hmap.BID.itemNo} 건</td>
-				<td>조회 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${hmap.AUCTIONITEM.Itemcount} 회</td>
+			
+
+				<td colspan="2">입찰 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${l.bidCount} 건</td>
+				<td>조회 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${l.itemcount} 회</td>
 
 			</tr>
 			
 			<tr class="tr">
 				<td colspan="2">판매자 아이디</td>
-				<td>${i.mid}</td>
+				<td>${mid}</td>
 			</tr>
 			<tr class="tr">
 				<td colspan="2">남은 시간</td>
 				<td>00</td>
 
 			</tr>
-		</c:forEach>
+		
 		</table>
+		</c:forEach>
 		</div>
 
 

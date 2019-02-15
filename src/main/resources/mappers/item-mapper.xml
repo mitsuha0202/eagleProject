@@ -15,27 +15,38 @@
 		<result property="mid" column="MEMBERNO"/>
 		<result property="auctionCode" column="AUCTIONCODE"/>
 		<result property="detail" column="DETAIL"/>
+		<result property="deliveryPrice" column="DELIVERYPRICE"/>
+		<result property="itemcount" column="ICOUNT"/>
 	</resultMap>
-	
 	<resultMap type="com.kh.eg.attachment.model.vo.Attachment" id="attachmentResultSet">
 		<id property="attachmentNo" column="ATTACHMENTNO"/>
-		<result property="orginName" column="ORIGINNAME"/>
+		<result property="originName" column="ORIGINNAME"/>
 		<result property="changeName" column="CHANGENAME"/>
 		<result property="root" column="ROOT"/>
 		<result property="fileLevel" column="FILELEVEL"/>
 		<result property="addStatus" column="ADDSTATUS"/>
 		<result property="deleteYN" column="DELETEYN"/>
 		<result property="boardNo" column="BOARDNO"/>
-		<result property="ITEMNO" column="itemNo"/>
+		<result property="itemNo" column="ITEMNO"/>
 		
 	</resultMap>
+
+	<resultMap type="com.kh.eg.bidding.model.vo.Bid" id="biddingResultSet">
+		<id property="bidNo" column="BIDNO"/>
+		<result property="memberNo" column="MEMBERNO"/>
+		<result property="currentPrice" column="CURRENTPRICE"/>
+		<result property="bidDate" column="BIDDATE"/>
+		<result property="itemNo" column="ITEMNO"/>
+		
+	</resultMap>
+	
 	
 	
 	
 	<insert id="insertItem" >
 	INSERT INTO AuctionItem
 	VALUES(#{item.itemNo},#{item.itemName},#{item.startPrice},#{item.bidUnit},
-	#{item.deliveryPay},#{item.origin}, 'N' ,'1',#{item.mid}, #{item.auctionCode} ,#{item.detail},'0')
+	#{item.deliveryPay},#{item.origin}, 'N' ,'1',#{item.mid}, #{item.auctionCode} ,#{item.detail},#{item.deliveryPrice},'0')
 	</insert>
 	<insert id="insertAttachment">
 	INSERT INTO ATTACHMENT VALUES(PN_SEQ.NEXTVAL, #{attachment.originName},#{attachment.changeName},
@@ -55,17 +66,21 @@
 	
 	</select>
 	
-	<select id="selectList">
-		SELECT MEMBERNO,ICOUNT FROM AUCTIONITEM WHERE ITEMNO=#{itemNo}
+	<select id="selectItem" resultMap="itemResultSet" parameterType="java.lang.String">
+		select * from auctionitem
 	
 	</select>
 	
 	
-	<select id="selectBidList">
-		 SELECT COUNT(ITEMNO) FROM BID WHERE ITEMNO=#{itemNo}
+	<select id="selectBid" resultMap="biddingResultSet" parameterType="java.lang.String">
+		SELECT *FROM BID
 	
 	</select>
 	
+ 	<select id="selectAttachment" resultMap="attachmentResultSet" parameterType="java.lang.String">
+		select * from ATTACHMENT  
+	
+	</select>
 
 
 </mapper>
