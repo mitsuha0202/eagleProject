@@ -36,8 +36,8 @@ public class MyPageDaoImpl implements MyPageDao{
 	public int deleteMessage(SqlSessionTemplate sqlSession, int[] deleteNum) {
 		int result = 0;
 		for(int i=0; i<deleteNum.length; i++) {
-			sqlSession.delete("MyPage.deleteReply", deleteNum[i]);
-			result = sqlSession.delete("MyPage.deleteMessage", deleteNum[i]);
+			sqlSession.update("MyPage.deleteReply", deleteNum[i]);
+			result = sqlSession.update("MyPage.deleteMessage", deleteNum[i]);
 		}
 		return result;
 	}
@@ -73,8 +73,9 @@ public class MyPageDaoImpl implements MyPageDao{
 	//1대1 게시글 상세보기 
 	@Override
 	public MyPageBoard selectOneBoard(SqlSessionTemplate sqlSession, String boardNo) {
-
-		return sqlSession.selectOne("MyPage.selectOneBoard", boardNo);
+		MyPageBoard myBoard = sqlSession.selectOne("MyPage.selectOneBoard", boardNo);
+		myBoard.setrContents((String)sqlSession.selectOne("MyPage.selectOneReply", myBoard.getBoardNo()));
+		return myBoard;
 
 	}
 

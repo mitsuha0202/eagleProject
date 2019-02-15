@@ -45,16 +45,15 @@
 	</select>
 	
 	<!-- 댓글 삭제 -->
-	<delete id="deleteReply" parameterType="int">
-		DELETE FROM REPLY 
+	<update id="deleteReply" parameterType="int">
+		UPDATE REPLY SET DELETESTATUS = 'Y' 
 		WHERE BOARDNO = #{deleteNum}
-	</delete>
+	</update>
 	
 	<!-- 게시글 삭제 -->
-	<delete id="deleteMessage" parameterType="int">
-		DELETE FROM BOARD 
-		WHERE BOARDNO = #{deleteNum} AND BOARDSTATUS = 'ONEBYONE'
-	</delete>
+	<update id="deleteMessage" parameterType="int">
+		UPDATE BOARD SET DELETESTATUS = 'Y' WHERE BOARDNO = #{deleteNum}
+	</update>
 	
 	<!-- 게시글 등록 -->
 	<insert id="insertMessage" parameterType="MyPageBoard">
@@ -93,4 +92,9 @@
 	<update id="deleteUserInfo" parameterType="java.lang.String">
 		UPDATE MEMBER SET WDSTATUS = 'Y' WHERE MEMBERNO = #{mid}
 	</update>
+	
+	<!-- 댓글조회 -->
+	<select id="selectOneReply" parameterType="java.lang.String">
+		SELECT * FROM REPLY WHERE BOARDNO = #{boardNo}
+	</select>
 </mapper>
