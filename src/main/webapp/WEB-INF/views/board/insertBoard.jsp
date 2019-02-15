@@ -71,7 +71,7 @@
 	     			</table>
 	     			<br>
 	     			<div class="btnArea" align="center"">
-	     				<button class="ui black basic button"  type="button" style="width:100px; height:50px;" onclick="return insertBoard();">등록하기</button>
+	     				<button class="ui black basic button"  type="submit" style="width:100px; height:50px;" >등록하기</button>
 						<button class="ui black basic button" type="button" style="width:100px; height:50px;" onclick="return reset();">취소하기</button>
 					</div>
 	     		</form>
@@ -91,9 +91,9 @@
    	
    	<!-- footer -->
    	<script>
-   		function insertBoard() {
+   		/* function insertBoard() {
 			location.href="insertBoard.bo";
-		}
+		} */
    	</script>
 </body>
 </html>

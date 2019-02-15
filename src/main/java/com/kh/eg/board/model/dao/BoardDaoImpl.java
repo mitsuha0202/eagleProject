@@ -35,8 +35,8 @@ public class BoardDaoImpl implements BoardDao{
 
 	@Override
 	public int inserBoard(SqlSessionTemplate sqlSession, Board b) {
-		
-		return sqlSession.insert("Board.insertBoard",b);
+		int result = sqlSession.insert("Board.insertBoard",b);
+		return result;
 	}
 
 }
