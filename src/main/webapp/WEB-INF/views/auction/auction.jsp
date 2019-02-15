@@ -102,25 +102,30 @@ h4 {
 				</div>
 				
 			</div>
+			<br>
+			<br>
 			<hr>
-			<c:forEach var="l" items="${list1}">
+			<div class="item" style="display:inline-block;;width:33%;">
+			<c:forEach var="i" items="${list1}">
 			<div class="may" style=width:300px;>
-				<img src="/resources/uploadFiles/${l.atta.changeName}">
-				
+				 <img src="../../../resources/uploadFiles/${i.atta.changeName}">
 				</div>
-			<table class="ui basic table" style=width:250px;>
+			<table class="ui basic table" style="width:250px;">
 			
+			
+			 <tr>
+			 
+			
+				
+			</tr>
 			<tr class="tr">
-			
-
-				<td colspan="2">입찰 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${l.bidCount} 건</td>
-				<td>조회 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${l.itemcount} 회</td>
-
+				<td colspan="2">입찰 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${i.bidCount} 건</td>
+				<td>조회 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${i.itemcount} 회</td>
 			</tr>
 			
 			<tr class="tr">
 				<td colspan="2">판매자 아이디</td>
-				<td>${mid}</td>
+				<td>${i.mid}</td>
 			</tr>
 			<tr class="tr">
 				<td colspan="2">남은 시간</td>
@@ -129,7 +134,9 @@ h4 {
 			</tr>
 		
 		</table>
-		</c:forEach>
+		
+			</c:forEach>
+		</div>
 		</div>
 
 
