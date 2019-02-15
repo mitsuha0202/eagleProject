@@ -28,13 +28,10 @@ public class AuctionController {
 	public String selectAuction(HttpServletRequest request,Model model,Item it ) {
 		
 		ArrayList<Bid> list2=as.selectBid();
-		System.out.println(list2);
 		ArrayList<Item> list1=as.selectItem();
 		for(int i=0;i<list1.size();i++) {
 			int count=0;
-			System.out.println(list1);
 			for(int j=0;j<list2.size();j++) {
-				System.out.println(list2);
 				if(list2.get(j).getItemNo()==(list1.get(i).getItemNo())) {
 					count++;
 				}
@@ -47,14 +44,14 @@ public class AuctionController {
 		
 		for(int i=0;i<list1.size();i++) {
 			for(int j=0;j<list3.size();j++) {
-				System.out.println(list3);
-				if(list1.get(j).getItemNo()==(list3.get(j).getItemNo())) {
+				if(list1.get(i).getItemNo()==(list3.get(j).getItemNo())) {
 					list1.get(i).setAtta(list3.get(j));break;
 				}
 			}
 		}
 
-		model.addAttribute(list1);
+		model.addAttribute("list1",list1);
+		System.out.println(list1);
 		
 		return "auction/auction";
 	}
