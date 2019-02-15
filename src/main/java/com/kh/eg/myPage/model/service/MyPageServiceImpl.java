@@ -6,8 +6,10 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.eg.member.model.vo.Member;
 import com.kh.eg.myPage.model.dao.MyPageDao;
 import com.kh.eg.myPage.model.vo.MyPageBoard;
+import com.kh.eg.myPage.model.vo.PageInfo;
 import com.kh.eg.myPage.model.vo.WishList;
 
 @Service
@@ -19,10 +21,17 @@ public class MyPageServiceImpl implements MyPageService{
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
+	//1대1 쪽지함 페이징 처리
+	@Override
+	public int getListCount(String memberNo) {
+		
+		return md.getListCount(sqlSession, memberNo);
+	}	
+	
 	//1대1 문의함 게시글들 조회
 	@Override
-	public ArrayList<MyPageBoard> selectMessage(String memberNo) {
-		return md.selectMessage(sqlSession, memberNo);
+	public ArrayList<MyPageBoard> selectMessage(PageInfo pi, String memberNo) {
+		return md.selectMessage(sqlSession, pi, memberNo);
 	}
 
 	//1대1 문의함 게시글 삭제
@@ -45,18 +54,14 @@ public class MyPageServiceImpl implements MyPageService{
 		
 		return md.searchMessage(sqlSession, search, searchTitle);
 	}
-
 	
 	//위시리스트 등록해놓은거 검색
 	@Override
 	public ArrayList<WishList> selectWishList(String memberNo) {
 		
-		
 		return md.selectWishList(sqlSession,memberNo);
 	}
 	
-
-
 	//게시글 개수 조회
 	@Override
 	public int countMessage(String memberNo) {
@@ -69,5 +74,19 @@ public class MyPageServiceImpl implements MyPageService{
 	public MyPageBoard selectOneBoard(String boardNo) {
 		
 		return md.selectOneBoard(sqlSession, boardNo);
-	}	
+	}
+
+	//회원정보 업데이트
+	@Override
+	public int updateMember(Member member) {
+		
+		return md.updateMember(sqlSession, member);
+	}
+
+	//회원정보 삭제
+	@Override
+	public int deleteUserInfo(String mid) {
+		
+		return md.deleteUserInfo(sqlSession, mid);
+	}
 }

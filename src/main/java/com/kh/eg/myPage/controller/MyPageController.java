@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,8 +16,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.kh.eg.member.model.vo.Member;
+import com.kh.eg.myPage.common.Pagination;
 import com.kh.eg.myPage.model.service.MyPageService;
 import com.kh.eg.myPage.model.vo.MyPageBoard;
+import com.kh.eg.myPage.model.vo.PageInfo;
 import com.kh.eg.myPage.model.vo.WishList;
 
 @SessionAttributes("loginUser")
@@ -26,6 +29,9 @@ import com.kh.eg.myPage.model.vo.WishList;
 		
 		@Autowired
 		private MyPageService ms;
+		
+		@Autowired
+		private BCryptPasswordEncoder passwordEncoder;
 		
 		@RequestMapping("myPageMain.mp")
 		public String myPageMainPage() {
@@ -50,18 +56,30 @@ import com.kh.eg.myPage.model.vo.WishList;
 		
 		//쪽지함 페이지로 이동
 		   @RequestMapping("userMessage.mp")
-		   public String userMessagePage(Model model, Member m, HttpSession session) {
-		      m = (Member)session.getAttribute("loginUser");
-		      String memberNo= m.getMid();
-		      ArrayList<MyPageBoard> list = ms.selectMessage(memberNo);
-		      if(list != null) {
-		         model.addAttribute("list", list);
-		         return "myPage/usesrMessagePage";
-		      }else {
-		         model.addAttribute("msg", "1대1 문의 조회 실패");
-		         return "common/errorPage";
-		      }
-		   }
+		   public String userMessagePage(Model model, Member m, HttpSession session, HttpServletRequest request) {
+			   int currentPage = 1;
+			   if(request.getParameter("currentPage") != null) {
+				   currentPage = Integer.parseInt(request.getParameter("currentPage"));
+			   }
+			   
+			   //유저번호 받기위해 
+		       m = (Member)session.getAttribute("loginUser");
+		       String memberNo= m.getMid();
+			   
+			   int listCount = ms.getListCount(memberNo);
+			   PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		       
+		       //service로 보냄
+		       ArrayList<MyPageBoard> list = ms.selectMessage(pi, memberNo);
+		       if(list != null) {
+		          model.addAttribute("list", list);
+		          model.addAttribute("pi", pi);
+		          return "myPage/usesrMessagePage";
+		       }else {
+		          model.addAttribute("msg", "1대1 문의 조회 실패");
+		          return "common/errorPage";
+		       }
+		    }
 		   
 		//위시리스트 페이지로 이동
 		@RequestMapping("wishList.mp")
@@ -183,8 +201,16 @@ import com.kh.eg.myPage.model.vo.WishList;
 			String temp = member.getAddress();
 			temp += " " + detailAddress;
 			member.setAddress(temp);
-			System.out.println(member);
-			return null;
+			member.setUserPwd(passwordEncoder.encode(member.getUserPwd()));
+			
+			int result = ms.updateMember(member);
+			
+			if(result > 0) {
+				return "redirect:myPageMain.mp";
+			}else {
+				model.addAttribute("msg", "회원정보 수정 실패");
+				return "common/errorPage";
+			}
 		}
 		
 		//1대1 문의 상세보기
@@ -200,6 +226,20 @@ import com.kh.eg.myPage.model.vo.WishList;
 				return "myPage/userMessageDetailPage";
 			}else {
 				model.addAttribute("msg", "상세보기 실패");
+				return "common/errorPage";
+			}
+		}
+		
+		//유저 삭제
+		@RequestMapping("deleteUserInfo.mp")
+		public String deleteUserInfo(HttpServletRequest request, Model model) {
+			String mid = request.getParameter("mid");
+			int result = ms.deleteUserInfo(mid);
+			
+			if(result > 0) {
+				return "redirect:goMain.me";
+			}else {
+				model.addAttribute("msg", "회원탈퇴 실패");
 				return "common/errorPage";
 			}
 		}

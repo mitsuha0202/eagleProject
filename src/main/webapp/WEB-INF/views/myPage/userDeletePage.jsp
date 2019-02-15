@@ -107,11 +107,26 @@
 				</select></td>
 			</tr>
 		</table>
+		<input type="hidden" id="memberNo" value="${ sessionScope.loginUser.mid }">
 	</div>
 	
 	<div class="radioArea">
 		<input type="checkbox" id="checkBtn" class="form-control" name="checkbox" style="width: 50px;"><h5 class="checkContent">위 내용을 확인했습니다.</h5>
 	</div>
+		<button class="deleteBtn" onclick="return deleteUser();">삭제</button>
 		<button class="closeBtn" onclick="location.href='userInfoUpdate.mp'">닫기</button>
+		
+	<script>
+		function deleteUser() {
+			if(checkBtn.checked == true){
+				var mid = $("#memberNo").val();
+				location.href="deleteUserInfo.mp?mid=" + mid;
+				return true;
+			}else {
+				alert("약관에 동의해주세요.");
+				return false
+			}
+		}
+	</script>
 </body>
 </html>

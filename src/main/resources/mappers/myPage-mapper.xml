@@ -76,6 +76,7 @@
 		SELECT w.wishlistno,c.categoryname, a.itemno,a.itemname,a.startprice,m.membername,d.endday FROM WISHLIST W JOIN AUCTIONITEM A ON (W.MEMBERNO = A.MEMBERNO) JOIN CATEGORY C ON (A.CATEGORYNO = C.CATEGORYNO) JOIN MEMBER M ON(A.MEMBERNO = M.MEMBERNO) JOIN AUCTIONDETAIL D ON(D.ITEMNO = A.ITEMNO) WHERE w.deletestatus = 'N' and m.memberno =  #{memberNo}
 	</select>
 
+	<!-- 게시글 상세보기 -->
 	<select id="selectOneBoard" resultMap="myPageResultSet" parameterType="java.lang.String">
 		SELECT * FROM BOARD 
 		WHERE DELETESTATUS = 'N'
@@ -83,5 +84,13 @@
 		AND BOARDNO = #{boardNo}
 	</select>
 	
+	<!-- 회원정보 수정 -->
+	<update id="updateMember" parameterType="Member">
+		UPDATE MEMBER SET MEMBERPWD = #{userPwd}, PHONE = #{phone}, ADDRESS = #{address} WHERE MEMBERNO = #{mid}
+	</update>
 
+	<!-- 회원정보 삭제 -->
+	<update id="deleteUserInfo" parameterType="java.lang.String">
+		UPDATE MEMBER SET WDSTATUS = 'Y' WHERE MEMBERNO = #{mid}
+	</update>
 </mapper>

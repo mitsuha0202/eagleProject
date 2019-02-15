@@ -2,21 +2,33 @@ package com.kh.eg.myPage.model.dao;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
+import com.kh.eg.member.model.vo.Member;
 import com.kh.eg.myPage.model.vo.MyPageBoard;
+import com.kh.eg.myPage.model.vo.PageInfo;
 import com.kh.eg.myPage.model.vo.WishList;
 
 @Repository
 public class MyPageDaoImpl implements MyPageDao{
 
+	//1대1 쪽지함 페이징 처리
+	@Override
+	public int getListCount(SqlSessionTemplate sqlSession, String memberNo) {
+		
+		return sqlSession.selectOne("MyPage.countMessage", memberNo);
+	}
+	
 	//1대1 문의함 게시글들 조회
 	@Override
-	public ArrayList<MyPageBoard> selectMessage(SqlSessionTemplate sqlSession, String memberNo) {
+	public ArrayList<MyPageBoard> selectMessage(SqlSessionTemplate sqlSession, PageInfo pi, String memberNo) {
+		int offset = (pi.getCurrentPage()  - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 		
-		return (ArrayList)sqlSession.selectList("MyPage.selectMessage", memberNo);
+		return (ArrayList)sqlSession.selectList("MyPage.selectMessage", memberNo, rowBounds);
 	}
 	
 	//1대1 문의함 게시글 삭제
@@ -64,5 +76,19 @@ public class MyPageDaoImpl implements MyPageDao{
 
 		return sqlSession.selectOne("MyPage.selectOneBoard", boardNo);
 
+	}
+
+	//회원정보 업데이트
+	@Override
+	public int updateMember(SqlSessionTemplate sqlSession, Member member) {
+		
+		return sqlSession.update("MyPage.updateMember", member);
+	}
+
+	//회원정보 삭제
+	@Override
+	public int deleteUserInfo(SqlSessionTemplate sqlSession, String mid) {
+		/*sqlSession.select*/
+		return sqlSession.delete("MyPage.deleteUserInfo", mid);
 	}
 }
