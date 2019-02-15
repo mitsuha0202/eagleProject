@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-	
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../admin/include/common.jsp" %>
 
-
 <title>Eagle 관리자페이지</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
 <div id="Wrap"><!-- Wrap S -->
@@ -59,35 +59,37 @@
 						<th scope="col">아이디</th>
 						<th scope="col">이름</th>
 						<th scope="col">전화번호</th>
-						<th scope="col">신고횟수</th>
-						<th scope="col">취소,반품횟수</th>
-						<th scope="col">보유 머니</th>
-						<th scope="col">상태</th>
+						<th scope="col">주소</th>
+						<th scope="col">이메일</th>
+						<th scope="col">보유머니</th>
+						<th scope="col">탈퇴여부</th>
 					</tr>
 				</thead>
 				<tbody>
 					<!-- <tr>
 						<td colspan="9">등록된 정보가 없습니다.</td>
 					</tr> -->
+					<c:forEach var="b" items="${ list }">
 					<tr>
 						<td>
 							<label for=""> 체크</label>
 							<input id="" name="" class="check" type="checkbox">
 						</td>
-						<td>일반</td>
-						<td>test1234</td>
-						<td>현빈</td>
-						<td>010-1234-4567</td>
-						<td>1</td>
-						<td>5</td>
-						<td>10000</td>
-						<td>사용불가</td>
+						<td>${ b.rating }</td>
+						<td>${ b.memberId }</td>
+						<td>${ b.memberName }</td>
+						<td>${ b.phone }</td>
+						<td>${ b.address }</td>
+						<td>${ b.eMail }</td>
+						<td>${ b.eMoney }</td>
+						<td>${ b.wdStatus }</td>
 					</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 
 			
-			<div class="numbox pt40 pb50"> 
+			<!-- <div class="numbox pt40 pb50"> 
 				<span><a class="num" href="#">&lt;&lt;</a></span>
 				<span><a class="num" href="#">&lt;</a></span>
 				<span><a class="num on" href="#">1</a></span>
@@ -95,7 +97,44 @@
 				<span><a class="num" href="#">3</a></span>
 				<span><a class="num" href="#">&gt;</a></span>
 				<span><a class="num" href="#">&gt;&gt;</a></span>
-			</div>
+			</div> -->
+			
+				<!-- 페이징 버튼 영역 -->
+		<div id="pagingArea" align="center">
+			<c:if test="${ pi.currentPage <= 1 }">
+				[이전] &nbsp;
+			</c:if>
+			<c:if test="${ pi.currentPage > 1 }">
+				<c:url var="blistBack" value="/blackList.ad">
+					<c:param name="currentPage" value="${ pi.currentPage - 1}"/>
+				</c:url>
+				<a href="${ blistBack }">[이전]</a> &nbsp;
+			</c:if>
+			
+			<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+				<c:if test="${ p eq pi.currentPage }">
+					<font color="red" size="4"><b>[${p}]</b></font>
+				</c:if>
+				<c:if test="${ p ne pi.currentPage }">
+					<c:url var="blistCheck" value="blackList.ad">
+						<c:param name="currentPage" value="${p}"/>
+					</c:url>
+					<a href="${ blistCheck }">${ p }</a>
+				</c:if>
+			</c:forEach>
+			
+			<c:if test="${ pi.currentPage >= pi.maxPage }">
+				&nbsp; [다음]
+			</c:if>
+			<c:if test="${ pi.currentPage < pi.maxPage }">
+				<c:url var="blistEnd" value="blackList.ad">
+					<c:param name="currentPage" value="${ pi.currentPage + 1}"/>
+				</c:url>
+				<a href="${ blistEnd }">&nbsp;[다음]</a>
+			</c:if>
+		</div>
+			
+			
 		</div><!--// contBox E-->
 
 	</div><!--// container E-->
