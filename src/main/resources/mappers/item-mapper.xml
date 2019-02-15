@@ -54,10 +54,15 @@
 	</select>
 	
 	<select id="selectList">
-		SELECT ITEMNO 
+		SELECT MEMBERNO,ICOUNT FROM AUCTIONITEM WHERE ITEMNO=#{itemNo}
 	
 	</select>
 	
+	
+	<select id="selectBidList">
+		 SELECT COUNT(ITEMNO) FROM BID WHERE ITEMNO=#{itemNo}
+	
+	</select>
 	
 
 

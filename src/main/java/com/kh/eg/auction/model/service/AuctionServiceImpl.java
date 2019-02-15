@@ -21,9 +21,12 @@ private SqlSessionTemplate sqlSession;
 
 	
 	@Override
-	public ArrayList<Item> selectItem(int itemNo) {
+	public HashMap<String, Object> selectItem(int itemNo) {
+		HashMap<String, Object> hmap = new HashMap<String, Object>();
+		hmap.put("item", ad.selectItem(sqlSession,itemNo));
+		hmap.put("bid", ad.selectBid(sqlSession,itemNo));
+		return hmap;
 		
-		return ad.selectItem(sqlSession,itemNo);
 	}
 
 	
