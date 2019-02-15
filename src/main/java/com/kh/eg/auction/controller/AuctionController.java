@@ -15,6 +15,7 @@ import com.kh.eg.auction.model.service.AuctionService;
 import com.kh.eg.auction.model.service.AuctionServiceImpl;
 import com.kh.eg.auction.model.vo.PageInfo;
 import com.kh.eg.auction.model.vo.Pagination;
+import com.kh.eg.bidding.model.vo.Bid;
 import com.kh.eg.item.model.vo.Item;
 
 @Controller
@@ -23,15 +24,24 @@ public class AuctionController {
 	private AuctionService as;
 
 	@RequestMapping("auctionCategory.au")
-	public String selectAuction(HttpServletRequest request,HttpServletResponse response,Model model,Item it ) {
+	public String selectAuction(HttpServletRequest request,Model model,Item it ) {
 		
 		int itemNo=it.getItemNo();
-		ArrayList<Item> list=as.selectItem(itemNo);
-			  if(list != null) {
-			         model.addAttribute("list", list);
+		HashMap<String,Object> hmap=new HashMap<String, Object>();
+		ArrayList<Bid> list2=new ArrayList<Bid>();
+		ArrayList<Item> list1=new ArrayList<Item>();
+		hmap.put("item",list1);
+		hmap.put("bid",list2);
+		
+		
+		
+		hmap=as.selectItem(itemNo);
+				
+			  if(hmap != null) {
+			         model.addAttribute("hmap", hmap);
 			         return "auction/auction";
 			      }else {
-			         model.addAttribute("msg", "1대1 문의 조회 실패");
+			         model.addAttribute("msg", " 조회 실패");
 			         return "common/errorPage";
 			      }
 	}

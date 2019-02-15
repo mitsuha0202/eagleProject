@@ -102,8 +102,8 @@ h4 {
 			<table class="ui basic table" style=width:250px;>
 			<c:forEach var="hamp" items="${hmap}"}>
 			<tr class="tr">
-				<td colspan="2">입찰 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${hmap.BID.ITEMNO} 건</td>
-				<td>조회 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${hmap.AUCTIONITEM.ITEMCOUNT} 회</td>
+				<td colspan="2">입찰 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${hmap.BID.itemNo} 건</td>
+				<td>조회 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${hmap.AUCTIONITEM.Itemcount} 회</td>
 
 			</tr>
 			

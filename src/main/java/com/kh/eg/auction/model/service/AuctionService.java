@@ -8,8 +8,10 @@ import com.kh.eg.item.model.vo.Item;
 
 public interface AuctionService {
 
-	ArrayList<Item> selectItem(int itemNo);
+	HashMap<String, Object> selectItem(int itemNo);
 
+	
+	
 	
 
 }
