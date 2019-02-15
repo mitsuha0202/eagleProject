@@ -193,7 +193,7 @@
 				<input type="radio" name="deliveryPay" value="착불" id="after">착불
 				&nbsp;&nbsp;<input type="radio" name="deliveryPay" id="free" value="무료">무료
 				<br>
-				선결제 비용 <input type="text" id="preP">원 &nbsp;&nbsp;&nbsp;착불비용<input type="text" id="afterP">원
+				 비용 <input type="text" id="preP" name="deliveryPrice">원 
 				</td>
 			</tr>
 			
@@ -243,7 +243,7 @@
 
     });
 
-
+/* 
 	$("input:radio[name=deliveryPay]").change(function(){
 		
 		if($("#pre:checked").val()=="Y") {
@@ -259,7 +259,7 @@
 			
 		}
 		
-	});
+	}); */
 	
 	
 	

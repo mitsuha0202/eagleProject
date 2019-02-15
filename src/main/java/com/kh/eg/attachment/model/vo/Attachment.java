@@ -1,5 +1,8 @@
 package com.kh.eg.attachment.model.vo;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Attachment implements java.io.Serializable {
 
 	private String attachmentNo;
@@ -9,7 +12,7 @@ public class Attachment implements java.io.Serializable {
 	private int fileLevel;
 	private String addStatus;
 	private String boardNo;
-	private String itemNo;
+	private int itemNo;
 	
 
 	public Attachment() {}
@@ -85,7 +88,7 @@ public class Attachment implements java.io.Serializable {
 	}
 
 
-	public String getItemNo() {
+	public int getItemNo() {
 		return itemNo;
 	}
 
@@ -99,7 +102,7 @@ public class Attachment implements java.io.Serializable {
 
 
 	public Attachment(String attachmentNo, String originName, String changeName, String root, int fileLevel,
-			String addStatus, String boardNo, String itemNo) {
+			String addStatus, String boardNo, int itemNo) {
 		super();
 		this.attachmentNo = attachmentNo;
 		this.originName = originName;
@@ -112,7 +115,7 @@ public class Attachment implements java.io.Serializable {
 	}
 
 
-	public void setItemNo(String itemNo) {
+	public void setItemNo(int itemNo) {
 		this.itemNo = itemNo;
 	}
 

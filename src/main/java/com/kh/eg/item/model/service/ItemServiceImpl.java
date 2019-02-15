@@ -29,7 +29,7 @@ private DataSourceTransactionManager transactionManager;
 		int itemNo=id.selectItemNoNextval(sqlSession);
 		((Item)hmap.get("item")).setItemNo(itemNo);
 		System.out.println((Attachment)hmap.get("attachment"));
-		((Attachment)hmap.get("attachment")).setItemNo(itemNo+"");
+		((Attachment)hmap.get("attachment")).setItemNo(itemNo);
 		int result1=id.insertItem(sqlSession,hmap);
 		int result2=id.insertAttachment(sqlSession,hmap);
 		
