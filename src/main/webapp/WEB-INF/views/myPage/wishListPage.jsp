@@ -3,7 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
+
 <head>
+
 <meta charset="UTF-8">
 <title>위시리스트</title>
 <style>
@@ -30,7 +32,7 @@
 		top: 450px;
 		left: 70px;
 	}
-	.wishListTable, tr, td{
+	.wishListTable, th, tr,td{
 		border: 1px solid black;
 		text-align: center;
 	}
@@ -63,6 +65,10 @@
 		height: 40px;
 	    font-size: 16px;
 	}
+	
+	.selected{
+	background-color: gray;
+	}
 </style>
 </head>
 <body>
@@ -82,19 +88,24 @@
 	
 	<div class="wishTableArea">
 		<table class="wishListTable">
+			<thead>
 			<tr>
-				<td><input type="checkbox" class="form-control" style="width: 17px; height: 17px; margin-left: auto; margin-right: auto;"></td>
-				<td>번호</td>
-				<td>카테고리</td>
-				<td>물품번호</td>
-				<td>물품명</td>
-				<td>시작가</td>
-				<td>판매자</td>
-				<td>마감일</td>				
+				<th><input type="checkbox" name="All" id="checkAlltr" onclick="checkAll();" style="width: 17px; height: 17px; margin-left: auto; margin-right: auto;"></th>
+				<th>번호</th>
+				<th>카테고리</th>
+				<th>물품번호</th>
+				<th>물품명</th>
+				<th>시작가</th>
+				<th>판매자</th>
+				<th>마감일</th>				
 			</tr>
+			</thead>
+			
+			
+			<tbody>
 			<c:forEach var="w" items="${ list }">
 			<tr>
-				<td><input type="checkbox" class="form-control" style="width: 17px; height: 17px; margin-left: auto; margin-right: auto;"></td>
+				<td><input type="checkbox" name="checkTd" style="width: 17px; height: 17px; margin-left: auto; margin-right: auto;"></td>
 				<td>${w.wishlistno}</td>
 				<td>${w.categoryname }</td>
 				<td>${w.itemno }</td>
@@ -104,9 +115,57 @@
 				<td>${w.endday }</td>	
 			</tr>
 			</c:forEach>
+			</tbody>
+			
+			
 		</table>
 	</div>
-	<button class="wishDeleteBtn">삭제</button>
+	<button class="wishDeleteBtn" onclick="deletewishList()">삭제</button>
 	<button class="closeBtn" onclick="location.href='myPageMain.mp'">닫기</button>
 </body>
-</html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+var tdArr = new Array();
+function checkAll() {
+	if ($("#checkAlltr").is(':checked')) {
+		$("input[name=checkTd]").prop("checked", true);
+		$("input[name=checkTd]").parent().parent().addClass("selected");
+		
+	} else {
+		$("input[name=checkTd]").prop("checked", false);
+		$("input[name=checkTd]").parent().parent().removeClass("selected");
+	}
+}
+
+$("input:checkbox").on('click', function() { 
+	if ( $(this).prop('checked') ) { 
+	$(this).parent().parent().addClass("selected"); 
+	} 
+	
+	else { 
+	$(this).parent().parent().removeClass("selected"); 
+	} 
+ }); 
+ 
+function deletewishList(){
+ 	var rowData = new Array();
+ 	
+ 	var checkbox = $("input[name=checkTd]:checked");
+ 	checkbox.each(function(i){
+ 		var tr = checkbox.parent().parent().eq(i);
+ 		var td = tr.children();
+ 		
+        apprno = td.eq(1).text();
+        tdArr.push(apprno);
+        console.log(apprno);
+       
+        location.href='delete.mp'
+       
+ 	});
+	
+ 	 
+   
+    
+	} 
+</script>
+</html>	
