@@ -16,21 +16,28 @@
 
 		<div class="contBox mt30"><!-- contBox S -->
 				
-			<div class="topsearch mt30 mb30"><!-- topsearch S -->
+			<div class="topsearch mt30 mb30" id=searchArea><!-- topsearch S -->
 				<span>
 					<label for="col01"></label>
-					<select id="col01" name="col01" class="wth140">
-						<option value="">아이디</option>
-						<option value="">이름</option>
-						<option value="">휴대폰번호</option>
-						<option value="">이메일주소</option>
+					<select id="searchCondition" name="searchCondition" class="wth140">
+						<option value="userId">아이디</option>
+						<option value="userName">이름</option>
+						<option value="phone">휴대폰번호</option>
 					</select> 
 				</span>
 				<span>
-					<label for="Keyword"></label><input id="Keyword" name="Keyword" class="wth240" type="text">
-					<a class="sch" href="#"><img src="resources/images/icoSearch.png" alt="검색" title="검색"></a> 
+					<label for="Keyword"></label><input id="search" name="search" class="wth240" type="search">
+					<a class="sch" onclick="searchBoard();"><img src="resources/images/icoSearch.png" alt="검색" title="검색"></a> 
 				</span>
 			</div>			
+			<script>
+				function searchBoard(){
+					var searchCondition = $("#searchCondition").val();
+					var searchValue = $("#search").val();
+					
+					location.href = "searchMemberList.ad?searchCondition=" + searchCondition + "&searchValue=" + searchValue;
+				}
+			</script>
 			
 			<div class="flo_left mt30 mb30">
 				<span><a class="mbtn bk" href="#">블랙리스트로 이동</a></span>
@@ -59,29 +66,29 @@
 						<th scope="col">이름</th>
 						<th scope="col">전화번호</th>
 						<th scope="col">주소</th>
+						<th scope="col">이메일</th>
 						<th scope="col">보유머니</th>
 						<th scope="col">탈퇴여부</th>
-						<th scope="col">블랙리스트 상태</th>
 					</tr>
 				</thead>
 				<tbody>
 					<!-- <tr>
 						<td colspan="9">등록된 정보가 없습니다.</td>
 					</tr> -->
-					<c:forEach var="A" items="${ list }">
+					<c:forEach var="b" items="${ list }">
 					<tr>
 						<td>
 							<label for=""> 체크</label>
 							<input id="" name="" class="check" type="checkbox">
 						</td>
-						<td>${ A.rating }</td>
-						<td>${ A.userId }</td>
-						<td>${ A.userName }</td>
-						<td>${ A.phone }</td>
-						<td>${ A.address }</td>
-						<td>${ A.emoney }</td>
-						<td>${ A.wdStatus }</td>
-						<td>${ A.blStatus }</td>
+						<td>${ b.rating }</td>
+						<td>${ b.memberId }</td>
+						<td>${ b.memberName }</td>
+						<td>${ b.phone }</td>
+						<td>${ b.address }</td>
+						<td>${ b.eMail }</td>
+						<td>${ b.eMoney }</td>
+						<td>${ b.wdStatus }</td>
 					</tr>
 					</c:forEach>
 				</tbody>
@@ -103,7 +110,7 @@
 				[이전] &nbsp;
 			</c:if>
 			<c:if test="${ pi.currentPage > 1 }">
-				<c:url var="blistBack" value="/adselectmember">
+				<c:url var="blistBack" value="/memberList.ad">
 					<c:param name="currentPage" value="${ pi.currentPage - 1}"/>
 				</c:url>
 				<a href="${ blistBack }">[이전]</a> &nbsp;
@@ -114,7 +121,7 @@
 					<font color="red" size="4"><b>[${p}]</b></font>
 				</c:if>
 				<c:if test="${ p ne pi.currentPage }">
-					<c:url var="blistCheck" value="adselectmember.ad">
+					<c:url var="blistCheck" value="memberList.ad">
 						<c:param name="currentPage" value="${p}"/>
 					</c:url>
 					<a href="${ blistCheck }">${ p }</a>
@@ -125,7 +132,7 @@
 				&nbsp; [다음]
 			</c:if>
 			<c:if test="${ pi.currentPage < pi.maxPage }">
-				<c:url var="blistEnd" value="adselectmember">
+				<c:url var="blistEnd" value="memberList.ad">
 					<c:param name="currentPage" value="${ pi.currentPage + 1}"/>
 				</c:url>
 				<a href="${ blistEnd }">&nbsp;[다음]</a>

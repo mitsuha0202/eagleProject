@@ -4,15 +4,16 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="AdminVo">
 	<resultMap type="com.kh.eg.admin.model.vo.AdminVo" id="adminResultSet">
-		<result property="userName" column="MEMBERNAME"/>
-		<result property="userId" column="MEMBERID"/>
-		<result property="account" column="ACCOUNTN"/>
+		<result property="memberName" column="MEMBERNAME"/>
+		<result property="memberId" column="MEMBERID"/>
+		<result property="accountn" column="ACCOUNTN"/>
 		<result property="phone" column="PHONE"/>
 		<result property="address" column="ADDRESS"/>
 		<result property="rating" column="RATING"/>
-		<result property="emoney" column="EMONEY"/>
+		<result property="eMoney" column="EMONEY"/>
 		<result property="wdStatus" column="WDSTATUS"/>
 		<result property="blStatus" column="BLSTATUS"/>
+		<result property="eMail" column="EMAIL"/>
 		
 	</resultMap>
 	
@@ -40,15 +41,55 @@
 	AND STATUS = 'Y'
 	</select> -->
 	
-	<select id="selectMemberList" resultMap="adminResultSet" parameterType="java.lang.String">
-		SELECT rating, userId, userName, phone, address, emoney, wdStatus, blStatus
+	<!-- 회원조회 -->
+	<select id="selectMemberList" resultMap="adminResultSet">
+		SELECT MEMBERNAME, MEMBERID, ACCOUNTN, PHONE, ADDRESS, RATING, EMAIL, EMONEY, WDSTATUS
 		FROM MEMBER
-		WHERE BLSTATUS = 'N'
+		WHERE BLSTATUS = 'N' AND WDSTATUS = 'N'
 	</select>
+	<!-- 회원조회 페이징 -->
 	<select id="selectListCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM MEMBER
 		WHERE BLSTATUS = 'N' AND WDSTATUS = 'N'
 	</select>
-
+	<!-- 블랙리스트 조회 -->
+	<select id="selectBlackList" resultMap="adminResultSet">
+		SELECT MEMBERNAME, MEMBERID, ACCOUNTN, PHONE, ADDRESS, RATING, EMAIL, EMONEY, WDSTATUS
+		FROM MEMBER
+		WHERE BLSTATUS = 'Y'
+	</select>
+	<!-- 블랙리스트 페이징 -->
+	<select id="selectBlackListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE BLSTATUS = 'Y'
+	</select>
+	<!-- 검색결과 조회 -->
+	<select id="searchMemberList" resultMap="adminResultSet">
+		SELECT MEMBERNAME, MEMBERID, ACCOUNTN, PHONE, ADDRESS, RATING, EMAIL, EMONEY, WDSTATUS
+		FROM MEMBER
+		WHERE BLSTATUS = 'N' AND WDSTATUS = 'N'
+		<choose>
+			<when test="writer != null">
+				AND MEMBERID = #{userId}
+			</when>
+			<when test="title != null">
+				AND MEMBERNAME LIKE '%' || #{userName} || '%'				
+			</when>
+			<otherwise>
+				AND PHONE LIKE '%' || #{phone} || '%'
+			</otherwise>
+		</choose>
+	</select>
+	
+	
 </mapper>
+
+
+
+
+
+
+
+
