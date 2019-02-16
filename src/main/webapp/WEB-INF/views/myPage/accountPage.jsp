@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -73,27 +75,34 @@
 	<div class="title"><h1>계좌관리</h1></div>
 	
 	<div class="accountInfo">
-		<p>본인 명의의 계좌를 등록하여 주시기 바랍니다 (아이디 실명에 한하여 송금이 가능합니다.)<br>환불 및 판매대금을 송금 받고자 하는 계좌번호를 등록해주세요.<br>계좌를 입력하지 않은 경우 물품 배송정보 확인 및 반품신청을 하실 수 없습니다.</p>
+		<p>본인 명의의 계좌를 등록하여 주시기 바랍니다 (아이디 실명에 한하여 송금이 가능합니다.)<br>처음 계좌를 등록하시는 경우 계좌변경을 클릭해 등록해주세요.<br>계좌를 입력하지 않은 경우 물품 배송정보 확인 및 반품신청을 하실 수 없습니다.</p>
 	</div>
 	
 	<div class="accountTableArea">
 		<table class="accountTable">
+			<c:if test="${ !empty maccount }">
 			<tr>
 				<td>은행명</td>
-				<td>제주은행</td>
+				<td><input type="text" class="form-control" value="${ maccount.bankName }"></td>
 			</tr>
 			<tr>
 				<td>계좌번호</td>
-				<td>000</td>
+				<td><input type="text" class="form-control" value="${ maccount.accountNo }"></td>
 			</tr>
 			<tr>
 				<td>예금주</td>
-				<td>OOO</td>
+				<td><input type="text" class="form-control" value="${ maccount.memberName }"></td>
 			</tr>
 			<tr>
 				<td>등록일</td>
-				<td>2019-02-01</td>
+				<td><input type="text" class="form-control" value="${ maccount.createDay }"></td>
 			</tr>
+			</c:if>
+			<c:if test="${ empty maccount }">
+				<tr>
+         			<td colspan="2"><h5>등록된 계좌가 없습니다.</h5></td>
+         		</tr>
+			</c:if>
 		</table>
 	</div>
 	<button class="updateBtn" onclick="location.href='accountUpdate.mp'">계좌변경</button>

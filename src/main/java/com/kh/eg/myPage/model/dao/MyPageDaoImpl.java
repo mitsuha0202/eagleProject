@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import com.kh.eg.member.model.vo.Member;
+import com.kh.eg.myPage.model.vo.Maccount;
 import com.kh.eg.myPage.model.vo.MyPageBoard;
 import com.kh.eg.myPage.model.vo.PageInfo;
 import com.kh.eg.myPage.model.vo.WishList;
@@ -90,6 +91,34 @@ public class MyPageDaoImpl implements MyPageDao{
 	@Override
 	public int deleteUserInfo(SqlSessionTemplate sqlSession, String mid) {
 		/*sqlSession.select*/
-		return sqlSession.delete("MyPage.deleteUserInfo", mid);
+		return sqlSession.update("MyPage.deleteUserInfo", mid);
+	}
+
+	//계좌등록, 변경
+	@Override
+	public int updateAccount(SqlSessionTemplate sqlSession, Maccount maccount) {
+		String mid = String.valueOf(maccount.getMid());
+		Maccount temp =  sqlSession.selectOne("MyPage.selectAccount", mid);
+		int result = 0;
+		if(temp == null) {
+			result = sqlSession.insert("MyPage.insertAccount", maccount);
+		}else {
+			result = sqlSession.update("MyPage.updateAccount", maccount);
+		}
+		return result;
+	}
+
+	//계좌조회
+	@Override
+	public Maccount selectAccount(SqlSessionTemplate sqlSession, Member m) {
+		String mid = m.getMid();
+		return sqlSession.selectOne("MyPage.selectAccount", mid);
+	}
+
+	//유저정보 수정시 원래 정보 조회
+	@Override
+	public Member selectMember(SqlSessionTemplate sqlSession, Member temp) {
+		
+		return sqlSession.selectOne("MyPage.selectMember", temp);
 	}
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.eg.member.model.vo.Member;
 import com.kh.eg.myPage.model.dao.MyPageDao;
+import com.kh.eg.myPage.model.vo.Maccount;
 import com.kh.eg.myPage.model.vo.MyPageBoard;
 import com.kh.eg.myPage.model.vo.PageInfo;
 import com.kh.eg.myPage.model.vo.WishList;
@@ -88,5 +89,26 @@ public class MyPageServiceImpl implements MyPageService{
 	public int deleteUserInfo(String mid) {
 		
 		return md.deleteUserInfo(sqlSession, mid);
+	}
+	
+	//계좌등록, 변경
+	@Override
+	public int updateAccount(Maccount maccount) {
+
+		return md.updateAccount(sqlSession, maccount);
+	}
+
+	//계좌 조회
+	@Override
+	public Maccount selectAccount(Member m) {
+		
+		return md.selectAccount(sqlSession, m);
+	}
+
+	//유저정보 수정시 원래 정보 조회
+	@Override
+	public Member selectMember(Member temp) {
+		
+		return md.selectMember(sqlSession, temp);
 	}
 }

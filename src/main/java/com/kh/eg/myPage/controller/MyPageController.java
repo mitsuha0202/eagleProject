@@ -1,9 +1,12 @@
 package com.kh.eg.myPage.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.kh.eg.member.model.vo.Member;
 import com.kh.eg.myPage.common.Pagination;
 import com.kh.eg.myPage.model.service.MyPageService;
+import com.kh.eg.myPage.model.vo.Maccount;
 import com.kh.eg.myPage.model.vo.MyPageBoard;
 import com.kh.eg.myPage.model.vo.PageInfo;
 import com.kh.eg.myPage.model.vo.WishList;
@@ -33,6 +38,7 @@ import com.kh.eg.myPage.model.vo.WishList;
 		@Autowired
 		private BCryptPasswordEncoder passwordEncoder;
 		
+		//마이페이지로 이동
 		@RequestMapping("myPageMain.mp")
 		public String myPageMainPage() {
 			
@@ -100,8 +106,17 @@ import com.kh.eg.myPage.model.vo.WishList;
 		
 		//회원정보 수정 페이지로 이동
 		@RequestMapping("userInfoUpdatePage.mp")
-		public String userInfoUpdatePage() {
-			return "myPage/userInfoUpdate";
+		public String userInfoUpdatePage(HttpSession session, Model model) {
+			Member temp = (Member)session.getAttribute("loginUser");
+			Member m = ms.selectMember(temp);
+			
+			if(m != null) {
+				model.addAttribute("m", m);
+				return "myPage/userInfoUpdate";
+			}else {
+				model.addAttribute("msg", "회원정보 조회실패");
+				return "common/errorPage";
+			}
 		}
 		
 		//회원탈퇴 페이지로 이동
@@ -114,8 +129,12 @@ import com.kh.eg.myPage.model.vo.WishList;
 		
 		//계좌관리 페이지로 이동
 		@RequestMapping("userAccount.mp")
-		public String userAccount() {
-			return "myPage/accountPage";
+		public String userAccount(HttpSession session, Model model, Member m) {
+			m = (Member)session.getAttribute("loginUser");
+			Maccount maccount = ms.selectAccount(m);
+			
+				model.addAttribute("maccount", maccount);
+				return "myPage/accountPage";
 		}
 		
 		//계좌변경  페이지로 이동
@@ -196,7 +215,7 @@ import com.kh.eg.myPage.model.vo.WishList;
 		
 		//유저정보 수정 
 		@RequestMapping("userInfoUpate.mp")
-		public String userInfoUpdate(Member member, Model model, HttpServletRequest request) {
+		public String userInfoUpdate(Member member, Model model, HttpServletRequest request, HttpServletResponse response) {
 			String detailAddress = request.getParameter("detailAddress");
 			String temp = member.getAddress();
 			temp += " " + detailAddress;
@@ -210,7 +229,7 @@ import com.kh.eg.myPage.model.vo.WishList;
 			}else {
 				model.addAttribute("msg", "회원정보 수정 실패");
 				return "common/errorPage";
-			}
+			}				 
 		}
 		
 		//1대1 문의 상세보기
@@ -218,9 +237,8 @@ import com.kh.eg.myPage.model.vo.WishList;
 		public String detailMessagePage(HttpServletRequest request, Model model) {
 			String temp = request.getQueryString();
 			String boardNo = temp.substring(6, temp.length());
-			System.out.println(boardNo);
 			MyPageBoard myBoard = ms.selectOneBoard(boardNo);
-			System.out.println(myBoard);
+			
 			if(myBoard != null) {
 				model.addAttribute("myBoard", myBoard);
 				return "myPage/userMessageDetailPage";
@@ -232,14 +250,29 @@ import com.kh.eg.myPage.model.vo.WishList;
 		
 		//유저 삭제
 		@RequestMapping("deleteUserInfo.mp")
-		public String deleteUserInfo(HttpServletRequest request, Model model) {
+		public String deleteUserInfo(HttpServletRequest request, Model model, SessionStatus status) {
 			String mid = request.getParameter("mid");
 			int result = ms.deleteUserInfo(mid);
 			
 			if(result > 0) {
+				status.setComplete();
 				return "redirect:goMain.me";
 			}else {
 				model.addAttribute("msg", "회원탈퇴 실패");
+				return "common/errorPage";
+			}
+		}
+		
+		//계좌등록, 변경
+		@RequestMapping("updateAccount.mp")
+		public String updateAccount(Maccount maccount, Model model) {
+			System.out.println(maccount);
+			int result = ms.updateAccount(maccount);
+			
+			if(result > 0) {
+				return "redirect:accountPage";
+			}else {
+				model.addAttribute("msg", "계좌등록 실패");
 				return "common/errorPage";
 			}
 		}

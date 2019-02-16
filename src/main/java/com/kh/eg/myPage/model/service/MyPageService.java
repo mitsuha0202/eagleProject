@@ -3,6 +3,7 @@ package com.kh.eg.myPage.model.service;
 import java.util.ArrayList;
 
 import com.kh.eg.member.model.vo.Member;
+import com.kh.eg.myPage.model.vo.Maccount;
 import com.kh.eg.myPage.model.vo.MyPageBoard;
 import com.kh.eg.myPage.model.vo.PageInfo;
 import com.kh.eg.myPage.model.vo.WishList;
@@ -40,5 +41,14 @@ public interface MyPageService {
 
 	//회원정보 삭제
 	int deleteUserInfo(String mid);
+
+	//계좌등록,변경
+	int updateAccount(Maccount maccount);
+
+	//계좌조회
+	Maccount selectAccount(Member m);
+
+	//유저정보 수정시 원래 정보 조회
+	Member selectMember(Member temp);
 	
 }

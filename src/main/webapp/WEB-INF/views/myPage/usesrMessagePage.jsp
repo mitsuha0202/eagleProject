@@ -112,6 +112,11 @@
 		width: 17px;
 		height: 17px;	
 	}
+	#pagingArea{
+		position: absolute;
+		top: 1000px;
+		left: 45%;
+	}
 </style>
 </head>
 <body>

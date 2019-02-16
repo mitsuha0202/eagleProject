@@ -6,15 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>회원정보 수정</title>
-<!-- <link href="http://vincentlamanna.com/BootstrapFormHelpers/assets/css/bootstrap.css" rel="stylesheet">
-<link href="http://vincentlamanna.com/BootstrapFormHelpers/assets/css/bootstrap-responsive.css" rel="stylesheet">
-<link href="http://vincentlamanna.com/BootstrapFormHelpers/assets/css/bootstrap-formhelpers.css" rel="stylesheet">
 
-<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-<script src="http://vincentlamanna.com/BootstrapFormHelpers/assets/js/bootstrap.js"></script>
-<script src="http://vincentlamanna.com/BootstrapFormHelpers/assets/js/bootstrap-formhelpers-phone.format.js"></script>
-<script src="http://vincentlamanna.com/BootstrapFormHelpers/assets/js/bootstrap-formhelpers-phone.js"></script> -->
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script> 
 <style>
 	/* 페이지 제목 밑 선 */
 	.firstLine{
@@ -126,7 +119,7 @@
 			<table class="userInfoTable">
 				<tr>
 					<td>비밀번호 변경</td>
-					<td style="width: 850px;"><input type="password" id="pw1" class="form-control" style="width: 700px;" name="userPwd" placeholder="변경할 비밀번호를 영문과 숫자를 혼합해 6~20자 이내로 입력해주세요."><input type="hidden" name="mid" value="${ sessionScope.loginUser.mid }"></td>
+					<td style="width: 850px;"><input type="password" id="pw1" class="form-control" style="width: 700px;" name="userPwd" placeholder="변경할 비밀번호를 숫자로 입력해주세요."><input type="hidden" name="mid" value="${ sessionScope.loginUser.mid }"></td>
 				</tr>
 				<tr>
 					<td>비밀번호 확인</td>
@@ -138,24 +131,25 @@
 				</tr>
 				<tr>
 					<td>주소</td>
-					<td><input type="text" id="add" class="form-control" style="width: 380px;" name="address" placeholder="변경할 주소를 입력해주세요." readonly="readonly"><button type="button" class="addBtn" onclick="return addressModal()">주소검색</button></td>
+					<td><input type="text" id="add" class="form-control" style="width: 380px;" name="address" value="${ m.address }" readonly="readonly"><button type="button" class="addBtn" onclick="return addressModal()">주소검색</button></td>
 				</tr>
 				<tr>
 					<td><input type="text" id="detailAdd" class="form-control" style="width: 300px" name="detailAddress" placeholder="상세주소를 입력해주세요."></td>
 				</tr>
 				<tr>
 					<td>핸드폰</td>
-					<td><input type="tel" id="ph" class="form-control" data-rule-required="true" style="width: 700px;" name="phone" placeholder="핸드폰 번호를 입력해주세요."></td>
+					<td><input type="tel" id="ph" class="form-control" data-rule-required="true" style="width: 700px;" name="phone" value="${ m.phone }"></td>
 				</tr>
 				<tr>
 					<td>회원탈퇴</td>
-					<td><button type="button" class="deleteBtn" onclick="location.href='userDelete.mp'">탈퇴하기</button></td>
+					<td><button type="reset" class="deleteBtn" onclick="location.href='userDelete.mp'">탈퇴하기</button></td>
 				</tr>
 			</table>
 		</div>   
 		<button type="submit" class="saveBtn">저장</button>
-		<button class="closeBtn" onclick="location.href='myPageMain.mp'">닫기</button>
 	</form>
+	<button class="closeBtn" onclick="location.href='myPageMain.mp'">닫기</button>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script>
 		function addressModal() {
 			new daum.Postcode({
@@ -163,25 +157,7 @@
 	                var addr = data.address; // 최종 주소 변수
 
 	                // 주소 정보를 해당 필드에 넣는다.
-	                document.getElementById("add").value = addr;
-	                // 주소로 상세 정보를 검색
-	                geocoder.addressSearch(data.address, function(results, status) {
-	                    // 정상적으로 검색이 완료됐으면
-	                   if (status === daum.maps.services.Status.OK) {
-
-	                        var result = results[0]; //첫번째 결과의 값을 활용
-
-	                        // 해당 주소에 대한 좌표를 받아서
-	                        var coords = new daum.maps.LatLng(result.y, result.x);
-	                        // 지도를 보여준다.
-	                        mapContainer.style.display = "block";
-	                        map.relayout();
-	                        // 지도 중심을 변경한다.
-	                        map.setCenter(coords);
-	                        // 마커를 결과값으로 받은 위치로 옮긴다.
-	                        marker.setPosition(coords)
-	                    } 
-	                });
+	                document.getElementById("add").value = addr;	          
 	            }
 	        }).open();
 			return false;
@@ -257,8 +233,10 @@
 					alert("전화번호를 입력해주세요.");
 					$("#ph").focus();
 					return false;
+				}else {
+					alert("정보 수정 완료");
+					return true;
 				}
-				return true;
 			} 
 	</script>
 </body>
