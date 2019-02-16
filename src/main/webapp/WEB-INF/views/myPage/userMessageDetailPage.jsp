@@ -88,6 +88,11 @@
 			<tr>
 				<td colspan="4"><textarea class="form-control" readonly="readonly">${ myBoard.boardContents }</textarea></td>
 			</tr>
+			<c:if test="${!empty myBoard.replyStatus }">
+				<tr>
+					<td colspan="4"><textarea class="form-control" readonly="readonly">${ myBoard.reply }</textarea></td>
+				</tr>
+			</c:if>
 		</table>
 	</div>
 	<button class="closeBtn" onclick="location.href='userMessage.mp'">닫기</button>
