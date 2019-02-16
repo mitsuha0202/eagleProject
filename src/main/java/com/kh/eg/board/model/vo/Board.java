@@ -12,12 +12,13 @@ public class Board implements java.io.Serializable{
 	private String bStatus;
 	private String bType;
 	private String reStatus;
+	private int bCount;
 	private ArrayList<Reply> replyList;
 	
 	public Board() {}
 
-	public Board(String bid, String bTitle, String bContent, String bMid, Date writeDay, String bStatus, String reStatus,
-			ArrayList<Reply> replyList) {
+	public Board(String bid, String bTitle, String bContent, String bMid, Date writeDay, String bStatus, String bType,
+			String reStatus, int bCount, ArrayList<Reply> replyList) {
 		super();
 		this.bid = bid;
 		this.bTitle = bTitle;
@@ -25,7 +26,9 @@ public class Board implements java.io.Serializable{
 		this.bMid = bMid;
 		this.writeDay = writeDay;
 		this.bStatus = bStatus;
+		this.bType = bType;
 		this.reStatus = reStatus;
+		this.bCount = bCount;
 		this.replyList = replyList;
 	}
 
@@ -77,12 +80,28 @@ public class Board implements java.io.Serializable{
 		this.bStatus = bStatus;
 	}
 
-	public String getreStatus() {
+	public String getbType() {
+		return bType;
+	}
+
+	public void setbType(String bType) {
+		this.bType = bType;
+	}
+
+	public String getReStatus() {
 		return reStatus;
 	}
 
-	public void setreStatus(String reStatus) {
+	public void setReStatus(String reStatus) {
 		this.reStatus = reStatus;
+	}
+
+	public int getbCount() {
+		return bCount;
+	}
+
+	public void setbCount(int bCount) {
+		this.bCount = bCount;
 	}
 
 	public ArrayList<Reply> getReplyList() {
@@ -96,10 +115,10 @@ public class Board implements java.io.Serializable{
 	@Override
 	public String toString() {
 		return "Board [bid=" + bid + ", bTitle=" + bTitle + ", bContent=" + bContent + ", bMid=" + bMid + ", writeDay="
-				+ writeDay + ", bStatus=" + bStatus + ", reStatus=" + reStatus + ", replyList=" + replyList + "]";
+				+ writeDay + ", bStatus=" + bStatus + ", bType=" + bType + ", reStatus=" + reStatus + ", bCount="
+				+ bCount + ", replyList=" + replyList + "]";
 	}
-	
-	
+
 	
 	
 	

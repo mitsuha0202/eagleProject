@@ -3,6 +3,7 @@ package com.kh.eg.board.controller;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import com.kh.eg.board.model.service.BoardService;
 import com.kh.eg.board.model.vo.Board;
 import com.kh.eg.board.model.vo.PageInfo;
 import com.kh.eg.board.model.vo.Pagination;
+import com.kh.eg.member.model.vo.Member;
 
 @Controller
 public class BoardController {
@@ -51,8 +53,13 @@ private BoardService bs;
 	}
 	
 	@RequestMapping("insertBoard.bo")
-	public String insertBoard(Board b, Model model) {
+	public String insertBoard(Board b, Model model, HttpSession session) {
 		
+		Member m = new Member();
+		
+		m = (Member)session.getAttribute("loginUser");
+		
+		b.setbMid(m.getMid());
 		int result = bs.insertBoard(b);
 		
 		return "redirect:goBoard.bo";

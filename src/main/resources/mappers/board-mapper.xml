@@ -11,7 +11,8 @@
 		<result property="writeDay" column="WRITEDAY"/>
 		<result property="bStatus" column="DELETESTATUS"/>
 		<result property="bType" column="BOARDSTATUS"/>
-		<result property="reSatus" column="REPLYSTATUS"/>
+		<result property="reStatus" column="REPLYSTATUS"/>
+		<result property="bCount" column="BCOUNT"/>
 	</resultMap>
 	
 	<!-- 어레이리스트 추가한 resultMap -->
@@ -24,6 +25,7 @@
 		<result property="bStatus" column="DELETESTATUS"/>
 		<result property="bType" column="BOARDSTATUS"/>
 		<result property="reStatus" column="REPLYSTATUS"/>
+		<result property="bCount" column="BCOUNT"/>
 		<collection property="replyList" javaType="java.util.ArrayList" resultMap="replyResultSet"/>
 	</resultMap>
 	
@@ -45,8 +47,8 @@
 	</select>
 	
 	<insert id="insertBoard" parameterType="Board">
-		INSERT INTO VALUES(BN_SEQ.NEXTVAL, #{bTitle}, #{bContent}, #{bMid}, 
-			SYSDATE, 'N', 'FREEBOARD', 'Y' )
+		INSERT INTO BOARD VALUES(BN_SEQ.NEXTVAL, #{bTitle}, #{bContent}, #{bMid}, 
+			SYSDATE, 'N', 'FREEBOARD', 'N',9 )
 	</insert>
 	
 </mapper>

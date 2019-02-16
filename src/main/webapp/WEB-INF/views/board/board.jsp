@@ -95,11 +95,8 @@
 	</div>
 	<script>
 		function insertBoard() {
-			if(${loginUser} == null){
-				alert("글쓰기는 회원만 이용하실 수 있습니다.");
-			}else{
+			
 			location.href = "insertBoardView.bo";
-			}
 		}
 		
 		$(function(){
