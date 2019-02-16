@@ -62,6 +62,18 @@ public class MyPageDaoImpl implements MyPageDao{
 		// TODO Auto-generated method stub
 		return (ArrayList)sqlSession.selectList("MyPage.selectWishList", memberNo);
 	}
+	
+	//위시리스트 삭제
+	@Override
+	public int wishListDelete(SqlSessionTemplate sqlSession, int[] wishlistno) {
+		int result = 0;
+		for(int i=0; i<wishlistno.length; i++) {
+			
+			
+			result = sqlSession.update("MyPage.deleteWishList",wishlistno[i]);
+		}
+		return result;
+	}
 
 	//게시글 개수 조회
 	@Override
@@ -91,4 +103,5 @@ public class MyPageDaoImpl implements MyPageDao{
 		/*sqlSession.select*/
 		return sqlSession.delete("MyPage.deleteUserInfo", mid);
 	}
+	
 }

@@ -75,6 +75,11 @@
 	<select id="selectWishList" resultMap="wishListResultSet" parameterType="java.lang.String">
 		SELECT w.wishlistno,c.categoryname, a.itemno,a.itemname,a.startprice,m.membername,d.endday FROM WISHLIST W JOIN AUCTIONITEM A ON (W.MEMBERNO = A.MEMBERNO) JOIN CATEGORY C ON (A.CATEGORYNO = C.CATEGORYNO) JOIN MEMBER M ON(A.MEMBERNO = M.MEMBERNO) JOIN AUCTIONDETAIL D ON(D.ITEMNO = A.ITEMNO) WHERE w.deletestatus = 'N' and m.memberno =  #{memberNo}
 	</select>
+	
+	<!-- 위시리스트 삭제 -->
+	<update id="deleteWishList"  parameterType="int">
+		UPDATE WISHLIST SET DELETESTATUS = 'Y' WHERE WISHLISTNO = #{wishlistno}
+	</update>
 
 	<!-- 게시글 상세보기 -->
 	<select id="selectOneBoard" resultMap="myPageResultSet" parameterType="java.lang.String">

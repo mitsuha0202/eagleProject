@@ -97,6 +97,29 @@ import com.kh.eg.myPage.model.vo.WishList;
 			}
 			
 		}
+		//위시리스트 삭제
+		@RequestMapping("delete.mp")
+		public String wishListDelete(Model model, HttpServletRequest request) {
+			String[] appr = request.getParameter("wishlistno").split(",");
+			int[] wishlistno = new int[appr.length];
+			
+			for(int i =0;i<appr.length;i++) {
+				
+				wishlistno[i] = Integer.parseInt(appr[i]);
+				
+				
+			}
+			int result = ms.wishListDelete(wishlistno);
+			System.out.println(wishlistno[0]);
+			System.out.println("업데이트 : " +result);
+			if(result > 0) {
+				return "redirect:wishList.mp";
+			}else {
+				model.addAttribute("msg", "1대1문의글 삭제 실패");
+				return "common/errorPage";
+			}
+			
+		}
 		
 		//회원정보 수정 페이지로 이동
 		@RequestMapping("userInfoUpdatePage.mp")

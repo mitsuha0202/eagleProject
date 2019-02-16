@@ -35,10 +35,15 @@ public interface MyPageService {
 	//위시리스트 등록해놓은거 검색
 	ArrayList<WishList> selectWishList(String memberNo);
 	
+	//위시리스트 삭제
+	int wishListDelete(int[] wishlistno);
+	
 	//회원정보 업데이트
 	int updateMember(Member member);
 
 	//회원정보 삭제
 	int deleteUserInfo(String mid);
+	
+	
 	
 }

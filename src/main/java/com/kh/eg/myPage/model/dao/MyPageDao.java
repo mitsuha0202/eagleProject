@@ -35,11 +35,16 @@ public interface MyPageDao {
 	
 	//위시리스트 등록해놓은거 검색
 	ArrayList<WishList> selectWishList(SqlSessionTemplate sqlSession, String memberNo);
+	
+	//위시리스트 삭제
+	int wishListDelete(SqlSessionTemplate sqlSession, int[] wishlistno);
 
 	//회원정보 업데이트
 	int updateMember(SqlSessionTemplate sqlSession, Member member);
 
 	//회원정보 삭제
 	int deleteUserInfo(SqlSessionTemplate sqlSession, String mid);
+	
+	
 	
 }
