@@ -83,19 +83,19 @@
 			<c:if test="${ !empty maccount }">
 			<tr>
 				<td>은행명</td>
-				<td><input type="text" class="form-control" value="${ maccount.bankName }"></td>
+				<td><input type="text" class="form-control" value="${ maccount.bankName }" readonly="readonly"></td>
 			</tr>
 			<tr>
 				<td>계좌번호</td>
-				<td><input type="text" class="form-control" value="${ maccount.accountNo }"></td>
+				<td><input type="text" class="form-control" value="${ maccount.accountNo }" readonly="readonly"></td>
 			</tr>
 			<tr>
 				<td>예금주</td>
-				<td><input type="text" class="form-control" value="${ maccount.memberName }"></td>
+				<td><input type="text" class="form-control" value="${ maccount.memberName }" readonly="readonly"></td>
 			</tr>
 			<tr>
 				<td>등록일</td>
-				<td><input type="text" class="form-control" value="${ maccount.createDay }"></td>
+				<td><input type="text" class="form-control" value="${ maccount.createDay }" readonly="readonly"></td>
 			</tr>
 			</c:if>
 			<c:if test="${ empty maccount }">

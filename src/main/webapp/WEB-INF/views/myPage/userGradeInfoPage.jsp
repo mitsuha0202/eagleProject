@@ -35,7 +35,7 @@
 	/* 일반 등급 div */
 	.grade3{
 		top: 340px;
-		left: 968px;
+		left: 1024.5px;
 	}
 	/* 등급 글 부분 */
 	.vip{
@@ -74,7 +74,7 @@
 	.closeBtn{
 		position: absolute;
 		left: 45%;
-		top: 850px;
+		top: 1050px;
 		text-align: center;
 		background-color: #205181;
 		border: 1px solid white;

@@ -54,6 +54,12 @@ public interface MyPageDao {
 
 	//유저정보 수정시 원래 정보 조회
 	Member selectMember(SqlSessionTemplate sqlSession, Member temp);
+
+	//문의게시판 페이징 처리
+	int getQueryListCount(SqlSessionTemplate sqlSession, String memberNo);
+
+	//문의게시판 조회
+	ArrayList<MyPageBoard> selectQueryBoard(SqlSessionTemplate sqlSession, PageInfo pi, String memberNo);
 	
 	
 	

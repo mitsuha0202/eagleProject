@@ -4,9 +4,26 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="MyPage">
 
-	<!-- 게시판 조회 -->
-	<resultMap type="com.kh.eg.myPage.model.vo.MyPageBoard" id="myPageResultSet">
+	<!-- 1대1 게시판 조회 -->
+	<resultMap type="com.kh.eg.myPage.model.vo.MyPageBoard" id="myPageOneResultSet">
 		<id property="boardNo" column="BOARDNO"/> <!-- 프라이머리 키값만 아이디를 줌 -->
+		<result property="title" column="TITLE"/>
+		<result property="boardContents" column="BOARDCONTENT"/>
+		<result property="memberNo" column="MEMBERNO"/>
+		<result property="writeDay" column="WRITEDAY"/>
+		<result property="deleteStatus" column="DELETESTATUS"/>
+		<result property="boardStatus" column="BOARDSTATUS"/>
+		<result property="replyStatus" column="REPLYSTATUS"/>
+		<result property="rCommentNo" column="COMMENTNO"/>
+		<result property="rWriteDay" column="WRITEDAY"/>
+		<result property="rContents" column="CONTENTS"/>
+		<result property="rDeleteStatus" column="DELETESTATUS"/>		
+	</resultMap>
+	
+	<!-- 문의게시판 조회 -->
+	<resultMap type="com.kh.eg.myPage.model.vo.MyPageBoard" id="myPageQueryResultSet">
+		<id property="boardNo" column="BOARDNO"/> <!-- 프라이머리 키값만 아이디를 줌 -->
+		<result property="itemNo" column="ITEMNO"/>
 		<result property="title" column="TITLE"/>
 		<result property="boardContents" column="BOARDCONTENT"/>
 		<result property="memberNo" column="MEMBERNO"/>
@@ -57,8 +74,15 @@
 		<result property="email" column="EMAIL"/>
 	</resultMap>
 	
+	<!-- 낙찰조회 -->
+	<resultMap type="com.kh.eg.myPage.model.vo.Winbid" id="winBidResultSet">
+		<id property="dealNo" column="DEALNO"/>
+		<result property="memberNo" column="MEMBERNO"/>
+		<result property="itemNo" column="ITEMNO"/>
+	</resultMap>
+	
 	<!-- 게시글 조회 -->
-	<select id="selectMessage" resultMap="myPageResultSet" parameterType="java.lang.String">
+	<select id="selectMessage" resultMap="myPageOneResultSet" parameterType="java.lang.String">
 		SELECT *
 		FROM BOARD  
 		WHERE DELETESTATUS = 'N' AND BOARDSTATUS = 'ONEBYONE' AND MEMBERNO = #{memberNo}
@@ -86,11 +110,11 @@
 	<!-- 게시글 등록 -->
 	<insert id="insertMessage" parameterType="MyPageBoard">
 		INSERT INTO BOARD
-		VALUES(BN_SEQ.NEXTVAL, #{title}, #{boardContents}, #{memberNo}, SYSDATE, 'N', 'ONEBYONE', 'N')
+		VALUES(BN_SEQ.NEXTVAL, #{title}, #{boardContents}, #{memberNo}, SYSDATE, 'N', 'ONEBYONE', 'N', 0)
 	</insert>
 	
 	<!-- 쪽지제목으로 게시글 조회 -->
-	<select id="searchMessage" resultMap="myPageResultSet" parameterType="java.lang.String">
+	<select id="searchMessage" resultMap="myPageOneResultSet" parameterType="java.lang.String">
 		SELECT * FROM BOARD
 		WHERE DELETESTATUS = 'N' 
 		AND TITLE LIKE '%' || #{searchTitle} || '%' 
@@ -109,7 +133,7 @@
 	</update>
 
 	<!-- 게시글 상세보기 -->
-	<select id="selectOneBoard" resultMap="myPageResultSet" parameterType="java.lang.String">
+	<select id="selectOneBoard" resultMap="myPageOneResultSet" parameterType="java.lang.String">
 		SELECT * FROM BOARD 
 		WHERE DELETESTATUS = 'N'
 		AND BOARDSTATUS = 'ONEBYONE'
@@ -126,13 +150,19 @@
 		UPDATE MEMBER SET MEMBERPWD = #{userPwd}, PHONE = #{phone}, ADDRESS = #{address} WHERE MEMBERNO = #{mid}
 	</update>
 
+	<!-- 회원정보 삭제전 거래번호가 있는지 조회 -->
+	<select id="selectWinbid" resultMap="winBidResultSet" parameterType="java.lang.String">
+		SELECT * FROM WINBID 
+		WHERE MEMBERNO = #{mid}
+	</select>
+
 	<!-- 회원정보 삭제 -->
 	<update id="deleteUserInfo" parameterType="java.lang.String">
 		UPDATE MEMBER SET WDSTATUS = 'Y' WHERE MEMBERNO = #{mid}
 	</update>
 	
 	<!-- 댓글조회 -->
-	<select id="selectOneReply" resultMap="myPageResultSet" parameterType="java.lang.String">
+	<select id="selectOneReply" resultMap="myPageOneResultSet" parameterType="java.lang.String">
 		SELECT * FROM REPLY 
 		WHERE BOARDNO = #{boardNo}
 		AND DELETESTATUS = 'N'
@@ -156,4 +186,20 @@
 		SET ACCOUNTNO = ACCOUNTNO = #{accountNo}, BANKNAME = #{bankName}, MEMBERNO = #{mid}, CREATEDAY = SYSDATE, MEMBERNAME =  #{memberName}
 		 WHERE MEMBERNO = #{mid}
 	</update>
+	
+	<!-- 문의게시판 페이징 처리 -->
+	<select id="countQueryBoard" resultType="_int" parameterType="java.lang.String">
+		SELECT COUNT(*)
+		FROM BOARD  
+		WHERE DELETESTATUS = 'N' AND BOARDSTATUS = 'QUESTIONBOARD' AND MEMBERNO = #{memberNo}
+	</select>
+	
+	<!-- 수정해야됨 -->
+	<!-- 문의게시판 조회 -->
+	<select id="selectQueryBoard" resultMap="myPageQueryResultSet" parameterType="java.lang.String">
+		SELECT *
+		FROM BOARD  
+		WHERE DELETESTATUS = 'N' AND BOARDSTATUS = 'ONEBYONE' AND MEMBERNO = #{memberNo}
+		ORDER BY BOARDNO DESC
+	</select>
 </mapper>

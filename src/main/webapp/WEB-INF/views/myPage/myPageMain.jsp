@@ -163,6 +163,7 @@
 		left: 70px;
 		top: 780px;
 	}
+	/* 하단 div 영역 */
 	.tutorialDiv{
 		background-color: lightgray;
 		position: absolute;
@@ -194,22 +195,22 @@
 	.tutorialIcon1{
 		position: absolute;
 		top: 140px;
-		left: 850px;	
+		left: 1030px;	
 	}
 	.tutorialIcon2{
 		position: absolute;
 		top: 140px;
-		left: 1100px;	
+		left: 1200px;	
 	}
 	#auctionInfo{
 		position: absolute;
 		top: 120px;
-		left: 910px;	
+		left: 1100px;	
 	}
 	#accountInfo{
 		position: absolute;
 		top: 120px;
-		left: 1150px;
+		left: 1250px;
 	}
 	/* 구매현황 버튼 */
 	.purchasestatus{
@@ -241,6 +242,30 @@
 	    right: 600px;
 	    top: 710px;
 	    cursor: pointer;
+	}
+	/* 문의게시판 아이콘 */
+	#queryBoard{
+		position: absolute;
+		top: 121px;
+		left: 760px;
+	}
+	/* 문의게시판 글씨 */
+	.tutorialIcon3{	
+		position: absolute;
+		top: 140px;
+		left: 720px;
+	}
+	/* 문의받은 게시판 아이콘 */
+	#answerBoard{
+		position: absolute;
+		top: 121px;
+		left: 920px;
+	}
+	/* 문의받은게시판 글씨 */
+	.tutorialIcon4{
+		position: absolute;
+		top: 140px;
+		left: 860px;
 	}
 </style>
 </head>
@@ -372,8 +397,10 @@
 		<h4 class="tutorialIcon2">자주묻는 질문</h4>		
 		<!-- 문의게시판 -->
 		<i class="clipboard icon" id="queryBoard" onclick="location.href='queryBoard.mp'"></i>
+		<h4 class="tutorialIcon3">문의게시판</h4>
 		<!-- 문의받은 게시판 -->
-		<i class="clipboard icon" id="answerBoard" style="top: 30px;" onclick="location.href='answerBoard.mp'"></i>
+		<i class="clipboard icon" id="answerBoard" onclick="location.href='answerBoard.mp'"></i>
+		<h4 class="tutorialIcon4">문의받은게시판</h4>
 	</div>
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

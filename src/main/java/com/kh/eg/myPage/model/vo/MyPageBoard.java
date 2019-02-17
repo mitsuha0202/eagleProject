@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MyPageBoard implements java.io.Serializable{
+	private String itemNo;
 	private String boardNo;
 	private String title;
 	private String boardContents;
@@ -24,10 +25,11 @@ public class MyPageBoard implements java.io.Serializable{
 	
 	}
 
-	public MyPageBoard(String boardNo, String title, String boardContents, int memberNo, Date writeDay,
+	public MyPageBoard(String itemNo, String boardNo, String title, String boardContents, int memberNo, Date writeDay,
 			String deleteStatus, String boardStatus, String replyStatus, String rCommentNo, Date rWriteDay,
 			String rContents, String rDeleteStatus, int count) {
 		super();
+		this.itemNo = itemNo;
 		this.boardNo = boardNo;
 		this.title = title;
 		this.boardContents = boardContents;
@@ -41,6 +43,14 @@ public class MyPageBoard implements java.io.Serializable{
 		this.rContents = rContents;
 		this.rDeleteStatus = rDeleteStatus;
 		this.count = count;
+	}
+
+	public String getItemNo() {
+		return itemNo;
+	}
+
+	public void setItemNo(String itemNo) {
+		this.itemNo = itemNo;
 	}
 
 	public String getBoardNo() {
@@ -149,11 +159,10 @@ public class MyPageBoard implements java.io.Serializable{
 
 	@Override
 	public String toString() {
-		return "MyPageBoard [boardNo=" + boardNo + ", title=" + title + ", boardContents=" + boardContents
-				+ ", memberNo=" + memberNo + ", writeDay=" + writeDay + ", deleteStatus=" + deleteStatus
+		return "MyPageBoard [itemNo=" + itemNo + ", boardNo=" + boardNo + ", title=" + title + ", boardContents="
+				+ boardContents + ", memberNo=" + memberNo + ", writeDay=" + writeDay + ", deleteStatus=" + deleteStatus
 				+ ", boardStatus=" + boardStatus + ", replyStatus=" + replyStatus + ", rCommentNo=" + rCommentNo
 				+ ", rWriteDay=" + rWriteDay + ", rContents=" + rContents + ", rDeleteStatus=" + rDeleteStatus
 				+ ", count=" + count + "]";
 	}
-	
 }
