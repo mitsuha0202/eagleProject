@@ -36,6 +36,9 @@ public interface MyPageService {
 	//위시리스트 등록해놓은거 검색
 	ArrayList<WishList> selectWishList(String memberNo);
 	
+	//위시리스트 삭제
+	int wishListDelete(int[] wishlistno);
+	
 	//회원정보 업데이트
 	int updateMember(Member member);
 
@@ -50,5 +53,7 @@ public interface MyPageService {
 
 	//유저정보 수정시 원래 정보 조회
 	Member selectMember(Member temp);
+	
+	
 	
 }

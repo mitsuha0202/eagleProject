@@ -63,6 +63,13 @@ public class MyPageServiceImpl implements MyPageService{
 		return md.selectWishList(sqlSession,memberNo);
 	}
 	
+	//위시리스트 삭제
+	@Override
+	public int wishListDelete(int[] wishlistno) {
+		int result = md.wishListDelete(sqlSession,wishlistno);
+		return result;
+	}
+	
 	//게시글 개수 조회
 	@Override
 	public int countMessage(String memberNo) {
@@ -111,4 +118,5 @@ public class MyPageServiceImpl implements MyPageService{
 		
 		return md.selectMember(sqlSession, temp);
 	}
+
 }
