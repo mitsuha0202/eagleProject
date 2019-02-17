@@ -155,11 +155,11 @@ function deletewishList(){
  		var tr = checkbox.parent().parent().eq(i);
  		var td = tr.children();
  		
-        apprno = td.eq(1).text();
-        tdArr.push(apprno);
-        console.log(apprno);
+        wishlistno = td.eq(1).text();
+        tdArr.push(wishlistno);
+        console.log(wishlistno);
        
-        location.href='delete.mp'
+        location.href='delete.mp?wishlistno='+tdArr+",";
        
  	});
 	
