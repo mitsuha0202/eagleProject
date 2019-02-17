@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.eg.member.model.vo.Member;
+import com.kh.eg.myPage.model.vo.Maccount;
 import com.kh.eg.myPage.model.vo.MyPageBoard;
 import com.kh.eg.myPage.model.vo.PageInfo;
 import com.kh.eg.myPage.model.vo.WishList;
@@ -44,6 +45,15 @@ public interface MyPageDao {
 
 	//회원정보 삭제
 	int deleteUserInfo(SqlSessionTemplate sqlSession, String mid);
+
+	//계좌 등록, 변경
+	int updateAccount(SqlSessionTemplate sqlSession, Maccount maccount);
+
+	//계좌조회
+	Maccount selectAccount(SqlSessionTemplate sqlSession, Member m);
+
+	//유저정보 수정시 원래 정보 조회
+	Member selectMember(SqlSessionTemplate sqlSession, Member temp);
 	
 	
 	

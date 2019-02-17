@@ -88,7 +88,7 @@
 			<tr>
 				<td colspan="4"><textarea class="form-control" readonly="readonly">${ myBoard.boardContents }</textarea></td>
 			</tr>
-			<c:if test="${!empty myBoard.replyStatus }">
+			<c:if test="${myBoard.replyStatus eq 'Y'}">
 				<tr>
 					<td colspan="4"><textarea class="form-control" readonly="readonly">${ myBoard.reply }</textarea></td>
 				</tr>

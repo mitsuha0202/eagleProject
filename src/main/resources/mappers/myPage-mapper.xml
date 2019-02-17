@@ -4,6 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="MyPage">
 
+	<!-- 게시판 조회 -->
 	<resultMap type="com.kh.eg.myPage.model.vo.MyPageBoard" id="myPageResultSet">
 		<id property="boardNo" column="BOARDNO"/> <!-- 프라이머리 키값만 아이디를 줌 -->
 		<result property="title" column="TITLE"/>
@@ -19,6 +20,7 @@
 		<result property="rDeleteStatus" column="DELETESTATUS"/>		
 	</resultMap>
 	
+	<!-- 위시리스트 조회 -->
 	<resultMap type="com.kh.eg.myPage.model.vo.WishList" id="wishListResultSet">
 		<id property="wishlistno" column ="WISHLISTNO"/>
 		<result property="categoryname" column="CATEGORYNAME"/>
@@ -27,6 +29,32 @@
 		<result property="startprice" column="STARTPRICE"/>
 		<result property="membername" column="MEMBERNAME"/>
 		<result property="endday" column="ENDDAY"/>
+	</resultMap>
+	
+	<!-- 계좌조회 -->
+	<resultMap type="com.kh.eg.myPage.model.vo.Maccount" id="selectAccount">
+		<id property="accountNo" column="ACCOUNTNO"/>
+		<result property="bankName" column="BANKNAME"/>
+		<result property="mid" column="MEMBERNO"/>
+		<result property="memberName" column="MEMBERNAME"/>
+		<result property="createDay" column="CREATEDAY"/>
+	</resultMap>
+	
+	<!-- 유저정보 조회 -->
+	<resultMap type="com.kh.eg.member.model.vo.Member" id="memberResultSet">
+		<id property="mid" column="MEMBERNO"/> <!-- 프라이머리 키값만 아이디를 줌 -->
+		<result property="userName" column="MEMBERNAME"/>
+		<result property="userId" column="MEMBERID"/>
+		<result property="userPwd" column="MEMBERPWD"/>
+		<result property="account" column="ACCOUNTN"/>
+		<result property="phone" column="PHONE"/>
+		<result property="address" column="ADDRESS"/>
+		<result property="rating" column="RATING"/>
+		<result property="emoney" column="EMONEY"/>
+		<result property="wdStatus" column="WDSTATUS"/>
+		<result property="blStatus" column="BLSTATUS"/>
+		<result property="joinDate" column="JOINDATE"/>
+		<result property="email" column="EMAIL"/>
 	</resultMap>
 	
 	<!-- 게시글 조회 -->
@@ -88,6 +116,11 @@
 		AND BOARDNO = #{boardNo}
 	</select>
 	
+	<!-- 회원정보 조회 -->
+	<select id="selectMember" resultMap="memberResultSet" parameterType="Member">
+		SELECT * FROM MEMBER WHERE MEMBERNO = #{mid}
+	</select>
+	
 	<!-- 회원정보 수정 -->
 	<update id="updateMember" parameterType="Member">
 		UPDATE MEMBER SET MEMBERPWD = #{userPwd}, PHONE = #{phone}, ADDRESS = #{address} WHERE MEMBERNO = #{mid}
@@ -99,7 +132,28 @@
 	</update>
 	
 	<!-- 댓글조회 -->
-	<select id="selectOneReply" parameterType="java.lang.String">
-		SELECT * FROM REPLY WHERE BOARDNO = #{boardNo}
+	<select id="selectOneReply" resultMap="myPageResultSet" parameterType="java.lang.String">
+		SELECT * FROM REPLY 
+		WHERE BOARDNO = #{boardNo}
+		AND DELETESTATUS = 'N'
 	</select>
+	
+	<!-- 계좌조회 -->
+	<select id="selectAccount" resultMap="selectAccount" parameterType="java.lang.String">
+		SELECT * FROM MACCOUNT
+		WHERE MEMBERNO = #{mid}
+	</select>
+	
+	<!-- 계좌등록 -->
+	<insert id="insertAccount" parameterType="Maccount">
+		INSERT INTO MACCOUNT
+   		VALUES(#{accountNo}, #{bankName}, #{mid}, SYSDATE, #{memberName})
+	</insert>
+	
+	<!-- 계좌변경 -->
+	<update id="updateAccount" parameterType="Maccount">
+		UPDATE MACCOUNT 
+		SET ACCOUNTNO = ACCOUNTNO = #{accountNo}, BANKNAME = #{bankName}, MEMBERNO = #{mid}, CREATEDAY = SYSDATE, MEMBERNAME =  #{memberName}
+		 WHERE MEMBERNO = #{mid}
+	</update>
 </mapper>
