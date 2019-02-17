@@ -75,7 +75,6 @@ import com.kh.eg.myPage.model.vo.WishList;
 			   int listCount = ms.getListCount(memberNo);
 			   PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		       
-		       //service로 보냄
 		       ArrayList<MyPageBoard> list = ms.selectMessage(pi, memberNo);
 		       if(list != null) {
 		          model.addAttribute("list", list);
@@ -174,8 +173,29 @@ import com.kh.eg.myPage.model.vo.WishList;
 		
 		//문의게시판
 		@RequestMapping("queryBoard.mp")
-		public String queryBoard() {
-			return "myPage/queryBoardPage";
+		public String queryBoard(Model model, Member m, HttpSession session, HttpServletRequest request) {
+			int currentPage = 1;
+			   if(request.getParameter("currentPage") != null) {
+				   currentPage = Integer.parseInt(request.getParameter("currentPage"));
+			   }
+			   
+			   //유저번호 받기위해 
+		       m = (Member)session.getAttribute("loginUser");
+		       String memberNo= m.getMid();
+			   
+			   int listCount = ms.getQueryListCount(memberNo);
+			   PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		       
+		       ArrayList<MyPageBoard> list = ms.selectQueryBoard(pi, memberNo);
+		       if(list != null) {
+		          model.addAttribute("list", list);
+		          model.addAttribute("pi", pi);
+		          return "myPage/queryBoardPage";
+		       }else {
+		          model.addAttribute("msg", "1대1 문의 조회 실패");
+		          return "common/errorPage";
+		       }
+
 		}
 		
 		//문의받은게시판
@@ -273,7 +293,7 @@ import com.kh.eg.myPage.model.vo.WishList;
 		
 		//유저 삭제
 		@RequestMapping("deleteUserInfo.mp")
-		public String deleteUserInfo(HttpServletRequest request, Model model, SessionStatus status) {
+		public String deleteUserInfo(HttpServletRequest request, SessionStatus status, HttpServletResponse response) {
 			String mid = request.getParameter("mid");
 			int result = ms.deleteUserInfo(mid);
 			
@@ -281,8 +301,19 @@ import com.kh.eg.myPage.model.vo.WishList;
 				status.setComplete();
 				return "redirect:goMain.me";
 			}else {
-				model.addAttribute("msg", "회원탈퇴 실패");
-				return "common/errorPage";
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out;
+				try {
+					out = response.getWriter();
+					out.println("<script>alert('거래중인 내역이 있어 탈퇴가 불가능합니다.'); location.href='userDelete.mp';</script>");
+					out.flush();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				
+				return "myPage/userDeletePage";
+				/*model.addAttribute("msg", "회원탈퇴 실패");
+				return "common/errorPage";*/
 			}
 		}
 		

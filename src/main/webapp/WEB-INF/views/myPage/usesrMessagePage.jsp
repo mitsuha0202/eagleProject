@@ -135,7 +135,6 @@
 		<div class="selectSize">
 			<select class="form-control" id="searchId">
 	  		<option>쪽지제목</option>
-	  		<option>답변여부</option>
 			</select>
 		</div>
 		<div class="inputSize">
@@ -244,7 +243,7 @@
    		 		var td = tr.children();
    	            var docNum = td.eq(1).text();
    	            sendArr.push(docNum);
-   	            
+   	            alert("1대1 문의글 삭제완료");
  				location.href="deleteMessage.mp?deleteNum=" + sendArr +",";
    		 	}); 		 	
 		}

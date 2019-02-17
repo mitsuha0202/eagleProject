@@ -119,4 +119,18 @@ public class MyPageServiceImpl implements MyPageService{
 		return md.selectMember(sqlSession, temp);
 	}
 
+	//문의게시판 페이징 처리
+	@Override
+	public int getQueryListCount(String memberNo) {
+		
+		return md.getQueryListCount(sqlSession, memberNo);
+	}
+
+	//문의게시판 조회
+	@Override
+	public ArrayList<MyPageBoard> selectQueryBoard(PageInfo pi, String memberNo) {
+		
+		return md.selectQueryBoard(sqlSession, pi, memberNo);
+	}
+
 }

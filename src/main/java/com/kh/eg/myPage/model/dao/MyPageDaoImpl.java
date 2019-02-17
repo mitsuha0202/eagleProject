@@ -11,6 +11,7 @@ import com.kh.eg.member.model.vo.Member;
 import com.kh.eg.myPage.model.vo.Maccount;
 import com.kh.eg.myPage.model.vo.MyPageBoard;
 import com.kh.eg.myPage.model.vo.PageInfo;
+import com.kh.eg.myPage.model.vo.Winbid;
 import com.kh.eg.myPage.model.vo.WishList;
 
 @Repository
@@ -102,8 +103,12 @@ public class MyPageDaoImpl implements MyPageDao{
 	//회원정보 삭제
 	@Override
 	public int deleteUserInfo(SqlSessionTemplate sqlSession, String mid) {
-		/*sqlSession.select*/
-		return sqlSession.update("MyPage.deleteUserInfo", mid);
+		Winbid winbid = (Winbid)sqlSession.selectList("MyPage.selectWinbid", mid);
+		if(winbid != null) {
+			return 0;
+		}else {
+			return sqlSession.update("MyPage.deleteUserInfo", mid);
+		}
 	}
 
 	//계좌등록, 변경
@@ -132,6 +137,21 @@ public class MyPageDaoImpl implements MyPageDao{
 	public Member selectMember(SqlSessionTemplate sqlSession, Member temp) {
 		
 		return sqlSession.selectOne("MyPage.selectMember", temp);
+	}
+
+	//문의게시판 페이징 처리
+	@Override
+	public int getQueryListCount(SqlSessionTemplate sqlSession, String memberNo) {
+		
+		return sqlSession.selectOne("MyPage.countQueryBoard", memberNo);
+	}
+
+	//문의게시판 조회
+	@Override
+	public ArrayList<MyPageBoard> selectQueryBoard(SqlSessionTemplate sqlSession, PageInfo pi, String memberNo) {
+		int offset = (pi.getCurrentPage()  - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		return (ArrayList)sqlSession.selectList("MyPage.selectQueryBoard", memberNo, rowBounds);
 	}
 	
 }

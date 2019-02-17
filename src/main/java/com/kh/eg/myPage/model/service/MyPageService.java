@@ -53,6 +53,12 @@ public interface MyPageService {
 
 	//유저정보 수정시 원래 정보 조회
 	Member selectMember(Member temp);
+
+	//문의게시판 페이징 처리
+	int getQueryListCount(String memberNo);
+
+	//문의게시판 조회
+	ArrayList<MyPageBoard> selectQueryBoard(PageInfo pi, String memberNo);
 	
 	
 	
