@@ -16,6 +16,7 @@
 		<typeAlias type="com.kh.eg.board.model.vo.Board" alias="Board"/>
 
 		<typeAlias type="com.kh.eg.emoney.model.vo.emoney" alias="emoney"/>
+		<typeAlias type="com.kh.eg.board.model.vo.Reply" alias="Reply"/>
 
 	</typeAliases>
 	<mappers>

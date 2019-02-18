@@ -40,10 +40,7 @@
     <div class="ui grid">
         <div class = "two wide column"></div>
         <div class = "twelve wide column" style="margin-top:50px;">
-        <div class="freeBoard">
-        	<h1 class="ui header" style="font-size:4rem; color:white; margin-left: 20px; padding-top: 20px;">자유게시판</h1>
-        	<h1 class="ui header" style="font-size:2rem; color:white; margin-left: 20px;">경매에 대해 자유롭게 토론해보세요!</h1>
-        </div>
+        
         <div class="insertArea ui form">
 	     		<form action="insertBoard.bo" method="post">
 	     			<table>

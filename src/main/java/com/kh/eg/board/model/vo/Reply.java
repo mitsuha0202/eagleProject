@@ -9,10 +9,12 @@ public class Reply {
 	private String reBid;
 	private String reMid;
 	private String rStatus;
+	private String rUserName;
 	
 	public Reply() {}
 
-	public Reply(String rid, Date writeDay, String rContent, String reBid, String reMid, String rStatus) {
+	public Reply(String rid, Date writeDay, String rContent, String reBid, String reMid, String rStatus,
+			String rUserName) {
 		super();
 		this.rid = rid;
 		this.writeDay = writeDay;
@@ -20,6 +22,7 @@ public class Reply {
 		this.reBid = reBid;
 		this.reMid = reMid;
 		this.rStatus = rStatus;
+		this.rUserName = rUserName;
 	}
 
 	public String getRid() {
@@ -70,11 +73,22 @@ public class Reply {
 		this.rStatus = rStatus;
 	}
 
+	public String getrUserName() {
+		return rUserName;
+	}
+	
+	public void setrUserName(String rUserName) {
+		this.rUserName = rUserName;
+	}
+
 	@Override
 	public String toString() {
 		return "Reply [rid=" + rid + ", writeDay=" + writeDay + ", rContent=" + rContent + ", reBid=" + reBid
-				+ ", reMid=" + reMid + ", rStatus=" + rStatus + "]";
+				+ ", reMid=" + reMid + ", rStatus=" + rStatus + ", rUserName=" + rUserName + "]";
 	}
+
+	
+	
 	
 	
 	

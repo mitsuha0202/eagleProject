@@ -15,4 +15,8 @@ public interface BoardDao {
 
 	int inserBoard(SqlSessionTemplate sqlSession, Board b);
 
+	int updateCount(SqlSessionTemplate sqlSession, String bid);
+
+	Board selecOneBoard(SqlSessionTemplate sqlSession, String bid);
+
 }
