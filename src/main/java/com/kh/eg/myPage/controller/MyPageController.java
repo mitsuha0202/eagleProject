@@ -204,6 +204,16 @@ import com.kh.eg.myPage.model.vo.WishList;
 		public String answerBoard() {
 			return "myPage/answerBoardPage";
 		}
+		//문의받은게시판 상세페이지
+		@RequestMapping("answerPageDetail.mp")
+		public String answerPageDetail() {
+			return "myPage/answerPageDetailPage";
+		}
+		//문의받은게시판 답변눌렀을때 답변페이지
+		@RequestMapping("reanswerDetail.mp")
+		public String reanswerDetail() {
+			return "myPage/reanswerDetailPage";
+		}
 		
 		//1대1 상담문의
 		@RequestMapping("onebyone.mp")
