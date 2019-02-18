@@ -26,7 +26,7 @@ public interface MyPageDao {
 	int insertMessage(SqlSessionTemplate sqlSession, MyPageBoard myPage);
 
 	//1대1 게시글 검색
-	ArrayList<MyPageBoard> searchMessage(SqlSessionTemplate sqlSession, String searchTitle, String searchTitle2);
+	ArrayList<MyPageBoard> searchMessage(SqlSessionTemplate sqlSession, PageInfo pi, String searchTitle, String memberNo);
 
 	//게시글 개수 조회
 	int countMessage(SqlSessionTemplate sqlSession, String memberNo);
@@ -61,6 +61,12 @@ public interface MyPageDao {
 
 	//문의게시판 조회
 	ArrayList<MyPageBoard> selectQueryBoard(SqlSessionTemplate sqlSession, PageInfo pi, String memberNo);
+
+	//문의게시판 상세보기
+	MyPageBoard selectOneQuery(SqlSessionTemplate sqlSession, String boardNo);
+
+	//쪽지함 검색 페이징 처리
+	int getListSearchMessageCount(SqlSessionTemplate sqlSession, String searchTitle, String memberNo);
 	
 	
 	

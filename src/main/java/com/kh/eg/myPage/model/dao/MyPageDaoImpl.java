@@ -1,6 +1,7 @@
 package com.kh.eg.myPage.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -53,9 +54,13 @@ public class MyPageDaoImpl implements MyPageDao{
 	
 	//1대1 게시글 검색
 	@Override
-	public ArrayList<MyPageBoard> searchMessage(SqlSessionTemplate sqlSession, String search, String searchTitle) {
-			
-		return (ArrayList)sqlSession.selectList("MyPage.searchMessage", searchTitle);
+	public ArrayList<MyPageBoard> searchMessage(SqlSessionTemplate sqlSession, PageInfo pi, String searchTitle, String memberNo) {
+		int offset = (pi.getCurrentPage()  - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("searchTitle", searchTitle);
+		map.put("memberNo", memberNo);
+		return (ArrayList)sqlSession.selectList("MyPage.searchMessage", map, rowBounds);
 	}
 
 	//위시리스트 등록해놓은거 검색
@@ -70,8 +75,6 @@ public class MyPageDaoImpl implements MyPageDao{
 	public int wishListDelete(SqlSessionTemplate sqlSession, int[] wishlistno) {
 		int result = 0;
 		for(int i=0; i<wishlistno.length; i++) {
-			
-			
 			result = sqlSession.update("MyPage.deleteWishList",wishlistno[i]);
 		}
 		return result;
@@ -153,6 +156,22 @@ public class MyPageDaoImpl implements MyPageDao{
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 		
 		return (ArrayList)sqlSession.selectList("MyPage.selectQueryBoard", memberNo, rowBounds);
+	}
+
+	//문의게시판 상세보기
+	@Override
+	public MyPageBoard selectOneQuery(SqlSessionTemplate sqlSession, String boardNo) {
+		
+		return sqlSession.selectOne("MyPage.selectOneQuery", boardNo);
+	}
+
+	//쪽지함 페이징 처리
+	@Override
+	public int getListSearchMessageCount(SqlSessionTemplate sqlSession, String searchTitle, String memberNo) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("searchTitle", searchTitle);
+		map.put("memberNo", memberNo);
+		return sqlSession.selectOne("MyPage.countMessageSearch", map);
 	}
 	
 }

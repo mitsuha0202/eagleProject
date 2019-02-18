@@ -52,9 +52,9 @@ public class MyPageServiceImpl implements MyPageService{
 
 	//1대1 문의 게시글 검색
 	@Override
-	public ArrayList<MyPageBoard> searchMessage(String search, String searchTitle) {
+	public ArrayList<MyPageBoard> searchMessage(PageInfo pi, String searchTitle, String memberNo) {
 		
-		return md.searchMessage(sqlSession, search, searchTitle);
+		return md.searchMessage(sqlSession, pi, searchTitle, memberNo);
 	}
 	
 	//위시리스트 등록해놓은거 검색
@@ -133,5 +133,18 @@ public class MyPageServiceImpl implements MyPageService{
 		
 		return md.selectQueryBoard(sqlSession, pi, memberNo);
 	}
+	
+	//문의게시판 상세보기
+	@Override
+	public MyPageBoard selectOneQuery(String boardNo) {
+		
+		return md.selectOneQuery(sqlSession, boardNo);
+	}
 
+	//쪽지함 검색 페이징 처리
+	@Override
+	public int getListSearchMessageCount(String searchTitle, String memberNo) {
+		
+		return md.getListSearchMessageCount(sqlSession, searchTitle, memberNo);
+	}
 }

@@ -256,10 +256,20 @@ import com.kh.eg.myPage.model.vo.WishList;
 		
 		//1대1 문의 검색
 		@RequestMapping("searchMessage.mp")
-		public String searchMessage(@RequestParam(value="search") String search, @RequestParam(value="searchTitle") String searchTitle, Model model) {
-			ArrayList<MyPageBoard> list = ms.searchMessage(search, searchTitle);
+		public String searchMessage(@RequestParam(value="searchTitle") String searchTitle, @RequestParam(value="currentPage", required=false) String temp, Model model, HttpSession session, Member m) {
+			int currentPage = 1;
+			if(temp != null) {
+				currentPage = Integer.parseInt(temp);
+			}
+			//유저번호 받기위해 
+		    m = (Member)session.getAttribute("loginUser");
+		    String memberNo= m.getMid();
+			int listCount = ms.getListSearchMessageCount(searchTitle, memberNo);
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			ArrayList<MyPageBoard> list = ms.searchMessage(pi, searchTitle, memberNo);
 			if(list != null) {
 				model.addAttribute("list", list);
+				 model.addAttribute("pi", pi);
 				return "myPage/usesrMessagePage";
 			}else {
 				model.addAttribute("msg", "검색조회 실패");
@@ -338,6 +348,22 @@ import com.kh.eg.myPage.model.vo.WishList;
 				return "redirect:accountPage";
 			}else {
 				model.addAttribute("msg", "계좌등록 실패");
+				return "common/errorPage";
+			}
+		}
+		
+		//문의게시판 상세보기
+		@RequestMapping("queryBoardDetail.mp")
+		public String queryBoardDetail(HttpServletRequest request, Model model) {
+			String temp = request.getQueryString();
+			String boardNo = temp.substring(6, temp.length());
+			MyPageBoard myBoard = ms.selectOneQuery(boardNo);
+			
+			if(myBoard != null) {
+				model.addAttribute("myBoard", myBoard);
+				return "myPage/queryBoardDetail";
+			}else {
+				model.addAttribute("msg", "문의게시판 상세보기 조회 실패");
 				return "common/errorPage";
 			}
 		}
