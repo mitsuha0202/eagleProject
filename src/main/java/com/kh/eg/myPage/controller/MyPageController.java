@@ -25,6 +25,7 @@ import com.kh.eg.myPage.model.service.MyPageService;
 import com.kh.eg.myPage.model.vo.Maccount;
 import com.kh.eg.myPage.model.vo.MyPageBoard;
 import com.kh.eg.myPage.model.vo.PageInfo;
+import com.kh.eg.myPage.model.vo.Query;
 import com.kh.eg.myPage.model.vo.WishList;
 
 @SessionAttributes("loginUser")
@@ -202,6 +203,16 @@ import com.kh.eg.myPage.model.vo.WishList;
 		@RequestMapping("answerBoard.mp")
 		public String answerBoard() {
 			return "myPage/answerBoardPage";
+		}
+		//문의받은게시판 상세페이지
+		@RequestMapping("answerPageDetail.mp")
+		public String answerPageDetail() {
+			return "myPage/answerPageDetailPage";
+		}
+		//문의받은게시판 답변눌렀을때 답변페이지
+		@RequestMapping("reanswerDetail.mp")
+		public String reanswerDetail() {
+			return "myPage/reanswerDetailPage";
 		}
 		
 		//1대1 상담문의

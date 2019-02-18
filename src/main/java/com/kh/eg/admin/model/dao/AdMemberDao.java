@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.eg.admin.model.exception.AdMemberselectException;
-import com.kh.eg.admin.model.exception.AdSearchMemberException;
 import com.kh.eg.admin.model.vo.AdminVo;
 import com.kh.eg.admin.model.vo.PageInfo;
 import com.kh.eg.admin.model.vo.SearchCondition;
@@ -19,7 +18,15 @@ public interface AdMemberDao {
 
 	int getBlackListCount(SqlSessionTemplate sqlSession) throws AdMemberselectException;
 
-	ArrayList<AdminVo> searchMemberList(SqlSessionTemplate sqlSession, SearchCondition sc, PageInfo pi) throws AdSearchMemberException;
+	int getSearchListCount(SqlSessionTemplate sqlSession, SearchCondition sc) throws AdMemberselectException;
+
+	ArrayList<AdminVo> searchMemberList(SqlSessionTemplate sqlSession, SearchCondition sc, PageInfo pi) throws AdMemberselectException;
+
+	int getSearchBlackListCount(SqlSessionTemplate sqlSession, SearchCondition sc) throws AdMemberselectException;
+
+	ArrayList<AdminVo> searchBlackList(SqlSessionTemplate sqlSession, SearchCondition sc, PageInfo pi) throws AdMemberselectException;
+
+	
 
 	
 }

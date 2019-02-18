@@ -15,4 +15,6 @@ public interface ItemDao {
 
 	int selectItemNoNextval(SqlSessionTemplate sqlSession);
 
+	int insertAuctionDetail(SqlSessionTemplate sqlSession, HashMap<String, Object> hmap);
+
 }
