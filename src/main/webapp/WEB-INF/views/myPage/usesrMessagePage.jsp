@@ -13,13 +13,13 @@
 	}
 	/* 페이지 제목 */
 	.title{
-		position: absolute;
+		/* position: absolute;
 		top: 260px;
-		left: 70px;
+		left: 70px; */
 	}
 	/* 검색부분 div */
 	.searchArea{
-		position: absolute;
+	/* 	position: absolute; */
 		background-color: lightgray;
 		top: 340px;
 		left: 70px;
@@ -28,21 +28,21 @@
 	}
 	/* 검색 select태그부분 영역 */
 	.selectSize{
-		position: absolute;
+		/* position: absolute; */
 		top: 33%;
 		left: 10%;
 		width: 9%;
 	}
 	/* 검색 input태그부분 */
 	.inputSize{
-		position: absolute;
+		/* position: absolute; */
 		top: 33%;
 		left: 20%;
 		width: 30%;
 	}
 	/* 검색버튼 */
 	.searchBtn{
-		position: absolute;
+		/* position: absolute; */
 		left: 52%;
 		top: 33%;
 		text-align: center;
@@ -56,7 +56,7 @@
 	}
 	/* 테이블 div */
 	.messageTableArea{
-		position: absolute;
+		/* position: absolute; */
 		top: 67%;
 		left: 70px;
 	}
@@ -74,13 +74,13 @@
 	}
 	/* 버튼영역 */
 	.btnArea{
-		position: absolute;
+		/* position: absolute; */
 		top: 800px;
 		left: 70px;
 	}
 	/* 삭제, 문의버튼 */
 	.deleteBtn, .queryBtn{
-		position: absolute;
+/* 		position: absolute; */
 		text-align: center;
 		background-color: #205181;
 		border: 1px solid white;
@@ -96,7 +96,7 @@
 	}
 	/* 닫기버튼 */
 	.closeBtn{
-		position: absolute;
+		/* position: absolute; */
 		top: 100px;
 		left: 1100px;
 		text-align: center;
@@ -113,7 +113,7 @@
 		height: 17px;	
 	}
 	#pagingArea{
-		position: absolute;
+		/* position: absolute; */
 		top: 1000px;
 		left: 45%;
 	}
@@ -189,7 +189,7 @@
       <jsp:forward page="../common/errorPage.jsp"/>
    </c:if>
    
-   <div id="pagingArea" align="center">
+   	<div id="pagingArea" align="center">
 			<c:if test="${ pi.currentPage <= 1 }">
 				[이전] &nbsp;
 			</c:if>
