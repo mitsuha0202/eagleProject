@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kh.eg.admin.model.exception.AdMemberselectException;
-import com.kh.eg.admin.model.exception.AdSearchMemberException;
 import com.kh.eg.admin.model.service.AdMemberService;
 import com.kh.eg.admin.model.vo.AdminVo;
 import com.kh.eg.admin.model.vo.PageInfo;
@@ -55,8 +54,8 @@ public class AdminController {
 		return "admin/category";
 	}
 	
-	@RequestMapping("searchMemberList.ad")
-	public String serachMemberview(Model model, HttpServletRequest request){
+	@RequestMapping("searchBlackList.ad")
+	public String serachBlackview(Model model, HttpServletRequest request){
 		String searchCondition = request.getParameter("searchCondition");
 		String searchValue = request.getParameter("searchValue");
 		
@@ -82,7 +81,48 @@ public class AdminController {
 		
 		int listCount;
 		try {
-			listCount = ams.getListCount();
+			listCount = ams.getSearchBlackListCount(sc);
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
+			ArrayList<AdminVo> list = ams.searchBlackList(sc, pi);
+			
+			model.addAttribute("list", list);
+			model.addAttribute("pi", pi);
+			return "admin/blackList";
+		} catch (AdMemberselectException e) {
+			e.printStackTrace();
+			model.addAttribute("msg","회원 조회 실패!");
+			return "common/errorPage";
+			
+		} 
+	
+	}
+	
+	@RequestMapping("searchMemberList.ad")
+	public String serachMemberview(Model model, HttpServletRequest request){
+		String searchCondition = request.getParameter("searchCondition");
+		String searchValue = request.getParameter("searchValue");
+		
+		SearchCondition sc = new SearchCondition();
+		if(searchCondition.equals("userId")) {
+			sc.setUserId(searchValue);
+		}
+		if(searchCondition.equals("userName")) {
+			sc.setUserName(searchValue);
+		}
+		if(searchCondition.equals("phone")) {
+			sc.setPhone(searchValue);
+		}
+		
+		int currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		int listCount;
+		try {
+			listCount = ams.getSearchListCount(sc);
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 			
 			ArrayList<AdminVo> list = ams.searchMemberList(sc, pi);
@@ -90,7 +130,7 @@ public class AdminController {
 			model.addAttribute("list", list);
 			model.addAttribute("pi", pi);
 			return "admin/memberList";
-		} catch (AdSearchMemberException e) {
+		} catch (AdMemberselectException e) {
 			e.printStackTrace();
 			model.addAttribute("msg","회원 조회 실패!");
 			return "common/errorPage";
@@ -102,10 +142,7 @@ public class AdminController {
 	@RequestMapping("memberList.ad")
 	public String memberview(Model model, HttpServletRequest request){
 		
-		
-		
 		int currentPage = 1;
-		
 		
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
