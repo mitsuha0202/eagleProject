@@ -43,4 +43,15 @@ private DataSourceTransactionManager transactionManager;
 		return result;
 	}
 
+	@Override
+	public Board selectOneBoard(String bid) {
+		Board b = null;
+		
+		int result = bd.updateCount(sqlSession,bid);
+		
+		b = bd.selecOneBoard(sqlSession, bid);
+		
+		return b;
+	}
+
 }

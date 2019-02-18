@@ -16,4 +16,6 @@ public interface BoardService {
 
 	int insertBoard(Board b);
 
+	Board selectOneBoard(String bid);
+
 }

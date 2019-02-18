@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,18 +37,18 @@
 	        <table class="ui black table" style="width:1200px;">
 			  <thead>
 			    <tr>
-			    <th colspan="4"><h1 class="ui header" style="font-size:3rem; margin-top: 40px;">노가다</h1></th>
+			    <th colspan="4"><h1 class="ui header" style="font-size:3rem; margin-top: 40px;">${b.bTitle}</h1></th>
 			  </tr>
 			  </thead>
 			  <tbody>
 			    <tr>
 			      <td style="border-left: 1px solid white; border-right: 1px solid #dee2e6; width: 15%;"><h2 class="ui header" style="height: 40px; margin-top:5px;">작성자</h2></td>
-			      <td style="border-right: 1px solid #dee2e6; width: 40%;"><h2 class="ui header" style="height: 40px; margin-top:5px;">개놈</h2></td>
-			      <td style="border-right: 1px solid #dee2e6; width: 15%;"><h2 class="ui header" style="height: 40px; margin-top:5px;"><i class="eye icon"></i>9</h2></td>
-			      <td style="border-right: 1px solid white; width: 30%;"><h2 class="ui header" style="height: 40px; margin-top:5px;"><i class="calendar alternate icon"></i>0000-00-00</h2></td>
+			      <td style="border-right: 1px solid #dee2e6; width: 40%;"><h2 class="ui header" style="height: 40px; margin-top:5px;">${b.userName}</h2></td>
+			      <td style="border-right: 1px solid #dee2e6; width: 15%;"><h2 class="ui header" style="height: 40px; margin-top:5px;"><i class="eye icon"></i>${b.bCount}</h2></td>
+			      <td style="border-right: 1px solid white; width: 30%;"><h2 class="ui header" style="height: 40px; margin-top:5px;"><i class="calendar alternate icon"></i>${b.writeDay}</h2></td>
 			    </tr>
 			    <tr>
-			      <td colspan="4" style="border-right: 1px solid white; border-left: 1px solid white; height: 500px;">와 노가다 개힘듬</td>
+			      <td colspan="4" style="border-right: 1px solid white; border-left: 1px solid white; height: 500px;">${b.bContent}</td>
 			    </tr>
 			  </tbody>
 			</table>
@@ -59,10 +60,12 @@
 			    </tr>
 			  </thead>
 			  <tbody>
+			  <c:forEach var="r" items="${ b.replyList }">
 			    <tr>
-			      <td colspan="2"style="width:30%" align="center"><h3>작성자</h3></td>
-			      <td colspan="4"><h3>내용</h3></td>
+			       <td colspan="2"style="width:30%" align="center"><h3>${r.rUserName}</h3></td>
+			      <td colspan="4"><h3>${r.rContent}</h3></td>
 			    </tr>
+			  </c:forEach>
 			  </tbody>
 			  <tfoot>
 			    <tr>

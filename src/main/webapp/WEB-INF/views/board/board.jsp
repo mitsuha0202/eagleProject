@@ -82,7 +82,7 @@
 		      <td>${b.bTitle}</td>
 		      <td>${b.bMid}</td>
 		      <td>${b.writeDay}</td>
-		      <td></td>
+		      <td>${b.bCount}</td>
 		    </tr>
 		  </c:forEach>
 		  </tbody>
@@ -95,9 +95,15 @@
 	</div>
 	<script>
 		function insertBoard() {
-			
-			location.href = "insertBoardView.bo";
+			 var loginUser = '${sessionScope.loginUser}';
+			  if(loginUser == ""){
+				 alert("회원만 이용가능합니다.")
+			 }else{
+				 location.href = "insertBoardView.bo";
+			 } 
+				
 		}
+
 		
 		$(function(){
 			$("#listArea td").mouseenter(function(){
@@ -105,11 +111,11 @@
 			}).mouseout(function(){
 				$(this).parent().css({"background":"white"});
 			}).click(function(){
-				var num=$(this).parent().children().eq(0).text();
+				var bid=$(this).parent().children().eq(0).text();
 				
-				console.log(num);
+				console.log(bid);
 				
-				location.href="boardSelectOne.bo";
+				location.href="boardSelectOne.bo?bid="+bid;
 			});
 			
 		})

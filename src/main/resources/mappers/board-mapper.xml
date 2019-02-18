@@ -13,6 +13,7 @@
 		<result property="bType" column="BOARDSTATUS"/>
 		<result property="reStatus" column="REPLYSTATUS"/>
 		<result property="bCount" column="BCOUNT"/>
+		<result property="sMid" column="SMEMBERNO"/>
 	</resultMap>
 	
 	<!-- 어레이리스트 추가한 resultMap -->
@@ -26,7 +27,17 @@
 		<result property="bType" column="BOARDSTATUS"/>
 		<result property="reStatus" column="REPLYSTATUS"/>
 		<result property="bCount" column="BCOUNT"/>
+		<result property="sMid" column="SMEMBERNO"/>
 		<collection property="replyList" javaType="java.util.ArrayList" resultMap="replyResultSet"/>
+	</resultMap>
+	
+	<resultMap type="Reply" id="replyResultSet">
+		<id property="rid" column="COMMENTNO"/>
+		<result property="writeDay" column="WRITEDAY"/>
+		<result property="rContent" column="CONTENTS"/>
+		<result property="reBid" column="BOARDNO"/>
+		<result property="reMid" column="MEMBERNO"/>
+		<result property="rStatus" column="DELETESTATUS"/>
 	</resultMap>
 	
 	<select id="selectListCount" resultType="_int">
@@ -48,7 +59,47 @@
 	
 	<insert id="insertBoard" parameterType="Board">
 		INSERT INTO BOARD VALUES(BN_SEQ.NEXTVAL, #{bTitle}, #{bContent}, #{bMid}, 
-			SYSDATE, 'N', 'FREEBOARD', 'N',9 )
+			SYSDATE, 'N', 'FREEBOARD', 'N',0,NULL )
 	</insert>
+	
+	<!-- 조회수 증가용 -->
+	<update id="updateBoardCount" parameterType="java.lang.String">
+		UPDATE BOARD
+		SET BCOUNT = (SELECT BCOUNT FROM BOARD WHERE BOARDNO = #{bid})+1
+		WHERE BOARDNO = #{bid}
+	</update>
+	
+	<!-- 게시판 상세보기 -->
+	<select id="selectBoardOne" parameterType="java.lang.String" resultMap="boardResultSet2">
+		SELECT * 
+		FROM BOARD B
+		JOIN MEMBER M ON(B.MEMBERNO = M.MEMBERNO)
+		LEFT JOIN REPLY R ON (R.BOARDNO = B.BOARDNO)
+		WHERE B.BOARDNO = #{bid}
+		AND B.DELETESTATUS = 'N'
+		ORDER BY COMMENTNO DESC
+	</select>
+	
+	<select id="selectWriter" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT MEMBERNAME 
+		FROM MEMBER M
+		JOIN BOARD B ON(M.MEMBERNO = B.MEMBERNO)
+		WHERE B.BOARDNO = #{bid}
+	</select>
+	
+	<select id="replyWriter" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT MEMBERNAME 
+		FROM MEMBER M
+		JOIN REPLY R ON(M.MEMBERNO = R.MEMBERNO)
+		JOIN BOARD B ON(R.BOARDNO = B.BOARDNO)
+		WHERE B.BOARDNO = #{bid}
+	</select>
+	<select id="reply" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT R.CONTENTS
+		FROM MEMBER M
+		JOIN REPLY R ON(M.MEMBERNO = R.MEMBERNO)
+		JOIN BOARD B ON(R.BOARDNO = B.BOARDNO)
+		WHERE B.BOARDNO = #{bid}
+	</select>
 	
 </mapper>

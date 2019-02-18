@@ -34,6 +34,9 @@ private BoardService bs;
 		
 		ArrayList<Board> list = bs.selectBoardList(pi);
 		System.out.println("list : "+list);
+		for(int i=0; i<list.size();i++) {
+			list.get(i).setbCount(list.get(i).getbCount());
+		}
 		if(list != null) {
 			model.addAttribute("list",list);
 			model.addAttribute("pi",pi);
@@ -41,7 +44,6 @@ private BoardService bs;
 		
 		}else {
 			model.addAttribute("msg","자유게시판 조회 실패!");
-			
 			return "common/errorPage";
 		}
 		
@@ -66,7 +68,17 @@ private BoardService bs;
 	}
 	
 	@RequestMapping("boardSelectOne.bo")
-	public String boardSelectOne(){
-		return "board/boardDetail";
+	public String boardSelectOne(@RequestParam String bid, Model model){
+		System.out.println(bid);
+		Board b = bs.selectOneBoard(bid);
+		
+		if(b == null) {
+			model.addAttribute("msg", "게시판 상세보기 실패!");
+			return "common/errorPage";
+		}else {
+			model.addAttribute("b", b);
+			return "board/boardDetail";
+		}
+		
 	}
 }
