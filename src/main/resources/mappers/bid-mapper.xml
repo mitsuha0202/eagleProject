@@ -18,7 +18,7 @@
   		<result property="detail" column="DETAIL" />
   		<result property="deliveryPrice" column="DELIVERYPRICE" />
   		<result property="itemCount" column="ICOUNT" />
-  		<result property="mName" column="MEMBERNAME" />
+  		<result property="mId" column="MEMBERID" />
   		<result property="rating" column="RATING" />
   		<result property="auctionName" column="AUCTIONNAME" />
   		<result property="startDay" column="STARTDAY" />
@@ -30,6 +30,11 @@
   	
   	
   	<select id="selectDetailItem" resultMap="itemDetailResultSet" parameterType="java.lang.String">
-  		SELECT 
+  		SELECT *
+  		FROM AUCTIONITEM I
+  		JOIN AUCTIONDETAIL D ON(I.ITEMNO = D.ITEMNO)
+  		JOIN AUCTION A ON(I.AUCTIONCODE = A.AUCTIONCODE)
+  		JOIN MEMBER M ON(I.MEMBERNO = M.MEMBERNO)
+  		WHERE I.ITEMNO = #{itemNo}
   	</select>
   </mapper>
