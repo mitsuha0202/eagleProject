@@ -13,10 +13,12 @@
 		<typeAlias type="com.kh.eg.item.model.vo.Item" alias="Item"/>
 		<typeAlias type="com.kh.eg.attachment.model.vo.Attachment" alias="Attachment"/>
     <typeAlias type="com.kh.eg.admin.model.vo.AdminVo" alias="AdminVo"/>
+    	
 
 		<typeAlias type="com.kh.eg.board.model.vo.Board" alias="Board"/>
 
 		<typeAlias type="com.kh.eg.emoney.model.vo.emoney" alias="emoney"/>
+		<typeAlias type="com.kh.eg.auction.model.vo.AuctionDetail" alias="AuctionDetail"/>
 
 	</typeAliases>
 	<mappers>
