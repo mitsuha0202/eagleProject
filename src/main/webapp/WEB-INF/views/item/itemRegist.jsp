@@ -78,6 +78,13 @@
 			
 			<h2>카테고리 선택</h2>
 			<br> <br>
+			 <%--  <div class="ui list" id="divList">
+			 	<c:forEach var="c" items="hmap">
+			 
+			 	
+			 	
+			 	</c:forEach> --%> --%>
+			 
 				<table class="ui striped table">
 					<tbody>
 					
@@ -87,7 +94,7 @@
 					</tr>
 				</tbody>
 				</table>
-			
+			<!-- </div> -->
 			
 			
 			<br> <br>
@@ -176,7 +183,14 @@
 					<td>입찰단위</td>
 					<td><input type="text" name="bidUnit"></td>
 				</tr>
-			
+				<tr>
+					<td>경매 시작날짜</td>
+					<td><input type="date" name="startDay"></td>
+				</tr>
+				<tr>
+					<td>경매 종료날짜</td>
+					<td><input type="date" name="endDay"></td>
+				</tr>
 			</tbody>
 			
 			

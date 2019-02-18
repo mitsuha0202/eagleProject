@@ -40,6 +40,17 @@
 		
 	</resultMap>
 	
+	<resultMap type="com.kh.eg.auction.model.vo.AuctionDetail" id="auctionDetailResultSet">
+			<id property="itemNo" column="ITEMNO"/>
+			<result property="startDay" column="STARTDAY"/>
+			<result property="endDay" column="ENDDAY"/>
+			<result property="exitYN" column="EXITYN"/>
+			
+	
+	
+	
+	</resultMap>
+	
 	
 	
 	
@@ -49,15 +60,15 @@
 	#{item.deliveryPay},#{item.origin}, 'N' ,'1',#{item.mid}, #{item.auctionCode} ,#{item.detail},#{item.deliveryPrice},'0')
 	</insert>
 	<insert id="insertAttachment">
-	INSERT INTO ATTACHMENT VALUES(PN_SEQ.NEXTVAL, #{attachment.originName},#{attachment.changeName},
+	INSERT INTO ATTACHMENT VALUES(AN_SEQ.NEXTVAL, #{attachment.originName},#{attachment.changeName},
 	#{attachment.root},0,'Y',null,#{attachment.itemNo}
 	)
-	
-	
+	</insert>
+	<insert id="insertAuctionDetail">
+	INSERT INTO AUCTIONDETAIL VALUES(#{auctionDetail.startDay},#{auctionDetail.endDay},'N',#{auctionDetail.itemNo})
 	
 	
 	</insert>
-	
 	
 	<select id="selectItemNo" resultType="_int">
 	SELECT PN_SEQ.NEXTVAL FROM dual  

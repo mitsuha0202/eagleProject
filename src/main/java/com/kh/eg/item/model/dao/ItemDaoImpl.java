@@ -31,8 +31,16 @@ public class ItemDaoImpl implements ItemDao {
 
 	@Override
 	public int selectItemNoNextval(SqlSessionTemplate sqlSession) {
+		int abc=sqlSession.selectOne("Item.selectItemNo");
+		System.out.println(abc);
+		return abc;
+	
+	}
+
+	@Override
+	public int insertAuctionDetail(SqlSessionTemplate sqlSession, HashMap<String, Object> hmap) {
 		
-		return sqlSession.selectOne("Item.selectItemNo");
+		return sqlSession.insert("Item.insertAuctionDetail",hmap);
 	}
 	
 }
