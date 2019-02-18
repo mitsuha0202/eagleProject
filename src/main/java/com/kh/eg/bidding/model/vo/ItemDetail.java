@@ -2,8 +2,8 @@ package com.kh.eg.bidding.model.vo;
 
 import java.sql.Date;
 
-public class Item implements java.io.Serializable{
-	private int itemNo;
+public class ItemDetail implements java.io.Serializable{
+	private String itemNo;
 	private String itemName;
 	private String startPrice;
 	private String bidUnit;
@@ -23,11 +23,11 @@ public class Item implements java.io.Serializable{
 	private Date endDay;
 	private String exitYN;
 	
-	public Item() {}
+	public ItemDetail() {}
 
 	@Override
 	public String toString() {
-		return "Item [itemNo=" + itemNo + ", itemName=" + itemName + ", startPrice=" + startPrice + ", bidUnit="
+		return "ItemDetail [itemNo=" + itemNo + ", itemName=" + itemName + ", startPrice=" + startPrice + ", bidUnit="
 				+ bidUnit + ", deliveryPay=" + deliveryPay + ", origin=" + origin + ", deleteYN=" + deleteYN
 				+ ", categoryNo=" + categoryNo + ", mNo=" + mNo + ", auctionCode=" + auctionCode + ", detail=" + detail
 				+ ", deliveryPrice=" + deliveryPrice + ", itemcount=" + itemcount + ", mId=" + mId + ", rating="
@@ -35,10 +35,10 @@ public class Item implements java.io.Serializable{
 				+ ", exitYN=" + exitYN + "]";
 	}
 
-	public Item(int itemNo, String itemName, String startPrice, String bidUnit, String deliveryPay, String origin,
-			String deleteYN, String categoryNo, String mNo, String auctionCode, String detail, String deliveryPrice,
-			String itemcount, String mId, String rating, String auctionName, Date startDay, Date endDay,
-			String exitYN) {
+	public ItemDetail(String itemNo, String itemName, String startPrice, String bidUnit, String deliveryPay,
+			String origin, String deleteYN, String categoryNo, String mNo, String auctionCode, String detail,
+			String deliveryPrice, String itemcount, String mId, String rating, String auctionName, Date startDay,
+			Date endDay, String exitYN) {
 		super();
 		this.itemNo = itemNo;
 		this.itemName = itemName;
@@ -61,11 +61,11 @@ public class Item implements java.io.Serializable{
 		this.exitYN = exitYN;
 	}
 
-	public int getItemNo() {
+	public String getItemNo() {
 		return itemNo;
 	}
 
-	public void setItemNo(int itemNo) {
+	public void setItemNo(String itemNo) {
 		this.itemNo = itemNo;
 	}
 
@@ -213,6 +213,7 @@ public class Item implements java.io.Serializable{
 		this.exitYN = exitYN;
 	}
 
+	
 	
 	
 	
