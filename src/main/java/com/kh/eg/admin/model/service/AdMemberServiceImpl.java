@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.kh.eg.admin.model.dao.AdMemberDao;
 import com.kh.eg.admin.model.exception.AdMemberselectException;
-import com.kh.eg.admin.model.exception.AdSearchMemberException;
 import com.kh.eg.admin.model.vo.AdminVo;
 import com.kh.eg.admin.model.vo.PageInfo;
 import com.kh.eg.admin.model.vo.SearchCondition;
@@ -50,13 +49,36 @@ public class AdMemberServiceImpl implements AdMemberService{
 		int listCount = amd.getBlackListCount(sqlSession);
 		return listCount;
 	}
-
+	
+	//검색 후 회원목록 페이징 카운트
 	@Override
-	public ArrayList<AdminVo> searchMemberList(SearchCondition sc, PageInfo pi) throws AdSearchMemberException {
-		ArrayList<AdminVo> list = amd.searchMemberList(sqlSession, sc, pi);
+	public int getSearchListCount(SearchCondition sc) throws AdMemberselectException {
+		int listCount = amd.getSearchListCount(sqlSession, sc);
+		return listCount;
+	}
+	
+	//검색 후 회원 목록 조회
+	@Override
+	public ArrayList<AdminVo> searchMemberList(SearchCondition sc, PageInfo pi) throws AdMemberselectException {
+		ArrayList<AdminVo> list = amd.searchMemberList(sqlSession, sc , pi);
 		
 		return list;
 	}
+
+	@Override
+	public int getSearchBlackListCount(SearchCondition sc) throws AdMemberselectException {
+		int listCount = amd.getSearchBlackListCount(sqlSession, sc);
+		return listCount;
+	}
+
+	@Override
+	public ArrayList<AdminVo> searchBlackList(SearchCondition sc, PageInfo pi) throws AdMemberselectException  {
+		ArrayList<AdminVo> list = amd.searchBlackList(sqlSession, sc , pi);
+		
+		return list;
+	}
+
+	
 	
 	
 	
