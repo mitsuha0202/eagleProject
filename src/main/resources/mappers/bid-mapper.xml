@@ -3,8 +3,8 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-  <mapper namespace="Bid">
-  	<resultMap type="com.kh.eg.bidding.model.vo.Item" id="itemDetailResultSet">
+  <mapper namespace="ItemDetails">
+  	<resultMap type="ItemDetail" id="itemDetailResultSet">
   		<id property="itemNo" column="ITEMNO" />
   		<result property="itemName" column="ITEMNAME" />
   		<result property="startPrice" column="STARTPRICE" />
@@ -30,6 +30,6 @@
   	
   	
   	<select id="selectDetailItem" resultMap="itemDetailResultSet" parameterType="java.lang.String">
-  		SELECT ITEM
+  		SELECT 
   	</select>
   </mapper>

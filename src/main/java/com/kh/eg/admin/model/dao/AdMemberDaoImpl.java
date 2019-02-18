@@ -7,7 +7,6 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.eg.admin.model.exception.AdMemberselectException;
-import com.kh.eg.admin.model.exception.AdSearchMemberException;
 import com.kh.eg.admin.model.vo.AdminVo;
 import com.kh.eg.admin.model.vo.PageInfo;
 import com.kh.eg.admin.model.vo.SearchCondition;
@@ -78,23 +77,56 @@ public class AdMemberDaoImpl implements AdMemberDao{
 	}
 
 	@Override
-	public ArrayList<AdminVo> searchMemberList(SqlSessionTemplate session, SearchCondition sc, PageInfo pi) throws AdSearchMemberException {
+	public int getSearchListCount(SqlSessionTemplate session, SearchCondition sc) throws AdMemberselectException {
+		int result = session.selectOne("AdminVo.SearchListCount", sc);
+		
+		return result;
+	}
+
+	@Override
+	public ArrayList<AdminVo> searchMemberList(SqlSessionTemplate session, SearchCondition sc, PageInfo pi) throws AdMemberselectException{
 		ArrayList<AdminVo> list = null;
 		
 		int offset = (pi.getCurrentPage() -1) * pi.getLimit();
 		
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 		
-		list = (ArrayList)session.selectList("AdminVo.searchMemberList", null, rowBounds);
+		list = (ArrayList)session.selectList("AdminVo.searchMemberList", sc, rowBounds);
 		
 		if(list == null) {
 			session.close();
-			throw new AdSearchMemberException("회원 조회 실패!");
+			throw new AdMemberselectException("회원 조회 실패!");
 		}
 		
 		return list;
 	}
 
+	@Override
+	public int getSearchBlackListCount(SqlSessionTemplate session, SearchCondition sc) throws AdMemberselectException {
+		int result = session.selectOne("AdminVo.SearchBlackListCount", sc);
+		
+		return result;
+	}
+
+	@Override
+	public ArrayList<AdminVo> searchBlackList(SqlSessionTemplate session, SearchCondition sc, PageInfo pi) throws AdMemberselectException {
+		ArrayList<AdminVo> list = null;
+		
+		int offset = (pi.getCurrentPage() -1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList)session.selectList("AdminVo.searchBlackList", sc, rowBounds);
+		
+		if(list == null) {
+			session.close();
+			throw new AdMemberselectException("회원 조회 실패!");
+		}
+		
+		return list;
+	}
+
+	
 	
 	
 

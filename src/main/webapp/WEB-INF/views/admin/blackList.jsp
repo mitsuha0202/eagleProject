@@ -16,21 +16,28 @@
 
 		<div class="contBox mt30"><!-- contBox S -->
 				
-			<div class="topsearch mt30 mb30"><!-- topsearch S -->
+			<div class="topsearch mt30 mb30" id=searchArea><!-- topsearch S -->
 				<span>
 					<label for="col01"></label>
-					<select id="col01" name="col01" class="wth140">
-						<option value="">아이디</option>
-						<option value="">이름</option>
-						<option value="">휴대폰번호</option>
-						<option value="">이메일주소</option>
+					<select id="searchCondition" name="searchCondition" class="wth140">
+						<option value="userId">아이디</option>
+						<option value="userName">이름</option>
+						<option value="phone">휴대폰번호</option>
 					</select> 
 				</span>
 				<span>
-					<label for="Keyword"></label><input id="Keyword" name="Keyword" class="wth240" type="text">
-					<a class="sch" href="#"><img src="resources/images/icoSearch.png" alt="검색" title="검색"></a> 
+					<label for="Keyword"></label><input id="search" name="search" class="wth240" type="text">
+					<a class="sch" onclick="searchBoard();"><img src="resources/images/icoSearch.png" alt="검색" title="검색"></a> 
 				</span>
-			</div>			
+			</div>
+			<script>
+				function searchBoard(){
+					var searchCondition = $("#searchCondition").val();
+					var searchValue = $("#search").val();
+					
+					location.href = "searchBlackList.ad?searchCondition=" + searchCondition + "&searchValue=" + searchValue;
+				}
+			</script>
 			
 			<div class="flo_left mt30 mb30">
 				<!-- <span><a class="mbtn wh" href="#">전체선택</a></span> -->

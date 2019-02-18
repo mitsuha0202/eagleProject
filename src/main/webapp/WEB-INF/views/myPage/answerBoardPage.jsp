@@ -113,8 +113,8 @@
 				<td class="td1">번호</td>
 				<td class="td1">물품번호</td>
 				<td class="td1">제목</td>
-				<td class="td1">답변</td>
-				<td class="td1">판매자</td>
+				<td class="td1">답변여부</td>
+				<td class="td1">아이디</td>
 				<td class="td1">등록일</td>			
 			</tr>
 			<tr>
@@ -136,5 +136,6 @@
 	</div>
 	
 	<button class="closeBtn" onclick="location.href='myPageMain.mp'">닫기</button>
+	<button onclick="location.href='answerPageDetail.mp'">임시상세페이지예시</button>
 </body>
 </html>
