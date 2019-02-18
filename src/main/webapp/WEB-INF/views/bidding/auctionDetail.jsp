@@ -135,11 +135,11 @@
 				      	
 				      </td>
 				      <td>
-				      	1<br>
+				      	<a id="itemNo">1</a><br>
 				      	최고가밀봉경매<br>
 				     	2019.02.12 11:00 ~ 2019.02.15 11:00<br>
-				      	10,000원<br>
-				      	1,000원</td>
+				      	<a id="startPrice">10,000</a>원<br>
+				      	<a id="upPrice">1,000</a>원</td>
 				    </tr>
 				    <tr>
 				      <td class="tableHeader">
@@ -360,4 +360,22 @@
    	
    	<!-- footer -->
 </body>
+
+<script>
+	$(function(){
+		var itemNo = $("#itemNo").text();
+		$.ajax({
+			url:"auctionDetail.bi",
+			data : {itemNo : itemNo},
+			type:"post",
+			success:function(data){
+				
+				console.log("성공");
+			},
+			error:function(){
+				console.log("실패");
+			}
+		});
+	});
+</script>
 </html>
