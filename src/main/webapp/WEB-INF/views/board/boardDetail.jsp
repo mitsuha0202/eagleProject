@@ -71,12 +71,12 @@
 			    <tr>
 				    <th colspan="5">
 						 <div class="field">
-						    <textarea style="width:95%; height:150px;" placeholder="댓글을 등록해주세요. 30자이내"></textarea>
+						    <textarea style="width:95%; height:150px;" name="rContent" id="rContent" placeholder="댓글을 등록해주세요. 30자이내"></textarea>
 						    
 	  					</div>
 					</th>
 					<th style="width:170px;" align="center">
-						<button class="ui inverted black button" style="color:white; width:100%; height:100%;"><h3>등록하기</h3></button>
+						<button class="ui inverted black button" style="color:white; width:100%; height:100%;" onclick="insertReply();"><h3>등록하기</h3></button>
 					</th>
 			    </tr>
 			  </tfoot>
@@ -92,7 +92,17 @@
         <div class = "two wide column"></div>
    	</div>
    	<script>
-   		
+   		function insertReply() {
+   		 var rContent = $("#rContent").val();
+   		 var loginUser = '${sessionScope.loginUser}';
+   		 var bid = '${b.bid}';
+   		 console.log(bid);
+		  if(loginUser == ""){
+			 alert("회원만 이용가능합니다.")
+		 }else{
+			 location.href = "insertReply.bo?bid="+bid+"&rContent="+rContent;
+		 } 
+		}
    	</script>
   	
    	<!-- footer -->

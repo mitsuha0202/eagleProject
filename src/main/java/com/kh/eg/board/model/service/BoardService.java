@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.eg.board.model.vo.Board;
 import com.kh.eg.board.model.vo.PageInfo;
+import com.kh.eg.board.model.vo.Reply;
 
 
 public interface BoardService {
@@ -17,5 +18,7 @@ public interface BoardService {
 	int insertBoard(Board b);
 
 	Board selectOneBoard(String bid);
+
+	int insertReply(Reply r);
 
 }

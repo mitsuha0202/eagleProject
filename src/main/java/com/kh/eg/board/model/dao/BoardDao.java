@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.eg.board.model.vo.Board;
 import com.kh.eg.board.model.vo.PageInfo;
+import com.kh.eg.board.model.vo.Reply;
 
 public interface BoardDao {
 
@@ -18,5 +19,7 @@ public interface BoardDao {
 	int updateCount(SqlSessionTemplate sqlSession, String bid);
 
 	Board selecOneBoard(SqlSessionTemplate sqlSession, String bid);
+
+	int insertReply(SqlSessionTemplate sqlSession, Reply r);
 
 }
