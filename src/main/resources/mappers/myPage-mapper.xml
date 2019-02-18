@@ -18,7 +18,9 @@
 		<result property="rWriteDay" column="WRITEDAY"/>
 		<result property="rContents" column="CONTENTS"/>
 		<result property="rDeleteStatus" column="DELETESTATUS"/>	
-		<result property="saleMemberName" column="SMEMBERNO"/>	
+		<result property="saleMemberNo" column="SMEMBERNO"/>	
+		<result property="itemNo" column="ITEMNO"/>
+		<result property="saleMemberName" column="SMEMBERNAME"/>
 	</resultMap>
 	
 	<!-- 위시리스트 조회 -->
@@ -73,11 +75,18 @@
 		ORDER BY BOARDNO DESC
 	</select>
 	
-	<!-- 게시글 수 조회 -->
+	<!-- 게시글 페이징 조회 -->
 	<select id="countMessage" resultType="_int" parameterType="java.lang.String">
 		SELECT COUNT(*)
 		FROM BOARD  
 		WHERE DELETESTATUS = 'N' AND BOARDSTATUS = 'ONEBYONE' AND MEMBERNO = #{memberNo}
+	</select>
+	
+	<!-- 쪽지함 검색 페이징 처리 -->
+	<select id="countMessageSearch" resultType="_int" parameterType="java.lang.String">
+		SELECT COUNT(*)
+		FROM BOARD
+		WHERE DELETESTATUS = 'N' AND BOARDSTATUS = 'ONEBYONE' AND TITLE LIKE '%' || #{searchTitle} || '%' AND MEMBERNO = #{memberNo} 
 	</select>
 	
 	<!-- 댓글 삭제 -->
@@ -94,7 +103,7 @@
 	<!-- 게시글 등록 -->
 	<insert id="insertMessage" parameterType="MyPageBoard">
 		INSERT INTO BOARD
-		VALUES(BN_SEQ.NEXTVAL, #{title}, #{boardContents}, #{memberNo}, SYSDATE, 'N', 'ONEBYONE', 'N', 0, NULL)
+		VALUES(BN_SEQ.NEXTVAL, #{title}, #{boardContents}, #{memberNo}, SYSDATE, 'N', 'ONEBYONE', 'N', 0, NULL, NULL)
 	</insert>
 	
 	<!-- 쪽지제목으로 게시글 조회 -->
@@ -103,6 +112,7 @@
 		WHERE DELETESTATUS = 'N' 
 		AND TITLE LIKE '%' || #{searchTitle} || '%' 
 		AND BOARDSTATUS = 'ONEBYONE' 
+		AND MEMBERNO = #{memberNo}
 	</select>
 	
 
@@ -178,15 +188,22 @@
 		WHERE DELETESTATUS = 'N' AND BOARDSTATUS = 'QUESTIONBOARD' AND MEMBERNO = #{memberNo}
 	</select>
 	
-	<!-- 수정해야됨 -->
 	<!-- 문의게시판 조회 -->
 	<select id="selectQueryBoard" resultMap="myPageOneResultSet" parameterType="java.lang.String">
-		SELECT B.BOARDNO BOARDNO, B.TITLE TITLE, B.BOARDCONTENT BOARDCONTENT, B.MEMBERNO MEMBERNO, B.WRITEDAY WRITEDAY, B.DELETESTATUS DELETESTATUS, B.BOARDSTATUS BOARDSTATUS, B.REPLYSTATUS REPLYSTATUS, B.BCOUNT BCOUNT, M.MEMBERNAME SMEMBERNO, B.ITEMNO ITEMNO 
-		FROM BOARD B 
-		JOIN MEMBER M ON(B.MEMBERNO = M.MEMBERNO)
+		SELECT B.BOARDNO BOARDNO, B.TITLE TITLE, B.BOARDCONTENT BOARDCONTENT, B.MEMBERNO MEMBERNO, B.WRITEDAY WRITEDAY, B.DELETESTATUS DELETESTATUS, B.BOARDSTATUS BOARDSTATUS, B.REPLYSTATUS REPLYSTATUS, B.BCOUNT BCOUNT, B.SMEMBERNO SMEMBERNO, B.ITEMNO ITEMNO, M.MEMBERNAME SMEMBERNAME 
+		FROM BOARD B
+        JOIN MEMBER M ON(B.SMEMBERNO = M.MEMBERNO)
 		WHERE B.DELETESTATUS = 'N' 
 		AND B.BOARDSTATUS = 'QUESTIONBOARD' 
 		AND B.MEMBERNO = #{memberNo} 
 		ORDER BY BOARDNO DESC
+	</select>
+	
+	<!-- 문의게시판 상세보기 -->
+	<select id="selectOneQuery" resultMap="myPageOneResultSet" parameterType="java.lang.String">
+		SELECT * FROM BOARD 
+		WHERE DELETESTATUS = 'N'
+		AND BOARDSTATUS = 'QUESTIONBOARD'
+		AND BOARDNO = #{boardNo}
 	</select>
 </mapper>

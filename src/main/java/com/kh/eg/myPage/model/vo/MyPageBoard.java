@@ -20,6 +20,7 @@ public class MyPageBoard implements java.io.Serializable{
 	private String rContents;
 	private String rDeleteStatus;
 	private int count;
+	private String saleMemberNo;
 	private String saleMemberName;
 	
 	public MyPageBoard() {
@@ -28,7 +29,7 @@ public class MyPageBoard implements java.io.Serializable{
 
 	public MyPageBoard(String itemNo, String boardNo, String title, String boardContents, int memberNo, Date writeDay,
 			String deleteStatus, String boardStatus, String replyStatus, String rCommentNo, Date rWriteDay,
-			String rContents, String rDeleteStatus, int count, String saleMemberName) {
+			String rContents, String rDeleteStatus, int count, String saleMemberNo, String saleMemberName) {
 		super();
 		this.itemNo = itemNo;
 		this.boardNo = boardNo;
@@ -44,6 +45,7 @@ public class MyPageBoard implements java.io.Serializable{
 		this.rContents = rContents;
 		this.rDeleteStatus = rDeleteStatus;
 		this.count = count;
+		this.saleMemberNo = saleMemberNo;
 		this.saleMemberName = saleMemberName;
 	}
 
@@ -159,6 +161,14 @@ public class MyPageBoard implements java.io.Serializable{
 		this.count = count;
 	}
 
+	public String getSaleMemberNo() {
+		return saleMemberNo;
+	}
+
+	public void setSaleMemberNo(String saleMemberNo) {
+		this.saleMemberNo = saleMemberNo;
+	}
+
 	public String getSaleMemberName() {
 		return saleMemberName;
 	}
@@ -173,7 +183,7 @@ public class MyPageBoard implements java.io.Serializable{
 				+ boardContents + ", memberNo=" + memberNo + ", writeDay=" + writeDay + ", deleteStatus=" + deleteStatus
 				+ ", boardStatus=" + boardStatus + ", replyStatus=" + replyStatus + ", rCommentNo=" + rCommentNo
 				+ ", rWriteDay=" + rWriteDay + ", rContents=" + rContents + ", rDeleteStatus=" + rDeleteStatus
-				+ ", count=" + count + ", saleMemberName=" + saleMemberName + "]";
+				+ ", count=" + count + ", saleMemberNo=" + saleMemberNo + ", saleMemberName=" + saleMemberName + "]";
 	}
-
+	
 }

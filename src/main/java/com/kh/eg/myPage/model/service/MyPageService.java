@@ -24,7 +24,7 @@ public interface MyPageService {
 	int insertMessage(MyPageBoard myPage);
 
 	//1대1 문의 게시글 검색
-	ArrayList<MyPageBoard> searchMessage(String searchTitle, String searchTitle2);
+	ArrayList<MyPageBoard> searchMessage(PageInfo pi, String searchTitle, String memberNo);
 
 	//게시글 개수 조회
 	int countMessage(String memberNo);
@@ -60,6 +60,12 @@ public interface MyPageService {
 
 	//문의게시판 조회
 	ArrayList<MyPageBoard> selectQueryBoard(PageInfo pi, String memberNo);
+
+	//문의게시판 상세보기
+	MyPageBoard selectOneQuery(String boardNo);
+
+	//쪽지함 검색 페이징 처리
+	int getListSearchMessageCount(String searchTitle, String memberNo);
 	
 	
 	
