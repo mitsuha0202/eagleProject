@@ -83,4 +83,12 @@ public class BoardDaoImpl implements BoardDao{
 		return b;
 	}
 
+	@Override
+	public int insertReply(SqlSessionTemplate sqlSession, Reply r) {
+		
+		int result = sqlSession.insert("Board.insertReply",r);
+		
+		return result;
+	}
+
 }

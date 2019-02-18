@@ -14,6 +14,7 @@
 		<result property="reStatus" column="REPLYSTATUS"/>
 		<result property="bCount" column="BCOUNT"/>
 		<result property="sMid" column="SMEMBERNO"/>
+		<result property="itemNo" column="ITEMNO"/>
 	</resultMap>
 	
 	<!-- 어레이리스트 추가한 resultMap -->
@@ -28,6 +29,7 @@
 		<result property="reStatus" column="REPLYSTATUS"/>
 		<result property="bCount" column="BCOUNT"/>
 		<result property="sMid" column="SMEMBERNO"/>
+		<result property="itemNo" column="ITEMNO"/>
 		<collection property="replyList" javaType="java.util.ArrayList" resultMap="replyResultSet"/>
 	</resultMap>
 	
@@ -59,7 +61,7 @@
 	
 	<insert id="insertBoard" parameterType="Board">
 		INSERT INTO BOARD VALUES(BN_SEQ.NEXTVAL, #{bTitle}, #{bContent}, #{bMid}, 
-			SYSDATE, 'N', 'FREEBOARD', 'N',0,NULL )
+			SYSDATE, 'N', 'FREEBOARD', 'N',0,NULL,NULL )
 	</insert>
 	
 	<!-- 조회수 증가용 -->
@@ -101,5 +103,9 @@
 		JOIN BOARD B ON(R.BOARDNO = B.BOARDNO)
 		WHERE B.BOARDNO = #{bid}
 	</select>
+	
+	<insert id="insertReply" parameterType="Reply">
+		INSERT INTO REPLY VALUES(RN_SEQ.NEXTVAL, SYSDATE, #{rContent},#{reBid},#{reMid},'N')
+	</insert>
 	
 </mapper>

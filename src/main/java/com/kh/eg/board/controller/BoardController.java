@@ -16,6 +16,7 @@ import com.kh.eg.board.model.service.BoardService;
 import com.kh.eg.board.model.vo.Board;
 import com.kh.eg.board.model.vo.PageInfo;
 import com.kh.eg.board.model.vo.Pagination;
+import com.kh.eg.board.model.vo.Reply;
 import com.kh.eg.member.model.vo.Member;
 
 @Controller
@@ -79,6 +80,23 @@ private BoardService bs;
 			model.addAttribute("b", b);
 			return "board/boardDetail";
 		}
+		
+	}
+	
+	@RequestMapping("insertReply.bo")
+	public String insertReply(@RequestParam(value="bid") String bid, @RequestParam String rContent, Reply r, HttpSession session) {
+		Member m = new Member();
+		m = (Member)session.getAttribute("loginUser");
+		System.out.println("reContent:" +r.getrContent());
+		System.out.println("bid :" +bid);
+		r.setrContent(rContent);
+		r.setReBid(bid);
+		r.setReMid(m.getMid());
+		int result = bs.insertReply(r);
+		
+		return "redirect:boardSelectOne.bo?bid="+bid;
+
+		
 		
 	}
 }

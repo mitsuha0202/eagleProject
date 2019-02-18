@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.kh.eg.board.model.dao.BoardDao;
 import com.kh.eg.board.model.vo.Board;
 import com.kh.eg.board.model.vo.PageInfo;
+import com.kh.eg.board.model.vo.Reply;
 import com.kh.eg.member.model.dao.MemberDao;
 
 @Service
@@ -52,6 +53,12 @@ private DataSourceTransactionManager transactionManager;
 		b = bd.selecOneBoard(sqlSession, bid);
 		
 		return b;
+	}
+
+	@Override
+	public int insertReply(Reply r) {
+		int result = bd.insertReply(sqlSession,r);
+		return result;
 	}
 
 }
