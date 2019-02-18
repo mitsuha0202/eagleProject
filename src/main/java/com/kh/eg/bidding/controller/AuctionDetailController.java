@@ -18,9 +18,15 @@ public class AuctionDetailController {
 private BiddingService bs;
 	
 	@RequestMapping("auctionDetail.bi")
-	public @ResponseBody ItemDetail auctionDetail(@RequestParam(required=false) String itemNo, HttpServletRequest request, HttpServletResponse response) {
+	public String goDetail() {
+		return "bidding/auctionDetail";
+	}
+	
+	@RequestMapping("auctionDetails.bi")
+	public @ResponseBody ItemDetail auctionDetail(@RequestParam(value="itemNo", required=false ,defaultValue="1") String itemNo, HttpServletRequest request, HttpServletResponse response) {
 		ItemDetail ide = null;
 		System.out.println(itemNo);
+		
 		ide = bs.selectItem(itemNo);
 		
 		if(ide != null) {

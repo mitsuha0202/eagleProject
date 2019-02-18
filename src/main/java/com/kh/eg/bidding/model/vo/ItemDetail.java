@@ -15,7 +15,7 @@ public class ItemDetail implements java.io.Serializable{
 	private String auctionCode;
 	private String detail;
 	private String deliveryPrice;
-	private String itemcount;
+	private String itemCount;
 	private String mId;
 	private String rating;
 	private String auctionName;
@@ -30,14 +30,14 @@ public class ItemDetail implements java.io.Serializable{
 		return "ItemDetail [itemNo=" + itemNo + ", itemName=" + itemName + ", startPrice=" + startPrice + ", bidUnit="
 				+ bidUnit + ", deliveryPay=" + deliveryPay + ", origin=" + origin + ", deleteYN=" + deleteYN
 				+ ", categoryNo=" + categoryNo + ", mNo=" + mNo + ", auctionCode=" + auctionCode + ", detail=" + detail
-				+ ", deliveryPrice=" + deliveryPrice + ", itemcount=" + itemcount + ", mId=" + mId + ", rating="
+				+ ", deliveryPrice=" + deliveryPrice + ", itemCount=" + itemCount + ", mId=" + mId + ", rating="
 				+ rating + ", auctionName=" + auctionName + ", startDay=" + startDay + ", endDay=" + endDay
 				+ ", exitYN=" + exitYN + "]";
 	}
 
 	public ItemDetail(String itemNo, String itemName, String startPrice, String bidUnit, String deliveryPay,
 			String origin, String deleteYN, String categoryNo, String mNo, String auctionCode, String detail,
-			String deliveryPrice, String itemcount, String mId, String rating, String auctionName, Date startDay,
+			String deliveryPrice, String itemCount, String mId, String rating, String auctionName, Date startDay,
 			Date endDay, String exitYN) {
 		super();
 		this.itemNo = itemNo;
@@ -52,7 +52,7 @@ public class ItemDetail implements java.io.Serializable{
 		this.auctionCode = auctionCode;
 		this.detail = detail;
 		this.deliveryPrice = deliveryPrice;
-		this.itemcount = itemcount;
+		this.itemCount = itemCount;
 		this.mId = mId;
 		this.rating = rating;
 		this.auctionName = auctionName;
@@ -157,12 +157,12 @@ public class ItemDetail implements java.io.Serializable{
 		this.deliveryPrice = deliveryPrice;
 	}
 
-	public String getItemcount() {
-		return itemcount;
+	public String getItemCount() {
+		return itemCount;
 	}
 
-	public void setItemcount(String itemcount) {
-		this.itemcount = itemcount;
+	public void setItemCount(String itemCount) {
+		this.itemCount = itemCount;
 	}
 
 	public String getmId() {
@@ -213,8 +213,5 @@ public class ItemDetail implements java.io.Serializable{
 		this.exitYN = exitYN;
 	}
 
-	
-	
-	
 	
 }

@@ -135,11 +135,13 @@
 				      	
 				      </td>
 				      <td>
-				      	<a id="itemNo">1</a><br>
-				      	최고가밀봉경매<br>
-				     	2019.02.12 11:00 ~ 2019.02.15 11:00<br>
-				      	<a id="startPrice">10,000</a>원<br>
-				      	<a id="upPrice">1,000</a>원</td>
+				      	<a id="itemNo"></a><br>
+				      	<a id="auctionName"></a><br>
+				     	<!-- 2019.02.12 11:00 ~ 2019.02.15 11:00 -->
+				     	<a id="startDay"></a> ~ <a id="endDay"></a>
+				     	<br>
+				      	<a id="startPrice"></a>원<br>
+				      	<a id="upPrice"></a>원</td>
 				    </tr>
 				    <tr>
 				      <td class="tableHeader">
@@ -147,13 +149,13 @@
 				      	배송비용
 				      </td>
 				      <td>
-				      	택배<br>
-				      	착불
+				      	<a id="deliveryPay"></a><br>
+				      	<a id="deliveryPrice"></a>
 				      </td>
 				    </tr>
 				    <tr>
 				    	<td>원산지</td>
-				    	<td>한국</td>
+				    	<td><a id="origin"></a></td>
 				    </tr>
 				</tbody>
 			</table>
@@ -168,8 +170,8 @@
 			      	판매자 구매후기
 			      </td>
 			      <td>
-			      	inyong123<br>
-			      	DIA<br>
+			      	<a id="mId"></a><br>
+			      	<a id="rating"></a><br>
 			      	없 음<br>
 			      	너무 좋습니다
 			      </td>
@@ -360,16 +362,25 @@
    	
    	<!-- footer -->
 </body>
-
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
 	$(function(){
-		var itemNo = $("#itemNo").text();
 		$.ajax({
-			url:"auctionDetail.bi",
-			data : {itemNo : itemNo},
+			url:"auctionDetails.bi",
 			type:"post",
+			data:{itemNo : "1"},
 			success:function(data){
-				
+				$("#itemNo").text(data.itemNo);
+				$("#startPrice").text(data.startPrice);
+				$("#auctionName").text(data.auctionName);
+				$("#upPrice").text(data.bidUnit);
+				$("#startDay").text(data.startDay);
+				$("#endDay").text(data.endDay);
+				$("#deliveryPay").text(data.deliveryPay);
+				$("#deliveryPrice").text(data.deliveryPrice);
+				$("#origin").text(data.origin);
+				$("#mId").text(data.mId);
+				$("#rating").text(data.rating);
 				console.log("성공");
 			},
 			error:function(){
