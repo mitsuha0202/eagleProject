@@ -17,24 +17,8 @@
 		<result property="rCommentNo" column="COMMENTNO"/>
 		<result property="rWriteDay" column="WRITEDAY"/>
 		<result property="rContents" column="CONTENTS"/>
-		<result property="rDeleteStatus" column="DELETESTATUS"/>		
-	</resultMap>
-	
-	<!-- 문의게시판 조회 -->
-	<resultMap type="com.kh.eg.myPage.model.vo.MyPageBoard" id="myPageQueryResultSet">
-		<id property="boardNo" column="BOARDNO"/> <!-- 프라이머리 키값만 아이디를 줌 -->
-		<result property="itemNo" column="ITEMNO"/>
-		<result property="title" column="TITLE"/>
-		<result property="boardContents" column="BOARDCONTENT"/>
-		<result property="memberNo" column="MEMBERNO"/>
-		<result property="writeDay" column="WRITEDAY"/>
-		<result property="deleteStatus" column="DELETESTATUS"/>
-		<result property="boardStatus" column="BOARDSTATUS"/>
-		<result property="replyStatus" column="REPLYSTATUS"/>
-		<result property="rCommentNo" column="COMMENTNO"/>
-		<result property="rWriteDay" column="WRITEDAY"/>
-		<result property="rContents" column="CONTENTS"/>
-		<result property="rDeleteStatus" column="DELETESTATUS"/>		
+		<result property="rDeleteStatus" column="DELETESTATUS"/>	
+		<result property="saleMemberName" column="SMEMBERNO"/>	
 	</resultMap>
 	
 	<!-- 위시리스트 조회 -->
@@ -75,7 +59,7 @@
 	</resultMap>
 	
 	<!-- 낙찰조회 -->
-	<resultMap type="com.kh.eg.myPage.model.vo.Winbid" id="winBidResultSet">
+	<resultMap type="com.kh.eg.myPage.model.vo.WinBid" id="winBidResultSet">
 		<id property="dealNo" column="DEALNO"/>
 		<result property="memberNo" column="MEMBERNO"/>
 		<result property="itemNo" column="ITEMNO"/>
@@ -110,7 +94,7 @@
 	<!-- 게시글 등록 -->
 	<insert id="insertMessage" parameterType="MyPageBoard">
 		INSERT INTO BOARD
-		VALUES(BN_SEQ.NEXTVAL, #{title}, #{boardContents}, #{memberNo}, SYSDATE, 'N', 'ONEBYONE', 'N', 0)
+		VALUES(BN_SEQ.NEXTVAL, #{title}, #{boardContents}, #{memberNo}, SYSDATE, 'N', 'ONEBYONE', 'N', 0, NULL)
 	</insert>
 	
 	<!-- 쪽지제목으로 게시글 조회 -->
@@ -196,10 +180,13 @@
 	
 	<!-- 수정해야됨 -->
 	<!-- 문의게시판 조회 -->
-	<select id="selectQueryBoard" resultMap="myPageQueryResultSet" parameterType="java.lang.String">
-		SELECT *
-		FROM BOARD  
-		WHERE DELETESTATUS = 'N' AND BOARDSTATUS = 'ONEBYONE' AND MEMBERNO = #{memberNo}
+	<select id="selectQueryBoard" resultMap="myPageOneResultSet" parameterType="java.lang.String">
+		SELECT B.BOARDNO BOARDNO, B.TITLE TITLE, B.BOARDCONTENT BOARDCONTENT, B.MEMBERNO MEMBERNO, B.WRITEDAY WRITEDAY, B.DELETESTATUS DELETESTATUS, B.BOARDSTATUS BOARDSTATUS, B.REPLYSTATUS REPLYSTATUS, B.BCOUNT BCOUNT, M.MEMBERNAME SMEMBERNO, B.ITEMNO ITEMNO 
+		FROM BOARD B 
+		JOIN MEMBER M ON(B.MEMBERNO = M.MEMBERNO)
+		WHERE B.DELETESTATUS = 'N' 
+		AND B.BOARDSTATUS = 'QUESTIONBOARD' 
+		AND B.MEMBERNO = #{memberNo} 
 		ORDER BY BOARDNO DESC
 	</select>
 </mapper>

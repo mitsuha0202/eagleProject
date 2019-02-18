@@ -1,15 +1,15 @@
 package com.kh.eg.myPage.model.vo;
 
-public class Winbid implements java.io.Serializable{
+public class WinBid implements java.io.Serializable{
 	private String memberNo;
 	private String itemNo;
 	private String dealNo;
 	
-	public Winbid() {
+	public WinBid() {
 	
 	}
 
-	public Winbid(String memberNo, String itemNo, String dealNo) {
+	public WinBid(String memberNo, String itemNo, String dealNo) {
 		super();
 		this.memberNo = memberNo;
 		this.itemNo = itemNo;

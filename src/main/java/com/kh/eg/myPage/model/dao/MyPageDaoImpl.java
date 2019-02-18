@@ -4,14 +4,14 @@ import java.util.ArrayList;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import com.kh.eg.member.model.vo.Member;
 import com.kh.eg.myPage.model.vo.Maccount;
 import com.kh.eg.myPage.model.vo.MyPageBoard;
 import com.kh.eg.myPage.model.vo.PageInfo;
-import com.kh.eg.myPage.model.vo.Winbid;
+import com.kh.eg.myPage.model.vo.Query;
+import com.kh.eg.myPage.model.vo.WinBid;
 import com.kh.eg.myPage.model.vo.WishList;
 
 @Repository
@@ -103,7 +103,7 @@ public class MyPageDaoImpl implements MyPageDao{
 	//회원정보 삭제
 	@Override
 	public int deleteUserInfo(SqlSessionTemplate sqlSession, String mid) {
-		Winbid winbid = (Winbid)sqlSession.selectList("MyPage.selectWinbid", mid);
+		WinBid winbid = (WinBid)sqlSession.selectList("MyPage.selectWinbid", mid);
 		if(winbid != null) {
 			return 0;
 		}else {
@@ -151,6 +151,7 @@ public class MyPageDaoImpl implements MyPageDao{
 	public ArrayList<MyPageBoard> selectQueryBoard(SqlSessionTemplate sqlSession, PageInfo pi, String memberNo) {
 		int offset = (pi.getCurrentPage()  - 1) * pi.getLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
 		return (ArrayList)sqlSession.selectList("MyPage.selectQueryBoard", memberNo, rowBounds);
 	}
 	
