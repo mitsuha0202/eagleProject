@@ -7,9 +7,6 @@
 
 <meta charset="UTF-8">
 <!-- jquery -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
 <!-- Semantic UI -->
 <link rel="stylesheet"
@@ -21,9 +18,6 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
 	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
 	crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-	crossorigin="anonymous"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
 	integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
@@ -83,7 +77,7 @@
 			 
 			 	
 			 	
-			 	</c:forEach> --%> --%>
+			 	</c:forEach> --%>
 			 
 				<table class="ui striped table" id="selectCategory">
 					<tbody>
@@ -102,30 +96,16 @@
 				-선택하세요- 
 				<table class="bigCate">
 				<!-- <input type="hidden" class="bigCode" value="">  -->
+				<c:forEach var="c" items="${category}">
 					<tr>
-						<td>미술</td>
+						<td class="cateName">
+							${c.categoryName}<input type="hidden" value="${c.categoryNo}">
+						</td>
 					</tr>
-					<tr>
-						<td>음악앨범</td>
-					</tr>
-					<tr>
-						<td>의류</td>
-					</tr>
-					<tr>
-						<td>생활가전</td>
-					</tr>
-					<tr>
-						<td>비디오게임</td>
-					</tr>
-					<tr>
-						<td>피규어</td>
-					</tr>
-					<tr>
-						<td>레고</td>
-					</tr>
-				
+					
+				</c:forEach>
 				</table>
-				
+				<input type="hidden" name="categoryNo" id="categoryNo">
 
 			</div>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -268,6 +248,8 @@
 		</div>
 		<div class="two wide column"></div>
 	</div>
+	<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script type="text/javascript">
 
     function readURL(input) {
@@ -313,22 +295,58 @@
 		
 	}); */
 	
-	$('.bigCate').on('click','td',function(){
-		var $middleCate=$("#middleCate");
-		$middleCate.html("");
-			$(this).each(function(){
-				$("#spath").text($(this).html());
-				var cateLevel=1;
-				console.log(cateLevel);
-			})
-			
 	
+	
+	/* var bigc;
+	$('.bigCate').on('click','td',function(){
+			$(this).each(function(){
+			    bigc=$("#spath").text($(this).html());
+				 $.ajax({
+					url: "middleCategory.it",
+					type: "GET",
+					data:{bigc:bigc},
+					success:function(data){
+						console.log(data);
+					},
+					error:function(error){
+						alert("에러"+error);
+					}
+				});
+				
+			 
+			});
+	}); */
+	
+	$(".cateName").click(function(){
+		cateCode = $(this).children().val();
+		$("#spath").text($(this).text());
+		console.log(cateCode);
+		
+		$("#categoryNo").val(cateCode);
 	});
 	
 	
 	
+
 	
-	/* $(function(){ 
+	
+	/* $.ajax({
+		type "GET",
+		data:{bigc:bigc},
+		
+		url: "middleCategory.it",
+		success:function(data){
+			console.log(data);
+			
+			
+		},
+		error:function(error){
+			alert("에러"+error);
+		}
+		 */
+	
+	
+	/*  $(function(){ 
 		$(".bigCate").click(function(){ 
 			var $middleCate = $("#middleCate"); 
 			$middleCate.html(''); 
@@ -361,7 +379,7 @@
 				 */
 				
 				
-				
+				 
 				
 	</script>
 	

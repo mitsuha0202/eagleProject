@@ -15,6 +15,7 @@ import org.apache.tools.ant.types.CommandlineJava.SysProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,10 +42,24 @@ public class ItemController {
 	}
 	
 	@RequestMapping("itemRegist.it")
-	public String itemRegist() {
+	public String itemRegist(Model model) {
+		
+		ArrayList<Category> category=is.selectCategory();
+		model.addAttribute("category",category);
+		
+		System.out.println(category);
 	
 			return "item/itemRegist";
 		}
+	@RequestMapping("middleCategory.it")
+	public @ResponseBody ArrayList<Category> middleCategory(Model model,@RequestParam String bigc) {
+		
+		System.out.println("bigc"+bigc);
+		
+		
+		return null;
+		
+	}
 	
 	
 	
@@ -61,10 +76,13 @@ public class ItemController {
 		Attachment att=new Attachment();
 		AuctionDetail auctionD=new AuctionDetail();
 		String date=request.getParameter("startDay");
-		String date1=request.getParameter("endDay");
 		
-		//카테고리 추가
-		//ArrayList<Category> category=is.selectCategory();
+		String date1=request.getParameter("endDay");
+		String categoryNo=request.getParameter("categoryNo");
+		
+		Category category=new Category();
+		category.setCategoryNo(categoryNo);
+		it.setCategoryNo(categoryNo);
 		
 		
 		java.sql.Date day=null;
@@ -124,7 +142,6 @@ public class ItemController {
 		att.setRoot(filePath);
 		
 		
-		
 		Item item=new Item();
 		item.setAuctionCode(request.getParameter("auctionCode"));
 		System.out.println(item.getAuctionCode());
@@ -135,8 +152,9 @@ public class ItemController {
 		hmap.put("attachment", att);
 		hmap.put("item", it);
 		hmap.put("auctionDetail",auctionD);
-		/*hmap.put("category",category);*/
+		hmap.put("category",category);
 		System.out.println(auctionD);
+		
 		
 		try {
 			photo.transferTo(new File(filePath+"\\" +changeName+ext));
@@ -144,7 +162,6 @@ public class ItemController {
 			int result = is.insertItem(hmap);
 			//int result=is.insertItem(it);
 			System.out.println(result);
-			//model.addAttribute("category",category);
 			return "redirect:goMain.it";
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

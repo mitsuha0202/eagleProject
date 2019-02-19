@@ -13,6 +13,7 @@
 		<typeAlias type="com.kh.eg.item.model.vo.Item" alias="Item"/>
 		<typeAlias type="com.kh.eg.myPage.model.vo.AnswerBoard" alias="AnswerBoard"/>
 		<typeAlias type="com.kh.eg.attachment.model.vo.Attachment" alias="Attachment"/>
+		<typeAlias type="com.kh.eg.category.model.vo.Category" alias="Category"/>
 
     	<typeAlias type="com.kh.eg.admin.model.vo.AdminVo" alias="AdminVo"/>
 		<typeAlias type="com.kh.eg.bidding.model.vo.Bid" alias="Bid"/>
