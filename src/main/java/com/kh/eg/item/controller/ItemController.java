@@ -45,7 +45,8 @@ public class ItemController {
 	
 			return "item/itemRegist";
 		}
-		
+	
+	
 	
 	
 	@RequestMapping("insertItem.it")
@@ -62,14 +63,8 @@ public class ItemController {
 		String date=request.getParameter("startDay");
 		String date1=request.getParameter("endDay");
 		
-	/*	//카테고리 추가
-		Category category=new Category();
-		String cateName="";
-		int cateLevel=0;
-		
-		if(request.getParameter("level").equals("")) {
-			
-		}*/
+		//카테고리 추가
+		//ArrayList<Category> category=is.selectCategory();
 		
 		
 		java.sql.Date day=null;
@@ -140,7 +135,7 @@ public class ItemController {
 		hmap.put("attachment", att);
 		hmap.put("item", it);
 		hmap.put("auctionDetail",auctionD);
-		//hmap.put("category",category);
+		/*hmap.put("category",category);*/
 		System.out.println(auctionD);
 		
 		try {
@@ -149,6 +144,7 @@ public class ItemController {
 			int result = is.insertItem(hmap);
 			//int result=is.insertItem(it);
 			System.out.println(result);
+			//model.addAttribute("category",category);
 			return "redirect:goMain.it";
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

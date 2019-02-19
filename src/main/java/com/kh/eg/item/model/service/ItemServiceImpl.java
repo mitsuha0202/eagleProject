@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.eg.attachment.model.vo.Attachment;
 import com.kh.eg.auction.model.vo.AuctionDetail;
+import com.kh.eg.category.model.vo.Category;
 import com.kh.eg.item.model.dao.ItemDao;
 import com.kh.eg.item.model.vo.Item;
 
@@ -32,6 +33,7 @@ private DataSourceTransactionManager transactionManager;
 		System.out.println((Attachment)hmap.get("attachment"));
 		((Attachment)hmap.get("attachment")).setItemNo(itemNo);
 		((AuctionDetail)hmap.get("auctionDetail")).setItemNo(itemNo);
+		
 		
 		int result1=id.insertItem(sqlSession,hmap);
 		int result2=id.insertAttachment(sqlSession,hmap);
