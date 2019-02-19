@@ -22,6 +22,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import com.kh.eg.member.model.vo.Member;
 import com.kh.eg.myPage.common.Pagination;
 import com.kh.eg.myPage.model.service.MyPageService;
+import com.kh.eg.myPage.model.vo.AnswerBoard;
 import com.kh.eg.myPage.model.vo.Maccount;
 import com.kh.eg.myPage.model.vo.MyPageBoard;
 import com.kh.eg.myPage.model.vo.PageInfo;
@@ -201,8 +202,21 @@ import com.kh.eg.myPage.model.vo.WishList;
 		
 		//문의받은게시판
 		@RequestMapping("answerBoard.mp")
-		public String answerBoard() {
-			return "myPage/answerBoardPage";
+		public String answerBoard(Model model, Member m , HttpSession session) {
+			m = (Member)session.getAttribute("loginUser");
+			String memberNo = m.getMid();
+			ArrayList<AnswerBoard> list = ms.answerBoard(memberNo);
+			System.out.println(list.size());
+			if(list != null) {
+				model.addAttribute("list",list);
+				return "myPage/answerBoardPage";
+			}else {
+				model.addAttribute("msg","위시리스트 조회 실패");
+				return "common/errorPage";
+			}
+			
+			
+			
 		}
 		//문의받은게시판 상세페이지
 		@RequestMapping("answerPageDetail.mp")

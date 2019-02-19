@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.eg.member.model.vo.Member;
+import com.kh.eg.myPage.model.vo.AnswerBoard;
 import com.kh.eg.myPage.model.vo.Maccount;
 import com.kh.eg.myPage.model.vo.MyPageBoard;
 import com.kh.eg.myPage.model.vo.PageInfo;
@@ -76,6 +77,9 @@ public interface MyPageDao {
 
 	//구매관리 입찰중 물품 리스트 페이징 처리
 	int getPayListCount(SqlSessionTemplate sqlSession, String mid);
+	
+	//문의 받은 게시판
+	ArrayList<AnswerBoard> answerBoard(SqlSessionTemplate sqlSession, String memberNo);
 	
 	
 	

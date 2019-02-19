@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -117,9 +118,16 @@
 				<td class="td1">아이디</td>
 				<td class="td1">등록일</td>			
 			</tr>
+			<c:forEach var="a" items="${list }">
 			<tr>
-				<td colspan="6"><h5>검색된 내용이 없습니다.</h5></td>
+				<td>${a.boardNo }</td>
+				<td>${a.itemNo }</td>
+				<td>${a.title }</td>
+				<td>${a.replystatus }</td>
+				<td>${a.memberId }</td>
+				<td>${a.writeDay }</td>
 			</tr>
+			</c:forEach>
 		</table>
 		<!-- 검색부분 div -->
 			<div class="selectSize">

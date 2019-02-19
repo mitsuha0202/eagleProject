@@ -3,6 +3,7 @@ package com.kh.eg.myPage.model.service;
 import java.util.ArrayList;
 
 import com.kh.eg.member.model.vo.Member;
+import com.kh.eg.myPage.model.vo.AnswerBoard;
 import com.kh.eg.myPage.model.vo.Maccount;
 import com.kh.eg.myPage.model.vo.MyPageBoard;
 import com.kh.eg.myPage.model.vo.PageInfo;
@@ -75,6 +76,9 @@ public interface MyPageService {
 	
 	//구매관리 입찰중 물품 리스트 페이징 처리
 	int getPayListCount(String mid);
+	
+	//문의받은게시판 조회
+	ArrayList<AnswerBoard> answerBoard(String memberNo);
 	
 	
 	
