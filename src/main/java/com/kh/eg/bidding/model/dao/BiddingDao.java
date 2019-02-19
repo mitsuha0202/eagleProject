@@ -11,7 +11,9 @@ public interface BiddingDao {
 
 	int insertBidding(SqlSessionTemplate sqlSession, Bid b);
 
-	int selectPrice(SqlSessionTemplate sqlSession, String itemNo);
+	ItemDetail selectPrice(SqlSessionTemplate sqlSession, String itemNo);
+
+	ItemDetail selectStartPrice(SqlSessionTemplate sqlSession, String itemNo);
 
 
 
