@@ -56,8 +56,10 @@
 		JOIN MEMBER M ON(B.MEMBERNO = M.MEMBERNO)
 		WHERE B.DELETESTATUS = 'N'
 		AND BOARDSTATUS = 'FREEBOARD'
-		ORDER BY BOARDNO DESC
+		ORDER BY WRITEDAY DESC
 	</select>
+	
+	
 	
 	<insert id="insertBoard" parameterType="Board">
 		INSERT INTO BOARD VALUES(BN_SEQ.NEXTVAL, #{bTitle}, #{bContent}, #{bMid}, 
@@ -96,8 +98,16 @@
 		JOIN BOARD B ON(R.BOARDNO = B.BOARDNO)
 		WHERE B.BOARDNO = #{bid}
 	</select>
-	<select id="reply" parameterType="java.lang.String" resultType="java.lang.String">
+	<select id="replyContent" parameterType="java.lang.String" resultType="java.lang.String">
 		SELECT R.CONTENTS
+		FROM MEMBER M
+		JOIN REPLY R ON(M.MEMBERNO = R.MEMBERNO)
+		JOIN BOARD B ON(R.BOARDNO = B.BOARDNO)
+		WHERE B.BOARDNO = #{bid}
+	</select>
+	
+	<select id="replyDate" parameterType="java.lang.String" resultType="java.sql.Date">
+		SELECT R.WRITEDAY
 		FROM MEMBER M
 		JOIN REPLY R ON(M.MEMBERNO = R.MEMBERNO)
 		JOIN BOARD B ON(R.BOARDNO = B.BOARDNO)
@@ -108,4 +118,17 @@
 		INSERT INTO REPLY VALUES(RN_SEQ.NEXTVAL, SYSDATE, #{rContent},#{reBid},#{reMid},'N')
 	</insert>
 	
+	<update id="deleteBoard" parameterType="java.lang.String">
+		UPDATE BOARD SET DELETESTATUS = 'Y' WHERE BOARDNO = #{bid}
+	</update>
+	
+	<select id="replyCount" resultType="_int">
+		SELECT COUNT(*) 
+		FROM REPLY 
+		WHERE BOARDNO=#{bid}
+	</select>
+	
+	<update id="updateBoard" parameterType="Board">
+		UPDATE BOARD SET BOARDCONTENT = #{bContent} WHERE BOARDNO = #{bid}
+	</update>
 </mapper>

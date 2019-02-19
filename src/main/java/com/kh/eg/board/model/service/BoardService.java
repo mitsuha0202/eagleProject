@@ -21,4 +21,10 @@ public interface BoardService {
 
 	int insertReply(Reply r);
 
+	int deleteBoard(String bid);
+
+	int replyCount(String bid);
+
+	int updateBoard(Board b);
+
 }

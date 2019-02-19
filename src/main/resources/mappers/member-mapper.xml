@@ -62,6 +62,15 @@
 				#{userPwd}, null , #{phone}, #{address},
 				'BRONZE', 0, 'N', 'N', SYSDATE, #{email} )
 	</insert>
+	
+	<select id="selectListWriter" parameterType="Board" resultMap="memberResultSet">
+		SELECT MEMBERNAME
+		FROM MEMBER M
+		JOIN BOARD B ON(M.MEMBERNO = B.MEMBERNO)
+		WHERE B.DELETESTATUS = 'N'
+		AND BOARDSTATUS = 'FREEBOARD'
+		ORDER BY WRITEDAY DESC
+	</select>
 <!-- 	<insert id="insertBoard">
 		INSERT INTO BOARD(BID, BTITLE) VALUES(SEQ_BID.NEXTVAL, '새로운 회원이 가입되었습니다.')
 	</insert> -->

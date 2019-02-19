@@ -1,6 +1,7 @@
 package com.kh.eg.board.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.eg.board.model.service.BoardService;
 import com.kh.eg.board.model.vo.Board;
@@ -94,9 +96,66 @@ private BoardService bs;
 		r.setReMid(m.getMid());
 		int result = bs.insertReply(r);
 		
-		return "redirect:boardSelectOne.bo?bid="+bid;
-
+		return "redirect:boardSelectOne.bo?bid="+bid;	
 		
+	}
+	
+	@RequestMapping("deleteBoard.bo")
+	public String insertReply(@RequestParam String bid, Model model) {
 		
+		int result =bs.deleteBoard(bid);
+		
+		if(result>0) {
+			return "redirect:goBoard.bo";
+		}else {
+			model.addAttribute("msg","게시물 삭제 실패!");
+			return "common/errorPage";
+		}
+	}
+	@RequestMapping("replyCount.bo")
+	public @ResponseBody HashMap<String, Object> replyCount(@RequestParam String bid){
+		HashMap<String, Object> hmap = new HashMap<String, Object>();
+		
+		int result = bs.replyCount(bid);
+		
+		hmap.put("result",result);
+		
+		return hmap;
+	}
+	
+	@RequestMapping("updateBoardView.bo")
+	public  String updateBoardView(@RequestParam String bid, Board b, Model model) {
+		
+		b = bs.selectOneBoard(bid);
+		
+		if(b == null) {
+			model.addAttribute("msg","수정 보기 실패!");
+			return "common/errorPage";
+		}else {
+			model.addAttribute("b",b);
+			return "board/updateBoard";
+		}
+	}
+	
+	@RequestMapping("updateBoard.bo")
+	public String updateBoardView(@RequestParam String bid, @RequestParam String updateC,Board b,Model model) {
+		b.setBid(bid);
+		b.setbContent(updateC);
+		
+		int result = bs.updateBoard(b);
+		
+		if(result>0) {
+			return "redirect:boardSelectOne.bo?bid="+bid;
+		}else {
+			model.addAttribute("msg","글 수정 실패!");
+			return "common/errorPage";
+		}	
+	}
+	
+	@RequestMapping("searchBoard.bo")
+	public String searchBoard(@RequestParam String searchConditon, @RequestParam String searchValue,Model model) {
+		
+		/*SearchCondition sc = new */
+		return "board/board";
 	}
 }

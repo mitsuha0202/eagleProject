@@ -61,4 +61,22 @@ private DataSourceTransactionManager transactionManager;
 		return result;
 	}
 
+	@Override
+	public int deleteBoard(String bid) {
+		int result = bd.deleteBoard(sqlSession, bid);
+		return result;
+	}
+
+	@Override
+	public int replyCount(String bid) {
+		int result = bd.replyCount(sqlSession, bid);
+		return result;
+	}
+
+	@Override
+	public int updateBoard(Board b) {
+		int result = bd.updateBoard(sqlSession, b);
+		return result;
+	}
+
 }
