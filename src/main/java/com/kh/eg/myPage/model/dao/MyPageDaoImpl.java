@@ -1,5 +1,6 @@
 package com.kh.eg.myPage.model.dao;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -182,60 +183,87 @@ public class MyPageDaoImpl implements MyPageDao{
 		return sqlSession.selectOne("MyPage.countPayListMain", userId);
 	}
 
-	//구매관리 입찰중 물품 리스트 조회
-	@Override
-	public ArrayList<PayTable> selectPayList(SqlSessionTemplate sqlSession, PageInfo pi, String mid) {
-
-		return null;
-	}
-
 	//구매관리 입찰중 물품 페이징 처리
 	@Override
 	public int getPayListCount(SqlSessionTemplate sqlSession, String mid) {
-		HashMap<String, String> itemNoList = null;
 		
+		return sqlSession.selectOne("MyPage.countPayList", mid);
+	}
+	
+	//구매관리 입찰중 물품 리스트 조회
+	@Override
+	public ArrayList<PayTable> selectPayList(SqlSessionTemplate sqlSession, PageInfo pi, String mid) {
+		//물품번호와 회원번호에 따른 결과 조회용 해쉬맵
+		HashMap<String, String> searchList = null;
+		
+		//결과값 담기위한 객체
 		PayTable payTable = null;
 		
-		//물품번호 arrayList로 받아 String 배열에 담고 String 배열을 hashMap에 담는다.
-		ArrayList<String> list = (ArrayList)sqlSession.selectList("MyPage.itemNoSearch", mid);
+		//결과값 담기 위한 ArrayList
+		ArrayList<PayTable> list = new ArrayList<PayTable>();
 		
-		//물품번호 배열
-		String[] itemNo = new String[list.size()];
+		//물품번호 받아오기
+		ArrayList<Integer> itemList = (ArrayList)sqlSession.selectList("MyPage.itemNoSearch", mid);
 		
-		for(int i=0; i<list.size(); i++) {			
-			itemNo[i] = list.get(i);
-		}
-		
-		if(list != null) {
+		if(itemList != null) {
 			
+			//물품번호 배열
+			String[] itemNo = new String[itemList.size()];
+			
+			//ArrayList에서 받아온 물품번호들 처리
+			for(int i=0; i<itemList.size(); i++) {			
+				itemNo[i] = String.valueOf(itemList.get(i));
+			}
+			
+			//여기서 값을 담는다.
 			for(int i=0; i<itemNo.length; i++) {
-				itemNoList = new HashMap<String, String>();
-				itemNoList.put("itemNo", itemNo[i]);
-				itemNoList.put("mid", mid);
+				payTable = new PayTable();
+				searchList = new HashMap<String, String>();
+				searchList.put("itemNo", itemNo[i]);
+				searchList.put("mid", mid);
 				
-				/*
-				int equ = (Integer)sqlSession.selectOne("MyPage.countPayListMain", itemNoList);*/
+				//물품번호
+				payTable.setItemNo(Integer.parseInt(itemNo[i]));
 				
+				//물품이름
+				String itemName = (String)sqlSession.selectOne("MyPage.itemNameSearch", searchList);
+				payTable.setItemName(itemName);
 				//최고가
-				int currentPrice = (Integer)sqlSession.selectOne("MyPage.maxCurrentPrice", itemNoList);
+				int currentPrice = (Integer)sqlSession.selectOne("MyPage.maxCurrentPrice", searchList);
+				payTable.setCurrentPrice(currentPrice);
 				
 				//입찰수
-				int count = (Integer)sqlSession.selectOne("MyPage.bidCount", itemNoList);
+				int count = (Integer)sqlSession.selectOne("MyPage.bidCount", searchList);
+				payTable.setBidCount(count);
 				
 				//판매자 번호
-				int saleMemberNo = (Integer)sqlSession.selectOne("MyPage.selectSaleMember", itemNoList);
+				int saleMemberNo = (Integer)sqlSession.selectOne("MyPage.selectSaleMember", searchList);
+				payTable.setSaleMemberNo(saleMemberNo);
+				
+				//판매자 이름
+				String saleMemberName = (String)sqlSession.selectOne("MyPage.searchSaleMemberName", saleMemberNo);
+				payTable.setSaleMemberName(saleMemberName);
 				
 				//입찰순위
-				int ranking = (Integer)sqlSession.selectOne("MyPage.selectRanking", itemNoList);
+				int ranking = (Integer)sqlSession.selectOne("MyPage.selectRanking", searchList);
+				payTable.setRowBid(ranking);
 				
-				
-				sqlSession.selectOne("MyPage.countPayList", mid);				
-			}
-			return 0;
-		}else {
-			return 0;
-		}
+				//경매종료여부
+				String endYn = (String)sqlSession.selectOne("MyPage.searchEndYn", searchList);
+				payTable.setEndYn(endYn);
 
+				//경매종료날짜
+				Date endDay = (Date)sqlSession.selectOne("MyPage.searchEndDay", searchList);
+				payTable.setEndDay(endDay);
+				
+				list.add(payTable);
+			}
+			return list;
+		}else {
+			return null;	
+		}
+	}
+	
 	//문의받은게시판 조회
 	@Override
 	public ArrayList<AnswerBoard> answerBoard(SqlSessionTemplate sqlSession, String memberNo) {

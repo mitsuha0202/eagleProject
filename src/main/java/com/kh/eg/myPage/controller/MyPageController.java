@@ -26,7 +26,6 @@ import com.kh.eg.myPage.model.vo.AnswerBoard;
 import com.kh.eg.myPage.model.vo.Maccount;
 import com.kh.eg.myPage.model.vo.MyPageBoard;
 import com.kh.eg.myPage.model.vo.PageInfo;
-import com.kh.eg.myPage.model.vo.Query;
 import com.kh.eg.myPage.model.vo.WishList;
 
 @SessionAttributes("loginUser")
