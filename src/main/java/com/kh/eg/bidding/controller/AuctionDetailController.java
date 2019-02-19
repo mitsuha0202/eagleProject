@@ -26,7 +26,7 @@ private BiddingService bs;
 	@RequestMapping("auctionDetails.bi")
 	public @ResponseBody ItemDetail auctionDetail(@RequestParam(value="itemNo", required=false) String itemNo, HttpServletRequest request, HttpServletResponse response) {
 		ItemDetail ide = null;
-		
+
 		ide = bs.selectItem(itemNo);
 		
 		if(ide != null) {
@@ -45,9 +45,8 @@ private BiddingService bs;
 		
 		System.out.println(price);
 		int prices = Integer.parseInt(price);
-		System.out.println(itemNo);
-		System.out.println(prices);
-		b.setItemNo(itemNo);
+		int itemNos = Integer.parseInt(itemNo);
+		b.setItemNo(itemNos);
 		b.setCurrentPrice(prices);
 		int result = bs.insertBidding(b);
 		
@@ -55,15 +54,23 @@ private BiddingService bs;
 	}
 	
 	@RequestMapping("selectPrice.bi")
-	public @ResponseBody int selectPrice(@RequestMapping(value="itemNo", required=false) String itemNo, HttpServletRequest request, HttpServletResponse response) {
+	public @ResponseBody ItemDetail selectPrice(@RequestParam(value="itemNo", required=false) String itemNo, HttpServletRequest request, HttpServletResponse response) {
 		
-		int result = bs.selectPrice(itemNo);
+		ItemDetail i = null;
 		
-		if(result != 0) {
-			return result;
+		i = bs.selectPrice(itemNo);
+		System.out.println(i);
+		if(i != null) {
+			return i;
 		}
 		else {
-			return 0;
+			i = bs.selectStartPrice(itemNo);
+			if(i.getStartPrice() != 0) {
+				return i;
+			}
+			else {
+				return null;
+			}
 		}
 	}
 }

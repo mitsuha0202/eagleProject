@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class Bid implements java.io.Serializable {
 	private String bidNo;
-	private String itemNo;
+	private int itemNo;
 	private String memberNo;
 	private int currentPrice;
 	private Date bidDate;
@@ -16,7 +16,7 @@ public class Bid implements java.io.Serializable {
 	public Bid() {}
 
 
-	public Bid(String bidNo, String itemNo, String memberNo, int currentPrice, Date bidDate) {
+	public Bid(String bidNo, int itemNo, String memberNo, int currentPrice, Date bidDate) {
 		super();
 		this.bidNo = bidNo;
 		this.itemNo = itemNo;
@@ -43,12 +43,12 @@ public class Bid implements java.io.Serializable {
 	}
 
 
-	public String getItemNo() {
+	public int getItemNo() {
 		return itemNo;
 	}
 
 
-	public void setItemNo(String itemNo) {
+	public void setItemNo(int itemNo) {
 		this.itemNo = itemNo;
 	}
 
@@ -82,8 +82,6 @@ public class Bid implements java.io.Serializable {
 		this.bidDate = bidDate;
 	}
 
-	
 
-	
 
 }

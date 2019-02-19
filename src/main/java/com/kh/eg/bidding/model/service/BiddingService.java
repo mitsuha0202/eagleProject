@@ -9,7 +9,9 @@ public interface BiddingService {
 
 	int insertBidding(Bid b);
 
-	int selectPrice(String itemNo);
+	ItemDetail selectPrice(String itemNo);
+
+	ItemDetail selectStartPrice(String itemNo);
 
 
 }
