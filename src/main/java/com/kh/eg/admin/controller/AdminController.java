@@ -175,9 +175,33 @@ public class AdminController {
 	public String payBackListview(){
 		return "admin/payBackList";
 	}
+	
+	
 	@RequestMapping("moneyList.ad")
-	public String moneyListview(){
-		return "admin/moneyList";
+	public String moneyListview(Model model, HttpServletRequest request){
+		
+		int currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		int listCount;
+		try {
+			listCount = ams.getListCount();
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
+			ArrayList<AdminVo> list = ams.memberMoneyList(pi);
+			
+			model.addAttribute("list", list);
+			model.addAttribute("pi", pi);
+			return "admin/moneyList";
+		} catch (AdMemberselectException e) {
+			e.printStackTrace();
+			model.addAttribute("msg","회원 조회 실패!");
+			return "common/errorPage";
+			
+		}
 	}
 	@RequestMapping("postList.ad")
 	public String postListview(){

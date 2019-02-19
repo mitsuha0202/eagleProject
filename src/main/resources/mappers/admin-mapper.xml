@@ -133,6 +133,14 @@
 		</choose>
 	</select>
 	
+	<!-- 회원 사이버머니 관리 리스트 -->
+	<select id="memberMoneyList" resultMap="adminResultSet">
+		SELECT MEMBERNAME,
+		MEMBERID, ACCOUNTN, PHONE, ADDRESS, RATING, EMAIL, EMONEY, WDSTATUS
+		FROM MEMBER
+	</select>
+	
+	
 </mapper>
 
 

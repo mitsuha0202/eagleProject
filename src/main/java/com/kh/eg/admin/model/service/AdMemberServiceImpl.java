@@ -78,6 +78,12 @@ public class AdMemberServiceImpl implements AdMemberService{
 		return list;
 	}
 
+	@Override
+	public ArrayList<AdminVo> memberMoneyList(PageInfo pi) throws AdMemberselectException {
+		ArrayList<AdminVo> list = amd.memberMoneyList(sqlSession, pi);
+		return list;
+	}
+
 	
 	
 	

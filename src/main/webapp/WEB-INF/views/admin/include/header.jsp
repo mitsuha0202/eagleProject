@@ -2,7 +2,7 @@
 
 <header>
 
-	<h1><a href="../admin/memberList.jsp"><em class="orange font30 bold">Eagle</em> 관리자페이지</a></h1>
+	<h1><a href="memberList.ad"><em class="orange font30 bold">Eagle</em> 관리자페이지</a></h1>
 
 	<div class="inner"><!-- inner S -->
 		<ul class="gnbMenu">

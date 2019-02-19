@@ -126,6 +126,25 @@ public class AdMemberDaoImpl implements AdMemberDao{
 		return list;
 	}
 
+	@Override
+	public ArrayList<AdminVo> memberMoneyList(SqlSessionTemplate session, PageInfo pi) throws AdMemberselectException {
+		
+		ArrayList<AdminVo> list = null;
+		
+		int offset = (pi.getCurrentPage() -1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList)session.selectList("AdminVo.memberMoneyList", null, rowBounds);
+		
+		if(list == null) {
+			session.close();
+			throw new AdMemberselectException("회원 조회 실패!");
+		}
+		
+		return list;
+	}
+
 	
 	
 	
