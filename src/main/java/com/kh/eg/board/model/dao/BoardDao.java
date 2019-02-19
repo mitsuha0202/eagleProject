@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import com.kh.eg.board.model.vo.Board;
 import com.kh.eg.board.model.vo.PageInfo;
 import com.kh.eg.board.model.vo.Reply;
+import com.kh.eg.board.model.vo.SearchCondition;
 
 public interface BoardDao {
 
@@ -27,5 +28,9 @@ public interface BoardDao {
 	int replyCount(SqlSessionTemplate sqlSession, String bid);
 
 	int updateBoard(SqlSessionTemplate sqlSession, Board b);
+
+	int getSearchResultListCount(SqlSessionTemplate sqlSession, SearchCondition sc);
+
+	ArrayList<Board> selectSearchResultList(SearchCondition sc, PageInfo pi, SqlSessionTemplate sqlSession);
 
 }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.eg.board.model.vo.Board;
 import com.kh.eg.board.model.vo.PageInfo;
 import com.kh.eg.board.model.vo.Reply;
+import com.kh.eg.board.model.vo.SearchCondition;
 import com.kh.eg.member.model.vo.Member;
 import com.sun.crypto.provider.AESParameters;
 
@@ -122,6 +123,29 @@ public class BoardDaoImpl implements BoardDao{
 	public int updateBoard(SqlSessionTemplate sqlSession, Board b) {
 		int result = sqlSession.update("Board.updateBoard",b);
 		return result;
+	}
+
+	@Override
+	public int getSearchResultListCount(SqlSessionTemplate sqlSession, SearchCondition sc) {
+		int result = sqlSession.selectOne("Board.selectSearchResultCount",sc);
+		return result;
+	}
+
+	@Override
+	public ArrayList<Board> selectSearchResultList(SearchCondition sc, PageInfo pi, SqlSessionTemplate sqlSession) {
+		ArrayList<Board> list = null;
+		
+		int offset = (pi.getCurrentPage() -1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList)sqlSession.selectList("Board.selectSearchResultList",sc,rowBounds);
+		ArrayList<Member> name = null;
+		
+		name =(ArrayList)sqlSession.selectList("Member.searchListWriter",sc, rowBounds);
+		for(int i=0; i<name.size();i++) {
+			list.get(i).setUserName(name.get(i).getUserName());
+		}
+		return list;
 	}
 
 }

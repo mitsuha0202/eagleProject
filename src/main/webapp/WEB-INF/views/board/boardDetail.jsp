@@ -86,11 +86,12 @@
 				<c:if test="${ sessionScope.loginUser.mid eq b.bMid }">
 				<button class="ui black basic button" style="width:100px; height:50px;" onclick="updateBoard();">글 수정</button>
 				<button class="ui black basic button" style="width:100px; height:50px;" onclick ="deleteBoard();">글 삭제</button>
+				<button class="ui black basic button" style="width:100px; height:50px;" onclick="location.href='goBoard.bo'";>목록으로</button>
 				</c:if>
 				<c:if test="${ sessionScope.loginUser.mid ne b.bMid }">
 				<button class="ui black basic button" style="width:100px; height:50px;" onclick="location.href='goBoard.bo'";>목록으로</button>
 				</c:if>
-				<c:if test="${!empty sessionScope.loginUser }">
+				<c:if test="${empty sessionScope.loginUser }">
 				<button class="ui black basic button" style="width:100px; height:50px;" onclick="location.href='goBoard.bo'";>목록으로</button>
 				</c:if>
 			</div>
