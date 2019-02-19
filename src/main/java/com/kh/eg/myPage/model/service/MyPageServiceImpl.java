@@ -11,7 +11,7 @@ import com.kh.eg.myPage.model.dao.MyPageDao;
 import com.kh.eg.myPage.model.vo.Maccount;
 import com.kh.eg.myPage.model.vo.MyPageBoard;
 import com.kh.eg.myPage.model.vo.PageInfo;
-import com.kh.eg.myPage.model.vo.Query;
+import com.kh.eg.myPage.model.vo.PayTable;
 import com.kh.eg.myPage.model.vo.WishList;
 
 @Service
@@ -146,5 +146,26 @@ public class MyPageServiceImpl implements MyPageService{
 	public int getListSearchMessageCount(String searchTitle, String memberNo) {
 		
 		return md.getListSearchMessageCount(sqlSession, searchTitle, memberNo);
+	}
+
+	//구매관리 입찰중 물품 갯수 조회
+	@Override
+	public int countPayListMain(String userId) {
+		
+		return md.countPayListMain(sqlSession, userId);
+	}
+
+	//구매관리 입찰중 물품 리스트 조회
+	@Override
+	public ArrayList<PayTable> selectPayList(PageInfo pi, String mid) {
+		
+		return md.selectPayList(sqlSession, pi, mid);
+	}
+
+	//구매관리 입찰중 물품 리스트 페이징 처리
+	@Override
+	public int getPayListCount(String mid) {
+
+		return md.getPayListCount(sqlSession, mid);
 	}
 }

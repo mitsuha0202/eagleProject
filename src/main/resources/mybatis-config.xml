@@ -9,7 +9,7 @@
 		<typeAlias type="com.kh.eg.myPage.model.vo.MyPageBoard" alias="MyPageBoard"/>
 		<typeAlias type="com.kh.eg.myPage.model.vo.WishList" alias="WishList"/>
 		<typeAlias type="com.kh.eg.myPage.model.vo.Maccount" alias="Maccount"/>
-		<typeAlias type="com.kh.eg.myPage.model.vo.Query" alias="Query"/>
+		<typeAlias type="com.kh.eg.myPage.model.vo.PayTable" alias="PayTable"/>
 		<typeAlias type="com.kh.eg.item.model.vo.Item" alias="Item"/>
 		<typeAlias type="com.kh.eg.attachment.model.vo.Attachment" alias="Attachment"/>
 

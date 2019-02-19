@@ -1,24 +1,53 @@
 package com.kh.eg.myPage.controller;
 
+import java.util.ArrayList;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
+
+import com.kh.eg.member.model.vo.Member;
+import com.kh.eg.myPage.common.Pagination;
+import com.kh.eg.myPage.model.service.MyPageService;
+import com.kh.eg.myPage.model.vo.PageInfo;
+import com.kh.eg.myPage.model.vo.PayTable;
+
+@SessionAttributes("loginUser")
 
 @Controller
 public class StatusController {
 	
-	
-	
-	
-	
-	
-	
+	@Autowired
+	private MyPageService ms;
 	
 //------------------------------------------입찰중물품 페이지-------------------------------------------	
 	
 	//구매현황상세페이지메인
 	@RequestMapping("purchasestatus.mp")
-	public String purchasestatusPage() {
+	public String purchasestatusPage(HttpSession session, Model model, @RequestParam(value="currentPage", required=false) String temp, Member m) {
+		int currentPage = 1;
+		if(temp != null) {
+			currentPage = Integer.parseInt(temp);
+		}
+		
+		m = (Member)session.getAttribute("loginUser");
+		int listCount = ms.getPayListCount(m.getMid());
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		ArrayList<PayTable> list = ms.selectPayList(pi, m.getMid());
 		return "myPage/management/purchasestatusMainPage";
+	}
+	
+	//구매현황상세페이지메인 물품갯수
+	@RequestMapping("countPayListMain.mp")
+	public @ResponseBody int countPayListMain(@RequestParam String userId) {
+		int count = ms.countPayListMain(userId);
+		return count;
 	}
 		
 	//구매현황상세페이지메인 - 입찰중물품 - 진행중인 최고 입찰물품

@@ -67,6 +67,16 @@
 		<result property="itemNo" column="ITEMNO"/>
 	</resultMap>
 	
+	<!-- 입찰중 물품 리스트 resultMap -->
+	<resultMap type="com.kh.eg.myPage.model.vo.PayTable" id="payTableResultSet">
+		<id property="itemNo" column="ITEMNO"/>
+		<result property="itemName" column="ITEMNAME"/>
+		<result property="currentPrice" column="CURRENTPRICE"/>
+		<result property="saleMemberNo" column="saleMemberNo"/>
+		<result property="endDay" column="ENDDAY"/>
+		<result property="endYn" column="EXITYN"/>
+	</resultMap>
+	
 	<!-- 게시글 조회 -->
 	<select id="selectMessage" resultMap="myPageOneResultSet" parameterType="java.lang.String">
 		SELECT *
@@ -206,4 +216,50 @@
 		AND BOARDSTATUS = 'QUESTIONBOARD'
 		AND BOARDNO = #{boardNo}
 	</select>
+	
+	
+<!-- ============================================================================================= -->
+	<!-- 구매관리 입찰중 쿼리문들 -->
+	
+	<!-- 입찰수 조회용 물품번호 조회 -->
+	<select id="itemNoSearch" resultType="_int" parameterType="java.lang.String">
+		SELECT DISTINCT ITEMNO 
+		FROM BID 
+		WHERE MEMBERNO = #{mid}
+		ORDER BY ITEMNO DESC
+	</select>
+	
+	<!-- 구매관리 입찰중 물품 갯수 조회 -->
+	<select id="countPayListMain" resultType="_int" parameterType="java.lang.String">
+		SELECT COUNT(*) 
+		FROM BID 
+		WHERE MEMBERNO = #{mid} 
+		AND ITEMNO = #{itemNo}
+	</select>
+	
+	<!-- 입찰중 내가 입력한 최고가 -->
+	<select id="maxCurrentPrice" resultType="_int" parameterType="java.lang.String">
+		SELECT MAX(CURRENTPRICE) FROM BID WHERE MEMBERNO = #{mid}
+	</select>
+	
+	<!-- 입찰수 조회 -->
+	<select id="bidCount" resultType="_int" parameterType="java.lang.String">
+		SELECT COUNT(*) FROM BID WHERE ITEMNO = #{itemNo} AND MEMBERNO = #{mid}
+	</select>
+	
+	<!-- 판매자 조회 -->
+	<select id="selectSaleMember" resultType="_int" parameterType="java.lang.String">
+		SELECT MEMBERNO FROM AUCTIONITEM WHERE ITEMNO = #{itemNo}
+	</select>
+		
+	<!-- 랭킹처리 -->
+	<select id="selectRanking" resultType="_int" parameterType="java.lang.String">
+		SELECT  RANK() OVER (ORDER BY ITEMNO DESC) AS RANKING
+		FROM BID WHERE MEMBERNO = #{mid} AND ITEMNO = #{itemNo}
+	</select>	
+	
+	<!-- 구매관리 입찰중 물품 리스트 페이징 처리 -->
+	<!-- <select id="countPayList" resultType="_int" parameterType="java.lang.String"> -->
+	<!-- </select> -->
+	
 </mapper>
