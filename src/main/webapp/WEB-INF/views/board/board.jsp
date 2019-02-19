@@ -48,47 +48,79 @@
 		</div>
 		<div class="searchArea" align="right">
 			<div class="ui compact menu" style="width:150px; height:50px; margin-bottom: 5px;" >
-			  <div class="ui simple dropdown item" style="padding-bottom: 30px; padding-top: 0px;">
-			    Dropdown
-			    <i class="dropdown icon"></i>
-			    <div class="menu">
-			      <div class="item">Choice 1</div>
-			      <div class="item">Choice 2</div>
-			      <div class="item">Choice 3</div>
-			    </div>
-			  </div>
+			  <select class="ui dropdown" id="searchCondition" name="searchCondition" style="width:150px; height:50px;  font-size:1.3em">
+				  <option value="title">제목</option>
+				  <option value="writer">작성자</option>
+				  <option value="content">내용</option>
+			  </select>
 			</div>
 			<div class="ui icon input" style="height: 50px;">
-			  <input type="text" placeholder="검색할 내용을 입력하세요" name="searchBoard" style="width:300px; height: 50px; margin-right: 15px;">
-			  <button class="ui black button" style="width:80px; height: 50px">검색</button>
+			  <input type="search" placeholder="검색할 내용을 입력하세요" id="search" style="width:300px; height: 50px; margin-right: 15px;">
+			  <button class="ui black button" style="width:80px; height: 50px" onclick="searchBoard();">검색</button>
 			</div>
 		</div>
 	
 	
 		<table class="ui black table" align="center" id="listArea">
 		  <thead>
-		    <tr>
-			    <th>번호</th>
-			    <th>제목</th>
-			    <th>글쓴이</th>
-			    <th>등록일</th>
-			    <th>조회수</th>
+		    <tr align="center">
+			    <th style="border-left: 1px solid white;">번호</th>
+			    <th align="center">제목</th>
+			    <th >글쓴이</th>
+			    <th >등록일</th>
+			    <th style="border-right: 1px solid white;">조회수</th>
 		  	</tr>
 		  </thead>
 		  <tbody>
 		  <c:forEach var="b" items="${ list }">
-		    <tr>
-		      <td>${b.bid}</td>
+		    <tr align="center">
+		      <td style="border-left: 1px solid white;">${b.bid}</td>
 		      <td>${b.bTitle}</td>
-		      <td>${b.bMid}</td>
+		      <td>${b.userName}</td>
 		      <td>${b.writeDay}</td>
-		      <td>${b.bCount}</td>
+		      <td style="border-right: 1px solid white;">${b.bCount}</td>
 		    </tr>
 		  </c:forEach>
 		  </tbody>
 		</table>
 
 		<br>
+				<!-- 페이징 버튼 영역 -->
+		<div id="pagingArea" align="center">
+			<c:if test="${ pi.currentPage <= 1 }">
+				[이전]&nbsp;
+			</c:if>
+			<c:if test="${ pi.currentPage > 1 }">
+				<c:url var="blistBack" value="/goBoard.bo">
+					<c:param name="currentPage" value="${pi.currentPage - 1}"/>
+				</c:url>
+				<a href = "${ blistBack }">[이전]</a> &nbsp;
+			</c:if>
+			
+			<c:forEach var="p" begin="${ pi.startPage  }" end = "${pi.endPage}">
+				<c:if test="${ p eq pi.currentPage }">
+					<font color="red" size="4"><b>[${p}]</b></font>
+				</c:if>
+				<c:if test="${ p ne pi.currentPage }">
+					<c:url var="blistCheck" value = "goBoard.bo">
+						<c:param name="currentPage" value="${p}"/>
+					</c:url>
+					<a href="${blistCheck}">${p}</a>
+				</c:if>
+			
+			</c:forEach>
+			
+			
+			<c:if test="${ pi.currentPage >= pi.maxPage }">
+				&nbsp; [다음]
+			</c:if>
+			<c:if test="${pi.currentPage < pi.maxPage }">
+				<c:url var="blistEnd" value="goBoard.bo">
+					<c:param name="currentPage" value="${ pi.currentPage + 1 }"></c:param>
+				</c:url>
+				<a href="${blistEnd}">&nbsp;[다음]</a>
+			</c:if>
+		</div>
 		<div class="btnArea" align="right">
 			<button class="ui black button" style="width:200px; font-size: 1.5rem;" onclick="insertBoard();">글쓰기</button>
 		</div>
@@ -103,7 +135,18 @@
 			 } 
 				
 		}
-
+		
+		
+		function searchBoard() {
+			var searchCondition = $("#searchCondition").val();
+			
+			var searchValue = $("#search").val();
+			
+			console.log(searchCondition);
+			console.log(searchValue);
+			
+			location.href = "searchBoard.bo?searchCondition="+searchCondition+"&searchValue="+searchValue;
+		}
 		
 		$(function(){
 			$("#listArea td").mouseenter(function(){

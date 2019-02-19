@@ -22,4 +22,10 @@ public interface BoardDao {
 
 	int insertReply(SqlSessionTemplate sqlSession, Reply r);
 
+	int deleteBoard(SqlSessionTemplate sqlSession, String bid);
+
+	int replyCount(SqlSessionTemplate sqlSession, String bid);
+
+	int updateBoard(SqlSessionTemplate sqlSession, Board b);
+
 }
