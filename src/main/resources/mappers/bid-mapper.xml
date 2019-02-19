@@ -24,9 +24,15 @@
   		<result property="startDay" column="STARTDAY" />
   		<result property="endDay" column="ENDDAY" />
   		<result property="exitYN" column="EXITYN" />
-  		
   	</resultMap>
   	
+	<resultMap type="Bid" id="insertBidResultSet">
+		<id property="bidNo" column="BIDNO" />
+		<result property="itemNo" column="ITEMNO" />
+		<result property="memberNo" column="MEMBERNO" />
+		<result property="currentPrice" column="CURRENTPRICE" />
+		<result property="bidDate" column="BIDDATE" /> 
+	</resultMap>  	
   	
   	
   	<select id="selectDetailItem" resultMap="itemDetailResultSet" parameterType="java.lang.String">
@@ -36,5 +42,9 @@
   		JOIN AUCTION A ON(I.AUCTIONCODE = A.AUCTIONCODE)
   		JOIN MEMBER M ON(I.MEMBERNO = M.MEMBERNO)
   		WHERE I.ITEMNO = #{itemNo}
+  	</select>
+  	
+  	<select id="insertBidding" parameterType="Bid">
+  		INSERT INTO BID VALUES(BID_SEQ.NEXTVAL , #{itemNo} , '2' , #{currentPrice} , SYSDATE)
   	</select>
   </mapper>
