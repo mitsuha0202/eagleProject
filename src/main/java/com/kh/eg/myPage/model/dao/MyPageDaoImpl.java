@@ -12,7 +12,7 @@ import com.kh.eg.myPage.model.vo.AnswerBoard;
 import com.kh.eg.myPage.model.vo.Maccount;
 import com.kh.eg.myPage.model.vo.MyPageBoard;
 import com.kh.eg.myPage.model.vo.PageInfo;
-import com.kh.eg.myPage.model.vo.Query;
+import com.kh.eg.myPage.model.vo.PayTable;
 import com.kh.eg.myPage.model.vo.WinBid;
 import com.kh.eg.myPage.model.vo.WishList;
 
@@ -174,12 +174,75 @@ public class MyPageDaoImpl implements MyPageDao{
 		map.put("memberNo", memberNo);
 		return sqlSession.selectOne("MyPage.countMessageSearch", map);
 	}
+
+	//구매관리 입찰중 물품 갯수 조회
+	@Override
+	public int countPayListMain(SqlSessionTemplate sqlSession, String userId) {
+		
+		return sqlSession.selectOne("MyPage.countPayListMain", userId);
+	}
+
+	//구매관리 입찰중 물품 리스트 조회
+	@Override
+	public ArrayList<PayTable> selectPayList(SqlSessionTemplate sqlSession, PageInfo pi, String mid) {
+
+		return null;
+	}
+
+	//구매관리 입찰중 물품 페이징 처리
+	@Override
+	public int getPayListCount(SqlSessionTemplate sqlSession, String mid) {
+		HashMap<String, String> itemNoList = null;
+		
+		PayTable payTable = null;
+		
+		//물품번호 arrayList로 받아 String 배열에 담고 String 배열을 hashMap에 담는다.
+		ArrayList<String> list = (ArrayList)sqlSession.selectList("MyPage.itemNoSearch", mid);
+		
+		//물품번호 배열
+		String[] itemNo = new String[list.size()];
+		
+		for(int i=0; i<list.size(); i++) {			
+			itemNo[i] = list.get(i);
+		}
+		
+		if(list != null) {
+			
+			for(int i=0; i<itemNo.length; i++) {
+				itemNoList = new HashMap<String, String>();
+				itemNoList.put("itemNo", itemNo[i]);
+				itemNoList.put("mid", mid);
+				
+				/*
+				int equ = (Integer)sqlSession.selectOne("MyPage.countPayListMain", itemNoList);*/
+				
+				//최고가
+				int currentPrice = (Integer)sqlSession.selectOne("MyPage.maxCurrentPrice", itemNoList);
+				
+				//입찰수
+				int count = (Integer)sqlSession.selectOne("MyPage.bidCount", itemNoList);
+				
+				//판매자 번호
+				int saleMemberNo = (Integer)sqlSession.selectOne("MyPage.selectSaleMember", itemNoList);
+				
+				//입찰순위
+				int ranking = (Integer)sqlSession.selectOne("MyPage.selectRanking", itemNoList);
+				
+				
+				sqlSession.selectOne("MyPage.countPayList", mid);				
+			}
+			return 0;
+		}else {
+			return 0;
+		}
+
 	//문의받은게시판 조회
 	@Override
 	public ArrayList<AnswerBoard> answerBoard(SqlSessionTemplate sqlSession, String memberNo) {
 		
 		
 		return (ArrayList)sqlSession.selectList("MyPage.selectanswerBoard", memberNo);
+
 	}
 	
 }

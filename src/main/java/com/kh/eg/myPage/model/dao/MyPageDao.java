@@ -9,7 +9,7 @@ import com.kh.eg.myPage.model.vo.AnswerBoard;
 import com.kh.eg.myPage.model.vo.Maccount;
 import com.kh.eg.myPage.model.vo.MyPageBoard;
 import com.kh.eg.myPage.model.vo.PageInfo;
-import com.kh.eg.myPage.model.vo.Query;
+import com.kh.eg.myPage.model.vo.PayTable;
 import com.kh.eg.myPage.model.vo.WishList;
 
 public interface MyPageDao {
@@ -68,6 +68,15 @@ public interface MyPageDao {
 
 	//쪽지함 검색 페이징 처리
 	int getListSearchMessageCount(SqlSessionTemplate sqlSession, String searchTitle, String memberNo);
+
+	//구매관리 입찰중 물품 갯수 조회
+	int countPayListMain(SqlSessionTemplate sqlSession, String userId);
+
+	//구매관리 입찰중 물품 리스트 조회
+	ArrayList<PayTable> selectPayList(SqlSessionTemplate sqlSession, PageInfo pi, String mid);
+
+	//구매관리 입찰중 물품 리스트 페이징 처리
+	int getPayListCount(SqlSessionTemplate sqlSession, String mid);
 	
 	//문의 받은 게시판
 	ArrayList<AnswerBoard> answerBoard(SqlSessionTemplate sqlSession, String memberNo);

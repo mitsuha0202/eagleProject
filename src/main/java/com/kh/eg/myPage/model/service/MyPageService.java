@@ -7,7 +7,7 @@ import com.kh.eg.myPage.model.vo.AnswerBoard;
 import com.kh.eg.myPage.model.vo.Maccount;
 import com.kh.eg.myPage.model.vo.MyPageBoard;
 import com.kh.eg.myPage.model.vo.PageInfo;
-import com.kh.eg.myPage.model.vo.Query;
+import com.kh.eg.myPage.model.vo.PayTable;
 import com.kh.eg.myPage.model.vo.WishList;
 
 public interface MyPageService {
@@ -67,6 +67,15 @@ public interface MyPageService {
 
 	//쪽지함 검색 페이징 처리
 	int getListSearchMessageCount(String searchTitle, String memberNo);
+
+	//구매관리 입찰중 물품 갯수 
+	int countPayListMain(String userId);
+
+	//구매관리 입찰중 물품 리스트 조회
+	ArrayList<PayTable> selectPayList(PageInfo pi, String mid);
+	
+	//구매관리 입찰중 물품 리스트 페이징 처리
+	int getPayListCount(String mid);
 	
 	//문의받은게시판 조회
 	ArrayList<AnswerBoard> answerBoard(String memberNo);

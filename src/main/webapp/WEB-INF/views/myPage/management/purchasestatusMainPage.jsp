@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -104,27 +105,25 @@
 		 <h5>꼭 읽어주세요! </h5><br>
 	     <h5>현재 입찰하신 물품중 진행중인 물품 리스트입니다.</h5>
 	     <br>
-	     <h5>진행중인 최고 입찰 물품에 대해서 모두</h5><h5>개가 검색되었습니다.</h5>
+	     <h5 id="countMainPayList"></h5>
 	     
 	     <table class="buyStatusTable">
       
       <thead>
         <tr>
           <th class="firstTd">물품번호</th>
-          <th class="firstTd">이미지</th>
-          <th class="firstTd">제목</th>
+          <th class="firstTd">물품명</th>
           <th class="firstTd">현재가</th>
           <th class="firstTd">입찰 수</th>
           <th class="firstTd">판매자</th>
           <th class="firstTd">입찰 순위</th>
           <th class="firstTd">마감일</th>
-          <th class="firstTd">관리</th>
+          <th class="firstTd">마감상태</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>1</td>
-          <td></td>
           <td></td>
           <td></td>
           <td></td>
@@ -155,5 +154,36 @@
 		<i class="dollar sign icon" id="accountInfo"></i>
 		<h4 class="tutorialIcon2">자주묻는 질문</h4>		
 	</div>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script>
+		$(function() {
+			var mid = '${sessionScope.loginUser.mid}';
+			$.ajax({
+				url:"countPayListMain.mp",
+				type:"get",
+				data:{userId:mid},
+				success:function(data){
+					$("#countMainPayList").text("진행중인 최고 입찰 물품에 대해서 모두 " + data + "건이 검색되었습니다.");
+				},
+				/* status는 에러의 상태를 나타냄 */
+				error:function(status){
+					$("#countMainPayList").text("쪽지 0건");
+				}
+			});
+			
+			$.ajax({
+				url:"payList,mp",
+				type:"get",
+				data:{userId:mid},
+				success:function(data){
+					
+				},
+				error:function(status){
+					
+				}
+			});
+		});
+	</script>
 </body>
 </html>
