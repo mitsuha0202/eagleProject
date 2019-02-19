@@ -85,12 +85,12 @@
 			 	
 			 	</c:forEach> --%> --%>
 			 
-				<table class="ui striped table">
+				<table class="ui striped table" id="selectCategory">
 					<tbody>
 					
 					<tr>
-					<td>선택한 카테고리 경로:</td>
-					<td></td>
+					<td >선택한 카테고리 경로:</td>
+					<td id="spath"></td>
 					</tr>
 				</tbody>
 				</table>
@@ -100,27 +100,65 @@
 			<br> <br>
 			<div class="scroll">
 				-선택하세요- 
-				<br> 미술 
-				<br> 음악앨범 
-				<br> 의류 
-				<br> 생활가전 
-				<br> 비디오게임
-				<br> 피규어
-				<br> 레고
+				<table class="bigCate">
+				<!-- <input type="hidden" class="bigCode" value="">  -->
+					<tr>
+						<td>미술</td>
+					</tr>
+					<tr>
+						<td>음악앨범</td>
+					</tr>
+					<tr>
+						<td>의류</td>
+					</tr>
+					<tr>
+						<td>생활가전</td>
+					</tr>
+					<tr>
+						<td>비디오게임</td>
+					</tr>
+					<tr>
+						<td>피규어</td>
+					</tr>
+					<tr>
+						<td>레고</td>
+					</tr>
+				
+				</table>
+				
 
 			</div>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<div class="scroll">
-				-선택하세요- <br> 미술 <br> 음악앨범 <br> 의류 <br> 생활가전 <br>
-				비디오게임 <br> 피규어 <br> 레고
-
-			</div>
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<div class="scroll">
-				-선택하세요- <br> 미술 <br> 음악앨범 <br> 의류 <br> 생활가전 <br>
-				비디오게임 <br> 피규어 <br> 레고
-
-			</div>
+				-선택하세요- 
+				<table id="middleCate">
+			<!-- 	<input type="hidden" name="middleCode" value=""> 
+               <input type="hidden" name="middleName" value="">  -->
+					<tr>
+						<td>미술</td>
+					</tr>
+					<tr>
+						<td>음악앨범</td>
+					</tr>
+					<tr>
+						<td>의류</td>
+					</tr>
+					<tr>
+						<td>생활가전</td>
+					</tr>
+					<tr>
+						<td>비디오게임</td>
+					</tr>
+					<tr>
+						<td>피규어</td>
+					</tr>
+					<tr>
+						<td>레고</td>
+					</tr>
+				
+				</table>
+				</div>
+			
 			<hr>
 
 			<h2>물품정보</h2>
@@ -275,8 +313,56 @@
 		
 	}); */
 	
+	$('.bigCate').on('click','td',function(){
+		var $middleCate=$("#middleCate");
+		$middleCate.html("");
+			$(this).each(function(){
+				$("#spath").text($(this).html());
+				var cateLevel=1;
+				console.log(cateLevel);
+			})
+			
+	
+	});
 	
 	
+	
+	
+	/* $(function(){ 
+		$(".bigCate").click(function(){ 
+			var $middleCate = $("#middleCate"); 
+			$middleCate.html(''); 
+			var bigCode = $(".bigCode").val();
+			var size = $(this).children("input[name=middleName]").length; 
+			for(var i = 0; i < size; i++){ 
+				var $tr = $("<tr>"); 
+				var $td = $("<td>"); 
+				var $span = $("<span class='middleCate'>"); 
+				var middleName = $(this).children("input[name=middleName]").eq(i).attr("value"); 
+				var middleCode = $(this).children("input[name=middleCode]").eq(i).attr("value"); 
+				var $input = $("<input type='hidden' name='code' value='" + middleCode + "'>"); 
+				var $br = $("<br>"); 
+				$span.text(middleName); 
+				$td.append($span); 
+				$td.append($input); 
+				$tr.append($td);
+				$tr.append($br); 
+				$middleCate.append($tr); 
+			} 
+			$(".middleCate").click(function(){ 
+				$(".middleCate").css({"background":"white"});
+				$(this).css({"background":"lightgray"}); 
+				cateCode1 = $(this).siblings("input[name='code']").val(); 
+				$("input[name='categoryCode']").val(cateCode1); 
+			   		}); 
+				    	}); 
+				   }); 
+				
+				 */
+				
+				
+				
+				
 	</script>
 	
 	<!-- footer -->
