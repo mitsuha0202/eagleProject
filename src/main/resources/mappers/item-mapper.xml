@@ -51,13 +51,23 @@
 	
 	</resultMap>
 	
+	<resultMap type="com.kh.eg.category.model.vo.Category" id="categoryResultSet">
+	
+	<id property="categoryNo" column="CATEGORYNO"/>
+	<result property="categoryName" column="CATEGORYNAME"/>
+	<result property="categoryLevel" column="CATEGORYLEVEL"/>
+	<result property="upperCategoryNo" column="UPPERCATEGORYNO"/>
+	<result property="deleteYn" column="DELETEYN"/>
+	
+	</resultMap>
+	
 	
 	
 	
 	<insert id="insertItem" >
 	INSERT INTO AuctionItem
 	VALUES(#{item.itemNo},#{item.itemName},#{item.startPrice},#{item.bidUnit},
-	#{item.deliveryPay},#{item.origin}, 'N' ,'1',#{item.mid}, #{item.auctionCode} ,#{item.detail},#{item.deliveryPrice},'0')
+	#{item.deliveryPay},#{item.origin}, 'N' ,#{item.categoryNo},#{item.mid}, #{item.auctionCode} ,#{item.detail},#{item.deliveryPrice},'0')
 	</insert>
 	<insert id="insertAttachment">
 	INSERT INTO ATTACHMENT VALUES(AN_SEQ.NEXTVAL, #{attachment.originName},#{attachment.changeName},
@@ -91,6 +101,11 @@
  	<select id="selectAttachment" resultMap="attachmentResultSet" parameterType="java.lang.String">
 		select * from ATTACHMENT  
 	
+	</select>
+	
+	<select id="selectCategory" resultMap="categoryResultSet">
+		select * from CATEGORY where categorylevel=0
+		
 	</select>
 
 
