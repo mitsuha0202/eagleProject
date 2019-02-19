@@ -83,6 +83,9 @@
  		height:35px;
  		width:130px;
  	}
+ 	#bidBtn:hover , #wishBtn:hover , #qaBtn:hover{
+ 		cursor:pointer;
+ 	}
 </style>
 
 </head>
@@ -98,7 +101,7 @@
         <br>
         <div id="pName" class="pName">
         	<h3>
-        		<b>상품이름</b>
+        		<b id="productName"></b>
         	</h3>
         </div>
         <br>
@@ -114,7 +117,7 @@
 				  	현재가
 				  </div>
 				  <div id="won" class="column">
-				  	<a id="cPrice">10,000</a><a id="won2">원</a>
+				  	<a id="cPrice"></a><a id="won2">원</a>
 				  </div>
 				  <div class="column">
 				  	<div id="reTime" class="ui massive label">
@@ -167,13 +170,11 @@
 			      	판매자ID<br>
 			      	판매자 등급<br>
 			      	판매자 다른물품<br>
-			      	판매자 구매후기
 			      </td>
 			      <td>
 			      	<a id="mId"></a><br>
 			      	<a id="rating"></a><br>
 			      	없 음<br>
-			      	너무 좋습니다
 			      </td>
 			    </tr>
 			</tbody>
@@ -363,30 +364,50 @@
    	<!-- footer -->
 </body>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script>
-	$(function(){
-		$.ajax({
-			url:"auctionDetails.bi",
-			type:"post",
-			data:{itemNo : "1"},
-			success:function(data){
-				$("#itemNo").text(data.itemNo);
-				$("#startPrice").text(data.startPrice);
-				$("#auctionName").text(data.auctionName);
-				$("#upPrice").text(data.bidUnit);
-				$("#startDay").text(data.startDay);
-				$("#endDay").text(data.endDay);
-				$("#deliveryPay").text(data.deliveryPay);
-				$("#deliveryPrice").text(data.deliveryPrice);
-				$("#origin").text(data.origin);
-				$("#mId").text(data.mId);
-				$("#rating").text(data.rating);
-				console.log("성공");
-			},
-			error:function(){
-				console.log("실패");
-			}
+	<script>
+		$(function(){
+			$.ajax({
+				url:"auctionDetails.bi",
+				type:"get",
+				data:{itemNo : "1"},
+				success:function(data){
+					$("#itemNo").text(data.itemNo);
+					$("#startPrice").text(data.startPrice);
+					$("#auctionName").text(data.auctionName);
+					$("#upPrice").text(data.bidUnit);
+					$("#startDay").text(data.startDay);
+					$("#endDay").text(data.endDay);
+					$("#deliveryPay").text(data.deliveryPay);
+					$("#deliveryPrice").text(data.deliveryPrice);
+					$("#origin").text(data.origin);
+					$("#mId").text(data.mId);
+					$("#rating").text(data.rating);
+					$("#productName").text(data.itemName);
+					console.log("성공");
+				},
+				error:function(){
+					console.log("실패");
+				}
+			});
 		});
-	});
-</script>
+		
+		$("#bidBtn").click(function(){
+			var itemNo = $("#itemNo").text();
+			var price = $("#cPrice").text();
+			console.log(price);
+			$.ajax({
+				url:"insertBidding.bi",
+				type:"get",
+				data:{itemNo : itemNo , price : price},
+				success:function(data){
+					console.log("입찰성공");
+				},
+				error:function(){
+					console.log("입찰실패");
+				}
+			});
+		});
+		
+		
+	</script>
 </html>

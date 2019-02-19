@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class Bid implements java.io.Serializable {
 	private String bidNo;
-	private int itemNo;
+	private String itemNo;
 	private String memberNo;
 	private int currentPrice;
 	private Date bidDate;
@@ -16,70 +16,7 @@ public class Bid implements java.io.Serializable {
 	public Bid() {}
 
 
-
-	public String getBidNo() {
-		return bidNo;
-	}
-
-
-
-	public void setBidNo(String bidNo) {
-		this.bidNo = bidNo;
-	}
-
-
-
-	public int getItemNo() {
-		return itemNo;
-	}
-
-
-
-	public void setItemNo(int itemNo) {
-		this.itemNo = itemNo;
-	}
-
-
-
-	public String getMemberNo() {
-		return memberNo;
-	}
-
-
-
-	public void setMemberNo(String memberNo) {
-		this.memberNo = memberNo;
-	}
-
-
-
-	public int getCurrentPrice() {
-		return currentPrice;
-	}
-
-
-
-	public void setCurrentPrice(int currentPrice) {
-		this.currentPrice = currentPrice;
-	}
-
-
-
-	public Date getBidDate() {
-		return bidDate;
-	}
-
-
-
-	@Override
-	public String toString() {
-		return "Bid [bidNo=" + bidNo + ", itemNo=" + itemNo + ", memberNo=" + memberNo + ", currentPrice="
-				+ currentPrice + ", bidDate=" + bidDate + "]";
-	}
-
-
-
-	public Bid(String bidNo, int itemNo, String memberNo, int currentPrice, Date bidDate) {
+	public Bid(String bidNo, String itemNo, String memberNo, int currentPrice, Date bidDate) {
 		super();
 		this.bidNo = bidNo;
 		this.itemNo = itemNo;
@@ -89,15 +26,64 @@ public class Bid implements java.io.Serializable {
 	}
 
 
+	@Override
+	public String toString() {
+		return "Bid [bidNo=" + bidNo + ", itemNo=" + itemNo + ", memberNo=" + memberNo + ", currentPrice="
+				+ currentPrice + ", bidDate=" + bidDate + "]";
+	}
+
+
+	public String getBidNo() {
+		return bidNo;
+	}
+
+
+	public void setBidNo(String bidNo) {
+		this.bidNo = bidNo;
+	}
+
+
+	public String getItemNo() {
+		return itemNo;
+	}
+
+
+	public void setItemNo(String itemNo) {
+		this.itemNo = itemNo;
+	}
+
+
+	public String getMemberNo() {
+		return memberNo;
+	}
+
+
+	public void setMemberNo(String memberNo) {
+		this.memberNo = memberNo;
+	}
+
+
+	public int getCurrentPrice() {
+		return currentPrice;
+	}
+
+
+	public void setCurrentPrice(int currentPrice) {
+		this.currentPrice = currentPrice;
+	}
+
+
+	public Date getBidDate() {
+		return bidDate;
+	}
+
 
 	public void setBidDate(Date bidDate) {
 		this.bidDate = bidDate;
 	}
 
+	
 
-	
-	
-	
 	
 
 }
