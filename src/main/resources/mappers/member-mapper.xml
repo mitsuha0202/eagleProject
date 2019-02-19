@@ -71,7 +71,25 @@
 		AND BOARDSTATUS = 'FREEBOARD'
 		ORDER BY WRITEDAY DESC
 	</select>
-<!-- 	<insert id="insertBoard">
-		INSERT INTO BOARD(BID, BTITLE) VALUES(SEQ_BID.NEXTVAL, '새로운 회원이 가입되었습니다.')
-	</insert> -->
+	
+	<select id="searchListWriter" parameterType="Board" resultMap="memberResultSet">
+		SELECT MEMBERNAME
+		FROM MEMBER M
+		JOIN BOARD B ON(M.MEMBERNO = B.MEMBERNO)
+		WHERE B.DELETESTATUS = 'N'
+		AND BOARDSTATUS = 'FREEBOARD'
+		<choose>
+			<when test="writer != null">
+				AND MEMBERNAME = #{writer}
+			</when>
+			<when test="title != null">
+				AND TITLE LIKE '%' || #{title} || '%'
+			</when>
+			<otherwise>
+				AND BOARDCONTENT LIKE '%' || #{content} || '%'
+			</otherwise>
+		</choose>
+		ORDER BY WRITEDAY DESC
+	</select>
+
 </mapper>

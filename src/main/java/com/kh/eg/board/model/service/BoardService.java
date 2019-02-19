@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.kh.eg.board.model.vo.Board;
 import com.kh.eg.board.model.vo.PageInfo;
 import com.kh.eg.board.model.vo.Reply;
+import com.kh.eg.board.model.vo.SearchCondition;
 
 
 public interface BoardService {
@@ -26,5 +27,9 @@ public interface BoardService {
 	int replyCount(String bid);
 
 	int updateBoard(Board b);
+
+	int getSearchResultListCount(SearchCondition sc);
+
+	ArrayList<Board> selectSearchResultList(SearchCondition sc, PageInfo pi);
 
 }

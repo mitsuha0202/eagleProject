@@ -19,6 +19,7 @@ import com.kh.eg.board.model.vo.Board;
 import com.kh.eg.board.model.vo.PageInfo;
 import com.kh.eg.board.model.vo.Pagination;
 import com.kh.eg.board.model.vo.Reply;
+import com.kh.eg.board.model.vo.SearchCondition;
 import com.kh.eg.member.model.vo.Member;
 
 @Controller
@@ -153,9 +154,40 @@ private BoardService bs;
 	}
 	
 	@RequestMapping("searchBoard.bo")
-	public String searchBoard(@RequestParam String searchConditon, @RequestParam String searchValue,Model model) {
+	public String searchBoard(@RequestParam String searchCondition, @RequestParam String searchValue
+			,Model model, @RequestParam(defaultValue="1") int currentPage) {
 		
-		/*SearchCondition sc = new */
-		return "board/board";
+		SearchCondition sc = new SearchCondition();
+		
+		if(searchCondition.equals("writer")) {
+			sc.setWriter(searchValue);
+		}
+		if(searchCondition.equals("title")) {
+			sc.setTitle(searchValue);
+		}
+		if(searchCondition.equals("content")) {
+			sc.setContent(searchValue);
+		}
+		
+		int listCount  = bs.getSearchResultListCount(sc);
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<Board> list = bs.selectSearchResultList(sc,pi);
+		
+		System.out.println("list : "+list);
+		for(int i=0; i<list.size();i++) {
+			list.get(i).setbCount(list.get(i).getbCount());
+		}
+		if(list != null) {
+			model.addAttribute("list",list);
+			model.addAttribute("pi",pi);
+			return "board/searchBoard";
+		
+		}else {
+			model.addAttribute("msg","검색결과 조회 실패!");
+			return "common/errorPage";
+		}
+		
 	}
 }
