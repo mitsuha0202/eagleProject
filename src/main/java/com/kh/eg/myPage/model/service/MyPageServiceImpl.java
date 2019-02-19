@@ -169,6 +169,7 @@ public class MyPageServiceImpl implements MyPageService{
 
 		return md.getPayListCount(sqlSession, mid);
 
+
 	}
 	
 
