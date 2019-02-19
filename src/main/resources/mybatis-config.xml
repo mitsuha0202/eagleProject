@@ -11,6 +11,7 @@
 		<typeAlias type="com.kh.eg.myPage.model.vo.Maccount" alias="Maccount"/>
 		<typeAlias type="com.kh.eg.myPage.model.vo.Query" alias="Query"/>
 		<typeAlias type="com.kh.eg.item.model.vo.Item" alias="Item"/>
+		<typeAlias type="com.kh.eg.myPage.model.vo.AnswerBoard" alias="AnswerBoard"/>
 		<typeAlias type="com.kh.eg.attachment.model.vo.Attachment" alias="Attachment"/>
 
     	<typeAlias type="com.kh.eg.admin.model.vo.AdminVo" alias="AdminVo"/>

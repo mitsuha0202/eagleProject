@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.eg.member.model.vo.Member;
 import com.kh.eg.myPage.model.dao.MyPageDao;
+import com.kh.eg.myPage.model.vo.AnswerBoard;
 import com.kh.eg.myPage.model.vo.Maccount;
 import com.kh.eg.myPage.model.vo.MyPageBoard;
 import com.kh.eg.myPage.model.vo.PageInfo;
@@ -146,5 +147,12 @@ public class MyPageServiceImpl implements MyPageService{
 	public int getListSearchMessageCount(String searchTitle, String memberNo) {
 		
 		return md.getListSearchMessageCount(sqlSession, searchTitle, memberNo);
+	}
+	
+	//문의받은게시판 조회
+	@Override
+	public ArrayList<AnswerBoard> answerBoard(String memberNo) {
+		
+		return md.answerBoard(sqlSession, memberNo);
 	}
 }

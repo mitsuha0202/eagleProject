@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.eg.member.model.vo.Member;
+import com.kh.eg.myPage.model.vo.AnswerBoard;
 import com.kh.eg.myPage.model.vo.Maccount;
 import com.kh.eg.myPage.model.vo.MyPageBoard;
 import com.kh.eg.myPage.model.vo.PageInfo;
@@ -172,6 +173,13 @@ public class MyPageDaoImpl implements MyPageDao{
 		map.put("searchTitle", searchTitle);
 		map.put("memberNo", memberNo);
 		return sqlSession.selectOne("MyPage.countMessageSearch", map);
+	}
+	//문의받은게시판 조회
+	@Override
+	public ArrayList<AnswerBoard> answerBoard(SqlSessionTemplate sqlSession, String memberNo) {
+		
+		
+		return (ArrayList)sqlSession.selectList("MyPage.selectanswerBoard", memberNo);
 	}
 	
 }
