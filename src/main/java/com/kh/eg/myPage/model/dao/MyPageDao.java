@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.eg.member.model.vo.Member;
+import com.kh.eg.myPage.model.vo.AnswerBoard;
 import com.kh.eg.myPage.model.vo.Maccount;
 import com.kh.eg.myPage.model.vo.MyPageBoard;
 import com.kh.eg.myPage.model.vo.PageInfo;
@@ -67,6 +68,9 @@ public interface MyPageDao {
 
 	//쪽지함 검색 페이징 처리
 	int getListSearchMessageCount(SqlSessionTemplate sqlSession, String searchTitle, String memberNo);
+	
+	//문의 받은 게시판
+	ArrayList<AnswerBoard> answerBoard(SqlSessionTemplate sqlSession, String memberNo);
 	
 	
 	
