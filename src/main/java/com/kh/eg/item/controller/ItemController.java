@@ -138,7 +138,7 @@ public class ItemController {
 		String changeName=CommonUtils.getRandomString();
 		
 		att.setOriginName(originFileName);
-		att.setChangeName(changeName);
+		att.setChangeName(changeName+ext);
 		att.setRoot(filePath);
 		
 		

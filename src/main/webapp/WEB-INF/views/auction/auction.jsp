@@ -111,7 +111,7 @@ h4 {
   			<c:forEach var="i" items="${list1}">
 			<div class="may" style=width:300px;>
 
-				 <img src="../../../resources/uploadFiles/${i.atta.changeName}">
+				 <img src="resources/uploadFiles/${i.atta.changeName}" style="width: 300px;height:200px;">
 				</div>
 			<table class="ui basic table" style="width:250px;">
 			 <tr>
