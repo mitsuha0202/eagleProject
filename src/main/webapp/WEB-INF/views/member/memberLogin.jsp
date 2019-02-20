@@ -6,6 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 <title>eagle's Login</title>
 <!-- jquery -->
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -51,6 +52,15 @@
      }
 	#kakao-login-btn{
 		width:500px;
+		height: 70px;
+	}
+	#naver_id_login img{
+		width:500px;
+		height:70px;
+	}
+	.ui inverted button{
+		font-size: xx-large;
+		padding-top: 15px;
 	}
 	
 </style>
@@ -73,12 +83,13 @@
 				    <input type="password" name="userPwd" placeholder="PASSWORD" style="height:50px">
 				  </div>
 				  <div class="ui inverted segment" style="width:500px; height: 108px;">
-		  			<button class="ui inverted button" style="width:450px">eagle's Login</button>
+		  			<button class="ui inverted button" style="width:450px; font-size: xx-large; padding-top: 15px; ">eagle's Login</button>
 		  		  </div>
 	  		  	<div>
 				    <a id="kakao-login-btn"></a>
 				    <a href="http://developers.kakao.com/logout"></a>
 				</div>
+					<div id="naver_id_login" style="margin-top: 10px;"></div>
 				</form>
 			</div>
 
@@ -89,6 +100,7 @@
    	<!-- footer -->
    	
    	<script type='text/javascript'>
+   	/*카카오 로그인 연동  */
       //<![CDATA[
         // 사용할 앱의 JavaScript 키를 설정해 주세요.
         Kakao.init('a6799519e64fb49ae7136b45b458aa2b');
@@ -119,6 +131,22 @@
           }
         });
       //]]>
+   	/* 카카오 로그인 연동 끝  */
+   	
+   	/* 네이버 로그인 연동 시작  */
+   	/* <!-- 네이버아이디로로그인 버튼 노출 영역 --> */
+ 		var naver_id_login = new naver_id_login("4gAxam1u5RbIDQFeajAF", "http://localhost:8003/eg/goMain.me");	// Client ID, CallBack URL 삽입
+											// 단 'localhost'가 포함된 CallBack URL
+ 		var state = naver_id_login.getUniqState();
+		
+ 		naver_id_login.setButton("green", 3, 65);
+ 		naver_id_login.setDomain("http://127.0.0.1:8003/eg/loginView.me");	//  URL
+ 		naver_id_login.setState(state);
+ 		naver_id_login.setPopup(false);
+ 		naver_id_login.init_naver_id_login(); 
+ 		
+ 		
     </script>
+
 </body>
 </html>
