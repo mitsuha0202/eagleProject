@@ -180,6 +180,8 @@ private BoardService bs;
 			list.get(i).setbCount(list.get(i).getbCount());
 		}
 		if(list != null) {
+			model.addAttribute("searchCondition",searchCondition);
+			model.addAttribute("searchValue", searchValue);
 			model.addAttribute("list",list);
 			model.addAttribute("pi",pi);
 			return "board/searchBoard";

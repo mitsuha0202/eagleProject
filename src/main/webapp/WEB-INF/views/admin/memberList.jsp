@@ -40,10 +40,24 @@
 			</script>
 			
 			<div class="flo_left mt30 mb30">
-				<span><a class="mbtn bk" href="#">블랙리스트로 이동</a></span>
+				<span><a class="mbtn bk" onclick="blackList();">블랙리스트로 이동</a></span>
 				<span><a class="mbtn rd" href="#">정지</a></span>
 			</div>
-
+			<script>
+				function blackList(){
+					var checkUser = $("input[name=check]:checked");
+					console.log(checkUser);
+					var blackListcheck = "";
+					for(var i = 0; i < checkUser.length; i++){
+						blackListcheck+="checkUser="+checkUser[i].value;
+						if(i<checkUser.length-1){
+						blackListcheck+="&";
+						}
+					}
+					console.log(blackListcheck);
+					location.href = "blackListChange.ad?" + blackListcheck;
+				}
+			</script>
 
 			<table class="boardList mt20">
 				<caption>회원관리 리스트입니다.</caption>
@@ -78,8 +92,7 @@
 					<c:forEach var="b" items="${ list }">
 					<tr>
 						<td>
-							<label for=""> 체크</label>
-							<input id="" name="" class="check" type="checkbox">
+							<input name="check"value="${ b.memberId }" type="checkbox">
 						</td>
 						<td>${ b.rating }</td>
 						<td>${ b.memberId }</td>
@@ -93,7 +106,7 @@
 					</c:forEach>
 				</tbody>
 			</table>
-
+			
 			
 		<!-- 	<div class="numbox pt40 pb50"> 
 				<span><a class="num" href="#">&lt;&lt;</a></span>

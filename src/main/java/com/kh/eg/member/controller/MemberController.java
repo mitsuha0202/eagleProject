@@ -191,7 +191,7 @@ private JavaMailSender mailSender;
 		m.setAddress("카카오 본사");
 		m.setUserId(userId);
 		m.setEmail(userEmail);
-		m.setUserPwd(password);
+		m.setUserPwd(passwordEncoder.encode(password));
 		int result = ms.insertKakaoUser(m);
 		
 		
@@ -215,6 +215,7 @@ private JavaMailSender mailSender;
 		System.out.println("snsLOginUserPwd : "+userPwd);
 		Member m = new Member();
 		m.setUserId(userId);
+		m.setUserPwd(userPwd);
 		Member loginUser = ms.loginUser(m);
 		
 		if(loginUser != null) {

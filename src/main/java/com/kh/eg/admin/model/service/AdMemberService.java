@@ -27,6 +27,8 @@ public interface AdMemberService {
 
 	ArrayList<AdminVo> memberMoneyList(PageInfo pi) throws AdMemberselectException;
 
+	ArrayList<AdminVo> searchMoneyList(SearchCondition sc, PageInfo pi) throws AdMemberselectException;
+
 
 	
 
