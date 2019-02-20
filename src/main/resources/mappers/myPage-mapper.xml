@@ -238,7 +238,7 @@
 	</select>
 	
 	<!-- 문의게시판 검색 페이징 처리 -->
-	<select id="">
+	<select id="searchCountQuery" resultType="_int" parameterType="java.lang.String">
 		SELECT COUNT(*) 
 		FROM BOARD B  
         JOIN MEMBER M ON(B.SMEMBERNO = M.MEMBERNO)

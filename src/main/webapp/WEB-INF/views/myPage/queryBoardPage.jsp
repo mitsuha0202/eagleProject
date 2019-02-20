@@ -108,7 +108,6 @@
 	</div>
 	
 	<div class="queryTableArea">
-		<input type="hidden" id="saleMemberNo" value="${ list.itemNo }">
 		<table class="queryTable">
 			<tr>
 				<td class="firstTd"><input type="checkbox" id="checkAll" onclick="check();"></td>
@@ -210,14 +209,9 @@
 			var searchValue = $("#searchValue").val();			
 			console.log(searchCondition);
 			console.log(searchValue);	
-			location.href = "querySearch?searchCondition="+searchCondition+"&searchValue="+searchValue;
+			location.href = "querySearch.mp?searchCondition="+searchCondition+"&searchValue="+searchValue;
 		}
-   		function search() {
-   			var searchId = $("#searchId").val();
-			var searchContent = $("#searchContent").val();
-			
-			location.href="querySearch?searchId=" + searchId + "&searchContent=?" + searchContent + "&saleMemberNo=?" + saleMemberNo;
-		}
+
    	</script>
 </body>
 </html>

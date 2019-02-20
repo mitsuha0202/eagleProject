@@ -17,6 +17,7 @@ import com.kh.eg.myPage.common.Pagination;
 import com.kh.eg.myPage.model.service.MyPageService;
 import com.kh.eg.myPage.model.vo.PageInfo;
 import com.kh.eg.myPage.model.vo.PayTable;
+import com.kh.eg.myPage.common.Three;
 
 @SessionAttributes("loginUser")
 
@@ -40,7 +41,14 @@ public class StatusController {
 		int listCount = ms.getPayListCount(m.getMid());
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		ArrayList<PayTable> list = ms.selectPayList(pi, m.getMid());
+		
+		for(int i=0; i<list.size(); i++) {
+			Three three = new Three();			
+			list.get(i).setCurrentPrice(Integer.parseInt((three.toNumFormat(list.get(i).getCurrentPrice()))));
+		}
+		
 		model.addAttribute("list", list);
+		model.addAttribute("pi", pi);
 		return "myPage/management/purchasestatusMainPage";
 	}
 	
