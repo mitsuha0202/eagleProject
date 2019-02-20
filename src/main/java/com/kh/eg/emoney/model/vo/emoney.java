@@ -7,7 +7,7 @@ public class emoney implements java.io.Serializable {
 	private String useNo;
 	private Date useDay;
 	private int money;
-	private String userStatus;
+	private String useStatus;
 	private String memberNo;
 	private String payNo;
 	private String exchangeNo;
@@ -45,12 +45,12 @@ public class emoney implements java.io.Serializable {
 		this.money = money;
 	}
 
-	public String getUserStatus() {
-		return userStatus;
+	public String getUseStatus() {
+		return useStatus;
 	}
 
-	public void setUserStatus(String userStatus) {
-		this.userStatus = userStatus;
+	public void setUseStatus(String userStatus) {
+		this.useStatus = userStatus;
 	}
 
 	public String getMemberNo() {
@@ -135,20 +135,20 @@ public class emoney implements java.io.Serializable {
 
 	@Override
 	public String toString() {
-		return "emoney [useNo=" + useNo + ", useDay=" + useDay + ", money=" + money + ", userStatus=" + userStatus
+		return "emoney [useNo=" + useNo + ", useDay=" + useDay + ", money=" + money + ", useStatus=" + useStatus
 				+ ", memberNo=" + memberNo + ", payNo=" + payNo + ", exchangeNo=" + exchangeNo + ", exchangeYn="
 				+ exchangeYn + ", userNo=" + userNo + ", amount=" + amount + ", payDay=" + payDay + ", cardNo=" + cardNo
 				+ ", payStatus=" + payStatus + ", refundNo=" + refundNo + "]";
 	}
 
-	public emoney(String useNo, Date useDay, int money, String userStatus, String memberNo, String payNo,
+	public emoney(String useNo, Date useDay, int money, String useStatus, String memberNo, String payNo,
 			String exchangeNo, String exchangeYn, String userNo, int amount, Date payDay, String cardNo,
 			String payStatus, String refundNo) {
 		super();
 		this.useNo = useNo;
 		this.useDay = useDay;
 		this.money = money;
-		this.userStatus = userStatus;
+		this.useStatus = useStatus;
 		this.memberNo = memberNo;
 		this.payNo = payNo;
 		this.exchangeNo = exchangeNo;

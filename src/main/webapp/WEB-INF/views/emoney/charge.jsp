@@ -25,71 +25,43 @@
 
 		<div>
 			<td><h5>사용 가능 금액</h5></td>
-			<td id="tdHaveMoney"><%= nowCash%></td>
+			<%-- <td id="tdHaveMoney"><%= nowCash%></td> --%>
 			
 		</div>
 		<br>
 		<div class="payChargeArea">
 			<table class="chargeTable">
 					<tr>
-						<div class="btn-group btn-group-toggle" data-toggle="buttons" id="btnON">
-							<label class="btn btn-secondary active" style="margin: 2px;"> 
-							<input type="radio" name="options" id="r1" autocomplete="off" checked>
-							<button onclick="p1()">1000원</button>
-							</label> 
-												
-							<label class="btn btn-secondary" style="margin: 2px;">						
-							<input type="radio" name="options" id="r2" autocomplete="off">
-							<button onclick="p2()">5000원</button>
-							</label>
-							 
-							<label class="btn btn-secondary" style="margin: 2px;"> 
-							<input type="radio" name="options" id="r3" autocomplete="off">
-							<button onclick="p3()">10000원</button>
-							</label>
-						
-							<label class="btn btn-secondary" style="margin: 2px;"> 
-							<input type="radio"name="options" id="r4" autocomplete="off">
-							<button onclick="p4()">50000원</button>
-							</label>
-							 
-							<label class="btn btn-secondary" style="margin: 2px;"> 
-							<input type="radio" name="options" id="r5" autocomplete="off">
-							<button onclick="p5()">100000원</button>
+						<div class="btn-group btn-group-toggle" data-toggle="buttons" >
+							
+							<td>
+							<label class="btn btn-secondary" style="margin: 2px;">
+							<input type="radio" name="amount" value="1000">1000원</label>
+							</td>
+							
+				            <td>
+							<label class="btn btn-secondary" style="margin: 2px;">
+							<input type="radio" name="amount" value="5000">5000원</label>
+							</td>
+							
+							<td>
+							<label class="btn btn-secondary" style="margin: 2px;">
+							<input type="radio" name="amount" value="10000">10000원</label>
+							</td>
+							
+							<td>
+							<label class="btn btn-secondary" style="margin: 2px;">
+							<input type="radio" name="amount" value="50000">50000원</label>
+							</td>
+							
+							<td>
+							<label class="btn btn-secondary" style="margin: 2px;">
+							<input type="radio" name="amount" value="100000">100000원</label>
+							</td>
+							
 							</label>
 						</div>
 					</tr>
-					
-					<script>
-					/* ajax를 사용해서 버튼 누를때마다 결제 값이 바뀌도록 하기  */
-					function p1() {
-						var num = Number($("#r1").text());
-						
-						
-					}
-					function p2() {
-						var num = Number($("#r2").text());
-						
-					}
-					function p3() {
-						var num = Number($("#r3").text());
-						
-					}
-					function p4() {
-						var num = Number($("#r4").text());
-						
-					}
-					function p5() {
-						var num = Number($("#r5").text());
-						
-				
-					
-					
-					
-					
-					
-				</script>
-					
 					
 					
 					<br>
@@ -112,32 +84,16 @@
 		</div>
 	</div>
 	<script>
-	$(function(){
-		$("#calcBtn").click(function(){
-			if(){
-			var num1 = Number($("#la1").text());
-			= chargeMoney 				
-			}
-			if(){
-			var num2 = Number($("#la2").text());
-			= chargeMoney				
-			}
-			if(){
-			var num3 = Number($("#la3").text());
-			= chargeMoney
-			}
-			if(){
-			var num4 = Number($("#la4").text());
-			= chargeMoney
-			}
+	$("input[type = radio]").click(function(){
+		$("#amount").text($(this).val());	
+			chargeMoney = $(this).val();
 			
-			/* 숫자 받고 ajax하기  */
+			console.log(chargeMoeny);
 			
 			var haveMoney = Number($("#tdHaveMoney").text());
 			
-			
-			 $.ajax({
-				url : "/eg/saveCharge.em",
+			<%--  $.ajax({
+				url : "saveCharge.em",
 				data : {chargeMoney : chargeMoney},
 				type : "post",
 				success : function(data){
@@ -149,10 +105,9 @@
 				},
 				error : function(){
 					console.log("실패!");
-				}
+				} --%>
 			}); 
 		});
-	});
 		function chargeAPI(){
 			location.href="chargeAPI.em";
 			
