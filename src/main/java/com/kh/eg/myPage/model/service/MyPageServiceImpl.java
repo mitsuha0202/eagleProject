@@ -171,9 +171,6 @@ public class MyPageServiceImpl implements MyPageService{
 	}
 
 
-	}
-	
-
 
 	//문의받은게시판 조회
 	@Override

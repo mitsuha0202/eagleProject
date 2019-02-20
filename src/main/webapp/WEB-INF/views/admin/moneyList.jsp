@@ -26,10 +26,20 @@
 					</select> 
 				</span>
 				<span>
-					<label for="Keyword"></label><input id="Keyword" name="Keyword" class="wth240" type="text">
-					<a class="sch" href="#"><img src="resources/images/icoSearch.png" alt="검색" title="검색"></a> 
+					<label for="Keyword"></label><input id="search" name="search" class="wth240" type="text">
+					<a class="sch" onclick="searchBoard();"><img src="resources/images/icoSearch.png" alt="검색" title="검색"></a> 
 				</span>
 			</div>			
+			
+			<script>
+				function searchBoard(){
+					var searchCondition = $("#searchCondition").val();
+					var searchValue = $("#search").val();
+					
+					location.href = "searchMoneyList.ad?searchCondition=" + searchCondition + "&searchValue=" + searchValue;
+				}
+			</script>
+			
 			
 			<div class="flo_left mt30 mb30">
 				<!-- <span><a class="mbtn wh" href="#">전체선택</a></span> -->
@@ -72,8 +82,8 @@
 					<c:forEach var="b" items="${ list }">
 					<tr>
 						<td>
-							<label for=""> 체크</label>
-							<input id="" name="" class="check" type="checkbox">
+							<label for="check"> 체크</label>
+							<input id="check" name="check" class="check" type="checkbox">
 						</td>
 						<td>${ b.rating }</td>
 						<td>${ b.memberId }</td>

@@ -165,17 +165,20 @@ public class AdminController {
 			
 		}
 		
-		
-	}
-	@RequestMapping("reportList.ad")
-	public String reportListview(){
-		return "admin/reportList";
-	}
-	@RequestMapping("payBackList.ad")
-	public String payBackListview(){
-		return "admin/payBackList";
 	}
 	
+	@RequestMapping("blackListChange.ad")
+	public String memberChangeview(Model model, HttpServletRequest request){
+		
+		String[] check = request.getParameterValues("checkUser");
+		
+		System.out.println(check);
+		
+		
+		
+		
+		return "admin/memberList";
+	}
 	
 	@RequestMapping("moneyList.ad")
 	public String moneyListview(Model model, HttpServletRequest request){
@@ -203,6 +206,66 @@ public class AdminController {
 			
 		}
 	}
+	
+	
+	@RequestMapping("searchMoneyList.ad")
+	public String searchMoneyListview(Model model, HttpServletRequest request){
+		String searchCondition = request.getParameter("searchCondition");
+		String searchValue = request.getParameter("searchValue");
+		
+		System.out.println(searchCondition);
+		System.out.println(searchValue);
+		
+		
+		SearchCondition sc = new SearchCondition();
+		if(searchCondition.equals("userId")) {
+			sc.setUserId(searchValue);
+		}
+		if(searchCondition.equals("userName")) {
+			sc.setUserName(searchValue);
+		}
+		if(searchCondition.equals("phone")) {
+			sc.setPhone(searchValue);
+		}
+		
+		int currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		int listCount;
+		try {
+			listCount = ams.getSearchListCount(sc);
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
+			ArrayList<AdminVo> list = ams.searchMoneyList(sc, pi);
+			
+			model.addAttribute("list", list);
+			model.addAttribute("pi", pi);
+			return "admin/moneyList";
+		} catch (AdMemberselectException e) {
+			e.printStackTrace();
+			model.addAttribute("msg","회원 조회 실패!");
+			return "common/errorPage";
+			
+		} 
+	
+	}
+	
+	
+	
+	@RequestMapping("reportList.ad")
+	public String reportListview(){
+		return "admin/reportList";
+	}
+	@RequestMapping("payBackList.ad")
+	public String payBackListview(){
+		return "admin/payBackList";
+	}
+	
+	
+	
 	@RequestMapping("postList.ad")
 	public String postListview(){
 		return "admin/postList";
