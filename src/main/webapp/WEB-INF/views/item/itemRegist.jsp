@@ -317,33 +317,30 @@
 			});
 	}); */
 	
+	var bigc;
 	$(".cateName").click(function(){
 		cateCode = $(this).children().val();
 		$("#spath").text($(this).text());
 		console.log(cateCode);
-		
 		$("#categoryNo").val(cateCode);
-	});
-	
-	
-	
-
-	
-	
-	/* $.ajax({
-		type "GET",
-		data:{bigc:bigc},
 		
-		url: "middleCategory.it",
-		success:function(data){
-			console.log(data);
-			
-			
-		},
-		error:function(error){
-			alert("에러"+error);
-		}
-		 */
+		$.ajax({
+			url: "middleCategory.it",
+			type: "GET",
+			data:{bigc:bigc},
+			success:function(data){
+				console.log(data);
+			},
+			error:function(error){
+				alert("에러"+error);
+			}
+		});
+		
+		
+		
+		
+		
+	});
 	
 	
 	/*  $(function(){ 

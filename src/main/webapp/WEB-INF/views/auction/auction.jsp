@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
 	 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -97,8 +98,23 @@ h4 {
 			<br> <br>
 			<h4>모두 0000000개의 물품이 검색되었습니다</h4>
 			<div class="nay">
-				<div style="font-size: 20px;">인기경매순&nbsp;|&nbsp;마감임박순&nbsp;|&nbsp;신규경매순&nbsp;
-					|&nbsp;높은가격순&nbsp;|&nbsp;낮은가격순&nbsp;| &nbsp;조회많은순&nbsp;|&nbsp;입찰많은순
+				<div style="font-size: 20px;">
+				<span class="jung">
+				<input type="hidden" value="1">인기경매순</span>&nbsp;|&nbsp;
+				<span class="jung" >
+				<input type="hidden" value="2">마감임박순</span>&nbsp;|&nbsp;
+				<span class="jung" >
+				<input type="hidden" value="3">신규경매순</span>&nbsp;|&nbsp;
+				<span class="jung" >
+				<input type="hidden" value="4">높은가격순</span>&nbsp;|&nbsp;
+				<span class="jung" >
+				<input type="hidden" value="5">낮은가격순</span>&nbsp;|&nbsp;
+				<span class="jung" >
+				<input type="hidden" value="6">조회많은순</span>&nbsp;|&nbsp;
+				<span class="jung" >
+				<input type="hidden" value="7">입찰많은순
+				</span>
+				
 				</div>
 				
 			</div>
@@ -215,6 +231,37 @@ h4 {
 			
 		
 		</div>
+	<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript">
+	
+		$(".jung").click(function(){
+			 alignName=$(this).children().val();
+			console.log(alignName);
+			
+
+			
+			
+			$.ajax({
+				url:"selectAlign.au",
+				type:'GET',
+				data:JSON.stringfy("${list1}"),
+				dataType:"json",
+				contentType:"application/json",
+				traditional: true,
+				success:function(data) {
+					alert("성공");
+					console.log(data);
+				},
+				error:function(error) {
+					alert("error"+error);
+				}
+				
+			});
+		});
+		
+		
+		</script>
 
 
 		<!-- 내용 넣기 -->
