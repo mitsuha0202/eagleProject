@@ -14,4 +14,6 @@ public interface MemberService {
 
 	int insertKakaoUser(Member m);
 
+	int insertNaverUser(Member m);
+
 }

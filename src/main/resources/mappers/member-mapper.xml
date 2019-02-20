@@ -63,6 +63,13 @@
 				'BRONZE', 0, 'N', 'N', SYSDATE, #{email} )
 	</insert>
 	
+	<insert id="insertNaverUser" parameterType="Member">
+		INSERT INTO MEMBER
+		VALUES(MN_SEQ.NEXTVAL, #{userName}, #{userId},
+				#{userPwd}, null , #{phone}, #{address},
+				'BRONZE', 0, 'N', 'N', SYSDATE, #{email} )
+	</insert>
+	
 	<select id="selectListWriter" parameterType="Board" resultMap="memberResultSet">
 		SELECT MEMBERNAME
 		FROM MEMBER M
