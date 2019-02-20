@@ -46,7 +46,7 @@
   	</select>
   	
   	<select id="insertBidding" parameterType="Bid">
-  		INSERT INTO BID VALUES(BID_SEQ.NEXTVAL , #{itemNo} , '2' , #{currentPrice} , SYSDATE)
+  		INSERT INTO BID VALUES(BID_SEQ.NEXTVAL , #{itemNo} , #{memberNo} , #{currentPrice} , SYSDATE)
   	</select>
   	
   	<select id="selectPrice" resultMap="itemDetailResultSet" parameterType="java.lang.String">

@@ -33,4 +33,10 @@ public class BiddingDaoImpl implements BiddingDao{
 
 		return sqlSession.selectOne("ItemDetails.selectStartPrice", itemNo);
 	}
+
+	@Override
+	public Bid selectMid(SqlSessionTemplate sqlSession, String itemNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

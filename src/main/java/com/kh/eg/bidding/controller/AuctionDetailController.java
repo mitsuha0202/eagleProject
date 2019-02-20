@@ -8,11 +8,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.kh.eg.bidding.model.service.BiddingService;
 import com.kh.eg.bidding.model.vo.Bid;
 import com.kh.eg.bidding.model.vo.ItemDetail;
 
+@SessionAttributes("loginUser")
 @Controller
 public class AuctionDetailController {
 @Autowired
@@ -39,15 +41,15 @@ private BiddingService bs;
 	
 	@RequestMapping("insertBidding.bi")
 	public @ResponseBody int insertBidding(@RequestParam(value="itemNo", required=false) String itemNo, @RequestParam(value="price", required=false) String price, 
-												HttpServletRequest request, HttpServletResponse response) {
+											@RequestParam(value="mid", required=false) String mid, HttpServletRequest request, HttpServletResponse response) {
 		
 		Bid b = new Bid();
 		
-		System.out.println(price);
 		int prices = Integer.parseInt(price);
 		int itemNos = Integer.parseInt(itemNo);
 		b.setItemNo(itemNos);
 		b.setCurrentPrice(prices);
+		b.setMemberNo(mid);
 		int result = bs.insertBidding(b);
 		
 		return result;
@@ -59,7 +61,6 @@ private BiddingService bs;
 		ItemDetail i = null;
 		
 		i = bs.selectPrice(itemNo);
-		System.out.println(i);
 		if(i != null) {
 			return i;
 		}
@@ -71,6 +72,20 @@ private BiddingService bs;
 			else {
 				return null;
 			}
+		}
+	}
+	
+	@RequestMapping("compareMid.bi")
+	public @ResponseBody Bid selectMid(@RequestParam(value="itemNo", required=false) String itemNo, HttpServletRequest request, HttpServletResponse response) {
+		Bid b = null;
+		
+		b = bs.selectMid(itemNo);
+		
+		if(b != null) {
+			return b;
+		}
+		else {
+			return null;
 		}
 	}
 }
