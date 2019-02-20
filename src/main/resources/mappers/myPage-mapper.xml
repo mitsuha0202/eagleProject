@@ -93,7 +93,7 @@
 		SELECT *
 		FROM BOARD  
 		WHERE DELETESTATUS = 'N' AND BOARDSTATUS = 'ONEBYONE' AND MEMBERNO = #{memberNo}
-		ORDER BY BOARDNO DESC
+		ORDER BY WRITEDAY DESC
 	</select>
 	
 	<!-- 게시글 페이징 조회 -->
@@ -217,7 +217,7 @@
 		WHERE B.DELETESTATUS = 'N' 
 		AND B.BOARDSTATUS = 'QUESTIONBOARD' 
 		AND B.MEMBERNO = #{memberNo} 
-		ORDER BY BOARDNO DESC
+		ORDER BY WRITEDAY DESC
 	</select>
 	
 	<!-- 문의게시판 상세보기 -->
@@ -240,7 +240,7 @@
 	
 	<!-- 구매관리 입찰중 물품 갯수 조회 -->
 	<select id="countPayListMain" resultType="_int" parameterType="java.lang.String">
-		SELECT COUNT(DISTINCT MEMBERNO) 
+		SELECT COUNT(DISTINCT ITEMNO) 
 		FROM BID 
 		WHERE MEMBERNO = #{userId} 
 	</select>
