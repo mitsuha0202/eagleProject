@@ -159,6 +159,20 @@
 		</choose>
 	</select>
 	
+	<!-- 블랙리스트 추가 -->
+	<select id="blackListChange" resultMap="adminResultSet">
+		UPDATE MEMBER
+		SET BLSTATUS = 'Y'
+		WHERE MEMBERID = #{memberId}
+	</select>
+	
+	<!-- 블랙리스트 해제 -->
+	<select id="blackListoff" resultMap="adminResultSet">
+		UPDATE MEMBER
+		SET BLSTATUS = 'N'
+		WHERE MEMBERID = #{memberId}
+	</select>
+	
 	
 </mapper>
 

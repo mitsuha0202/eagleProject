@@ -30,6 +30,11 @@ public interface AdMemberDao {
 
 	ArrayList<AdminVo> searchMoneyList(SqlSessionTemplate sqlSession, SearchCondition sc, PageInfo pi) throws AdMemberselectException;
 
+	int blackListCheck(SqlSessionTemplate sqlSession, String string);
+
+	int blackListoff(SqlSessionTemplate sqlSession, String string);
+
+
 	
 
 	
