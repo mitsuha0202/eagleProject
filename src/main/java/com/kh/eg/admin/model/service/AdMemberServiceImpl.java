@@ -91,6 +91,29 @@ public class AdMemberServiceImpl implements AdMemberService{
 		return list;
 	}
 
+	@Override
+	public int checkBlackList(String[] check) throws AdMemberselectException {
+		
+		int result = 0;
+		for(int i = 0; i <check.length; i++) {
+			result += amd.blackListCheck(sqlSession, check[i]);
+		}
+		
+		return result;
+	}
+
+	@Override
+	public int BlackListoff(String[] check) throws AdMemberselectException {
+		int result = 0;
+		for(int i = 0; i <check.length; i++) {
+			result += amd.blackListoff(sqlSession, check[i]);
+		}
+		
+		return result;
+	}
+
+	
+
 	
 	
 	
