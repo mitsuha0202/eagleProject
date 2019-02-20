@@ -149,12 +149,10 @@
 <script>
 function answerTableDetail(){
 	
-	answerboardno = $("#boardno").ehtml();
+	answerboardno = $("td[name=boardno]").text();
 	console.log(answerboardno);
+	location.href='answerPageDetail.mp?answerboardno='+answerboardno;
 	
-	/* answerboardno = $("#boardno").text();
-	console.log(answerboardno);
-	location.href='detailanswer.mp?answerboardno='+answerboardno; */
 }
 </script>
 </html>

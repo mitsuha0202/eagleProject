@@ -218,8 +218,19 @@ import com.kh.eg.myPage.model.vo.WishList;
 		}
 		//문의받은게시판 상세페이지
 		@RequestMapping("answerPageDetail.mp")
-		public String answerPageDetail() {
-			return "myPage/answerPageDetailPage";
+		public String answerPageDetail(Model model, @RequestParam(value="answerboardno") String searchTitle , HttpSession session) {
+			
+			System.out.println("게시판 번호 : " + searchTitle);
+			ArrayList<AnswerBoard> list = ms.answerBoardDetail(searchTitle);
+			if(list != null) {
+				model.addAttribute("list", list);
+				
+				return "myPage/answerPageDetailPage";
+			}else {
+				model.addAttribute("msg","문의받은게시판 상세페이지");
+				return "common/errorPage";
+			}
+			
 		}
 		//문의받은게시판 답변눌렀을때 답변페이지
 		@RequestMapping("reanswerDetail.mp")
@@ -333,6 +344,8 @@ import com.kh.eg.myPage.model.vo.WishList;
 			if(result > 0) {
 				status.setComplete();
 				return "redirect:goMain.me";
+				
+		
 			}else {
 				response.setContentType("text/html; charset=UTF-8");
 				PrintWriter out;

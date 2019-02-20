@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -105,16 +107,19 @@
 	
 	
 	<div class="writeFormDiv">
-		
-				<input class="form-control" id="form1" name="title" placeholder="제목을 입력해주세요.">
 				
-				<input class="form-control" placeholder="문의한 구매자 이름" id="form2" name="name">
-				<input class="form-control" placeholder="구매한 물품 번호" id="form3" name="itemno">
+				<input class="form-control" id="form1" name="title" placeholder="${list.get(0).title }">
+				
+				<input class="form-control" placeholder="${list.get(0).memberName }" id="form2" name="name">
+				<input class="form-control" placeholder="${list.get(0).itemNo }" id="form3" name="itemno">
 				<input type="hidden" name="memberNo" value="${ sessionScope.loginUser.mid  }">
-				<textarea class="form-control" id="formTextArea" name="boardContents" placeholder="내용을 입력해주세요."></textarea>
+				<textarea class="form-control" id="formTextArea" name="boardContents" placeholder="${list.get(0).memberContents }"></textarea>
 				<button class="successBtn" onclick="location.href='reanswerDetail.mp'">답변</button>
 				<button class="cancelBtn" type="reset" onclick="location.href='answerBoard.mp'">닫기</button>
-		
+				
+				
+				
 	</div>
 </body>
+
 </html>

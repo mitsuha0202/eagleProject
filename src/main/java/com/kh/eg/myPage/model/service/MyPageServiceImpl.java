@@ -179,4 +179,11 @@ public class MyPageServiceImpl implements MyPageService{
 		return md.answerBoard(sqlSession, memberNo);
 
 	}
+	
+	//문의받은게시판 상세 조회
+	@Override
+	public ArrayList<AnswerBoard> answerBoardDetail(String searchTitle) {
+		
+		return md.answerBoardDetail(sqlSession,searchTitle);
+	}
 }

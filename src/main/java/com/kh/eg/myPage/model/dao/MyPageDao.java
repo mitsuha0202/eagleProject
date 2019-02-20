@@ -81,6 +81,9 @@ public interface MyPageDao {
 	//문의 받은 게시판
 	ArrayList<AnswerBoard> answerBoard(SqlSessionTemplate sqlSession, String memberNo);
 	
+	//문의 받은 게시판 상세페이지
+	ArrayList<AnswerBoard> answerBoardDetail(SqlSessionTemplate sqlSession, String searchTitle);
+	
 	
 	
 }
