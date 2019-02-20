@@ -16,6 +16,9 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+	 <script src="moment.min.js"></script>
+
+
 
 <style>
  	.cateRoute{
@@ -364,7 +367,7 @@
    	<!-- footer -->
 </body>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
+	
 	<script>
 		function numComma(num){
 	    	var numStr = String(num);
@@ -375,7 +378,7 @@
 			var currentPrice = 0;
 			var bidUnit = 0;
 			var mid = '${sessionScope.loginUser.mid}';
-			
+
 			$.ajax({
 				url:"auctionDetails.bi",
 				type:"get",
@@ -385,8 +388,8 @@
 					$("#startPrice").text(numComma(data.startPrice));
 					$("#auctionName").text(data.auctionName);
 					$("#upPrice").text(numComma(data.bidUnit));
-					$("#startDay").text(data.startDay);
-					$("#endDay").text(data.endDay);
+					/* $("#startDay").text(data.startDay);
+					$("#endDay").text(data.endDay); */
 					$("#deliveryPay").text(data.deliveryPay);
 					$("#deliveryPrice").text(numComma(data.deliveryPrice));
 					$("#origin").text(data.origin);
@@ -396,6 +399,25 @@
 					
 					bidUnit = data.bidUnit;
 					var itemNo = $("#itemNo").text();
+	
+					$.ajax({
+						url:"selectDate.bi",
+						type:"get",
+						data:{itemNo : itemNo},
+						success:function(data){
+							var date = new Date(data.startDay);
+							
+						 
+							alert(date);
+							alert(date);
+							$("#startDay").text(date);
+							$("#endDay").text(data.endDay);
+							console.log("날짜조회 성공");
+						},
+						error:function(){
+							console.log("날짜조회 실패");					
+						}
+					});
 					
 					$.ajax({
 							url:"selectPrice.bi",
@@ -418,8 +440,6 @@
 							}
 					});
 					
-					
-					
 					$("#bidBtn").click(function(){
 						var itemNo = $("#itemNo").text();
 						var maxMid = null;
@@ -439,7 +459,6 @@
 										type:"get",
 										data:{itemNo : itemNo , price : price , mid : mid},
 										success:function(data){
-											
 											currentPrice = currentPrice + bidUnit;
 											$("#cPrice").text(numComma(currentPrice));
 											

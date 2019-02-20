@@ -41,5 +41,6 @@
 	 <mapper resource="mappers/bid-mapper.xml"/>
     <mapper resource="mappers/admin-mapper.xml"/>
 	</mappers>
+	
 </configuration>
 

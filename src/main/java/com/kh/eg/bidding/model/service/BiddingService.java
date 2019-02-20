@@ -16,5 +16,7 @@ public interface BiddingService {
 
 	Bidding selectMid(String itemNo);
 
+	ItemDetail selectDate(String itemNo);
+
 
 }
