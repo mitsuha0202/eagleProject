@@ -135,14 +135,14 @@
    	
    	/* 네이버 로그인 연동 시작  */
    	/* <!-- 네이버아이디로로그인 버튼 노출 영역 --> */
- 		var naver_id_login = new naver_id_login("4gAxam1u5RbIDQFeajAF", "http://localhost:8003/eg/goMain.me");	// Client ID, CallBack URL 삽입
+ 		var naver_id_login = new naver_id_login("4gAxam1u5RbIDQFeajAF", "http://localhost:8003/eg/naverCallBack.me");	// Client ID, CallBack URL 삽입
 											// 단 'localhost'가 포함된 CallBack URL
  		var state = naver_id_login.getUniqState();
 		
  		naver_id_login.setButton("green", 3, 65);
  		naver_id_login.setDomain("http://127.0.0.1:8003/eg/loginView.me");	//  URL
  		naver_id_login.setState(state);
- 		naver_id_login.setPopup(false);
+ 		/* naver_id_login.setPopup(false); */
  		naver_id_login.init_naver_id_login(); 
  		
  		

@@ -18,4 +18,6 @@ public interface MemberDao {
 
 	String selectEncPassword(SqlSessionTemplate sqlSession, Member m);
 
+	int insertNaverUser(SqlSessionTemplate sqlSession, Member m);
+
 }

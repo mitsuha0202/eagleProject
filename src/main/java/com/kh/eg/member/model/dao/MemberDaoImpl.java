@@ -52,4 +52,10 @@ public class MemberDaoImpl implements MemberDao{
 		return sqlSession.selectOne("Member.selectPwd", m.getUserId());
 	}
 
+	@Override
+	public int insertNaverUser(SqlSessionTemplate sqlSession, Member m) {
+		int result = sqlSession.insert("Member.insertNaverUser",m);
+		return result;
+	}
+
 }

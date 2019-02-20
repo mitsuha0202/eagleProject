@@ -69,4 +69,11 @@ private DataSourceTransactionManager transactionManager;
 		
 		return result;
 	}
+
+	@Override
+	public int insertNaverUser(Member m) {
+		int result = md.insertNaverUser(sqlSession, m);
+		
+		return result;
+	}
 }

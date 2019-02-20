@@ -228,7 +228,32 @@ private JavaMailSender mailSender;
 		
 	}
 	
+	@RequestMapping("naverCallBack.me")
+		public String naverCallBack() {
+		return "member/naverCallBack";
+	}
 	
-	
-	
+	@RequestMapping("naverLogin.me")
+	public String naverLogin(@RequestParam String id, @RequestParam String email, 
+				@RequestParam String name, @RequestParam String password, Model model ) {
+		
+		Member m = new Member();
+		m.setUserName(name);
+		m.setPhone("010-1111-1111");
+		m.setAddress("네이버 본사");
+		m.setUserId(id);
+		m.setEmail(email);
+		m.setUserPwd(passwordEncoder.encode(password));
+		int result = ms.insertNaverUser(m);
+		
+		
+		if(result > 0) {
+			model.addAttribute("userId", id);
+			model.addAttribute("userPwd",password);
+			return "redirect:snsLogin.me";
+		}else {
+			model.addAttribute("msg","네이버 로그인 실패");
+			return "common/errorPage";
+		}
+	}
 }
