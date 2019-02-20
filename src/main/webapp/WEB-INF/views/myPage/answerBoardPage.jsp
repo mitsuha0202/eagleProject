@@ -119,8 +119,8 @@
 				<td class="td1">등록일</td>			
 			</tr>
 			<c:forEach var="a" items="${list }">
-			<tr>
-				<td>${a.boardNo }</td>
+			<tr onclick="answerTableDetail();">
+				<td name="boardno">${a.boardNo }</td>
 				<td>${a.itemNo }</td>
 				<td>${a.title }</td>
 				<td>${a.replystatus }</td>
@@ -146,4 +146,15 @@
 	<button class="closeBtn" onclick="location.href='myPageMain.mp'">닫기</button>
 	<button onclick="location.href='answerPageDetail.mp'">임시상세페이지예시</button>
 </body>
+<script>
+function answerTableDetail(){
+	
+	answerboardno = $("#boardno").ehtml();
+	console.log(answerboardno);
+	
+	/* answerboardno = $("#boardno").text();
+	console.log(answerboardno);
+	location.href='detailanswer.mp?answerboardno='+answerboardno; */
+}
+</script>
 </html>
