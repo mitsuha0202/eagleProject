@@ -120,7 +120,7 @@
 		function deleteUser() {
 			if(checkBtn.checked == true){
 				var mid = $("#memberNo").val();
-				location.href="deleteUserInfo.mp?mid=" + mid;
+				location.href="deleteUserInfo.mp?mid=" + mid + ",";
 				return true;
 			}else {
 				alert("약관에 동의해주세요.");

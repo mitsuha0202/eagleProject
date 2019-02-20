@@ -1,17 +1,15 @@
-package com.kh.eg.board.model.vo;
+package com.kh.eg.myPage.model.vo;
 
 public class SearchCondition {
 	private String writer;
 	private String title;
-	private String content;
 	
 	public SearchCondition() {}
 
-	public SearchCondition(String writer, String title, String content) {
+	public SearchCondition(String writer, String title) {
 		super();
 		this.writer = writer;
 		this.title = title;
-		this.content = content;
 	}
 
 	public String getWriter() {
@@ -30,17 +28,8 @@ public class SearchCondition {
 		this.title = title;
 	}
 
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
-
 	@Override
 	public String toString() {
-		return "SearchCondition [writer=" + writer + ", title=" + title + ", content=" + content + "]";
+		return "SearchCondition [writer=" + writer + ", title=" + title + "]";
 	}
-	
 }

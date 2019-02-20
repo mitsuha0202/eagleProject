@@ -3,6 +3,7 @@ package com.kh.eg.myPage.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,6 +26,7 @@ import com.kh.eg.myPage.model.vo.AnswerBoard;
 import com.kh.eg.myPage.model.vo.Maccount;
 import com.kh.eg.myPage.model.vo.MyPageBoard;
 import com.kh.eg.myPage.model.vo.PageInfo;
+import com.kh.eg.myPage.model.vo.SearchCondition;
 import com.kh.eg.myPage.model.vo.WishList;
 
 @SessionAttributes("loginUser")
@@ -212,10 +214,47 @@ import com.kh.eg.myPage.model.vo.WishList;
 				model.addAttribute("msg","위시리스트 조회 실패");
 				return "common/errorPage";
 			}
-			
-			
-			
 		}
+		
+		//문의게시판 검색
+		@RequestMapping("querySearch.mp")
+		public String searchQuery(HttpSession session, Member m, @RequestParam(value="searchCondition") String searchCondition, @RequestParam(value="searchValue") String searchValue, @RequestParam(value="saleMemberNo") String saleMemberNo,@RequestParam(defaultValue="1") int currentPage, Model model) {
+			SearchCondition sc = new SearchCondition();
+			HashMap<String, String> hmap = new HashMap<String, String>();
+			
+			//유저번호 받아옴
+			m = (Member)session.getAttribute("loginUser");
+			String memberNo= m.getMid();
+			
+			hmap.put("memberNo", memberNo);
+			hmap.put("saleMemberNo", saleMemberNo);
+			
+			//select에 따라 value값 넣기
+			if(searchCondition.equals("판매자")) {
+				sc.setWriter(searchValue);
+				hmap.put("saleMember", sc.getWriter());
+			}
+			if(searchCondition.equals("쪽지제목")) {
+				sc.setTitle(searchValue);
+				hmap.put("title", sc.getTitle());
+			}
+			
+			int listCount = ms.getSearchQueryCount(hmap);
+			
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
+			ArrayList<MyPageBoard> list = ms.searchQuery(pi, hmap);
+			
+			if(list != null) {
+				model.addAttribute("searchCondition",searchCondition);
+				model.addAttribute("searchValue", searchValue);
+				model.addAttribute("list",list);
+				model.addAttribute("pi",pi);
+			}
+			
+			return "myPage/searchQueryBoardPage";
+		}
+		
 		//문의받은게시판 상세페이지
 		@RequestMapping("answerPageDetail.mp")
 		public String answerPageDetail(Model model, @RequestParam(value="answerboardno") String searchTitle , HttpSession session) {
@@ -246,12 +285,8 @@ import com.kh.eg.myPage.model.vo.WishList;
 		
 		//1대1 문의 삭제 
 		@RequestMapping("deleteMessage.mp")
-		public String deleteMessage(HttpServletRequest request, Model model) {
-			String[] delete = request.getQueryString().split(",");
-			String[] deleteNum = new String[delete.length];
-			for(int i=0; i<deleteNum.length; i++) {
-				deleteNum[i] = delete[i].substring(10, delete[i].length());
-			}
+		public String deleteMessage(@RequestParam(value="deleteNum") String docNo, HttpServletRequest request, Model model) {
+			String[] deleteNum = docNo.split(",");
 			int[] num = new int[deleteNum.length];
 			for(int i=0; i<deleteNum.length; i++) {
 				num[i] = Integer.parseInt(deleteNum[i]);
@@ -279,23 +314,39 @@ import com.kh.eg.myPage.model.vo.WishList;
 		
 		//1대1 문의 검색
 		@RequestMapping("searchMessage.mp")
-		public String searchMessage(@RequestParam(value="searchTitle") String searchTitle, @RequestParam(value="currentPage", required=false) String temp, Model model, HttpSession session, Member m) {
-			int currentPage = 1;
-			if(temp != null) {
-				currentPage = Integer.parseInt(temp);
+		public String searchMessage(@RequestParam(value="searchCondition") String searchCondition, @RequestParam(value="searchValue") String searchValue, @RequestParam(defaultValue="1") int currentPage, Model model, HttpSession session, Member m) {
+			SearchCondition sc = new SearchCondition();
+			HashMap<String, String> hmap = new HashMap<String, String>();
+			
+			if(searchCondition.equals("판매자")) {
+				sc.setWriter(searchValue);
+				hmap.put("saleMember", sc.getWriter());
 			}
-			//유저번호 받기위해 
-		    m = (Member)session.getAttribute("loginUser");
-		    String memberNo= m.getMid();
-			int listCount = ms.getListSearchMessageCount(searchTitle, memberNo);
+			if(searchCondition.equals("쪽지제목")) {
+				sc.setTitle(searchValue);
+				hmap.put("title", sc.getTitle());
+			}
+			
+			m = (Member)session.getAttribute("loginUser");
+			String memberNo= m.getMid();
+			
+			hmap.put("memberNo", memberNo);
+			
+			int listCount  = ms.getListSearchMessageCount(hmap);
+			
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-			ArrayList<MyPageBoard> list = ms.searchMessage(pi, searchTitle, memberNo);
+			
+			ArrayList<MyPageBoard> list = ms.searchMessage(pi, hmap);
+			
 			if(list != null) {
-				model.addAttribute("list", list);
-				 model.addAttribute("pi", pi);
-				return "myPage/usesrMessagePage";
+				model.addAttribute("searchCondition",searchCondition);
+				model.addAttribute("searchValue", searchValue);
+				model.addAttribute("list",list);
+				model.addAttribute("pi",pi);
+				return "myPage/searchMessagePage";
+			
 			}else {
-				model.addAttribute("msg", "검색조회 실패");
+				model.addAttribute("msg","검색결과 조회 실패!");
 				return "common/errorPage";
 			}
 		}
@@ -369,7 +420,7 @@ import com.kh.eg.myPage.model.vo.WishList;
 			int result = ms.updateAccount(maccount);
 			
 			if(result > 0) {
-				return "redirect:accountPage";
+				return "redirect:userAccount.mp";
 			}else {
 				model.addAttribute("msg", "계좌등록 실패");
 				return "common/errorPage";

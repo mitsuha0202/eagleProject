@@ -1,6 +1,7 @@
 package com.kh.eg.myPage.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import com.kh.eg.myPage.model.vo.Maccount;
 import com.kh.eg.myPage.model.vo.MyPageBoard;
 import com.kh.eg.myPage.model.vo.PageInfo;
 import com.kh.eg.myPage.model.vo.PayTable;
+import com.kh.eg.myPage.model.vo.SearchCondition;
 import com.kh.eg.myPage.model.vo.WishList;
 
 @Service
@@ -53,9 +55,9 @@ public class MyPageServiceImpl implements MyPageService{
 
 	//1대1 문의 게시글 검색
 	@Override
-	public ArrayList<MyPageBoard> searchMessage(PageInfo pi, String searchTitle, String memberNo) {
+	public ArrayList<MyPageBoard> searchMessage(PageInfo pi, HashMap<String, String> hmap) {
 		
-		return md.searchMessage(sqlSession, pi, searchTitle, memberNo);
+		return md.searchMessage(sqlSession, pi, hmap);
 	}
 	
 	//위시리스트 등록해놓은거 검색
@@ -144,9 +146,9 @@ public class MyPageServiceImpl implements MyPageService{
 
 	//쪽지함 검색 페이징 처리
 	@Override
-	public int getListSearchMessageCount(String searchTitle, String memberNo) {
+	public int getListSearchMessageCount(HashMap<String, String> hmap) {
 		
-		return md.getListSearchMessageCount(sqlSession, searchTitle, memberNo);
+		return md.getListSearchMessageCount(sqlSession, hmap);
 	}
 
 	//구매관리 입찰중 물품 갯수 조회
@@ -179,11 +181,27 @@ public class MyPageServiceImpl implements MyPageService{
 		return md.answerBoard(sqlSession, memberNo);
 
 	}
+
+
+	//문의게시판 검색 페이징
+	@Override
+	public int getSearchQueryCount(HashMap<String, String> hmap) {
+		
+		return md.getSearchQueryCount(sqlSession, hmap);
+	}
+
+	//문의게시판 검색
+	@Override
+	public ArrayList<MyPageBoard> searchQuery(PageInfo pi, HashMap<String, String> hmap) {
+		
+		return md.searchQuery(sqlSession, pi, hmap);
+  }
 	
 	//문의받은게시판 상세 조회
 	@Override
 	public ArrayList<AnswerBoard> answerBoardDetail(String searchTitle) {
 		
 		return md.answerBoardDetail(sqlSession,searchTitle);
+
 	}
 }

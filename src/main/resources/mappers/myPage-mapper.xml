@@ -39,7 +39,7 @@
 		<id property="accountNo" column="ACCOUNTNO"/>
 		<result property="bankName" column="BANKNAME"/>
 		<result property="mid" column="MEMBERNO"/>
-		<result property="memberName" column="MEMBERNAME"/>
+		<result property="memberName" column="ACNAME"/>
 		<result property="createDay" column="CREATEDAY"/>
 	</resultMap>
 	
@@ -109,7 +109,7 @@
 	<select id="countMessageSearch" resultType="_int" parameterType="java.lang.String">
 		SELECT COUNT(*)
 		FROM BOARD
-		WHERE DELETESTATUS = 'N' AND BOARDSTATUS = 'ONEBYONE' AND TITLE LIKE '%' || #{searchTitle} || '%' AND MEMBERNO = #{memberNo} 
+		WHERE DELETESTATUS = 'N' AND BOARDSTATUS = 'ONEBYONE' AND TITLE LIKE '%' || #{title} || '%' AND MEMBERNO = #{memberNo} 
 	</select>
 	
 	<!-- 댓글 삭제 -->
@@ -129,11 +129,11 @@
 		VALUES(BN_SEQ.NEXTVAL, #{title}, #{boardContents}, #{memberNo}, SYSDATE, 'N', 'ONEBYONE', 'N', 0, NULL, NULL)
 	</insert>
 	
-	<!-- 쪽지제목으로 게시글 조회 -->
+	<!-- 검색으로 게시글 조회 -->
 	<select id="searchMessage" resultMap="myPageOneResultSet" parameterType="java.lang.String">
 		SELECT * FROM BOARD
 		WHERE DELETESTATUS = 'N' 
-		AND TITLE LIKE '%' || #{searchTitle} || '%' 
+		AND TITLE LIKE '%' || #{title} || '%' 
 		AND BOARDSTATUS = 'ONEBYONE' 
 		AND MEMBERNO = #{memberNo}
 	</select>
@@ -194,14 +194,21 @@
 	<!-- 계좌등록 -->
 	<insert id="insertAccount" parameterType="Maccount">
 		INSERT INTO MACCOUNT
-   		VALUES(#{accountNo}, #{bankName}, #{mid}, SYSDATE, #{memberName})
+   		VALUES(#{accountNo}, #{bankName}, #{mid}, #{memberName}, SYSDATE)
 	</insert>
 	
 	<!-- 계좌변경 -->
 	<update id="updateAccount" parameterType="Maccount">
 		UPDATE MACCOUNT 
-		SET ACCOUNTNO = ACCOUNTNO = #{accountNo}, BANKNAME = #{bankName}, MEMBERNO = #{mid}, CREATEDAY = SYSDATE, MEMBERNAME =  #{memberName}
-		 WHERE MEMBERNO = #{mid}
+		SET ACCOUNTNO = #{accountNo}, BANKNAME = #{bankName}, MEMBERNO = #{mid}, ACNAME =  #{memberName}, CREATEDAY = SYSDATE
+		WHERE MEMBERNO = #{mid}
+	</update>
+	
+	<!-- 계좌등록이나 변경시 회원 계좌 컬럼 업데이트 -->
+	<update id="updateMemberAc" parameterType="Maccount">
+		UPDATE MEMBER 
+		SET ACCOUNTN = #{accountNo} 
+		WHERE MEMBERNO = #{mid}
 	</update>
 	
 	<!-- 문의게시판 페이징 처리 -->
@@ -230,7 +237,42 @@
 		AND BOARDNO = #{boardNo}
 	</select>
 	
-
+	<!-- 문의게시판 검색 페이징 처리 -->
+	<select id="">
+		SELECT COUNT(*) 
+		FROM BOARD B  
+        JOIN MEMBER M ON(B.SMEMBERNO = M.MEMBERNO)
+		WHERE B.DELETESTATUS = 'N' 
+		AND B.BOARDSTATUS = 'QUESTIONBOARD' 
+		AND B.MEMBERNO = #{memberNo}	
+		<choose>
+			<when test="writer != null">
+				AND M.MEMBERNAME LIKE '%' || #{writer} || '%'
+			</when>
+			<when test="title != null">
+				AND TITLE LIKE '%' || #{title} || '%'
+			</when>
+		</choose>
+	</select>
+	
+	<!-- 문의게시판 검색 -->
+	<select id="searchQuery" resultMap="myPageOneResultSet" parameterType="java.lang.String">
+		SELECT B.BOARDNO BOARDNO, B.TITLE TITLE, B.BOARDCONTENT BOARDCONTENT, B.MEMBERNO MEMBERNO, B.WRITEDAY WRITEDAY, B.DELETESTATUS DELETESTATUS, B.BOARDSTATUS BOARDSTATUS, B.REPLYSTATUS REPLYSTATUS, B.BCOUNT BCOUNT, B.SMEMBERNO SMEMBERNO, B.ITEMNO ITEMNO, M.MEMBERNAME SMEMBERNAME 
+		FROM BOARD B
+        JOIN MEMBER M ON(B.SMEMBERNO = M.MEMBERNO)
+		WHERE B.DELETESTATUS = 'N' 
+		AND B.BOARDSTATUS = 'QUESTIONBOARD' 
+		AND B.MEMBERNO = #{memberNo} 
+		<choose>
+			<when test="writer != null">
+				AND M.MEMBERNAME LIKE '%' || #{writer} || '%'
+			</when>
+			<when test="title != null">
+				AND TITLE LIKE '%' || #{title} || '%'
+			</when>
+		</choose>
+		ORDER BY WRITEDAY DESC
+	</select>
 	
 <!-- ============================================================================================= -->
 	<!-- 구매관리 입찰중 쿼리문들 -->

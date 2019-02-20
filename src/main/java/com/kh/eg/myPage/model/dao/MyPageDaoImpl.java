@@ -14,8 +14,10 @@ import com.kh.eg.myPage.model.vo.Maccount;
 import com.kh.eg.myPage.model.vo.MyPageBoard;
 import com.kh.eg.myPage.model.vo.PageInfo;
 import com.kh.eg.myPage.model.vo.PayTable;
+import com.kh.eg.myPage.model.vo.SearchCondition;
 import com.kh.eg.myPage.model.vo.WinBid;
 import com.kh.eg.myPage.model.vo.WishList;
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 @Repository
 public class MyPageDaoImpl implements MyPageDao{
@@ -54,15 +56,20 @@ public class MyPageDaoImpl implements MyPageDao{
 		return sqlSession.insert("MyPage.insertMessage", myPage);
 	}
 	
+	//쪽지함 검색 페이징 처리
+	@Override
+	public int getListSearchMessageCount(SqlSessionTemplate sqlSession, HashMap<String, String> hmap) {
+
+		return sqlSession.selectOne("MyPage.countMessageSearch", hmap);
+	}
+	
 	//1대1 게시글 검색
 	@Override
-	public ArrayList<MyPageBoard> searchMessage(SqlSessionTemplate sqlSession, PageInfo pi, String searchTitle, String memberNo) {
+	public ArrayList<MyPageBoard> searchMessage(SqlSessionTemplate sqlSession, PageInfo pi, HashMap<String, String> hmap) {
 		int offset = (pi.getCurrentPage()  - 1) * pi.getLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
-		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("searchTitle", searchTitle);
-		map.put("memberNo", memberNo);
-		return (ArrayList)sqlSession.selectList("MyPage.searchMessage", map, rowBounds);
+
+		return (ArrayList)sqlSession.selectList("MyPage.searchMessage", hmap, rowBounds);
 	}
 
 	//위시리스트 등록해놓은거 검색
@@ -124,8 +131,12 @@ public class MyPageDaoImpl implements MyPageDao{
 		int result = 0;
 		if(temp == null) {
 			result = sqlSession.insert("MyPage.insertAccount", maccount);
+			if(result > 0) {
+				sqlSession.update("MyPage.updateMemberAc", maccount);
+			}
 		}else {
 			result = sqlSession.update("MyPage.updateAccount", maccount);
+			sqlSession.update("MyPage.updateMemberAc", maccount);
 		}
 		return result;
 	}
@@ -165,15 +176,6 @@ public class MyPageDaoImpl implements MyPageDao{
 	public MyPageBoard selectOneQuery(SqlSessionTemplate sqlSession, String boardNo) {
 		
 		return sqlSession.selectOne("MyPage.selectOneQuery", boardNo);
-	}
-
-	//쪽지함 페이징 처리
-	@Override
-	public int getListSearchMessageCount(SqlSessionTemplate sqlSession, String searchTitle, String memberNo) {
-		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("searchTitle", searchTitle);
-		map.put("memberNo", memberNo);
-		return sqlSession.selectOne("MyPage.countMessageSearch", map);
 	}
 
 	//구매관리 입찰중 물품 갯수 조회
@@ -271,6 +273,23 @@ public class MyPageDaoImpl implements MyPageDao{
 		
 		return (ArrayList)sqlSession.selectList("MyPage.selectanswerBoard", memberNo);
 
+	}
+
+	//문의게시판 검색 페이징
+	@Override
+	public int getSearchQueryCount(SqlSessionTemplate sqlSession, HashMap<String, String> hmap) {
+		
+		return sqlSession.selectOne("MyPage.searchCountQuery", hmap);
+	}
+
+	//문의게시판 검색 
+	@Override
+	public ArrayList<MyPageBoard> searchQuery(SqlSessionTemplate sqlSession, PageInfo pi, HashMap<String, String> hmap) {
+		
+		int offset = (pi.getCurrentPage()  - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		return (ArrayList)sqlSession.selectList("MyPage.searchQuery", hmap, rowBounds);
 	}
 	
 	//문의받은게시판 상세 조회

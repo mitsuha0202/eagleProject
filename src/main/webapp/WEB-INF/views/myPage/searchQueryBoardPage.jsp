@@ -108,7 +108,7 @@
 	</div>
 	
 	<div class="queryTableArea">
-		<input type="hidden" id="saleMemberNo" value="${ list.itemNo }">
+		<input type="hidden" id="saleMemberNo" value="${ list.saleMemberNo }">
 		<table class="queryTable">
 			<tr>
 				<td class="firstTd"><input type="checkbox" id="checkAll" onclick="check();"></td>
