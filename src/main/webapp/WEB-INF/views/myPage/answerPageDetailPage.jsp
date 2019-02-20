@@ -112,14 +112,21 @@
 				
 				<input class="form-control" placeholder="${list.get(0).memberName }" id="form2" name="name">
 				<input class="form-control" placeholder="${list.get(0).itemNo }" id="form3" name="itemno">
+				<input type="hidden" name="boardNo" value="${list.get(0).boardNo }">
 				<input type="hidden" name="memberNo" value="${ sessionScope.loginUser.mid  }">
 				<textarea class="form-control" id="formTextArea" name="boardContents" placeholder="${list.get(0).memberContents }"></textarea>
-				<button class="successBtn" onclick="location.href='reanswerDetail.mp'">답변</button>
+				<button class="successBtn" onclick="reanswer();">답변</button>
 				<button class="cancelBtn" type="reset" onclick="location.href='answerBoard.mp'">닫기</button>
 				
 				
 				
 	</div>
 </body>
-
+<script>
+	function reanswer(){
+		var reanswer = $("input[name=boardNo]").val();
+		console.log(reanswer);
+		location.href='reanswerDetail.mp?reanswer='+reanswer;
+	}
+</script>
 </html>

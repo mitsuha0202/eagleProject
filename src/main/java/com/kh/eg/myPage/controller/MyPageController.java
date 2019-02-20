@@ -271,10 +271,40 @@ import com.kh.eg.myPage.model.vo.WishList;
 			}
 			
 		}
+		
+		//문의받은게시판 - 답변페이지
+		@RequestMapping("answerBoardInsert.mp")
+		public String answerBoardInsert(Model model, AnswerBoard a , HttpSession session) {
+			System.out.println("제목 : "+a.getTitle());
+			System.out.println("내용 : "+a.getMemberContents());
+			System.out.println("게시판 번호 :"+a.getBoardNo());
+			
+			
+			
+			/*if(result > 0) {
+				return "redirect:answerBoard.mp";
+			}else {
+				model.addAttribute("msg", "답변페이지 접속 실패");
+				return "common/errorPage";
+			}		*/
+			
+			return null;
+			
+		}
 		//문의받은게시판 답변눌렀을때 답변페이지
 		@RequestMapping("reanswerDetail.mp")
-		public String reanswerDetail() {
-			return "myPage/reanswerDetailPage";
+		public String reanswerDetail(Model model, @RequestParam(value="reanswer") String answerno , HttpSession session) {
+			AnswerBoard b = ms.reanswerDetail(answerno);
+			
+			if(b != null) {
+				model.addAttribute("b", b);
+				
+				return "myPage/reanswerDetailPage";
+			}else {
+				model.addAttribute("msg","답변페이지");
+				return "common/errorPage";
+			}
+			
 		}
 		
 		//1대1 상담문의

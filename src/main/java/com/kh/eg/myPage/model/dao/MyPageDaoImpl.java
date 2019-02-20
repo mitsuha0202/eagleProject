@@ -299,5 +299,13 @@ public class MyPageDaoImpl implements MyPageDao{
 		
 		return (ArrayList)sqlSession.selectList("MyPage.selectdetailanswer", searchTitle);
 	}
+	//답변페이지 게시판번호 물품번호조회
+	@Override
+	public AnswerBoard reanswerDetail(SqlSessionTemplate sqlSession, String answerno) {
+		// TODO Auto-generated method stub
+		return (AnswerBoard)sqlSession.selectOne("MyPage.reanswerDetail",answerno);
+	}
+	
+	
 	
 }

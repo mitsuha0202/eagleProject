@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -100,21 +101,30 @@
 	<div class="onebyoneInfo">
 		<h3>답변 페이지</h3>
 		<br>
-		<p>&nbsp; &bull;답변페이지 입니다.<br>&nbsp; &bull;보내기를 누르면 해당 아이디에 답변하실 수 있습니다.<br></p>
+		<p>&nbsp; &bull;답변페이지 입니다.<br>&nbsp; &bull;등록을 누르면 해당 아이디에 답변하실 수 있습니다.<br></p>
 	</div>
 	
 	
 	<div class="writeFormDiv">
-		
+		<form action="answerBoardInsert.mp" method="post">
 				<input class="form-control" id="form1" name="title" placeholder="제목을 입력해주세요.">
 				
-				<input class="form-control" placeholder="문의한 구매자 이름" id="form2" name="name">
-				<input class="form-control" placeholder="구매한 물품 번호" id="form3" name="itemno">
+				<input class="form-control" placeholder="${b.memberName }" id="form2" name="name" readonly="readonly">
+				<input class="form-control" placeholder="${b.itemNo }" id="form3" name="itemno" readonly="readonly">
 				<input type="hidden" name="memberNo" value="${ sessionScope.loginUser.mid  }">
-				<textarea class="form-control" id="formTextArea" name="boardContents" placeholder="내용을 입력해주세요."></textarea>
-				<button class="successBtn" >보내기</button>
+				<input type="hidden" name="boardNo" value="${b.boardNo }">
+				<textarea class="form-control" id="formTextArea" name="memberContents" placeholder="내용을 입력해주세요." ></textarea>
+				<button class="successBtn" type="submit">등록</button>
 				<button class="cancelBtn" type="reset" onclick="location.href='answerBoard.mp'">닫기</button>
-		
+		</form>		
 	</div>
 </body>
+<script>
+	/* function reanswer(){
+		var title = $("input[name=title]").val();
+		var contents = $("textarea[name=contents]").val();
+		var boardno = $("input[name=boardno]").val();
+		location.href="answerBoardInsert.mp?title="+title+"&contents="+contents+"&boardno="+boardno;
+	} */
+</script>
 </html>

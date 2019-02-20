@@ -352,7 +352,12 @@
 	
 	<!-- 문의받은게시판 상세 조회-->
 	<select id="selectdetailanswer" resultMap="answerBoardResultSet" parameterType="java.lang.String">
-		SELECT B.ITEMNO, M.MEMBERNAME, B.TITLE, B.BOARDCONTENT FROM BOARD B JOIN MEMBER M ON(B.MEMBERNO = M.MEMBERNO) WHERE B.BOARDSTATUS = 'RECEIVEBOARD' AND B.BOARDNO = #{searchTitle}
+		SELECT B.BOARDNO, B.ITEMNO, M.MEMBERNAME, B.TITLE, B.BOARDCONTENT FROM BOARD B JOIN MEMBER M ON(B.MEMBERNO = M.MEMBERNO) WHERE B.BOARDSTATUS = 'RECEIVEBOARD' AND B.BOARDNO = #{searchTitle}
+	</select>
+	
+	<!--//답변페이지 게시판번호 물품번호조회  -->
+	<select id="reanswerDetail" resultMap="answerBoardResultSet" parameterType="java.lang.String">
+		SELECT B.BOARDNO, B.ITEMNO , M.MEMBERNAME FROM BOARD B JOIN MEMBER M ON(B.MEMBERNO = M.MEMBERNO) WHERE B.BOARDSTATUS = 'RECEIVEBOARD' AND B.BOARDNO = #{answerno}
 	</select>
 
 </mapper>
