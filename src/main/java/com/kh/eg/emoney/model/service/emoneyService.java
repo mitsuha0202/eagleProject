@@ -1,15 +1,22 @@
 package com.kh.eg.emoney.model.service;
 
+import java.util.ArrayList;
+
+import com.kh.eg.emoney.model.vo.PageInfo;
 import com.kh.eg.emoney.model.vo.emoney;
 
 public interface emoneyService {
 
-	int insertEmoney(emoney em);
+	int insertEmoney(emoney e);
 	
-	emoney emoneyList(emoney em);
 	
-	int insertMemberCash(emoney em);
+	int insertMemberCash(emoney e);
 	
-	emoney selectMemberNowCash(emoney em);
+	emoney selectMemberNowCash(emoney e);
+
+	ArrayList<emoney> selectEmoneyList(PageInfo pi);
+
+
+	int getListCount();
 	
 }
