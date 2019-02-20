@@ -21,7 +21,7 @@
   		<result property="mId" column="MEMBERID" />
   		<result property="rating" column="RATING" />
   		<result property="auctionName" column="AUCTIONNAME" />
-  		<result property="startDay" column="STARTDAY" />
+  		<result property="startDay" column="STARTDAY" jdbcType="DATE" javaType="java.sql.Date"/>
   		<result property="endDay" column="ENDDAY" />
   		<result property="exitYN" column="EXITYN" />
   		<result property="currentPrice" column="CURRENTPRICE" />
@@ -70,6 +70,13 @@
 							FROM BID
 							GROUP BY ITEMNO
 							HAVING ITEMNO = #{itemNo})
+  	</select>
+  	
+  	<select id="selectDate" resultMap="itemDetailResultSet" resultType="java.sql.Date" parameterType="java.lang.String">
+  		SELECT D.STARTDAY , D.ENDDAY
+  		FROM AUCTIONITEM I
+  		JOIN AUCTIONDETAIL D ON(I.ITEMNO = D.ITEMNO)
+  		WHERE I.ITEMNO = #{itemNo}
   	</select>
   	
   </mapper>

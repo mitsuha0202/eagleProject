@@ -58,4 +58,13 @@ private SqlSessionTemplate sqlSession;
 		
 		return b;
 	}
+
+	@Override
+	public ItemDetail selectDate(String itemNo) {
+		ItemDetail i = null;
+		
+		i = bd.selectDate(sqlSession, itemNo);
+		
+		return i;
+	}
 }

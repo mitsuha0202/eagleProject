@@ -1,5 +1,7 @@
 package com.kh.eg.bidding.controller;
 
+import static org.hamcrest.CoreMatchers.instanceOf;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -83,6 +85,20 @@ private BiddingService bs;
 		
 		if(b != null) {
 			return b;
+		}
+		else {
+			return null;
+		}
+	}
+	
+	@RequestMapping("selectDate.bi")
+	public @ResponseBody ItemDetail selectDate(@RequestParam(value="itemNo", required=false) String itemNo, HttpServletRequest request, HttpServletResponse response) {
+		ItemDetail i = null;
+		i = bs.selectDate(itemNo);
+		System.out.println(itemNo);
+		System.out.println(i.getStartDay());
+		if(i != null) {
+			return i;
 		}
 		else {
 			return null;

@@ -37,6 +37,12 @@ public class BiddingDaoImpl implements BiddingDao{
 
 	@Override
 	public Bidding selectMid(SqlSessionTemplate sqlSession, String itemNo) {
+
 		return sqlSession.selectOne("ItemDetails.selectMid", itemNo);
+	}
+
+	@Override
+	public ItemDetail selectDate(SqlSessionTemplate sqlSession, String itemNo) {
+		return (ItemDetail)sqlSession.selectOne("ItemDetails.selectDate", itemNo);
 	}
 }
