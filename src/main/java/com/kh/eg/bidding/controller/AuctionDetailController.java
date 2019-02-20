@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.kh.eg.bidding.model.service.BiddingService;
 import com.kh.eg.bidding.model.vo.Bid;
+import com.kh.eg.bidding.model.vo.Bidding;
 import com.kh.eg.bidding.model.vo.ItemDetail;
 
 @SessionAttributes("loginUser")
@@ -43,11 +44,10 @@ private BiddingService bs;
 	public @ResponseBody int insertBidding(@RequestParam(value="itemNo", required=false) String itemNo, @RequestParam(value="price", required=false) String price, 
 											@RequestParam(value="mid", required=false) String mid, HttpServletRequest request, HttpServletResponse response) {
 		
-		Bid b = new Bid();
+		Bidding b = new Bidding();
 		
 		int prices = Integer.parseInt(price);
-		int itemNos = Integer.parseInt(itemNo);
-		b.setItemNo(itemNos);
+		b.setItemNo(itemNo);
 		b.setCurrentPrice(prices);
 		b.setMemberNo(mid);
 		int result = bs.insertBidding(b);
@@ -76,8 +76,8 @@ private BiddingService bs;
 	}
 	
 	@RequestMapping("compareMid.bi")
-	public @ResponseBody Bid selectMid(@RequestParam(value="itemNo", required=false) String itemNo, HttpServletRequest request, HttpServletResponse response) {
-		Bid b = null;
+	public @ResponseBody Bidding selectMid(@RequestParam(value="itemNo", required=false) String itemNo, HttpServletRequest request, HttpServletResponse response) {
+		Bidding b = null;
 		
 		b = bs.selectMid(itemNo);
 		

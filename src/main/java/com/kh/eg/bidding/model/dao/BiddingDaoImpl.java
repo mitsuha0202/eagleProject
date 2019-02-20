@@ -5,6 +5,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.eg.bidding.model.vo.Bid;
+import com.kh.eg.bidding.model.vo.Bidding;
 import com.kh.eg.bidding.model.vo.ItemDetail;
 
 @Repository
@@ -17,7 +18,7 @@ public class BiddingDaoImpl implements BiddingDao{
 	}
 
 	@Override
-	public int insertBidding(SqlSessionTemplate sqlSession, Bid b) {
+	public int insertBidding(SqlSessionTemplate sqlSession, Bidding b) {
 
 		return sqlSession.insert("ItemDetails.insertBidding", b);
 	}
@@ -35,8 +36,7 @@ public class BiddingDaoImpl implements BiddingDao{
 	}
 
 	@Override
-	public Bid selectMid(SqlSessionTemplate sqlSession, String itemNo) {
-		// TODO Auto-generated method stub
-		return null;
+	public Bidding selectMid(SqlSessionTemplate sqlSession, String itemNo) {
+		return sqlSession.selectOne("ItemDetails.selectMid", itemNo);
 	}
 }
