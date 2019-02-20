@@ -160,7 +160,7 @@ private BoardService bs;
 		SearchCondition sc = new SearchCondition();
 		
 		if(searchCondition.equals("writer")) {
-			sc.setWriter(searchValue);
+		 sc.setWriter(searchValue);
 		}
 		if(searchCondition.equals("title")) {
 			sc.setTitle(searchValue);
