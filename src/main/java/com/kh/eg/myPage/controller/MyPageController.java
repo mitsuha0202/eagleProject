@@ -194,7 +194,7 @@ import com.kh.eg.myPage.model.vo.WishList;
 		          model.addAttribute("pi", pi);
 		          return "myPage/queryBoardPage";
 		       }else {
-		          model.addAttribute("msg", "1대1 문의 조회 실패");
+		          model.addAttribute("msg", "문의게시판 조회 실패");
 		          return "common/errorPage";
 		       }
 
@@ -218,7 +218,7 @@ import com.kh.eg.myPage.model.vo.WishList;
 		
 		//문의게시판 검색
 		@RequestMapping("querySearch.mp")
-		public String searchQuery(HttpSession session, Member m, @RequestParam(value="searchCondition") String searchCondition, @RequestParam(value="searchValue") String searchValue, @RequestParam(value="saleMemberNo") String saleMemberNo,@RequestParam(defaultValue="1") int currentPage, Model model) {
+		public String searchQuery(HttpSession session, Member m, @RequestParam(value="searchCondition") String searchCondition, @RequestParam(value="searchValue") String searchValue, @RequestParam(defaultValue="1") int currentPage, Model model) {
 			SearchCondition sc = new SearchCondition();
 			HashMap<String, String> hmap = new HashMap<String, String>();
 			
@@ -227,7 +227,6 @@ import com.kh.eg.myPage.model.vo.WishList;
 			String memberNo= m.getMid();
 			
 			hmap.put("memberNo", memberNo);
-			hmap.put("saleMemberNo", saleMemberNo);
 			
 			//select에 따라 value값 넣기
 			if(searchCondition.equals("판매자")) {

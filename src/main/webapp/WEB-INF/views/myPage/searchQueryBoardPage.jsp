@@ -108,7 +108,6 @@
 	</div>
 	
 	<div class="queryTableArea">
-		<input type="hidden" id="saleMemberNo" value="${ list.saleMemberNo }">
 		<table class="queryTable">
 			<tr>
 				<td class="firstTd"><input type="checkbox" id="checkAll" onclick="check();"></td>
@@ -163,6 +162,8 @@
 			</c:if>
 			<c:if test="${ pi.currentPage > 1 }">
 				<c:url var="blistBack" value="userMessage.mp">
+					<c:param name="searchCondition" value="${searchCondition}"/>
+					<c:param name="searchValue" value="${searchValue}"/>
 					<c:param name="currentPage" value="${ pi.currentPage - 1 }"/>
 				</c:url>
 				<a href="${ blistBack }">[이전]</a> &nbsp;
@@ -174,6 +175,8 @@
 				</c:if>
 				<c:if test="${ p ne pi.currentPage }">
 					<c:url var="blistCheck" value="userMessage.mp">
+						<c:param name="searchCondition" value="${searchCondition}"/>
+					<c:param name="searchValue" value="${searchValue}"/>
 						<c:param name="currentPage" value="${ p }"/>
 					</c:url>
 					<a href="${ blistCheck }">${ p }</a>
@@ -185,6 +188,8 @@
 			</c:if>
 			<c:if test="${ pi.currentPage < pi.maxPage }">
 				<c:url var="blistEnd" value="userMessage.mp">
+					<c:param name="searchCondition" value="${searchCondition}"/>
+					<c:param name="searchValue" value="${searchValue}"/>
 					<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
 				</c:url>
 				<a href="${ blistEnd }">&nbsp;[다음]</a>
@@ -208,16 +213,9 @@
    		function search() {
 			var searchCondition = $("#searchCondition").val();
 			var searchValue = $("#searchValue").val();			
-			console.log(searchCondition);
-			console.log(searchValue);	
-			location.href = "querySearch?searchCondition="+searchCondition+"&searchValue="+searchValue;
+			location.href = "querySearch.mp?searchCondition="+searchCondition+"&searchValue="+searchValue;
 		}
-   		function search() {
-   			var searchId = $("#searchId").val();
-			var searchContent = $("#searchContent").val();
-			
-			location.href="querySearch?searchId=" + searchId + "&searchContent=?" + searchContent + "&saleMemberNo=?" + saleMemberNo;
-		}
+
    	</script>
 </body>
 </html>
