@@ -80,6 +80,9 @@ public interface MyPageService {
 	//문의받은게시판 조회
 	ArrayList<AnswerBoard> answerBoard(String memberNo);
 	
+	//문의받은게시판 상세 조회
+	ArrayList<AnswerBoard> answerBoardDetail(String searchTitle);
+	
 	
 	
 }
