@@ -33,6 +33,8 @@ private DataSourceTransactionManager transactionManager;
 		Member loginUser = null;
 		
 		String encPassword = md.selectEncPassword(sqlSession, m);
+		System.out.println("m.getUserPwd:"+m.getUserPwd());
+		System.out.println("encPassword : "+encPassword);
 		
 		if(!passwordEncoder.matches(m.getUserPwd(), encPassword)) {
 			loginUser = null;
