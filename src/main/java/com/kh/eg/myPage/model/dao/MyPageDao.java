@@ -1,6 +1,7 @@
 package com.kh.eg.myPage.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
@@ -10,6 +11,7 @@ import com.kh.eg.myPage.model.vo.Maccount;
 import com.kh.eg.myPage.model.vo.MyPageBoard;
 import com.kh.eg.myPage.model.vo.PageInfo;
 import com.kh.eg.myPage.model.vo.PayTable;
+import com.kh.eg.myPage.model.vo.SearchCondition;
 import com.kh.eg.myPage.model.vo.WishList;
 
 public interface MyPageDao {
@@ -27,14 +29,13 @@ public interface MyPageDao {
 	int insertMessage(SqlSessionTemplate sqlSession, MyPageBoard myPage);
 
 	//1대1 게시글 검색
-	ArrayList<MyPageBoard> searchMessage(SqlSessionTemplate sqlSession, PageInfo pi, String searchTitle, String memberNo);
+	ArrayList<MyPageBoard> searchMessage(SqlSessionTemplate sqlSession, PageInfo pi, HashMap<String, String> hmap);
 
 	//게시글 개수 조회
 	int countMessage(SqlSessionTemplate sqlSession, String memberNo);
 
 	//1대1 게시글 상세보기
 	MyPageBoard selectOneBoard(SqlSessionTemplate sqlSession, String boardNo);
-	
 	
 	//위시리스트 등록해놓은거 검색
 	ArrayList<WishList> selectWishList(SqlSessionTemplate sqlSession, String memberNo);
@@ -67,7 +68,7 @@ public interface MyPageDao {
 	MyPageBoard selectOneQuery(SqlSessionTemplate sqlSession, String boardNo);
 
 	//쪽지함 검색 페이징 처리
-	int getListSearchMessageCount(SqlSessionTemplate sqlSession, String searchTitle, String memberNo);
+	int getListSearchMessageCount(SqlSessionTemplate sqlSession, HashMap<String, String> hmap);
 
 	//구매관리 입찰중 물품 갯수 조회
 	int countPayListMain(SqlSessionTemplate sqlSession, String userId);
@@ -80,6 +81,12 @@ public interface MyPageDao {
 	
 	//문의 받은 게시판
 	ArrayList<AnswerBoard> answerBoard(SqlSessionTemplate sqlSession, String memberNo);
+
+	//문의게시판 검색 페이징
+	int getSearchQueryCount(SqlSessionTemplate sqlSession, HashMap<String, String> hmap);
+
+	//문의게시판 검색
+	ArrayList<MyPageBoard> searchQuery(SqlSessionTemplate sqlSession, PageInfo pi, HashMap<String, String> hmap);
 	
 	
 	

@@ -1,6 +1,7 @@
 package com.kh.eg.myPage.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.eg.member.model.vo.Member;
 import com.kh.eg.myPage.model.vo.AnswerBoard;
@@ -8,6 +9,7 @@ import com.kh.eg.myPage.model.vo.Maccount;
 import com.kh.eg.myPage.model.vo.MyPageBoard;
 import com.kh.eg.myPage.model.vo.PageInfo;
 import com.kh.eg.myPage.model.vo.PayTable;
+import com.kh.eg.myPage.model.vo.SearchCondition;
 import com.kh.eg.myPage.model.vo.WishList;
 
 public interface MyPageService {
@@ -25,7 +27,7 @@ public interface MyPageService {
 	int insertMessage(MyPageBoard myPage);
 
 	//1대1 문의 게시글 검색
-	ArrayList<MyPageBoard> searchMessage(PageInfo pi, String searchTitle, String memberNo);
+	ArrayList<MyPageBoard> searchMessage(PageInfo pi, HashMap<String, String> hmap);
 
 	//게시글 개수 조회
 	int countMessage(String memberNo);
@@ -66,7 +68,7 @@ public interface MyPageService {
 	MyPageBoard selectOneQuery(String boardNo);
 
 	//쪽지함 검색 페이징 처리
-	int getListSearchMessageCount(String searchTitle, String memberNo);
+	int getListSearchMessageCount(HashMap<String, String> hmap);
 
 	//구매관리 입찰중 물품 갯수 
 	int countPayListMain(String userId);
@@ -79,6 +81,12 @@ public interface MyPageService {
 	
 	//문의받은게시판 조회
 	ArrayList<AnswerBoard> answerBoard(String memberNo);
+
+	//문의게시판 검색 페이징 
+	int getSearchQueryCount(HashMap<String, String> hmap);
+
+	//문의게시판 검색 
+	ArrayList<MyPageBoard> searchQuery(PageInfo pi, HashMap<String, String> hmap);
 	
 	
 	

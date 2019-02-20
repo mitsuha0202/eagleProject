@@ -130,16 +130,15 @@
 	<!-- 페이지 제목 -->
 	<div class="title"><h1>쪽지보관함</h1></div>
 	<c:if test="${ !empty sessionScope.loginUser }">
-	
 	<!-- 검색부분 div -->
 	<div class="searchArea">
 		<div class="selectSize">
-			<select class="form-control" id="searchCondition">
+			<select class="form-control" id="searchId">
 	  		<option>쪽지제목</option>
 			</select>
 		</div>
 		<div class="inputSize">
-			<input class="form-control" id="searchValue" placeholder="검색할 내용을 입력해주세요.">
+			<input class="form-control" id="searchContent" placeholder="검색할 내용을 입력해주세요.">
 		</div>
 		<button class="searchBtn" onclick="search();">검색</button>
 	</div>
@@ -190,37 +189,44 @@
       <jsp:forward page="../common/errorPage.jsp"/>
    </c:if>
    
-   	<div id="pagingArea" align="center">
+   <div id="pagingArea" align="center">
 			<c:if test="${ pi.currentPage <= 1 }">
-				[이전] &nbsp;
+				[이전]&nbsp;
 			</c:if>
 			<c:if test="${ pi.currentPage > 1 }">
-				<c:url var="blistBack" value="userMessage.mp">
-					<c:param name="currentPage" value="${ pi.currentPage - 1 }"/>
+				<c:url var="blistBack" value="/searchMessage.mp">
+					<c:param name="searchCondition" value="${searchCondition}"/>
+					<c:param name="searchValue" value="${searchValue}"/>
+					<c:param name="currentPage" value="${pi.currentPage - 1}"/>
 				</c:url>
-				<a href="${ blistBack }">[이전]</a> &nbsp;
+				<a href = "${ blistBack }">[이전]</a> &nbsp;
 			</c:if>
 			
-			<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+			<c:forEach var="p" begin="${ pi.startPage  }" end = "${pi.endPage}">
 				<c:if test="${ p eq pi.currentPage }">
-					<font color="red" size="4"><b>[${ p }]</b></font>
+					<font color="red" size="4"><b>[${p}]</b></font>
 				</c:if>
 				<c:if test="${ p ne pi.currentPage }">
-					<c:url var="blistCheck" value="userMessage.mp">
-						<c:param name="currentPage" value="${ p }"/>
+					<c:url var="blistCheck" value = "searchMessage.mp">
+						<c:param name="searchCondition" value="${searchCondition}"/>
+						<c:param name="searchValue" value="${searchValue}"/>
+						<c:param name="currentPage" value="${p}"/>
 					</c:url>
-					<a href="${ blistCheck }">${ p }</a>
+					<a href="${blistCheck}">${p}</a>
 				</c:if>
-			</c:forEach>
 			
+			</c:forEach>
+		
 			<c:if test="${ pi.currentPage >= pi.maxPage }">
 				&nbsp; [다음]
 			</c:if>
-			<c:if test="${ pi.currentPage < pi.maxPage }">
-				<c:url var="blistEnd" value="userMessage.mp">
-					<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
+			<c:if test="${pi.currentPage < pi.maxPage }">
+				<c:url var="blistEnd" value="searchMessage.mp">
+					<c:param name="searchCondition" value="${searchCondition}"/>
+					<c:param name="searchValue" value="${searchValue}"/>
+					<c:param name="currentPage" value="${ pi.currentPage + 1 }"></c:param>
 				</c:url>
-				<a href="${ blistEnd }">&nbsp;[다음]</a>
+				<a href="${blistEnd}">&nbsp;[다음]</a>
 			</c:if>
 		</div>
    
@@ -239,12 +245,12 @@
    		function listDelete() {
    			var sendArr = new Array();
    			var checkbox = $(".checkChild:checked");
-   	        alert("1대1 문의글 삭제완료");
    		 	checkbox.each(function(i){
    		 		var tr = checkbox.parent().parent().eq(i);
    		 		var td = tr.children();
    	            var docNum = td.eq(1).text();
    	            sendArr.push(docNum);
+   	            alert("1대1 문의글 삭제완료");
  				location.href="deleteMessage.mp?deleteNum=" + sendArr +",";
    		 	}); 		 	
 		}
@@ -252,7 +258,7 @@
    		/* 검색 */
    		function search() {
 			var searchCondition = $("#searchCondition").val();
-			var searchValue = $("#searchValue").val();			
+			var searchValue = $("#searchId").val();			
 			console.log(searchCondition);
 			console.log(searchValue);	
 			location.href = "searchMessage.mp?searchCondition="+searchCondition+"&searchValue="+searchValue;
