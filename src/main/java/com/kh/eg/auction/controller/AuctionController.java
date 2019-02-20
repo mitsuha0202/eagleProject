@@ -32,20 +32,34 @@ public class AuctionController {
 	private AuctionService as;
 	
 	@RequestMapping("selectAlign.au")
-	public @ResponseBody String selectAlign(Model model,@RequestParam String alignName, @RequestBody String paramData) {
+	public @ResponseBody ArrayList<Item> selectAlign(Model model,@RequestParam String alignName) {
 		
-	    List<Map<String,Object>> resultMap = new ArrayList<Map<String,Object>>();
-	    resultMap = JSONArray.fromObject(paramData);
-	         
-	    for (Map<String, Object> map : resultMap) {
-	        System.out.println(map.get("user_nm") + " : " + map.get("user_password"));
-	        //관리자 : 1111
-	        //직원 : 2222
-	    }
-
-
+	
+		System.out.println("alignName"+alignName);
+		ArrayList<Bid> list2=as.selectBid(alignName);
+		ArrayList<Item> list1=as.selectItem(alignName);
+		for(int i=0;i<list1.size();i++) {
+			int count=0;
+			for(int j=0;j<list2.size();j++) {
+				if(list2.get(j).getItemNo()==(list1.get(i).getItemNo())) {
+					count++;
+				}
+			}
+			list1.get(i).setBidCount(count);
+			
+		};
 		
-		return null;
+		ArrayList<Attachment>list3=as.selectAttachment(alignName);
+		
+		for(int i=0;i<list1.size();i++) {
+			for(int j=0;j<list3.size();j++) {
+				if(list1.get(i).getItemNo()==(list3.get(j).getItemNo())) {
+					list1.get(i).setAtta(list3.get(j));break;
+				}
+			}
+		}
+	
+		return list1;
 	}
 	
 	

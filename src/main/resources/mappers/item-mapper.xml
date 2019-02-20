@@ -107,6 +107,21 @@
 		select * from CATEGORY where categorylevel=0
 		
 	</select>
+	
+	<select id="selectItemC" resultMap="itemResultSet" parameterType="java.lang.String">
+		select * from auctionitem order by icount desc
+	
+	</select>
+	
+	<select id="selectAttachmentC" resultMap="attachmentResultSet" parameterType="java.lang.String">
+		SELECT * FROM ATTACHMENT 
+	
+	</select>
+	
+	<select id="selectBidC" resultMap="biddingResultSet" parameterType="java.lang.String">
+		SELECT * FROM BID 
+	
+	</select>
 
 
 </mapper>

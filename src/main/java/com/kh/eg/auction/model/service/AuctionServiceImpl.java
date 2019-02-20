@@ -39,4 +39,22 @@ public class AuctionServiceImpl implements AuctionService {
 		return ad.selectItem(sqlSession);
 	}
 
+	@Override
+	public ArrayList<Bid> selectBid(String alignName) {
+		// TODO Auto-generated method stub
+		return ad.selectBid(sqlSession,alignName);
+	}
+
+	@Override
+	public ArrayList<Item> selectItem(String alignName) {
+		// TODO Auto-generated method stub
+		return ad.selectItem(sqlSession,alignName);
+	}
+
+	@Override
+	public ArrayList<Attachment> selectAttachment(String alignName) {
+		// TODO Auto-generated method stub
+		return ad.selectAttachment(sqlSession,alignName);
+	}
+
 }

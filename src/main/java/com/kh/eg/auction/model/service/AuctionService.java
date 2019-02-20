@@ -16,5 +16,11 @@ public interface AuctionService {
 
 	ArrayList<Item> selectItem();
 
+	ArrayList<Bid> selectBid(String alignName);
+
+	ArrayList<Item> selectItem(String alignName);
+
+	ArrayList<Attachment> selectAttachment(String alignName);
+
 
 }

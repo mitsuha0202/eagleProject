@@ -32,6 +32,35 @@ public class AuctionDaoImpl implements AuctionDao {
 		return (ArrayList)sqlSession.selectList("Item.selectItem");
 	}
 
+	@Override
+	public ArrayList<Bid> selectBid(SqlSessionTemplate sqlSession, String alignName) {
+		
+		ArrayList<Bid> bidlist=null;
+		if(alignName.equals("1")) {
+			bidlist=(ArrayList)sqlSession.selectList("Item.selectBidC");
+		}
+		return bidlist;
+	}
+
+	@Override
+	public ArrayList<Item> selectItem(SqlSessionTemplate sqlSession, String alignName) {
+		
+		ArrayList<Item> itemlist=null;
+		if(alignName.equals("1")) {
+			itemlist=(ArrayList)sqlSession.selectList("Item.selectItemC");
+		}
+		return itemlist;
+	}
+
+	@Override
+	public ArrayList<Attachment> selectAttachment(SqlSessionTemplate sqlSession, String alignName) {
+		ArrayList<Attachment> attachmentlist=null;
+		if(alignName.equals("1")) {
+			attachmentlist=(ArrayList)sqlSession.selectList("Item.selectAttachmentC");
+		}
+		return attachmentlist;
+	}
+
 	
 
 
