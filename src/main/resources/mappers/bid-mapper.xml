@@ -27,7 +27,7 @@
   		<result property="currentPrice" column="CURRENTPRICE" />
   	</resultMap>
   	
-	<resultMap type="Bid" id="bidResultSet">
+	<resultMap type="Bidding" id="bidResultSet">
 		<id property="bidNo" column="BIDNO" />
 		<result property="itemNo" column="ITEMNO" />
 		<result property="memberNo" column="MEMBERNO" />
@@ -45,7 +45,7 @@
   		WHERE I.ITEMNO = #{itemNo}
   	</select>
   	
-  	<select id="insertBidding" parameterType="Bid">
+  	<select id="insertBidding" parameterType="Bidding">
   		INSERT INTO BID VALUES(BID_SEQ.NEXTVAL , #{itemNo} , #{memberNo} , #{currentPrice} , SYSDATE)
   	</select>
   	
@@ -62,5 +62,14 @@
   		WHERE ITEMNO = #{itemNo}
   	</select>
   	
+  	<select id="selectMid" resultMap="bidResultSet" parameterType="java.lang.String">
+  		SELECT MEMBERNO
+  		FROM BID
+		WHERE ITEMNO = #{itemNo}
+		AND CURRENTPRICE = (SELECT MAX(CURRENTPRICE)
+							FROM BID
+							GROUP BY ITEMNO
+							HAVING ITEMNO = #{itemNo})
+  	</select>
   	
   </mapper>

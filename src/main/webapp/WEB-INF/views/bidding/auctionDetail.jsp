@@ -153,7 +153,7 @@
 				      </td>
 				      <td>
 				      	<a id="deliveryPay"></a><br>
-				      	<a id="deliveryPrice"></a>
+				      	<a id="deliveryPrice"></a>원
 				      </td>
 				    </tr>
 				    <tr>
@@ -366,23 +366,29 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 	<script>
+		function numComma(num){
+	    	var numStr = String(num);
+	    	return numStr.replace(/(\d)(?=(?:\d{3})+(?!\d))/g,"$1,");
+	    }
+	
 		$(function(){
 			var currentPrice = 0;
 			var bidUnit = 0;
 			var mid = '${sessionScope.loginUser.mid}';
+			
 			$.ajax({
 				url:"auctionDetails.bi",
 				type:"get",
 				data:{itemNo : "6"},
 				success:function(data){
 					$("#itemNo").text(data.itemNo);
-					$("#startPrice").text(data.startPrice);
+					$("#startPrice").text(numComma(data.startPrice));
 					$("#auctionName").text(data.auctionName);
-					$("#upPrice").text(data.bidUnit);
+					$("#upPrice").text(numComma(data.bidUnit));
 					$("#startDay").text(data.startDay);
 					$("#endDay").text(data.endDay);
 					$("#deliveryPay").text(data.deliveryPay);
-					$("#deliveryPrice").text(data.deliveryPrice);
+					$("#deliveryPrice").text(numComma(data.deliveryPrice));
 					$("#origin").text(data.origin);
 					$("#mId").text(data.mId);
 					$("#rating").text(data.rating);
@@ -399,10 +405,10 @@
 								console.log(data);
 								if(data.currentPrice != 0){
 									currentPrice = data.currentPrice + bidUnit;
-									$("#cPrice").text(currentPrice);
+									$("#cPrice").text(numComma(currentPrice));
 								}else{
 									currentPrice = data.startPrice;
-									$("#cPrice").text(data.startPrice);
+									$("#cPrice").text(numComma(data.startPrice));
 								}
 								
 								console.log("현재가 조회성공");
@@ -412,40 +418,47 @@
 							}
 					});
 					
-					$.ajax({
-						url:"compareMid.bi",
-						type:"get",
-						data:{itemNo : itemNo},
-						success:function(data){
-							
-							console.log("비교성공");
-						},
-						error:function(){
-							console.log("비교실패");
-						}
-					});
+					
 					
 					$("#bidBtn").click(function(){
 						var itemNo = $("#itemNo").text();
-						var price = $("#cPrice").text();
-						
-						console.log(mid);
+						var maxMid = null;
 						$.ajax({
-							url:"insertBidding.bi",
+							url:"compareMid.bi",
 							type:"get",
-							data:{itemNo : itemNo , price : price , mid : mid},
+							data:{itemNo : itemNo},
 							success:function(data){
-								
-								currentPrice = currentPrice + bidUnit;
-								$("#cPrice").text(currentPrice);
-								
-								console.log("입찰성공");
+								maxMid = data.memberNo;
+
+								if(mid != maxMid){
+									var itemNo = $("#itemNo").text();
+									var price = $("#cPrice").text();
+									
+									$.ajax({
+										url:"insertBidding.bi",
+										type:"get",
+										data:{itemNo : itemNo , price : price , mid : mid},
+										success:function(data){
+											
+											currentPrice = currentPrice + bidUnit;
+											$("#cPrice").text(numComma(currentPrice));
+											
+											console.log("입찰성공");
+										},
+										error:function(){
+											console.log("입찰실패");
+										}
+									});
+								}else{
+									alert("이미 최고가 입찰자입니다.");
+								}
 							},
 							error:function(){
-								console.log("입찰실패");
+								console.log("비교실패");
 							}
 						});
 					});
+					
 					console.log("성공");
 				},
 				error:function(){

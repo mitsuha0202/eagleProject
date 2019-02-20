@@ -17,6 +17,7 @@
 
     	<typeAlias type="com.kh.eg.admin.model.vo.AdminVo" alias="AdminVo"/>
 		<typeAlias type="com.kh.eg.bidding.model.vo.Bid" alias="Bid"/>
+		<typeAlias type="com.kh.eg.bidding.model.vo.Bidding" alias="Bidding"/>
 		<typeAlias type="com.kh.eg.bidding.model.vo.ItemDetail" alias="ItemDetail"/>
     <typeAlias type="com.kh.eg.admin.model.vo.AdminVo" alias="AdminVo"/>
  		<typeAlias type="com.kh.eg.board.model.vo.Board" alias="Board"/>

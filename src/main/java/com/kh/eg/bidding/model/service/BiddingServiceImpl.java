@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.eg.bidding.model.dao.BiddingDao;
 import com.kh.eg.bidding.model.vo.Bid;
+import com.kh.eg.bidding.model.vo.Bidding;
 import com.kh.eg.bidding.model.vo.ItemDetail;
 
 @Service
@@ -25,7 +26,7 @@ private SqlSessionTemplate sqlSession;
 	}
 
 	@Override
-	public int insertBidding(Bid b) {
+	public int insertBidding(Bidding b) {
 		int result = bd.insertBidding(sqlSession, b);
 		
 		return result;
@@ -50,8 +51,8 @@ private SqlSessionTemplate sqlSession;
 	}
 
 	@Override
-	public Bid selectMid(String itemNo) {
-		Bid b = null;
+	public Bidding selectMid(String itemNo) {
+		Bidding b = null;
 		
 		b = bd.selectMid(sqlSession, itemNo);
 		
