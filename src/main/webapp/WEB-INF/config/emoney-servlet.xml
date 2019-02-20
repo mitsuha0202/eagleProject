@@ -27,7 +27,7 @@
 				<beans:property name="order" value="1"/>		
 	</beans:bean>
 	
-	<context:component-scan base-package="com.kh.eg" />
+	<context:component-scan base-package="com.kh.eg.emoney" />
 	
 	
 	

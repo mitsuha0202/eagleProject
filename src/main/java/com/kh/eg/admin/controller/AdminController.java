@@ -172,12 +172,42 @@ public class AdminController {
 		
 		String[] check = request.getParameterValues("checkUser");
 		
-		System.out.println(check);
+		for(int i = 0; i< check.length; i++) {
+			System.out.println(check[i]);
+		}
 		
+		int result;
 		
+		try {
+			result = ams.checkBlackList(check);
+			return "redirect:memberList.ad";
+		} catch (AdMemberselectException e) {
+			e.printStackTrace();
+			model.addAttribute("msg","블랙리스트 추가 실패!");
+			return "common/errorPage";
+		}
 		
+	}
+	@RequestMapping("blackListoff.ad")
+	public String blackListoffview(Model model, HttpServletRequest request){
 		
-		return "admin/memberList";
+		String[] check = request.getParameterValues("checkUser");
+		
+		for(int i = 0; i< check.length; i++) {
+			System.out.println(check[i]);
+		}
+		
+		int result;
+		
+		try {
+			result = ams.BlackListoff(check);
+			return "redirect:blackList.ad";
+		} catch (AdMemberselectException e) {
+			e.printStackTrace();
+			model.addAttribute("msg","블랙리스트 해제 실패!");
+			return "common/errorPage";
+		}
+		
 	}
 	
 	@RequestMapping("moneyList.ad")

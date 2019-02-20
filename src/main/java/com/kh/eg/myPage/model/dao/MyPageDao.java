@@ -88,6 +88,9 @@ public interface MyPageDao {
 	//문의게시판 검색
 	ArrayList<MyPageBoard> searchQuery(SqlSessionTemplate sqlSession, PageInfo pi, HashMap<String, String> hmap);
 	
+	//문의 받은 게시판 상세페이지
+	ArrayList<AnswerBoard> answerBoardDetail(SqlSessionTemplate sqlSession, String searchTitle);
+	
 	
 	
 }

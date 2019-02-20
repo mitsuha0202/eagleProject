@@ -182,6 +182,7 @@ public class MyPageServiceImpl implements MyPageService{
 
 	}
 
+
 	//문의게시판 검색 페이징
 	@Override
 	public int getSearchQueryCount(HashMap<String, String> hmap) {
@@ -194,5 +195,13 @@ public class MyPageServiceImpl implements MyPageService{
 	public ArrayList<MyPageBoard> searchQuery(PageInfo pi, HashMap<String, String> hmap) {
 		
 		return md.searchQuery(sqlSession, pi, hmap);
+  }
+	
+	//문의받은게시판 상세 조회
+	@Override
+	public ArrayList<AnswerBoard> answerBoardDetail(String searchTitle) {
+		
+		return md.answerBoardDetail(sqlSession,searchTitle);
+
 	}
 }

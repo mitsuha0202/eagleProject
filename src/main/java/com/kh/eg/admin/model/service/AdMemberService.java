@@ -29,6 +29,15 @@ public interface AdMemberService {
 
 	ArrayList<AdminVo> searchMoneyList(SearchCondition sc, PageInfo pi) throws AdMemberselectException;
 
+	int checkBlackList(String[] check) throws AdMemberselectException;
+
+	int BlackListoff(String[] check) throws AdMemberselectException;
+
+	
+
+	
+
+
 
 	
 

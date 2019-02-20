@@ -31,9 +31,12 @@
 		)
 	</insert>
 	
-	<select id="emoneyList" resultMap="emoneyResultSet" parameterType="emoney">
+	<!-- 결제 목록 조회용 쿼리 -->
+	<select id="emoneyList" resultMap="emoneyResultSet" >
 		SELECT USENO, USEDAY, MONEY, USESTATUS, MEMBERNO, PAYNO
-		FROM EMONEYR		
+		FROM EMONEYR E
+		JOIN MEMBER M ON(E.MEMBERNO = M.MEMBERNO)
+		ORDER BY WRITEDAY DESC		
 	</select>
 	
 	<!-- <select id="selectMemberNowCash">

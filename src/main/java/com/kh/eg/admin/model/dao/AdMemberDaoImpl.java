@@ -163,6 +163,23 @@ public class AdMemberDaoImpl implements AdMemberDao{
 		return list;
 	}
 
+	@Override
+	public int blackListCheck(SqlSessionTemplate session, String memberId) {
+		
+		int result = session.update("AdminVo.blackListChange", memberId);
+		
+		return result;
+	}
+
+	@Override
+	public int blackListoff(SqlSessionTemplate session, String memberId) {
+		
+		int result = session.update("AdminVo.blackListoff", memberId);
+		
+		return result;
+	}
+
+
 	
 	
 	

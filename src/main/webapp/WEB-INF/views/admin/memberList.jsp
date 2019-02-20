@@ -41,7 +41,6 @@
 			
 			<div class="flo_left mt30 mb30">
 				<span><a class="mbtn bk" onclick="blackList();">블랙리스트로 이동</a></span>
-				<span><a class="mbtn rd" href="#">정지</a></span>
 			</div>
 			<script>
 				function blackList(){

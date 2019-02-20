@@ -88,6 +88,9 @@ public interface MyPageService {
 	//문의게시판 검색 
 	ArrayList<MyPageBoard> searchQuery(PageInfo pi, HashMap<String, String> hmap);
 	
+	//문의받은게시판 상세 조회
+	ArrayList<AnswerBoard> answerBoardDetail(String searchTitle);
+	
 	
 	
 }

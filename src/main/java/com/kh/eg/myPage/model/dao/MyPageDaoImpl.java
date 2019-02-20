@@ -292,4 +292,12 @@ public class MyPageDaoImpl implements MyPageDao{
 		return (ArrayList)sqlSession.selectList("MyPage.searchQuery", hmap, rowBounds);
 	}
 	
+	//문의받은게시판 상세 조회
+	@Override
+	public ArrayList<AnswerBoard> answerBoardDetail(SqlSessionTemplate sqlSession, String searchTitle) {
+		
+		
+		return (ArrayList)sqlSession.selectList("MyPage.selectdetailanswer", searchTitle);
+	}
+	
 }

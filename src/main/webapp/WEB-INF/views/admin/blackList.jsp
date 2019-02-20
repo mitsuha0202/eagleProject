@@ -41,9 +41,24 @@
 			
 			<div class="flo_left mt30 mb30">
 				<!-- <span><a class="mbtn wh" href="#">전체선택</a></span> -->
-				<span><a class="mbtn bk" href="#">블랙리스트로 해제</a></span>
+				<span><a class="mbtn bk" onclick="blackListoff();">블랙리스트로 해제</a></span>
 				<!-- <span><a class="mbtn rd" href="#">정지</a></span> -->
 			</div>
+			<script>
+				function blackListoff(){
+					var checkUser = $("input[name=check]:checked");
+					console.log(checkUser);
+					var blackListcheck = "";
+					for(var i = 0; i < checkUser.length; i++){
+						blackListcheck+="checkUser="+checkUser[i].value;
+						if(i<checkUser.length-1){
+						blackListcheck+="&";
+						}
+					}
+					console.log(blackListcheck);
+					location.href = "blackListoff.ad?" + blackListcheck;
+				}
+			</script>
 
 
 			<table class="boardList mt20">
@@ -79,8 +94,7 @@
 					<c:forEach var="b" items="${ list }">
 					<tr>
 						<td>
-							<label for=""> 체크</label>
-							<input id="" name="" class="check" type="checkbox">
+							<input name="check" value="${ b.memberId }" type="checkbox">
 						</td>
 						<td>${ b.rating }</td>
 						<td>${ b.memberId }</td>

@@ -42,9 +42,7 @@
 			
 			
 			<div class="flo_left mt30 mb30">
-				<!-- <span><a class="mbtn wh" href="#">전체선택</a></span> -->
 				<span><a class="mbtn bk" href="#">사이버머니 변경</a></span>
-				<!-- <span><a class="mbtn rd" href="#">정지</a></span> -->
 			</div>
 
 

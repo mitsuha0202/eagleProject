@@ -84,6 +84,8 @@
 		<result property="title" column="TITLE"/>
 		<result property="replystatus" column="REPLYSTATUS"/>
 		<result property="memberId" column="MEMBERID"/>
+		<result property="memberName" column="MEMBERNAME"/>
+		<result property="memberContents" column="BOARDCONTENT"/>
 		<result property="writeDay" column="WRITEDAY"/>
 
 	</resultMap>
@@ -346,6 +348,11 @@
 	<select id="selectanswerBoard" resultMap="answerBoardResultSet" parameterType="java.lang.String">
 		SELECT B.BOARDNO, B.ITEMNO, B.TITLE, B.REPLYSTATUS, M.MEMBERID, B.WRITEDAY
 		FROM BOARD B JOIN MEMBER M ON(B.MEMBERNO = M.MEMBERNO) WHERE B.BOARDSTATUS = 'RECEIVEBOARD' AND B.SMEMBERNO = #{memberNo}
+	</select>
+	
+	<!-- 문의받은게시판 상세 조회-->
+	<select id="selectdetailanswer" resultMap="answerBoardResultSet" parameterType="java.lang.String">
+		SELECT B.ITEMNO, M.MEMBERNAME, B.TITLE, B.BOARDCONTENT FROM BOARD B JOIN MEMBER M ON(B.MEMBERNO = M.MEMBERNO) WHERE B.BOARDSTATUS = 'RECEIVEBOARD' AND B.BOARDNO = #{searchTitle}
 	</select>
 
 </mapper>
