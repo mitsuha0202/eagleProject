@@ -353,7 +353,6 @@ import com.kh.eg.myPage.model.vo.WishList;
 		//계좌등록, 변경
 		@RequestMapping("updateAccount.mp")
 		public String updateAccount(Maccount maccount, Model model) {
-			System.out.println(maccount);
 			int result = ms.updateAccount(maccount);
 			
 			if(result > 0) {

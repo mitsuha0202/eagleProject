@@ -142,10 +142,10 @@
          	</tr>
          </c:if>
 		</table>
+		
 		<!-- 검색부분 div -->
 			<div class="selectSize">
-				<select class="form-control">
-		  		<option>물품번호</option>
+				<select id="searchId" class="form-control">
 		  		<option>제목</option>
 		  		<option>판매자</option>
 				</select>
@@ -153,7 +153,7 @@
 			<div class="inputSize">
 				<input class="form-control" id="searchContent" placeholder="내용을 입력해주세요.">
 			</div>
-			<button class="searchBtn">검색</button>
+			<button class="searchBtn" onclick="search();">검색</button>
 	</div>
 	
 	<div id="pagingArea" align="center">
@@ -203,5 +203,12 @@
 	     	}
    		}
    		
+   		function search() {
+   			var searchId = $("#searchId").val();
+			var searchContent = $("#searchContent").val();
+			
+			location.href="querySearch?searchId=" + searchId + "&searchContent=?" + searchContent;
+		}
+   	</script>
 </body>
 </html>

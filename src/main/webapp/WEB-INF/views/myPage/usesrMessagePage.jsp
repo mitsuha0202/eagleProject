@@ -250,9 +250,8 @@
    		
    		/* 검색 */
    		function search() {
-			var search = $("#searchId").val();
 			var searchTitle = $("#searchContent").val();
-			location.href = "searchMessage.mp?search="+search+"&searchTitle="+searchTitle;
+			location.href = "searchMessage.mp?searchTitle="+searchTitle;
 		}
    		
    		/* 상세보기  */
