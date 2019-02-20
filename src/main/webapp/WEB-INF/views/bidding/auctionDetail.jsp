@@ -369,6 +369,7 @@
 		$(function(){
 			var currentPrice = 0;
 			var bidUnit = 0;
+			var mid = '${sessionScope.loginUser.mid}';
 			$.ajax({
 				url:"auctionDetails.bi",
 				type:"get",
@@ -397,11 +398,11 @@
 							success:function(data){
 								console.log(data);
 								if(data.currentPrice != 0){
-									$("#cPrice").text(data.currentPrice);
-									currentPrice = data.currentPrice;
+									currentPrice = data.currentPrice + bidUnit;
+									$("#cPrice").text(currentPrice);
 								}else{
-									$("#cPrice").text(data.startPrice);
 									currentPrice = data.startPrice;
+									$("#cPrice").text(data.startPrice);
 								}
 								
 								console.log("현재가 조회성공");
@@ -411,18 +412,32 @@
 							}
 					});
 					
+					$.ajax({
+						url:"compareMid.bi",
+						type:"get",
+						data:{itemNo : itemNo},
+						success:function(data){
+							
+							console.log("비교성공");
+						},
+						error:function(){
+							console.log("비교실패");
+						}
+					});
+					
 					$("#bidBtn").click(function(){
 						var itemNo = $("#itemNo").text();
 						var price = $("#cPrice").text();
-						console.log(price);
+						
+						console.log(mid);
 						$.ajax({
 							url:"insertBidding.bi",
 							type:"get",
-							data:{itemNo : itemNo , price : price},
+							data:{itemNo : itemNo , price : price , mid : mid},
 							success:function(data){
 								
-								$("#cPrice").text(currentPrice+bidUnit);
 								currentPrice = currentPrice + bidUnit;
+								$("#cPrice").text(currentPrice);
 								
 								console.log("입찰성공");
 							},

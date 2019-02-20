@@ -15,6 +15,8 @@ public interface BiddingDao {
 
 	ItemDetail selectStartPrice(SqlSessionTemplate sqlSession, String itemNo);
 
+	Bid selectMid(SqlSessionTemplate sqlSession, String itemNo);
+
 
 
 

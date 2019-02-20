@@ -13,5 +13,7 @@ public interface BiddingService {
 
 	ItemDetail selectStartPrice(String itemNo);
 
+	Bid selectMid(String itemNo);
+
 
 }

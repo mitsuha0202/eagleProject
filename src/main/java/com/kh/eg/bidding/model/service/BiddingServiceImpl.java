@@ -48,4 +48,13 @@ private SqlSessionTemplate sqlSession;
 		
 		return i;
 	}
+
+	@Override
+	public Bid selectMid(String itemNo) {
+		Bid b = null;
+		
+		b = bd.selectMid(sqlSession, itemNo);
+		
+		return b;
+	}
 }
