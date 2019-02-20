@@ -122,17 +122,30 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>1</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          
-        </tr>
+      <c:if test="${ !empty list }">
+	      <c:forEach var="b" items="${ list }">
+	            <tr>
+	               <td name="choice">${ b.itemNo }</td>
+	               <td>${ b.itemName }</td>
+	               <td>${ b.currentPrice }</td>
+	               <td>${ b.bidCount }</td>
+	               <td>${ b.saleMemberName }</td>
+	               <td>${ b.rowBid }</td>
+	               <td>${ b.endDay }</td>
+	               <c:if test="${ b.endYn eq 'Y'}">
+                  <td><h5>경매종료</h5></td>
+               </c:if>
+               <c:if test="${ b.endYn eq 'N' }">
+                  <td><h5>경매중</h5></td>
+               </c:if>                    
+	            </tr>
+	         </c:forEach>
+        </c:if>
+        <c:if test="${ empty list }">
+        	 <tr>
+	          <td colspan="8"><h5>검색된 내용이 없습니다.</h5></td>	      
+        	</tr>
+        </c:if>
        
         
       </tbody>

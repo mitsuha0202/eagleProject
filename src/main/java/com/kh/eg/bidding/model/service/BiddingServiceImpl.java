@@ -32,9 +32,20 @@ private SqlSessionTemplate sqlSession;
 	}
 
 	@Override
-	public int selectPrice(String itemNo) {
-		int result = bd.selectPrice(sqlSession, itemNo);
+	public ItemDetail selectPrice(String itemNo) {
+		ItemDetail i = null;
 		
-		return result;
+		i = bd.selectPrice(sqlSession, itemNo);
+		
+		return i;
+	}
+
+	@Override
+	public ItemDetail selectStartPrice(String itemNo) {
+		ItemDetail i = null;
+		
+		i = bd.selectStartPrice(sqlSession, itemNo);
+		
+		return i;
 	}
 }

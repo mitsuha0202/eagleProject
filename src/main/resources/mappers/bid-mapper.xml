@@ -24,9 +24,10 @@
   		<result property="startDay" column="STARTDAY" />
   		<result property="endDay" column="ENDDAY" />
   		<result property="exitYN" column="EXITYN" />
+  		<result property="currentPrice" column="CURRENTPRICE" />
   	</resultMap>
   	
-	<resultMap type="Bid" id="insertBidResultSet">
+	<resultMap type="Bid" id="bidResultSet">
 		<id property="bidNo" column="BIDNO" />
 		<result property="itemNo" column="ITEMNO" />
 		<result property="memberNo" column="MEMBERNO" />
@@ -47,4 +48,19 @@
   	<select id="insertBidding" parameterType="Bid">
   		INSERT INTO BID VALUES(BID_SEQ.NEXTVAL , #{itemNo} , '2' , #{currentPrice} , SYSDATE)
   	</select>
+  	
+  	<select id="selectPrice" resultMap="itemDetailResultSet" parameterType="java.lang.String">
+  		SELECT MAX(CURRENTPRICE) AS CURRENTPRICE
+  		FROM BID
+  		GROUP BY ITEMNO
+  		HAVING ITEMNO = #{itemNo}
+  	</select>
+  	
+  	<select id="selectStartPrice" resultMap="itemDetailResultSet" parameterType="java.lang.String">
+  		SELECT STARTPRICE
+  		FROM AUCTIONITEM
+  		WHERE ITEMNO = #{itemNo}
+  	</select>
+  	
+  	
   </mapper>

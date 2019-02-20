@@ -364,12 +364,15 @@
    	<!-- footer -->
 </body>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 	<script>
 		$(function(){
+			var currentPrice = 0;
+			var bidUnit = 0;
 			$.ajax({
 				url:"auctionDetails.bi",
 				type:"get",
-				data:{itemNo : "1"},
+				data:{itemNo : "6"},
 				success:function(data){
 					$("#itemNo").text(data.itemNo);
 					$("#startPrice").text(data.startPrice);
@@ -383,6 +386,51 @@
 					$("#mId").text(data.mId);
 					$("#rating").text(data.rating);
 					$("#productName").text(data.itemName);
+					
+					bidUnit = data.bidUnit;
+					var itemNo = $("#itemNo").text();
+					
+					$.ajax({
+							url:"selectPrice.bi",
+							type:"get",
+							data:{itemNo : itemNo},
+							success:function(data){
+								console.log(data);
+								if(data.currentPrice != 0){
+									$("#cPrice").text(data.currentPrice);
+									currentPrice = data.currentPrice;
+								}else{
+									$("#cPrice").text(data.startPrice);
+									currentPrice = data.startPrice;
+								}
+								
+								console.log("현재가 조회성공");
+							},
+							error:function(){
+								console.log("현재가 조회실패");
+							}
+					});
+					
+					$("#bidBtn").click(function(){
+						var itemNo = $("#itemNo").text();
+						var price = $("#cPrice").text();
+						console.log(price);
+						$.ajax({
+							url:"insertBidding.bi",
+							type:"get",
+							data:{itemNo : itemNo , price : price},
+							success:function(data){
+								
+								$("#cPrice").text(currentPrice+bidUnit);
+								currentPrice = currentPrice + bidUnit;
+								
+								console.log("입찰성공");
+							},
+							error:function(){
+								console.log("입찰실패");
+							}
+						});
+					});
 					console.log("성공");
 				},
 				error:function(){
@@ -391,22 +439,8 @@
 			});
 		});
 		
-		$("#bidBtn").click(function(){
-			var itemNo = $("#itemNo").text();
-			var price = $("#cPrice").text();
-			console.log(price);
-			$.ajax({
-				url:"insertBidding.bi",
-				type:"get",
-				data:{itemNo : itemNo , price : price},
-				success:function(data){
-					console.log("입찰성공");
-				},
-				error:function(){
-					console.log("입찰실패");
-				}
-			});
-		});
+		
+		
 		
 		
 	</script>

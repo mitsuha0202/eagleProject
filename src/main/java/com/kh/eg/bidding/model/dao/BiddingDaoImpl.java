@@ -23,8 +23,14 @@ public class BiddingDaoImpl implements BiddingDao{
 	}
 
 	@Override
-	public int selectPrice(SqlSessionTemplate sqlSession, String itemNo) {
-		
+	public ItemDetail selectPrice(SqlSessionTemplate sqlSession, String itemNo) {
+
 		return sqlSession.selectOne("ItemDetails.selectPrice", itemNo);
+	}
+
+	@Override
+	public ItemDetail selectStartPrice(SqlSessionTemplate sqlSession, String itemNo) {
+
+		return sqlSession.selectOne("ItemDetails.selectStartPrice", itemNo);
 	}
 }

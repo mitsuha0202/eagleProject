@@ -1,5 +1,6 @@
 package com.kh.eg.item.model.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -30,6 +31,7 @@ private DataSourceTransactionManager transactionManager;
 		int result=0;
 		int itemNo=id.selectItemNoNextval(sqlSession);
 		((Item)hmap.get("item")).setItemNo(itemNo);
+		
 		System.out.println((Attachment)hmap.get("attachment"));
 		((Attachment)hmap.get("attachment")).setItemNo(itemNo);
 		((AuctionDetail)hmap.get("auctionDetail")).setItemNo(itemNo);
@@ -38,6 +40,7 @@ private DataSourceTransactionManager transactionManager;
 		int result1=id.insertItem(sqlSession,hmap);
 		int result2=id.insertAttachment(sqlSession,hmap);
 		int result3=id.insertAuctionDetail(sqlSession,hmap);
+		
 		
 		if(result1>0&&result2>0&&result3>0) {
 			result=1;
@@ -49,6 +52,13 @@ private DataSourceTransactionManager transactionManager;
 		return result;
 		
 		
+	}
+
+
+	@Override
+	public ArrayList<Category> selectCategory() {
+		
+		return id.selectCategory(sqlSession);
 	}
 
 }

@@ -5,8 +5,8 @@ import java.sql.Date;
 public class ItemDetail implements java.io.Serializable{
 	private String itemNo;
 	private String itemName;
-	private String startPrice;
-	private String bidUnit;
+	private int startPrice;
+	private int bidUnit;
 	private String deliveryPay;
 	private String origin;
 	private String deleteYN;
@@ -22,6 +22,7 @@ public class ItemDetail implements java.io.Serializable{
 	private Date startDay;
 	private Date endDay;
 	private String exitYN;
+	private int currentPrice;
 	
 	public ItemDetail() {}
 
@@ -32,13 +33,13 @@ public class ItemDetail implements java.io.Serializable{
 				+ ", categoryNo=" + categoryNo + ", mNo=" + mNo + ", auctionCode=" + auctionCode + ", detail=" + detail
 				+ ", deliveryPrice=" + deliveryPrice + ", itemCount=" + itemCount + ", mId=" + mId + ", rating="
 				+ rating + ", auctionName=" + auctionName + ", startDay=" + startDay + ", endDay=" + endDay
-				+ ", exitYN=" + exitYN + "]";
+				+ ", exitYN=" + exitYN + ", currentPrice=" + currentPrice + "]";
 	}
 
-	public ItemDetail(String itemNo, String itemName, String startPrice, String bidUnit, String deliveryPay,
-			String origin, String deleteYN, String categoryNo, String mNo, String auctionCode, String detail,
-			String deliveryPrice, String itemCount, String mId, String rating, String auctionName, Date startDay,
-			Date endDay, String exitYN) {
+	public ItemDetail(String itemNo, String itemName, int startPrice, int bidUnit, String deliveryPay, String origin,
+			String deleteYN, String categoryNo, String mNo, String auctionCode, String detail, String deliveryPrice,
+			String itemCount, String mId, String rating, String auctionName, Date startDay, Date endDay, String exitYN,
+			int currentPrice) {
 		super();
 		this.itemNo = itemNo;
 		this.itemName = itemName;
@@ -59,6 +60,7 @@ public class ItemDetail implements java.io.Serializable{
 		this.startDay = startDay;
 		this.endDay = endDay;
 		this.exitYN = exitYN;
+		this.currentPrice = currentPrice;
 	}
 
 	public String getItemNo() {
@@ -77,19 +79,19 @@ public class ItemDetail implements java.io.Serializable{
 		this.itemName = itemName;
 	}
 
-	public String getStartPrice() {
+	public int getStartPrice() {
 		return startPrice;
 	}
 
-	public void setStartPrice(String startPrice) {
+	public void setStartPrice(int startPrice) {
 		this.startPrice = startPrice;
 	}
 
-	public String getBidUnit() {
+	public int getBidUnit() {
 		return bidUnit;
 	}
 
-	public void setBidUnit(String bidUnit) {
+	public void setBidUnit(int bidUnit) {
 		this.bidUnit = bidUnit;
 	}
 
@@ -213,5 +215,13 @@ public class ItemDetail implements java.io.Serializable{
 		this.exitYN = exitYN;
 	}
 
-	
+	public int getCurrentPrice() {
+		return currentPrice;
+	}
+
+	public void setCurrentPrice(int currentPrice) {
+		this.currentPrice = currentPrice;
+	}
+
+		
 }

@@ -11,6 +11,7 @@ import com.kh.eg.board.model.dao.BoardDao;
 import com.kh.eg.board.model.vo.Board;
 import com.kh.eg.board.model.vo.PageInfo;
 import com.kh.eg.board.model.vo.Reply;
+import com.kh.eg.board.model.vo.SearchCondition;
 import com.kh.eg.member.model.dao.MemberDao;
 
 @Service
@@ -77,6 +78,20 @@ private DataSourceTransactionManager transactionManager;
 	public int updateBoard(Board b) {
 		int result = bd.updateBoard(sqlSession, b);
 		return result;
+	}
+
+	@Override
+	public int getSearchResultListCount(SearchCondition sc) {
+		int result = bd.getSearchResultListCount(sqlSession, sc);
+		return result;
+	}
+
+	@Override
+	public ArrayList<Board> selectSearchResultList(SearchCondition sc,PageInfo pi) {
+		ArrayList<Board> list = bd.selectSearchResultList(sc, pi,sqlSession);
+		
+		
+		return list;
 	}
 
 }

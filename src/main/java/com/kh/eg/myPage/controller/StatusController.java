@@ -40,6 +40,7 @@ public class StatusController {
 		int listCount = ms.getPayListCount(m.getMid());
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		ArrayList<PayTable> list = ms.selectPayList(pi, m.getMid());
+		model.addAttribute("list", list);
 		return "myPage/management/purchasestatusMainPage";
 	}
 	

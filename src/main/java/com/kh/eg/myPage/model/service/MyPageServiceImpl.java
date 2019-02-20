@@ -168,8 +168,10 @@ public class MyPageServiceImpl implements MyPageService{
 	public int getPayListCount(String mid) {
 
 		return md.getPayListCount(sqlSession, mid);
-
 	}
+
+
+
 	//문의받은게시판 조회
 	@Override
 	public ArrayList<AnswerBoard> answerBoard(String memberNo) {

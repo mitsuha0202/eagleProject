@@ -233,6 +233,18 @@
 <!-- ============================================================================================= -->
 	<!-- 구매관리 입찰중 쿼리문들 -->
 	
+	<!-- 구매관리 입찰중 물품 리스트 페이징 처리 -->
+	<select id="countPayList" resultType="_int" parameterType="java.lang.String"> 
+		SELECT COUNT(DISTINCT MEMBERNO) FROM BID WHERE MEMBERNO = #{mid}
+	</select> 
+	
+	<!-- 구매관리 입찰중 물품 갯수 조회 -->
+	<select id="countPayListMain" resultType="_int" parameterType="java.lang.String">
+		SELECT COUNT(DISTINCT MEMBERNO) 
+		FROM BID 
+		WHERE MEMBERNO = #{userId} 
+	</select>
+	
 	<!-- 입찰수 조회용 물품번호 조회 -->
 	<select id="itemNoSearch" resultType="_int" parameterType="java.lang.String">
 		SELECT DISTINCT ITEMNO 
@@ -241,12 +253,12 @@
 		ORDER BY ITEMNO DESC
 	</select>
 	
-	<!-- 구매관리 입찰중 물품 갯수 조회 -->
-	<select id="countPayListMain" resultType="_int" parameterType="java.lang.String">
-		SELECT COUNT(*) 
-		FROM BID 
-		WHERE MEMBERNO = #{mid} 
-		AND ITEMNO = #{itemNo}
+	<!-- 물품이름 조회 -->
+	<select id="itemNameSearch" resultType="java.lang.String" parameterType="java.lang.String">
+		SELECT DISTINCT A.ITEMNAME 
+		FROM BID B 
+		JOIN AUCTIONITEM A ON(B.ITEMNO = A.ITEMNO) 
+		WHERE B.ITEMNO = #{itemNo}
 	</select>
 	
 	<!-- 입찰중 내가 입력한 최고가 -->
@@ -256,24 +268,38 @@
 	
 	<!-- 입찰수 조회 -->
 	<select id="bidCount" resultType="_int" parameterType="java.lang.String">
-		SELECT COUNT(*) FROM BID WHERE ITEMNO = #{itemNo} AND MEMBERNO = #{mid}
+		SELECT COUNT(DISTINCT MEMBERNO) FROM BID WHERE ITEMNO = #{itemNo}
 	</select>
 	
-	<!-- 판매자 조회 -->
+	<!-- 판매자 번호 조회 -->
 	<select id="selectSaleMember" resultType="_int" parameterType="java.lang.String">
 		SELECT MEMBERNO FROM AUCTIONITEM WHERE ITEMNO = #{itemNo}
 	</select>
 		
-	<!-- 랭킹처리 -->
+	<!-- 판매자 이름 조회 -->	
+	<select id="searchSaleMemberName" resultType="java.lang.String" parameterType="_int">
+		SELECT DISTINCT M.MEMBERNAME 
+		FROM AUCTIONITEM A 
+		JOIN MEMBER M ON(A.MEMBERNO = M.MEMBERNO) 
+		WHERE A.MEMBERNO = #{saleMemberNo}
+	</select>
+	
+	<!-- 입찰수 랭킹처리 -->
 	<select id="selectRanking" resultType="_int" parameterType="java.lang.String">
-		SELECT  RANK() OVER (ORDER BY ITEMNO DESC) AS RANKING
+		SELECT DISTINCT  RANK() OVER (ORDER BY ITEMNO DESC) AS RANKING
 		FROM BID WHERE MEMBERNO = #{mid} AND ITEMNO = #{itemNo}
 	</select>	
 	
-	<!-- 구매관리 입찰중 물품 리스트 페이징 처리 -->
-	<!-- <select id="countPayList" resultType="_int" parameterType="java.lang.String"> -->
-	<!-- </select> -->
-
+	<!-- 경매 종료여부 조회 -->
+	<select id="searchEndYn" resultType="java.lang.String" parameterType="java.lang.String">
+		SELECT EXITYN FROM AUCTIONDETAIL WHERE ITEMNO = #{itemNo}
+	</select>
+	
+	<!-- 경매 종료 날짜 -->
+	<select id="searchEndDay" resultType="java.sql.Date" parameterType="java.lang.String">
+		SELECT ENDDAY FROM AUCTIONDETAIL WHERE ITEMNO = #{itemNo}
+	</select> 
+	
 	<!-- 문의받은게시판 조회 -->
 	<select id="selectanswerBoard" resultMap="answerBoardResultSet" parameterType="java.lang.String">
 		SELECT B.BOARDNO, B.ITEMNO, B.TITLE, B.REPLYSTATUS, M.MEMBERID, B.WRITEDAY
