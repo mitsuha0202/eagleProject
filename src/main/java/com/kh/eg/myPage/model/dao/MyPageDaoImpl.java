@@ -8,6 +8,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.eg.board.model.vo.Board;
 import com.kh.eg.member.model.vo.Member;
 import com.kh.eg.myPage.model.vo.AnswerBoard;
 import com.kh.eg.myPage.model.vo.Maccount;
@@ -304,6 +305,41 @@ public class MyPageDaoImpl implements MyPageDao{
 	public AnswerBoard reanswerDetail(SqlSessionTemplate sqlSession, String answerno) {
 		// TODO Auto-generated method stub
 		return (AnswerBoard)sqlSession.selectOne("MyPage.reanswerDetail",answerno);
+	}
+	
+	//문의받은게시판 - 답변페이지 등록
+	@Override
+	public int answerBoardInsert(SqlSessionTemplate sqlSession, AnswerBoard answer) {
+		// TODO Auto-generated method stub
+		int result = 0;
+		result = sqlSession.insert("MyPage.answerBoardInsert",answer);
+		if(result>0) {
+			return sqlSession.update("MyPage.answerBoardUpdate",answer);
+					
+		}
+		return result;
+		
+	}
+	//문의받은게시판 페이징 처리
+	@Override
+	public int getSearchResultListCount(SqlSessionTemplate sqlSession, SearchCondition sc) {
+		int result = sqlSession.selectOne("MyPage.selectSearchResultCount",sc);
+		return result;
+	}
+	
+	//문의받은게시판 페이징 처리후 리스트결과
+	@Override
+	public ArrayList<AnswerBoard> selectSearchResultList(SearchCondition sc, PageInfo pi, SqlSessionTemplate sqlSession){
+		ArrayList<AnswerBoard> list = null;
+		
+		int offset = (pi.getCurrentPage() -1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList)sqlSession.selectList("MyPage.selectSearchResultList",sc,rowBounds);
+		
+		
+	
+		return list;
 	}
 	
 	

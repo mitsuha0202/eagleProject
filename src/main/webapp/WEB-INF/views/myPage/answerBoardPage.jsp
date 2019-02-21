@@ -66,19 +66,19 @@
 		position: absolute;
 		top: 180px;
 		left: 25%;
-		width: 9%;
+		width: 10%;
 	}
 	/* 검색 input태그부분 */
 	.inputSize{
 		position: absolute;
 		top: 180px;
-		left: 35%;
+		left: 36%;
 		width: 30%;
 	}
 	/* 검색버튼 */
 	.searchBtn{
 		position: absolute;
-		left: 65%;
+		left: 67%;
 		top: 180px;
 		text-align: center;
 		background-color: #205181;
@@ -131,16 +131,16 @@
 		</table>
 		<!-- 검색부분 div -->
 			<div class="selectSize">
-				<select class="form-control">
-		  		<option>물품번호</option>
-		  		<option>제목</option>
-		  		<option>등록자</option>
+				<select id="searchCondition" name="searchCondition">
+		  			
+		  		<option value="title">제목</option>
+		  		<option value="writer">등록자아이디</option>
 				</select>
 			</div>
 			<div class="inputSize">
-				<input class="form-control" id="searchContent" placeholder="내용을 입력해주세요.">
+				<input class="form-control" id="search" type="search" placeholder="내용을 입력해주세요.">
 			</div>
-			<button class="searchBtn">검색</button>
+			<button class="searchBtn" onclick="searchBoard();">검색</button>
 	</div>
 	
 	<button class="closeBtn" onclick="location.href='myPageMain.mp'">닫기</button>
@@ -154,5 +154,18 @@ function answerTableDetail(){
 	location.href='answerPageDetail.mp?answerboardno='+answerboardno;
 	
 }
+
+function searchBoard(){
+	var searchCondition = $("#searchCondition").val();
+	var searchValue = $("#search").val();
+	console.log(searchCondition);
+	console.log(searchValue);
+	location.href ="searchreanswer.mp?searchCondition="+searchCondition+"&searchValue="+searchValue;
+	
+}
+
+
 </script>
+
+
 </html>

@@ -94,6 +94,15 @@ public interface MyPageDao {
 	//답변페이지 게시판번호 물품번호조회
 	AnswerBoard reanswerDetail(SqlSessionTemplate sqlSession, String answerno);
 	
+	//문의받은게시판 - 답변페이지 등록
+	int answerBoardInsert(SqlSessionTemplate sqlSession, AnswerBoard answer);
+	
+	//문의받은게시판 페이징 처리
+	int getSearchResultListCount(SqlSessionTemplate sqlSession, SearchCondition sc);
+	
+	//문의받은게시판 페이징 처리후 리스트결과
+	ArrayList<AnswerBoard> selectSearchResultList(SearchCondition sc, PageInfo pi, SqlSessionTemplate sqlSession);
+	
 	
 	
 	

@@ -107,7 +107,7 @@
 	
 	<div class="writeFormDiv">
 		<form action="answerBoardInsert.mp" method="post">
-				<input class="form-control" id="form1" name="title" placeholder="제목을 입력해주세요.">
+				<input class="form-control" id="form1" name="title" placeholder="${b.title }" readonly="readonly">
 				
 				<input class="form-control" placeholder="${b.memberName }" id="form2" name="name" readonly="readonly">
 				<input class="form-control" placeholder="${b.itemNo }" id="form3" name="itemno" readonly="readonly">
