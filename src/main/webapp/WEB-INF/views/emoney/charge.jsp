@@ -1,13 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
+<%-- <%
 	int nowCash = (Integer)request.getAttribute("nowCash");
-%>
+%> --%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <title>pay charge</title>
 </head>
 <body>
@@ -32,87 +34,120 @@
 		<div class="payChargeArea">
 			<table class="chargeTable">
 					<tr>
-						<div class="btn-group btn-group-toggle" data-toggle="buttons" >
-							
+						<div class="btn-group btn-group-toggle" data-toggle="buttons" >							
 							<td>
 							<label class="btn btn-secondary" style="margin: 2px;">
-							<input type="radio" name="amount" value="1000">1000원</label>
-							</td>
-							
+							<input type="radio" name="amount" id="r1" value="1000" onclick="p1">1000원</label>
+							</td>							
 				            <td>
 							<label class="btn btn-secondary" style="margin: 2px;">
-							<input type="radio" name="amount" value="5000">5000원</label>
-							</td>
-							
+							<input type="radio" name="amount" id="r2" value="5000" onclick="p2">5000원</label>
+							</td>							
 							<td>
 							<label class="btn btn-secondary" style="margin: 2px;">
-							<input type="radio" name="amount" value="10000">10000원</label>
-							</td>
-							
+							<input type="radio" name="amount" id="r3" value="10000" onclick="p3">10000원</label>
+							</td>							
 							<td>
 							<label class="btn btn-secondary" style="margin: 2px;">
-							<input type="radio" name="amount" value="50000">50000원</label>
-							</td>
-							
+							<input type="radio" name="amount" id="r4" value="50000" onclick="p4">50000원</label>
+							</td>							
 							<td>
 							<label class="btn btn-secondary" style="margin: 2px;">
-							<input type="radio" name="amount" value="100000">100000원</label>
-							</td>
-							
+							<input type="radio" name="amount" id="r5" value="100000" onclick="p5">100000원</label>
+							</td>							
 							</label>
 						</div>
 					</tr>
+					<script>
+						function p1(){
+							var num = Number($("#r1").text());
+							$("#r1").text(num);
+						}
+						function p2(){
+							var num = Number($("#r2").text());
+							$("#r2").text(num);
+						}
+						function p3(){
+							var num = Number($("#r3").text());
+							$("#r3").text(num);
+						}
+						function p4(){
+							var num = Number($("#r4").text());
+							$("#r4").text(num);
+						}
+						function p5(){
+							var num = Number($("#r5").text());
+							$("#r5").text(num);
+						}
+						
 					
 					
-					<br>
 					
+					</script>
+					<br>					
 					<td>충전금액  </td>
-					<td id="tdChargeCashMoney"></td>
-					
+					<td id="tdChargeCashMoney"><label id="amount">0</label>원</td>					
 					<td>충전 후 금액 </td>
-					<td id="afterChargeCash"><%= nowCash%></td>
-					
+					<td id="afterChargeCash"></td>					
 					<tr>
 						<br>						
-						
 						<td>결제</td>
-							<button class="btn btn-warning"  id="radioButton" onclick="chargeAPI()">카카오페이</button>
+							<button class="btn btn-warning"  id="chargeAPI" type="button" >카카오페이</button>
 					</tr>
 					
 
 			</table>
 		</div>
 	</div>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 	<script>
-	$("input[type = radio]").click(function(){
-		$("#amount").text($(this).val());	
-			chargeMoney = $(this).val();
+			$("input[type = radio]").click(function(){
+				chargeMoney = $("#amount").text($(this).val());				
+				
+				 
+			});
 			
-			console.log(chargeMoeny);
-			
-			var haveMoney = Number($("#tdHaveMoney").text());
-			
-			<%--  $.ajax({
-				url : "saveCharge.em",
-				data : {chargeMoney : chargeMoney},
-				type : "post",
-				success : function(data){
-					$("#tdChargeCashMoney").text(data*(0.9));
-					$("#tdResultMoney").text(data);
-					$("#afterChargeCash").text(<%= nowCash%> + (data*(0.9))); //50000원 부분을 db에서 현재 내가 보유하고 있는 캐시를 뽑아와서 넣기
-					//$("#afterChargeCash").text(Number($("#afterChargeCash").text()) + data);
-					//$("#tdResultMoney").text(data+haveMoney);
-				},
-				error : function(){
-					console.log("실패!");
-				} --%>
-			}); 
-		});
-		function chargeAPI(){
-			location.href="chargeAPI.em";
-			
-			
-		}
+			$("#chargeAPI").click(function(){				
+			var IMP = window.IMP;
+			IMP.init('imp79355376');			
+			IMP.request_pay({
+				pg:'kakaopay',
+				pay_method: 'card',
+				merchant_uid: 'merchant_' + new Date().getTime(),
+				name: 'eagle cash',
+				amount: chargeMoney,
+				buyer_code : memberNo
+				
+			}, function(rsp){
+				console.log(rsp);
+		    		if ( rsp.success ) {
+		    			
+		    			jQuery.ajax({
+		    				url: "/eg/saveCharge.em",
+		    				type: 'POST',
+		    				dataType : 'json',
+		    				data :{
+		    					buyer_code : memmberNo,
+		    					amount : chargeMoney,
+		    					imp_uid : rsp.imp_uid
+		    				}
+		    				
+		    			})
+		    			
+		    			var msg = '결제가 완료되었습니다.';
+		    			msg += '\n고유ID : ' + rsp.imp_uid;
+		    			msg += '\n상점 거래ID : ' + rsp.merchant_uid;
+		    			msg += '\결제 금액 : ' + rsp.paid_amount;
+		    			msg += '카드 승인번호 : ' + rsp.apply_num;
+									
+				}else{	
+					var msg = '결제 실패';
+					msg += '에러내용 : ' + rsp.error_msg;
+				}
+				alert(msg);			
+			});
+		 }); 
+	
 	</script>
  	
  	

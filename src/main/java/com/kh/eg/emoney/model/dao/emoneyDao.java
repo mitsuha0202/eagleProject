@@ -17,7 +17,9 @@ public interface emoneyDao {
 	
 	emoney selectMemberNowCash(SqlSessionTemplate sqlSession, emoney e);
 
-	ArrayList<emoney> selectEmoneyList(SqlSessionTemplate sqlSession, PageInfo pi);
+	ArrayList<emoney> selectEmoneyList(SqlSessionTemplate sqlSession, PageInfo pi, emoney e);
+
+	int getlistCount(SqlSessionTemplate sqlSession, emoney e);
 	
 	
 	

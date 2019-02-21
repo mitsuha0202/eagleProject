@@ -22,12 +22,17 @@
 		
 	</resultMap>
 	
-	
+	<!-- 결제 숫자 조회용 메소드 -->
+	<select id="selectEmoneyList" resultType="_int">
+		SELECT COUNT(*)
+		FROM EMONEYR
+		WHERE MEMBERNO = #{memberNo}
+	</select>
 	
 	<insert id="insertEmoney" parameterType="emoney">
 		INSERT 
 		INTO EMONEYC 
-		VALUES(MCN_SEQ.NEXTVAL, #{amount},SYSDATE,  #{cardNo}, #{memberNo}, #{payStatus}, #{refundNo} );
+		VALUES(MCN_SEQ.NEXTVAL, #{amount}, SYSDATE,  #{cardNo}, #{memberNo}, #{payStatus}, #{refundNo} )
 		)
 	</insert>
 	
@@ -35,8 +40,7 @@
 	<select id="emoneyList" resultMap="emoneyResultSet" >
 		SELECT USENO, USEDAY, MONEY, USESTATUS, MEMBERNO, PAYNO
 		FROM EMONEYR E
-		JOIN MEMBER M ON(E.MEMBERNO = M.MEMBERNO)
-		ORDER BY WRITEDAY DESC		
+		WHERE MEMBERNO = #{memberNo}
 	</select>
 	
 	<!-- <select id="selectMemberNowCash">
