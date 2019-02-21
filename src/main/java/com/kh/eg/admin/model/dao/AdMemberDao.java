@@ -9,6 +9,7 @@ import com.kh.eg.admin.model.vo.AdminVo;
 import com.kh.eg.admin.model.vo.PageInfo;
 import com.kh.eg.admin.model.vo.Report;
 import com.kh.eg.admin.model.vo.SearchCondition;
+import com.kh.eg.admin.model.vo.SearchReport;
 
 public interface AdMemberDao {
 	int getListCount(SqlSessionTemplate sqlSession) throws AdMemberselectException;
@@ -39,9 +40,11 @@ public interface AdMemberDao {
 
 	ArrayList<Report> selectReportList(SqlSessionTemplate sqlSession, PageInfo pi) throws AdMemberselectException;
 
-	ArrayList<Report> searchReportList(SqlSessionTemplate sqlSession, PageInfo pi, SearchCondition sc) throws AdMemberselectException;
+	int getSearchReportListCount(SqlSessionTemplate sqlSession, SearchReport sr) throws AdMemberselectException;
 
-	int getSearchReportListCount(SqlSessionTemplate sqlSession, SearchCondition sc) throws AdMemberselectException;
+	ArrayList<Report> searchReportList(SqlSessionTemplate sqlSession, SearchReport sr, PageInfo pi) throws AdMemberselectException;
+
+	
 
 
 	

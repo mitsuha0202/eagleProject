@@ -39,9 +39,11 @@ public interface AdMemberService {
 
 	ArrayList<Report> selectReportList(PageInfo pi) throws AdMemberselectException;
 
-	int getSearchReportListCount(SearchCondition sc) throws AdMemberselectException;
+	int getSearchReportListCount(SearchReport sr) throws AdMemberselectException;
 
-	ArrayList<Report> searchReportList(SearchCondition sc, PageInfo pi) throws AdMemberselectException;
+	ArrayList<Report> searchReportList(SearchReport sr, PageInfo pi) throws AdMemberselectException;
+
+
 
 	
 

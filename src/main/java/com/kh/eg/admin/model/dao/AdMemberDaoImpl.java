@@ -11,6 +11,7 @@ import com.kh.eg.admin.model.vo.AdminVo;
 import com.kh.eg.admin.model.vo.PageInfo;
 import com.kh.eg.admin.model.vo.Report;
 import com.kh.eg.admin.model.vo.SearchCondition;
+import com.kh.eg.admin.model.vo.SearchReport;
 
 @Repository
 public class AdMemberDaoImpl implements AdMemberDao{
@@ -202,29 +203,30 @@ public class AdMemberDaoImpl implements AdMemberDao{
 	}
 
 	@Override
-	public ArrayList<Report> searchReportList(SqlSessionTemplate session, PageInfo pi, SearchCondition sc) throws AdMemberselectException {
+	public int getSearchReportListCount(SqlSessionTemplate session, SearchReport sr) throws AdMemberselectException {
+		int result = session.selectOne("AdminVo.searchReportListCount", sr);
 		
-		ArrayList<Report> reportlist = null;
+		return result;
+	}
+
+	@Override
+	public ArrayList<Report> searchReportList(SqlSessionTemplate session, SearchReport sr, PageInfo pi) throws AdMemberselectException {
+		ArrayList<Report> list = null;
 		
 		int offset = (pi.getCurrentPage() -1) * pi.getLimit();
 		
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 		
-		reportlist = (ArrayList)session.selectList("AdminVo.searchReportList", sc, rowBounds);
+		list = (ArrayList)session.selectList("AdminVo.searchReportList", sr, rowBounds);
 		
-		if(reportlist == null) {
+		if(list == null) {
 			throw new AdMemberselectException("회원 조회 실패!");
 		}
-		System.out.println(reportlist);
-		return reportlist;
 		
+		return list;
 	}
 
-	@Override
-	public int getSearchReportListCount(SqlSessionTemplate session, SearchCondition sc) throws AdMemberselectException {
-		int result = session.selectOne("AdminVo.searchReportListCount", sc);
-		return result;
-	}
+	
 
 
 }
