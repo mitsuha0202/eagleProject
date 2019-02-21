@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.eg.admin.model.exception.AdMemberselectException;
 import com.kh.eg.admin.model.vo.AdminVo;
 import com.kh.eg.admin.model.vo.PageInfo;
+import com.kh.eg.admin.model.vo.Report;
 import com.kh.eg.admin.model.vo.SearchCondition;
 
 @Repository
@@ -20,7 +21,6 @@ public class AdMemberDaoImpl implements AdMemberDao{
 		int result = session.selectOne("AdminVo.selectListCount");
 		
 		if(result <= 0) {
-			session.close();
 			throw new AdMemberselectException("게시글 수 조회 실패!");
 		}
 		
@@ -39,7 +39,6 @@ public class AdMemberDaoImpl implements AdMemberDao{
 		list = (ArrayList)session.selectList("AdminVo.selectMemberList", null, rowBounds);
 		
 		if(list == null) {
-			session.close();
 			throw new AdMemberselectException("회원 조회 실패!");
 		}
 		
@@ -57,7 +56,6 @@ public class AdMemberDaoImpl implements AdMemberDao{
 		list = (ArrayList)session.selectList("AdminVo.selectBlackList", null, rowBounds);
 		
 		if(list == null) {
-			session.close();
 			throw new AdMemberselectException("회원 조회 실패!");
 		}
 		
@@ -69,7 +67,6 @@ public class AdMemberDaoImpl implements AdMemberDao{
 		int result = session.selectOne("AdminVo.selectBlackListCount");
 		
 		if(result <= 0) {
-			session.close();
 			throw new AdMemberselectException("게시글 수 조회 실패!");
 		}
 		
@@ -94,7 +91,6 @@ public class AdMemberDaoImpl implements AdMemberDao{
 		list = (ArrayList)session.selectList("AdminVo.searchMemberList", sc, rowBounds);
 		
 		if(list == null) {
-			session.close();
 			throw new AdMemberselectException("회원 조회 실패!");
 		}
 		
@@ -119,7 +115,6 @@ public class AdMemberDaoImpl implements AdMemberDao{
 		list = (ArrayList)session.selectList("AdminVo.searchBlackList", sc, rowBounds);
 		
 		if(list == null) {
-			session.close();
 			throw new AdMemberselectException("회원 조회 실패!");
 		}
 		
@@ -138,7 +133,6 @@ public class AdMemberDaoImpl implements AdMemberDao{
 		list = (ArrayList)session.selectList("AdminVo.memberMoneyList", null, rowBounds);
 		
 		if(list == null) {
-			session.close();
 			throw new AdMemberselectException("회원 조회 실패!");
 		}
 		
@@ -156,7 +150,6 @@ public class AdMemberDaoImpl implements AdMemberDao{
 		list = (ArrayList)session.selectList("AdminVo.searchMoneyList", sc, rowBounds);
 		
 		if(list == null) {
-			session.close();
 			throw new AdMemberselectException("회원 조회 실패!");
 		}
 		
@@ -164,7 +157,7 @@ public class AdMemberDaoImpl implements AdMemberDao{
 	}
 
 	@Override
-	public int blackListCheck(SqlSessionTemplate session, String memberId) {
+	public int blackListCheck(SqlSessionTemplate session, String memberId) throws AdMemberselectException {
 		
 		int result = session.update("AdminVo.blackListChange", memberId);
 		
@@ -172,17 +165,66 @@ public class AdMemberDaoImpl implements AdMemberDao{
 	}
 
 	@Override
-	public int blackListoff(SqlSessionTemplate session, String memberId) {
+	public int blackListoff(SqlSessionTemplate session, String memberId) throws AdMemberselectException {
 		
 		int result = session.update("AdminVo.blackListoff", memberId);
 		
 		return result;
 	}
 
+	@Override
+	public int reportCount(SqlSessionTemplate session) throws AdMemberselectException {
+		int result = session.selectOne("AdminVo.reportCount");
+		
+		if(result <= 0) {
+			throw new AdMemberselectException("게시글 수 조회 실패!");
+		}
+		
+		return result;
+	}
 
-	
-	
-	
+	@Override
+	public ArrayList<Report> selectReportList(SqlSessionTemplate session, PageInfo pi) throws AdMemberselectException {
+		
+		ArrayList<Report> reportlist = null;
+		
+		int offset = (pi.getCurrentPage() -1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		reportlist = (ArrayList)session.selectList("AdminVo.selectReportList", null, rowBounds);
+		
+		if(reportlist == null) {
+			throw new AdMemberselectException("신고목록 조회 실패!");
+		}
+		
+		return reportlist;
+	}
+
+	@Override
+	public ArrayList<Report> searchReportList(SqlSessionTemplate session, PageInfo pi, SearchCondition sc) throws AdMemberselectException {
+		
+		ArrayList<Report> reportlist = null;
+		
+		int offset = (pi.getCurrentPage() -1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		reportlist = (ArrayList)session.selectList("AdminVo.searchReportList", sc, rowBounds);
+		
+		if(reportlist == null) {
+			throw new AdMemberselectException("회원 조회 실패!");
+		}
+		System.out.println(reportlist);
+		return reportlist;
+		
+	}
+
+	@Override
+	public int getSearchReportListCount(SqlSessionTemplate session, SearchCondition sc) throws AdMemberselectException {
+		int result = session.selectOne("AdminVo.searchReportListCount", sc);
+		return result;
+	}
 
 
 }

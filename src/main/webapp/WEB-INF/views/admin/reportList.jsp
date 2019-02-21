@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-	
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
 <%@ include file="../admin/include/common.jsp" %>
 
-
 <title>Eagle 관리자페이지</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
 <div id="Wrap"><!-- Wrap S -->
@@ -19,19 +19,25 @@
 			<div class="topsearch mt30 mb30"><!-- topsearch S -->
 				<span>
 					<label for="col01"></label>
-					<select id="col01" name="col01" class="wth140">
-						<option value="">아이디</option>
-						<option value="">이름</option>
-						<option value="">휴대폰번호</option>
-						<option value="">이메일주소</option>
+					<select id="searchCondition" name="searchCondition" class="wth140">
+						<option value="userId">아이디</option>
+						<option value="title">제목</option>
+						<option value="itemNo">경매번호</option>
 					</select> 
 				</span>
 				<span>
-					<label for="Keyword"></label><input id="Keyword" name="Keyword" class="wth240" type="text">
-					<a class="sch" href="#"><img src="resources/images/icoSearch.png" alt="검색" title="검색"></a> 
+					<label for="Keyword"></label><input id="search" name="search" class="wth240" type="search">
+					<a class="sch" onclick="searchBoard();"><img src="resources/images/icoSearch.png" alt="검색" title="검색"></a> 
 				</span>
 			</div>			
-			
+			<script>
+				function searchBoard(){
+					var searchCondition = $("#searchCondition").val();
+					var searchValue = $("#search").val();
+					
+					location.href = "searchReportList.ad?searchCondition=" + searchCondition + "&searchValue=" + searchValue;
+				}
+			</script>
 
 
 			<table class="boardList mt20">
@@ -48,10 +54,10 @@
 				<thead>
 					<tr>
 						<th scope="col">선택</th>
-						<th scope="col">회원등급</th>
-						<th scope="col">신고자 아이디</th>
-						<th scope="col">신고 제목</th>
-						<th scope="col">신고 내용</th>
+						<th scope="col">경매 번호</th>
+						<th scope="col">신고 횟수</th>
+						<th scope="col">신고물 제목</th>
+						<th scope="col">신고자</th>
 						<th scope="col">상태</th>
 						<th scope="col">상세보기</th>
 					</tr>
@@ -60,31 +66,57 @@
 					<!-- <tr>
 						<td colspan="7">등록된 정보가 없습니다.</td>
 					</tr> -->
+					<c:forEach var="a" items="${ reportlist }">
 					<tr>
 						<td>
-							<label for=""> 체크</label>
-							<input id="" name="" class="check" type="checkbox">
+							<input name="check"value="${ a.memberId }" type="checkbox">
 						</td>
-						<td>일반</td>
-						<td>test1234</td>
-						<td>판매금지품목...</td>
-						<td>아이코스...</td>
-						<td>사용가능</td>
+						<td>${ a.itemNo }</td>
+						<td>${ a.reportCount }</td>
+						<td>${ a.title }</td>
+						<td>${ a.memberId }</td>
+						<td>${ a.status }</td>
 						<td><a class="mbtn bl" href="#">상세보기</a></td>
 					</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 
+			<!-- 페이징 버튼 영역 -->
+		<div id="pagingArea" align="center">
+			<c:if test="${ pi.currentPage <= 1 }">
+				[이전] &nbsp;
+			</c:if>
+			<c:if test="${ pi.currentPage > 1 }">
+				<c:url var="blistBack" value="/reportList.ad">
+					<c:param name="currentPage" value="${ pi.currentPage - 1}"/>
+				</c:url>
+				<a href="${ blistBack }">[이전]</a> &nbsp;
+			</c:if>
 			
-			<div class="numbox pt40 pb50"> 
-				<span><a class="num" href="#">&lt;&lt;</a></span>
-				<span><a class="num" href="#">&lt;</a></span>
-				<span><a class="num on" href="#">1</a></span>
-				<span><a class="num" href="#">2</a></span>
-				<span><a class="num" href="#">3</a></span>
-				<span><a class="num" href="#">&gt;</a></span>
-				<span><a class="num" href="#">&gt;&gt;</a></span>
-			</div>
+			<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+				<c:if test="${ p eq pi.currentPage }">
+					<font color="red" size="4"><b>[${p}]</b></font>
+				</c:if>
+				<c:if test="${ p ne pi.currentPage }">
+					<c:url var="blistCheck" value="reportList.ad">
+						<c:param name="currentPage" value="${p}"/>
+					</c:url>
+					<a href="${ blistCheck }">${ p }</a>
+				</c:if>
+			</c:forEach>
+			
+			<c:if test="${ pi.currentPage >= pi.maxPage }">
+				&nbsp; [다음]
+			</c:if>
+			<c:if test="${ pi.currentPage < pi.maxPage }">
+				<c:url var="blistEnd" value="reportList.ad">
+					<c:param name="currentPage" value="${ pi.currentPage + 1}"/>
+				</c:url>
+				<a href="${ blistEnd }">&nbsp;[다음]</a>
+			</c:if>
+		</div>
+			
 		</div><!--// contBox E-->
 
 	</div><!--// container E-->
