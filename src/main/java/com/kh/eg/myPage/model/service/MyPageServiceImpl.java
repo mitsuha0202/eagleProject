@@ -204,4 +204,13 @@ public class MyPageServiceImpl implements MyPageService{
 		return md.answerBoardDetail(sqlSession,searchTitle);
 
 	}
+	
+	//답변페이지 게시판번호 물품번호조회
+	@Override
+	public AnswerBoard reanswerDetail(String answerno) {
+		
+		return md.reanswerDetail(sqlSession,answerno);
+	}
+	
+	
 }

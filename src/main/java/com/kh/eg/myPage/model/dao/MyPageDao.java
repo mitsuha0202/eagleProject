@@ -91,6 +91,11 @@ public interface MyPageDao {
 	//문의 받은 게시판 상세페이지
 	ArrayList<AnswerBoard> answerBoardDetail(SqlSessionTemplate sqlSession, String searchTitle);
 	
+	//답변페이지 게시판번호 물품번호조회
+	AnswerBoard reanswerDetail(SqlSessionTemplate sqlSession, String answerno);
+	
+	
+	
 	
 	
 }

@@ -91,6 +91,11 @@ public interface MyPageService {
 	//문의받은게시판 상세 조회
 	ArrayList<AnswerBoard> answerBoardDetail(String searchTitle);
 	
+	//답변페이지 게시판번호 물품번호조회
+	AnswerBoard reanswerDetail(String answerno);
+	
+	
+	
 	
 	
 }
