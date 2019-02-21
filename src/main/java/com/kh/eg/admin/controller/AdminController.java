@@ -15,6 +15,7 @@ import com.kh.eg.admin.model.vo.AdminVo;
 import com.kh.eg.admin.model.vo.PageInfo;
 import com.kh.eg.admin.model.vo.Report;
 import com.kh.eg.admin.model.vo.SearchCondition;
+import com.kh.eg.admin.model.vo.SearchReport;
 import com.kh.eg.common.Pagination;
 
 @Controller
@@ -322,15 +323,15 @@ public class AdminController {
 		String searchCondition = request.getParameter("searchCondition");
 		String searchValue = request.getParameter("searchValue");
 		
-		SearchCondition sc = new SearchCondition();
+		SearchReport sr = new SearchReport();
 		if(searchCondition.equals("userId")) {
-			sc.setUserId(searchValue);
+			sr.setUserId(searchValue);
 		}
 		if(searchCondition.equals("title")) {
-			sc.setTitle(searchValue);
+			sr.setTitle(searchValue);
 		}
 		if(searchCondition.equals("itemNo")) {
-			sc.setItemNo(searchValue);
+			sr.setItemNo(searchValue);
 		}
 		
 		int currentPage = 1;
@@ -341,13 +342,13 @@ public class AdminController {
 		
 		int listCount;
 		try {
-			listCount = ams.getSearchReportListCount(sc);
+			listCount = ams.getSearchReportListCount(sr);
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 			
-			ArrayList<Report> reportlist = ams.searchReportList(sc, pi);
+			ArrayList<Report> reportlist = ams.searchReportList(sr, pi);
 			model.addAttribute("reportlist", reportlist);
 			model.addAttribute("pi", pi);
-			return "admin/moneyList";
+			return "admin/reportList";
 		} catch (AdMemberselectException e) {
 			e.printStackTrace();
 			model.addAttribute("msg","회원 조회 실패!");

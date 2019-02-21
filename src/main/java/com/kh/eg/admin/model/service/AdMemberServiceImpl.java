@@ -133,21 +133,21 @@ public class AdMemberServiceImpl implements AdMemberService{
 		ArrayList<Report> reportlist = amd.selectReportList(sqlSession, pi);
 		return reportlist;
 	}
-	
-	//검색 후 신고 리스트
+
 	@Override
-	public ArrayList<Report> searchReportList(SearchCondition sc, PageInfo pi) throws AdMemberselectException {
-		ArrayList<Report> reportlist = amd.searchReportList(sqlSession, pi, sc);
-		return reportlist;
-	}
-	
-	//검색 후 신고리스트 카운트
-	@Override
-	public int getSearchReportListCount(SearchCondition sc) throws AdMemberselectException {
-		int listCount = amd.getSearchReportListCount(sqlSession, sc);
+	public int getSearchReportListCount(SearchReport sr) throws AdMemberselectException {
+		int listCount = amd.getSearchReportListCount(sqlSession, sr);
 		return listCount;
 	}
 
+	@Override
+	public ArrayList<Report> searchReportList(SearchReport sr, PageInfo pi) throws AdMemberselectException {
+		ArrayList<Report> list = amd.searchReportList(sqlSession, sr , pi);
+		
+		return list;
+	}
+	
+	
 
 	
 

@@ -196,7 +196,7 @@
 	
 	<!-- 검색결과 회원목록 페이징 카운트 -->
 	<select id="searchReportListCount" resultType="_int" parameterType="com.kh.eg.admin.model.vo.SearchCondition">
-		SELECT COUNT(*) FROM ATTACHMENT A JOIN REPORT R ON(A.ITEMNO = R.ITEMNO) JOIN MEMBER M ON(R.MEMBERNO = M.MEMBERNO)
+		SELECT COUNT(*) FROM ATTACHMENT A JOIN REPORT R ON(A.ITEMNO = R.ITEMNO)JOIN AUCTIONITEM N ON(A.ITEMNO = N.ITEMNO) JOIN MEMBER M ON(R.MEMBERNO = M.MEMBERNO)
 		<choose>
 			<when test="userId != null">
 				AND MEMBERID = #{userId}
@@ -212,7 +212,7 @@
 	
 	<!-- 블랙리스트 검색결과 조회 -->
 	<select id="searchReportList" resultMap="reportResultSet" parameterType="com.kh.eg.admin.model.vo.SearchCondition">
-		SELECT A.ITEMNO, R.REPORTCOUNT, N.ITEMNAME, M.MEMBERID, R.BOARDSTATUS FROM ATTACHMENT A JOIN REPORT R ON(A.ITEMNO = R.ITEMNO)JOIN AUCTIONITEM N ON(A.ITEMNO = N.ITEMNO) JOIN MEMBER M ON(R.MEMBERNO = M.MEMBERNO)
+		SELECT A.ITEMNO, R.REPORTCOUNT, N.ITEMNAME, M.MEMBERID, R.BOARDSTATUS FROM ATTACHMENT A JOIN REPORT R ON(A.ITEMNO = R.ITEMNO)JOIN AUCTIONITEM N ON(A.ITEMNO = N.ITEMNO) JOIN MEMBER M ON(R.MEMBERNO = M.MEMBERNO) 
 		<choose>
 			<when test="userId != null">
 				AND MEMBERID = #{userId}
