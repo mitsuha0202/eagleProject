@@ -69,7 +69,13 @@ public class AuctionController {
 				@Override
 				public int compare(Item o1, Item o2) {
 
-					return o1.getBidCount()-o2.getBidCount();
+					if(o1.getBidCount()>o2.getBidCount()) {
+						return -1;
+					}else if(o1.getBidCount()<o2.getBidCount()) {
+						return 1;
+					}else {
+						return 0;
+					}
 
 				}
 			});
