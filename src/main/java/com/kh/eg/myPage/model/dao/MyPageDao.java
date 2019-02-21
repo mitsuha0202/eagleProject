@@ -114,6 +114,9 @@ public interface MyPageDao {
 	
 	//문의받은게시판 페이징 처리후 리스트결과
 	ArrayList<AnswerBoard> selectSearchResultList(SearchCondition sc, PageInfo pi, SqlSessionTemplate sqlSession);
+
+	//최고순위 입찰중 물품 갯수 조회
+	int countPayListFirst(SqlSessionTemplate sqlSession, String userId);
 	
 	
 	

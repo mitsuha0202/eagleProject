@@ -114,6 +114,9 @@ public interface MyPageService {
 	
 	//문의받은 게시판 페이징처리후 리스트결과
 	ArrayList<AnswerBoard> selectSearchResultList(SearchCondition sc, PageInfo pi);
+
+	//최고 순위 입찰중 물품
+	int countPayListFirst(String userId);
 	
 	
 	
