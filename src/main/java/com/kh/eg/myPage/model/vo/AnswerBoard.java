@@ -12,11 +12,13 @@ public class AnswerBoard implements java.io.Serializable{
 	private String memberId;
 	private String memberName;
 	private String memberContents;
+	private String memberNo;
+	private int bCount;
 	private Date writeDay;
 	
 	
 	public AnswerBoard(String boardNo, String itemNo, String title, String replystatus, String memberId,
-			String memberName, String memberContents, Date writeDay) {
+			String memberName, String memberContents, String memberNo,int bCount,Date writeDay) {
 		super();
 		this.boardNo = boardNo;
 		this.itemNo = itemNo;
@@ -25,7 +27,29 @@ public class AnswerBoard implements java.io.Serializable{
 		this.memberId = memberId;
 		this.memberName = memberName;
 		this.memberContents = memberContents;
+		this.memberNo = memberNo;
+		this.bCount = bCount;
 		this.writeDay = writeDay;
+	}
+
+	
+	public int getbCount() {
+		return bCount;
+	}
+
+
+	public void setbCount(int bCount) {
+		this.bCount = bCount;
+	}
+
+
+	public String getMemberNo() {
+		return memberNo;
+	}
+
+
+	public void setMemberNo(String memberNo) {
+		this.memberNo = memberNo;
 	}
 
 
@@ -118,9 +142,13 @@ public class AnswerBoard implements java.io.Serializable{
 	public String toString() {
 		return "AnswerBoard [boardNo=" + boardNo + ", itemNo=" + itemNo + ", title=" + title + ", replystatus="
 				+ replystatus + ", memberId=" + memberId + ", memberName=" + memberName + ", memberContents="
-				+ memberContents + ", writeDay=" + writeDay + "]";
+				+ memberContents + ", memberNo=" + memberNo + ", bCount=" + bCount + ", writeDay=" + writeDay + "]";
 	}
 
+
+	
+
+	
 
 	
 

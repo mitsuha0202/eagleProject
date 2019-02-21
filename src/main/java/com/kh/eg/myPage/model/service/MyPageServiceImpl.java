@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.eg.board.model.vo.Board;
 import com.kh.eg.member.model.vo.Member;
 import com.kh.eg.myPage.model.dao.MyPageDao;
 import com.kh.eg.myPage.model.vo.AnswerBoard;
@@ -210,6 +211,29 @@ public class MyPageServiceImpl implements MyPageService{
 	public AnswerBoard reanswerDetail(String answerno) {
 		
 		return md.reanswerDetail(sqlSession,answerno);
+	}
+	
+	//문의받은게시판 - 답변페이지 등록
+	@Override
+	public int answerBoardInsert(AnswerBoard answer) {
+		
+		return md.answerBoardInsert(sqlSession,answer);
+	}
+	
+	//문의받은게시판 페이징 처리
+	@Override
+	public int getSearchResultListCount(SearchCondition sc) {
+		int result = md.getSearchResultListCount(sqlSession, sc);
+		return result;
+	}
+	
+	//문의받은게시판 페이징 처리후 리스트결과
+	@Override
+	public ArrayList<AnswerBoard> selectSearchResultList(SearchCondition sc, PageInfo pi) {
+		ArrayList<AnswerBoard> list = md.selectSearchResultList(sc, pi,sqlSession);
+		
+		
+		return list;
 	}
 	
 	

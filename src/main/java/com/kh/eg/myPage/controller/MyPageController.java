@@ -28,6 +28,7 @@ import com.kh.eg.myPage.model.vo.MyPageBoard;
 import com.kh.eg.myPage.model.vo.PageInfo;
 import com.kh.eg.myPage.model.vo.SearchCondition;
 import com.kh.eg.myPage.model.vo.WishList;
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 @SessionAttributes("loginUser")
 
@@ -60,6 +61,7 @@ import com.kh.eg.myPage.model.vo.WishList;
 		      int count = ms.countMessage(userId);
 		      String messageCount = String.valueOf(count);
 		      return messageCount;
+		      
 		}
 		
 		//쪽지함 페이지로 이동
@@ -271,26 +273,27 @@ import com.kh.eg.myPage.model.vo.WishList;
 			
 		}
 		
-		//문의받은게시판 - 답변페이지
+		//문의받은게시판 - 답변페이지 등록
 		@RequestMapping("answerBoardInsert.mp")
-		public String answerBoardInsert(Model model, AnswerBoard a , HttpSession session) {
-			System.out.println("제목 : "+a.getTitle());
-			System.out.println("내용 : "+a.getMemberContents());
-			System.out.println("게시판 번호 :"+a.getBoardNo());
+		public String answerBoardInsert(Model model, AnswerBoard answer , HttpSession session) {
+			System.out.println("제목 : "+answer.getTitle());
+			System.out.println("내용 : "+answer.getMemberContents());
+			System.out.println("게시판 번호 :"+answer.getBoardNo());
+			System.out.println("멤버 번호 : "+answer.getMemberNo());
 			
+			int result = ms.answerBoardInsert(answer);
+		
 			
-			
-			/*if(result > 0) {
+			if(result>0) {
 				return "redirect:answerBoard.mp";
 			}else {
 				model.addAttribute("msg", "답변페이지 접속 실패");
 				return "common/errorPage";
-			}		*/
+			}
 			
-			return null;
 			
 		}
-		//문의받은게시판 답변눌렀을때 답변페이지
+		//문의받은게시판 답변눌렀을때 답변페이지 이름,물품번호조회
 		@RequestMapping("reanswerDetail.mp")
 		public String reanswerDetail(Model model, @RequestParam(value="reanswer") String answerno , HttpSession session) {
 			AnswerBoard b = ms.reanswerDetail(answerno);
@@ -366,7 +369,7 @@ import com.kh.eg.myPage.model.vo.WishList;
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 			
 			ArrayList<MyPageBoard> list = ms.searchMessage(pi, hmap);
-			
+			  
 			if(list != null) {
 				model.addAttribute("searchCondition",searchCondition);
 				model.addAttribute("searchValue", searchValue);
@@ -471,4 +474,39 @@ import com.kh.eg.myPage.model.vo.WishList;
 				return "common/errorPage";
 			}
 		}
+		
+		//문의받은 게시판 검색
+		@RequestMapping("searchreanswer.mp")
+		public String searchreanswer(HttpServletRequest request, @RequestParam(value="searchCondition") String searchCondition, @RequestParam(value="searchValue") String searchValue, Model model, @RequestParam(defaultValue="1") int currentPage) {
+			
+			System.out.println(searchCondition);
+			System.out.println(searchValue);
+			SearchCondition sc = new SearchCondition();
+			if(searchCondition.equals("writer")) {
+				sc.setWriter(searchValue);
+			}
+			if(searchCondition.equals("title")) {
+				sc.setTitle(searchValue);
+			}
+			
+			int listCount = ms.getSearchResultListCount(sc);
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			ArrayList<AnswerBoard> list = ms.selectSearchResultList(sc,pi);
+			
+			for(int i=0;i<list.size();i++) {
+				list.get(i).setbCount(list.get(i).getbCount());
+			}
+			if(list != null) {
+				model.addAttribute("searchCondition",searchCondition);
+				model.addAttribute("searchValue", searchValue);
+				model.addAttribute("list",list);
+				model.addAttribute("pi",pi);
+				return "myPage/answerBoardPage";
+			
+			}else {
+				model.addAttribute("msg","검색결과 조회 실패!");
+				return "common/errorPage";
+			}
+		}
+		
 	}
