@@ -88,7 +88,7 @@
 			<tr>
 				<td><h5>경매상황</h5></td>
 				<!-- td태그 오른쪽 선 안보이게 하기  -->
-				<td style="border-right: hidden;" onclick="location.href='successbid.mp'"><h5>낙찰받은 물품</h5></td>
+				<td style="border-right: hidden;" onclick="location.href='purchaseend.mp'"><h5>낙찰받은 물품</h5></td>
 				<td style="border-right: hidden;" onclick="location.href='unsuccessbid.mp'"><h5>낙찰 받지 못한 물품</h5></td>
 				<td></td>
 			

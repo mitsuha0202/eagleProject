@@ -5,7 +5,7 @@ import java.sql.Date;
 public class PayTable {
 	private int itemNo;
 	private String itemName;
-	private int currentPrice;
+	private String currentPrice;
 	private int bidCount;
 	private int saleMemberNo;
 	private String saleMemberName;
@@ -17,7 +17,7 @@ public class PayTable {
 	
 	}
 
-	public PayTable(int itemNo, String itemName, int currentPrice, int bidCount, int saleMemberNo,
+	public PayTable(int itemNo, String itemName, String currentPrice, int bidCount, int saleMemberNo,
 			String saleMemberName, int rowBid, Date endDay, String endYn) {
 		super();
 		this.itemNo = itemNo;
@@ -47,11 +47,11 @@ public class PayTable {
 		this.itemName = itemName;
 	}
 
-	public int getCurrentPrice() {
+	public String getCurrentPrice() {
 		return currentPrice;
 	}
 
-	public void setCurrentPrice(int currentPrice) {
+	public void setCurrentPrice(String currentPrice) {
 		this.currentPrice = currentPrice;
 	}
 
@@ -109,5 +109,4 @@ public class PayTable {
 				+ ", bidCount=" + bidCount + ", saleMemberNo=" + saleMemberNo + ", saleMemberName=" + saleMemberName
 				+ ", rowBid=" + rowBid + ", endDay=" + endDay + ", endYn=" + endYn + "]";
 	}
-	
 }

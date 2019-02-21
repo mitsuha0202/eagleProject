@@ -207,7 +207,8 @@ public class MyPageDaoImpl implements MyPageDao{
 		
 		//물품번호 받아오기
 		ArrayList<Integer> itemList = (ArrayList)sqlSession.selectList("MyPage.itemNoSearch", mid);
-		
+		int offset = (pi.getCurrentPage()  - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 		if(itemList != null) {
 			
 			//물품번호 배열
@@ -232,7 +233,7 @@ public class MyPageDaoImpl implements MyPageDao{
 				String itemName = (String)sqlSession.selectOne("MyPage.itemNameSearch", searchList);
 				payTable.setItemName(itemName);
 				//최고가
-				int currentPrice = (Integer)sqlSession.selectOne("MyPage.maxCurrentPrice", searchList);
+				String currentPrice = (String)sqlSession.selectOne("MyPage.maxCurrentPrice", searchList);
 				payTable.setCurrentPrice(currentPrice);
 				
 				//입찰수
@@ -305,6 +306,62 @@ public class MyPageDaoImpl implements MyPageDao{
 	public AnswerBoard reanswerDetail(SqlSessionTemplate sqlSession, String answerno) {
 		// TODO Auto-generated method stub
 		return (AnswerBoard)sqlSession.selectOne("MyPage.reanswerDetail",answerno);
+	}
+
+	//구매관리 입찰중 물품 차순위 갯수
+	@Override
+	public int countPayListSecond(SqlSessionTemplate sqlSession, String userId) {
+		ArrayList<PayTable> itemNoList = (ArrayList)sqlSession.selectList("MyPage.countSecondSearchItemNo", userId);
+		ArrayList<PayTable> list = new ArrayList<PayTable>();
+		HashMap<String, String> temp = new HashMap<String, String>();
+		temp.put("userId", userId);
+		for(int i=0; i<itemNoList.size(); i++) {
+			temp.put("itemNo", String.valueOf((itemNoList.get(i).getItemNo())));
+			PayTable pay = sqlSession.selectOne("MyPage.countSecondRank", temp);
+			list.add(pay);
+		}
+		
+		int count = 0;
+		for(int i=0; i<list.size(); i++) {
+			if(list.get(i).getRowBid() > 1) {
+				count++;
+			}
+		}
+		return count;
+	}
+
+	@Override
+	public int countWinBidListCount(SqlSessionTemplate sqlSession, String mid) {
+		
+		return sqlSession.selectOne("MyPage.winBidCountList", mid);
+	}
+
+	//마감된 경매중 낙찰된 물품 갯수 
+	@Override
+	public int countExitAuction(SqlSessionTemplate sqlSession, String userId) {
+		
+		return sqlSession.selectOne("MyPage.winBidCountList", userId);
+	}
+
+	//낙찰된 물품 목록 조회 
+	@Override
+	public ArrayList<PayTable> selectWinBid(SqlSessionTemplate sqlSession, PageInfo pi, String mid) {
+		int offset = (pi.getCurrentPage()  - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		//물품번호와 회원번호에 따른 결과 조회용 해쉬맵
+		HashMap<String, String> searchList = null;
+				
+		//결과값 담기위한 객체
+		PayTable payTable = null;
+				
+		//결과값 담기 위한 ArrayList
+		ArrayList<PayTable> list = new ArrayList<PayTable>();
+				
+		//물품번호 받아오기
+		ArrayList<Integer> itemList = (ArrayList)sqlSession.selectList("MyPage.itemNoSearch", mid);
+		
+		return (ArrayList)sqlSession.selectList("MyPage.selectWinBidList", mid, rowBounds);
 	}
 	
 	//문의받은게시판 - 답변페이지 등록
