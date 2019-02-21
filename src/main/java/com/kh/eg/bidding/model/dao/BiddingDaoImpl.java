@@ -43,6 +43,21 @@ public class BiddingDaoImpl implements BiddingDao{
 
 	@Override
 	public ItemDetail selectDate(SqlSessionTemplate sqlSession, String itemNo) {
-		return (ItemDetail)sqlSession.selectOne("ItemDetails.selectDate", itemNo);
+		ItemDetail id = new ItemDetail();
+		id = sqlSession.selectOne("ItemDetails.selectDate", itemNo);
+		return id;
+	}
+
+	@Override
+	public int insertWishList(SqlSessionTemplate sqlSession, ItemDetail i) {
+
+		return sqlSession.insert("ItemDetails.insertWishList", i);
+	}
+
+	@Override
+	public ItemDetail selectWishList(SqlSessionTemplate sqlSession, String itemNo, String mNo) {
+
+		/*return sqlSession.selectList("ItemDetails.selectWishList", itemNo, mNo);*/
+		return null;
 	}
 }

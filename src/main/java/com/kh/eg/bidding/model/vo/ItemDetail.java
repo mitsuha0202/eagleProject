@@ -19,10 +19,12 @@ public class ItemDetail implements java.io.Serializable{
 	private String mId;
 	private String rating;
 	private String auctionName;
-	private Date startDay;
-	private Date endDay;
+	private String startDay;
+	private String endDay;
 	private String exitYN;
 	private int currentPrice;
+	private String wishListNo;
+	private String delStatus;
 	
 	public ItemDetail() {}
 
@@ -33,13 +35,14 @@ public class ItemDetail implements java.io.Serializable{
 				+ ", categoryNo=" + categoryNo + ", mNo=" + mNo + ", auctionCode=" + auctionCode + ", detail=" + detail
 				+ ", deliveryPrice=" + deliveryPrice + ", itemCount=" + itemCount + ", mId=" + mId + ", rating="
 				+ rating + ", auctionName=" + auctionName + ", startDay=" + startDay + ", endDay=" + endDay
-				+ ", exitYN=" + exitYN + ", currentPrice=" + currentPrice + "]";
+				+ ", exitYN=" + exitYN + ", currentPrice=" + currentPrice + ", wishListNo=" + wishListNo
+				+ ", delStatus=" + delStatus + "]";
 	}
 
 	public ItemDetail(String itemNo, String itemName, int startPrice, int bidUnit, String deliveryPay, String origin,
 			String deleteYN, String categoryNo, String mNo, String auctionCode, String detail, String deliveryPrice,
-			String itemCount, String mId, String rating, String auctionName, Date startDay, Date endDay, String exitYN,
-			int currentPrice) {
+			String itemCount, String mId, String rating, String auctionName, String startDay, String endDay,
+			String exitYN, int currentPrice, String wishListNo, String delStatus) {
 		super();
 		this.itemNo = itemNo;
 		this.itemName = itemName;
@@ -61,6 +64,8 @@ public class ItemDetail implements java.io.Serializable{
 		this.endDay = endDay;
 		this.exitYN = exitYN;
 		this.currentPrice = currentPrice;
+		this.wishListNo = wishListNo;
+		this.delStatus = delStatus;
 	}
 
 	public String getItemNo() {
@@ -191,19 +196,19 @@ public class ItemDetail implements java.io.Serializable{
 		this.auctionName = auctionName;
 	}
 
-	public Date getStartDay() {
+	public String getStartDay() {
 		return startDay;
 	}
 
-	public void setStartDay(Date startDay) {
+	public void setStartDay(String startDay) {
 		this.startDay = startDay;
 	}
 
-	public Date getEndDay() {
+	public String getEndDay() {
 		return endDay;
 	}
 
-	public void setEndDay(Date endDay) {
+	public void setEndDay(String endDay) {
 		this.endDay = endDay;
 	}
 
@@ -223,5 +228,22 @@ public class ItemDetail implements java.io.Serializable{
 		this.currentPrice = currentPrice;
 	}
 
-		
+	public String getWishListNo() {
+		return wishListNo;
+	}
+
+	public void setWishListNo(String wishListNo) {
+		this.wishListNo = wishListNo;
+	}
+
+	public String getDelStatus() {
+		return delStatus;
+	}
+
+	public void setDelStatus(String delStatus) {
+		this.delStatus = delStatus;
+	}
+
+	
+	
 }
