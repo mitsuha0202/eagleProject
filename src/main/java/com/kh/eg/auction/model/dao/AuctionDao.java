@@ -18,6 +18,12 @@ public interface AuctionDao {
 
 	ArrayList<Item> selectItem(SqlSessionTemplate sqlSession);
 
+	ArrayList<Bid> selectBid(SqlSessionTemplate sqlSession, String alignName);
+
+	ArrayList<Item> selectItem(SqlSessionTemplate sqlSession, String alignName);
+
+	ArrayList<Attachment> selectAttachment(SqlSessionTemplate sqlSession, String alignName);
+
 	/*Object selectAttachment(SqlSessionTemplate sqlSession, int itemNo);*/
 
 	
