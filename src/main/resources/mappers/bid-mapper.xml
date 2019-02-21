@@ -21,10 +21,12 @@
   		<result property="mId" column="MEMBERID" />
   		<result property="rating" column="RATING" />
   		<result property="auctionName" column="AUCTIONNAME" />
-  		<result property="startDay" column="STARTDAY" jdbcType="DATE" javaType="java.sql.Date"/>
+  		<result property="startDay" column="STARTDAY"/>
   		<result property="endDay" column="ENDDAY" />
   		<result property="exitYN" column="EXITYN" />
   		<result property="currentPrice" column="CURRENTPRICE" />
+  		<result property="wishListNo" column="WISHLISTNO" />
+  		<result property="delStatus" column="DELETESTATUS" />
   	</resultMap>
   	
 	<resultMap type="Bidding" id="bidResultSet">
@@ -72,11 +74,20 @@
 							HAVING ITEMNO = #{itemNo})
   	</select>
   	
-  	<select id="selectDate" resultMap="itemDetailResultSet" resultType="java.sql.Date" parameterType="java.lang.String">
-  		SELECT D.STARTDAY , D.ENDDAY
+  	<select id="selectDate" resultMap="itemDetailResultSet" parameterType="java.lang.String">
+  		SELECT TO_CHAR(D.STARTDAY,'YYYY/MM/DD HH24:MI:SS') AS STARTDAY , TO_CHAR(D.ENDDAY,'YYYY/MM/DD HH24:MI:SS') AS ENDDAY
   		FROM AUCTIONITEM I
   		JOIN AUCTIONDETAIL D ON(I.ITEMNO = D.ITEMNO)
   		WHERE I.ITEMNO = #{itemNo}
   	</select>
   	
+  	<select id="insertWishList" parameterType="ItemDetail">
+  		INSERT INTO WISHLIST VALUES(WN_SEQ.NEXTVAL , 'N' , #{mNo} , #{itemNo})
+  	</select>
+  	
+  	<select id="selectWishList" resultMap="itemDetailResultSet" parameterType="java.lang.String">
+		SELECT *
+		FROM WISHLIST
+		WHERE ITEMNO = #{itemNo} AND MEMBERNO = #{mNo}
+  	</select>
   </mapper>

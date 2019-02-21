@@ -2,6 +2,8 @@ package com.kh.eg.bidding.controller;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
 
+import java.text.SimpleDateFormat;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -54,7 +56,12 @@ private BiddingService bs;
 		b.setMemberNo(mid);
 		int result = bs.insertBidding(b);
 		
-		return result;
+		if(result > 0) {
+			return result;
+		}
+		else {
+			return 0;
+		}
 	}
 	
 	@RequestMapping("selectPrice.bi")
@@ -95,13 +102,50 @@ private BiddingService bs;
 	public @ResponseBody ItemDetail selectDate(@RequestParam(value="itemNo", required=false) String itemNo, HttpServletRequest request, HttpServletResponse response) {
 		ItemDetail i = null;
 		i = bs.selectDate(itemNo);
-		System.out.println(itemNo);
+		
 		System.out.println(i.getStartDay());
+		System.out.println(i.getEndDay());
+		
 		if(i != null) {
 			return i;
 		}
 		else {
 			return null;
 		}
+	}
+	
+	@RequestMapping("insertWishList.bi")
+	public @ResponseBody int insertWishList(@RequestParam(value="itemNo", required=false) String itemNo, @RequestParam(value="mNo", required=false) String mNo,
+													HttpServletRequest request, HttpServletResponse response) {
+		ItemDetail i = new ItemDetail();
+		
+		i.setItemNo(itemNo);
+		i.setmNo(mNo);
+		
+		int result = bs.insertWishList(i);
+		
+		if(result > 0) {
+			return result;
+		}
+		else {
+			return result;
+		}
+	}
+	
+	@RequestMapping("compareWish.bi")
+	public @ResponseBody String selectWishList(@RequestParam(value="itemNo", required=false) String itemNo, @RequestParam(value="mNo", required=false) String mNo,
+												HttpServletRequest request, HttpServletResponse response) {
+		ItemDetail i = null;
+		
+		i = bs.selectWishList(itemNo, mNo);
+		
+		if(i != null) {
+			return "0";
+		}
+		else {
+			return "1";
+		}
+		
+		
 	}
 }
