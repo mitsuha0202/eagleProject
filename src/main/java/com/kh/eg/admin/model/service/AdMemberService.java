@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import com.kh.eg.admin.model.exception.AdMemberselectException;
 import com.kh.eg.admin.model.vo.AdminVo;
 import com.kh.eg.admin.model.vo.PageInfo;
+import com.kh.eg.admin.model.vo.Report;
 import com.kh.eg.admin.model.vo.SearchCondition;
+import com.kh.eg.admin.model.vo.SearchReport;
 
 public interface AdMemberService {
 	
@@ -32,6 +34,14 @@ public interface AdMemberService {
 	int checkBlackList(String[] check) throws AdMemberselectException;
 
 	int BlackListoff(String[] check) throws AdMemberselectException;
+
+	int reportCount() throws AdMemberselectException;
+
+	ArrayList<Report> selectReportList(PageInfo pi) throws AdMemberselectException;
+
+	int getSearchReportListCount(SearchCondition sc) throws AdMemberselectException;
+
+	ArrayList<Report> searchReportList(SearchCondition sc, PageInfo pi) throws AdMemberselectException;
 
 	
 

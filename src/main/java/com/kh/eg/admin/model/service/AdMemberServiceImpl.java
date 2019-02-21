@@ -10,7 +10,9 @@ import com.kh.eg.admin.model.dao.AdMemberDao;
 import com.kh.eg.admin.model.exception.AdMemberselectException;
 import com.kh.eg.admin.model.vo.AdminVo;
 import com.kh.eg.admin.model.vo.PageInfo;
+import com.kh.eg.admin.model.vo.Report;
 import com.kh.eg.admin.model.vo.SearchCondition;
+import com.kh.eg.admin.model.vo.SearchReport;
 
 @Service
 public class AdMemberServiceImpl implements AdMemberService{
@@ -64,13 +66,15 @@ public class AdMemberServiceImpl implements AdMemberService{
 		
 		return list;
 	}
-
+	
+	//검색후 블랙리스트 카운트
 	@Override
 	public int getSearchBlackListCount(SearchCondition sc) throws AdMemberselectException {
 		int listCount = amd.getSearchBlackListCount(sqlSession, sc);
 		return listCount;
 	}
-
+	
+	//검색 후 블랙리스트
 	@Override
 	public ArrayList<AdminVo> searchBlackList(SearchCondition sc, PageInfo pi) throws AdMemberselectException  {
 		ArrayList<AdminVo> list = amd.searchBlackList(sqlSession, sc , pi);
@@ -78,19 +82,22 @@ public class AdMemberServiceImpl implements AdMemberService{
 		return list;
 	}
 
+	//사이버머니 리스트
 	@Override
 	public ArrayList<AdminVo> memberMoneyList(PageInfo pi) throws AdMemberselectException {
 		ArrayList<AdminVo> list = amd.memberMoneyList(sqlSession, pi);
 		return list;
 	}
-
+	
+	//사이버머니 검색 후 리스트
 	@Override
 	public ArrayList<AdminVo> searchMoneyList(SearchCondition sc, PageInfo pi) throws AdMemberselectException {
 		ArrayList<AdminVo> list = amd.searchMoneyList(sqlSession, sc , pi);
 		
 		return list;
 	}
-
+	
+	//블랙리스트 추가
 	@Override
 	public int checkBlackList(String[] check) throws AdMemberselectException {
 		
@@ -101,7 +108,8 @@ public class AdMemberServiceImpl implements AdMemberService{
 		
 		return result;
 	}
-
+	
+	//블랙리스트 해제
 	@Override
 	public int BlackListoff(String[] check) throws AdMemberselectException {
 		int result = 0;
@@ -111,6 +119,35 @@ public class AdMemberServiceImpl implements AdMemberService{
 		
 		return result;
 	}
+	
+	//신고 카운트
+	@Override
+	public int reportCount() throws AdMemberselectException {
+		int listCount = amd.reportCount(sqlSession);
+		return listCount;
+	}
+	
+	//신고 리스트
+	@Override
+	public ArrayList<Report> selectReportList(PageInfo pi) throws AdMemberselectException {
+		ArrayList<Report> reportlist = amd.selectReportList(sqlSession, pi);
+		return reportlist;
+	}
+	
+	//검색 후 신고 리스트
+	@Override
+	public ArrayList<Report> searchReportList(SearchCondition sc, PageInfo pi) throws AdMemberselectException {
+		ArrayList<Report> reportlist = amd.searchReportList(sqlSession, pi, sc);
+		return reportlist;
+	}
+	
+	//검색 후 신고리스트 카운트
+	@Override
+	public int getSearchReportListCount(SearchCondition sc) throws AdMemberselectException {
+		int listCount = amd.getSearchReportListCount(sqlSession, sc);
+		return listCount;
+	}
+
 
 	
 

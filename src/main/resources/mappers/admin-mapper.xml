@@ -14,7 +14,18 @@
 		<result property="wdStatus" column="WDSTATUS" />
 		<result property="blStatus" column="BLSTATUS" />
 		<result property="eMail" column="EMAIL" />
-
+		<result property="itemNo" column="ITEMNO" />
+		<result property="reportCount" column="REPORTCOUNT" />
+		<result property="title" column="ORIGINNAME" />
+		<result property="status" column="BOARDSTATUS" />
+	</resultMap>
+	
+	<resultMap type="com.kh.eg.admin.model.vo.Report" id="reportResultSet">
+		<result property="memberId" column="MEMBERID" />
+		<result property="itemNo" column="ITEMNO" />
+		<result property="reportCount" column="REPORTCOUNT" />
+		<result property="title" column="ITEMNAME" />
+		<result property="status" column="BOARDSTATUS" />
 	</resultMap>
 
 	<!-- <select id="loginCheck" resultMap="memberResultSet" parameterType="Member"> 
@@ -173,13 +184,46 @@
 		WHERE MEMBERID = #{memberId}
 	</select>
 	
+	<!-- 신고리스트 페이징 -->
+	<select id="reportCount" resultType="_int">
+		SELECT COUNT(*) FROM ATTACHMENT A JOIN REPORT R ON(A.ITEMNO = R.ITEMNO)JOIN AUCTIONITEM N ON(A.ITEMNO = N.ITEMNO) JOIN MEMBER M ON(R.MEMBERNO = M.MEMBERNO)
+	</select>
+	
+	<!-- 신고리스트 -->
+	<select id="selectReportList" resultMap="reportResultSet">
+		SELECT A.ITEMNO, R.REPORTCOUNT, N.ITEMNAME, M.MEMBERID, R.BOARDSTATUS FROM ATTACHMENT A JOIN REPORT R ON(A.ITEMNO = R.ITEMNO)JOIN AUCTIONITEM N ON(A.ITEMNO = N.ITEMNO) JOIN MEMBER M ON(R.MEMBERNO = M.MEMBERNO)
+	</select>
+	
+	<!-- 검색결과 회원목록 페이징 카운트 -->
+	<select id="searchReportListCount" resultType="_int" parameterType="com.kh.eg.admin.model.vo.SearchCondition">
+		SELECT COUNT(*) FROM ATTACHMENT A JOIN REPORT R ON(A.ITEMNO = R.ITEMNO) JOIN MEMBER M ON(R.MEMBERNO = M.MEMBERNO)
+		<choose>
+			<when test="userId != null">
+				AND MEMBERID = #{userId}
+			</when>
+			<when test="title != null">
+				AND ITEMNAME LIKE '%' || #{title} || '%'
+			</when>
+			<otherwise>
+				AND ITEMNO LIKE '%' || #{itemNo} || '%'
+			</otherwise>
+		</choose>
+	</select>
+	
+	<!-- 블랙리스트 검색결과 조회 -->
+	<select id="searchReportList" resultMap="reportResultSet" parameterType="com.kh.eg.admin.model.vo.SearchCondition">
+		SELECT A.ITEMNO, R.REPORTCOUNT, N.ITEMNAME, M.MEMBERID, R.BOARDSTATUS FROM ATTACHMENT A JOIN REPORT R ON(A.ITEMNO = R.ITEMNO)JOIN AUCTIONITEM N ON(A.ITEMNO = N.ITEMNO) JOIN MEMBER M ON(R.MEMBERNO = M.MEMBERNO)
+		<choose>
+			<when test="userId != null">
+				AND MEMBERID = #{userId}
+			</when>
+			<when test="title != null">
+				AND ITEMNAME LIKE '%' || #{title} || '%'
+			</when>
+			<otherwise>
+				AND ITEMNO LIKE '%' || #{itemNo} || '%'
+			</otherwise>
+		</choose>
+	</select>
 	
 </mapper>
-
-
-
-
-
-
-
-
