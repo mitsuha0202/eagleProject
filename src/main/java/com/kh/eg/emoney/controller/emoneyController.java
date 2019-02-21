@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.catalina.connector.Request;
 import org.apache.catalina.connector.Response;
@@ -21,6 +22,7 @@ import com.kh.eg.emoney.model.service.emoneyService;
 import com.kh.eg.emoney.model.service.emoneyServiceImpl;
 import com.kh.eg.emoney.model.vo.PageInfo;
 import com.kh.eg.emoney.model.vo.emoney;
+import com.kh.eg.member.model.vo.Member;
 import com.kh.eg.emoney.model.vo.Pagination;
 
 @Controller
@@ -32,12 +34,18 @@ private emoneyService es;
 	@RequestMapping("emoneyMain.em")
 	public String emoneyMain(@ModelAttribute("emoney") emoney e,
 		@RequestParam(defaultValue="1") int currentPage,
-		HttpServletRequest request, Model model) {
-		int listCount = es.getListCount();		
+		HttpServletRequest request, Model model, HttpSession session) {
+		Member m = new Member();
+		m = (Member)session.getAttribute("loginUser");
+		e.setMemberNo(m.getMid());
+		System.out.println(e.getMemberNo());
+		int listCount = es.getListCount(e);		
 		
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
-		ArrayList<emoney> list = es.selectEmoneyList(pi);
+		ArrayList<emoney> list = es.selectEmoneyList(pi, e);
+		
+		
 		
 		if(list !=null) {
 			model.addAttribute("list", list);
@@ -50,33 +58,9 @@ private emoneyService es;
 		}
 		
 	}
-	//결제하기 버튼 클릭시 결제 페이지
-	@RequestMapping("charge.em")
-	public String charge() {
-		return "emoney/charge";
-	}
+
 	
-	
-	
-	/*//결제내역 리스트 페이지
-	@RequestMapping("emoneyList.em")
-	public String emoneyList() {
-		return "emoney/emoneyList";
-	}*/
-	
-	//충전api 페이지
-	@RequestMapping("chargeAPI.em")
-	public String chargeAPI() {
-		return "emoney/chargeAPI";
-	}
-	
-	/*//API에 전송할 값 넣는 메소드
-	@RequestMapping("saveCharge.em")
-	public String saveCharge() {
-		return "emoney/charge";
-	}
-	*/
-	
+	//API에 전송할 값 넣는 메소드
 	@RequestMapping("saveCharge.em")
 	public String saveCharge(HttpServletRequest request) {
 		
@@ -93,12 +77,31 @@ private emoneyService es;
 		
 		int result = new emoneyServiceImpl().insertEmoney(em);
 		
-		/*Response.setContentType("application/json");
-		Response.setCharacterEncoding("utf-8");
+		/*response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");
 		new Gson().toJson(result, response.getWriter());*/
 		
 		return "redirect:emoneyMain.em";
 	}
+	
+	//결제하기 버튼 클릭시 결제 페이지
+	@RequestMapping("charge.em")
+	public String charge() {
+		return "emoney/charge";
+	}
+	
+	//충전api 페이지
+	@RequestMapping("chargeAPI.em")
+	public String chargeAPI() {
+		return "emoney/chargeAPI";
+	}
+	
+	/*//결제내역 리스트 페이지
+	@RequestMapping("emoneyList.em")
+	public String emoneyList() {
+		return "emoney/emoneyList";
+	}*/
+	
 	
 	
 	

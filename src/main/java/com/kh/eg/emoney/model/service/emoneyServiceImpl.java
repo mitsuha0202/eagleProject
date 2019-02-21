@@ -24,7 +24,7 @@ public class emoneyServiceImpl implements emoneyService {
 	@Override
 	public int insertEmoney(emoney e) {
 		
-		int result = ((emoneyDao) e).insertEmoney(sqlSession, e);
+		int result = ed.insertEmoney(sqlSession, e);
 		return result;
 	}
 
@@ -45,16 +45,17 @@ public class emoneyServiceImpl implements emoneyService {
 
 	//결제 내역 리스트
 	@Override
-	public ArrayList<emoney> selectEmoneyList(PageInfo pi) {
-		ArrayList<emoney> list = ed.selectEmoneyList(sqlSession, pi);
+	public ArrayList<emoney> selectEmoneyList(PageInfo pi, emoney e) {
+		ArrayList<emoney> list = ed.selectEmoneyList(sqlSession, pi, e);
 		return list;
 	}
 
-
+	//결제 내역 수 조회용 메소드
 	@Override
-	public int getListCount() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int getListCount(emoney e) {
+		int listCount = ed.getlistCount(sqlSession, e);
+		
+		return listCount;
 	}
 
 

@@ -18,7 +18,8 @@ public class emoneyDaoImpl implements emoneyDao{
 	public int insertEmoney(SqlSessionTemplate sqlSession, emoney e) {
 		
 		int result = sqlSession.insert("emoney.insertEmoney",e);
-				
+		
+		System.out.println("result뭐찍히니"+result);
 		return result;
 	}
 	
@@ -44,24 +45,27 @@ public class emoneyDaoImpl implements emoneyDao{
 	}
 
 	@Override
-	public ArrayList<emoney> selectEmoneyList(SqlSessionTemplate sqlSession, PageInfo pi) {
+	public ArrayList<emoney> selectEmoneyList(SqlSessionTemplate sqlSession, PageInfo pi, emoney e) {
 		ArrayList<emoney> list = null;
-		ArrayList<emoney> mlist = null;
-		emoney e= new emoney();
-		Member m = new Member();
+		
 		int offset = (pi.getCurrentPage() -1 ) * pi.getLimit();
 		
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
-		e.setMoney(offset);
-		/*list = (ArrayList)sqlSession.selectList("emoney.selectEmoneyList", null, rowBounds);
-		ArrayList<Member> name = null;
 		
-		name =(ArrayList)sqlSession.selectList("Member.selectListWriter",list, rowBounds);
-		for(int i=0; i<name.size();i++) {
-			list.get(i).setUseNo(name.get(i).getUserName());
-		}*/
-
+		list = (ArrayList)sqlSession.selectList("emoney.emoneyList", e, rowBounds);
+		System.out.println("결제리스트뽑기"+list);
 		return list;
+	}
+
+	@Override
+	public int getlistCount(SqlSessionTemplate sqlSession, emoney e) {
+		
+		int result = sqlSession.selectOne("emoney.selectEmoneyList", e);
+		
+		System.out.println("결제내역리스트 뽑는 result" + result);
+		
+		return result;
+		
 	}
 
 	
