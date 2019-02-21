@@ -106,6 +106,15 @@ public interface MyPageService {
 	//낙찰받은 물품 목록
 	ArrayList<PayTable> selectWinBid(PageInfo pi, String mid);
 	
+	//문의받은게시판 - 답변페이지 등록
+	int answerBoardInsert(AnswerBoard answer);
+	
+	//문의받은게시판 페이징 처리
+	int getSearchResultListCount(SearchCondition sc);
+	
+	//문의받은 게시판 페이징처리후 리스트결과
+	ArrayList<AnswerBoard> selectSearchResultList(SearchCondition sc, PageInfo pi);
+	
 	
 	
 	

@@ -16,7 +16,7 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-	 <script src="moment.min.js"></script>
+	 
 
 
 
@@ -367,7 +367,7 @@
    	<!-- footer -->
 </body>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	
+	<script src="/eg/webapp/WEB-INF/views/common/moment.min.js"></script>
 	<script>
 		function numComma(num){
 	    	var numStr = String(num);
@@ -388,8 +388,6 @@
 					$("#startPrice").text(numComma(data.startPrice));
 					$("#auctionName").text(data.auctionName);
 					$("#upPrice").text(numComma(data.bidUnit));
-					/* $("#startDay").text(data.startDay);
-					$("#endDay").text(data.endDay); */
 					$("#deliveryPay").text(data.deliveryPay);
 					$("#deliveryPrice").text(numComma(data.deliveryPrice));
 					$("#origin").text(data.origin);
@@ -405,12 +403,8 @@
 						type:"get",
 						data:{itemNo : itemNo},
 						success:function(data){
-							var date = new Date(data.startDay);
-							
 						 
-							alert(date);
-							alert(date);
-							$("#startDay").text(date);
+							$("#startDay").text(data.startDay);
 							$("#endDay").text(data.endDay);
 							console.log("날짜조회 성공");
 						},
@@ -462,6 +456,7 @@
 											currentPrice = currentPrice + bidUnit;
 											$("#cPrice").text(numComma(currentPrice));
 											
+											alert("입찰이 완료되었습니다.");
 											console.log("입찰성공");
 										},
 										error:function(){
@@ -486,7 +481,44 @@
 			});
 		});
 		
+		$("#wishBtn").click(function(){
+			var itemNo = $("#itemNo").text();
+			var mid = '${sessionScope.loginUser.mid}';
+			
+			$.ajax({
+				url:"compareWish.bi"
+				type:"get",
+				data:{itemNo : itemNo , mNo : mid},
+				success:function(data){
+					console.log("위시리스트 비교 성공");
+					if(data == "1"){
+						$.ajax({
+							url:"insertWishList.bi",
+							type:"get",
+							data:{itemNo : itemNo , mNo : mid},
+							success:function(data){
+								alert("위시리스트에 등록되었습니다.");
+								console.log("위시리스트 등록성공");
+							},
+							error:function(){
+								console.log("위시르스트 등록실패");
+							}
+						});
+					}
+					else{
+						alert("이미 위시르스트에 등록된 경매물품 입니다.");
+					}
+				},
+				error:function(){
+					console.log("위시리스트 비교 실패");
+				}
+			});
+		});
 		
+		
+		/* $(function(){
+			
+		}); */
 		
 		
 		

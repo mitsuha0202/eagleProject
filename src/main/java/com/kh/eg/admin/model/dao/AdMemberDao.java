@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import com.kh.eg.admin.model.exception.AdMemberselectException;
 import com.kh.eg.admin.model.vo.AdminVo;
 import com.kh.eg.admin.model.vo.PageInfo;
+import com.kh.eg.admin.model.vo.Report;
 import com.kh.eg.admin.model.vo.SearchCondition;
 
 public interface AdMemberDao {
@@ -30,9 +31,17 @@ public interface AdMemberDao {
 
 	ArrayList<AdminVo> searchMoneyList(SqlSessionTemplate sqlSession, SearchCondition sc, PageInfo pi) throws AdMemberselectException;
 
-	int blackListCheck(SqlSessionTemplate sqlSession, String string);
+	int blackListCheck(SqlSessionTemplate sqlSession, String string) throws AdMemberselectException;
 
-	int blackListoff(SqlSessionTemplate sqlSession, String string);
+	int blackListoff(SqlSessionTemplate sqlSession, String string) throws AdMemberselectException;
+
+	int reportCount(SqlSessionTemplate sqlSession) throws AdMemberselectException;
+
+	ArrayList<Report> selectReportList(SqlSessionTemplate sqlSession, PageInfo pi) throws AdMemberselectException;
+
+	ArrayList<Report> searchReportList(SqlSessionTemplate sqlSession, PageInfo pi, SearchCondition sc) throws AdMemberselectException;
+
+	int getSearchReportListCount(SqlSessionTemplate sqlSession, SearchCondition sc) throws AdMemberselectException;
 
 
 	

@@ -18,5 +18,9 @@ public interface BiddingService {
 
 	ItemDetail selectDate(String itemNo);
 
+	int insertWishList(ItemDetail i);
+
+	ItemDetail selectWishList(String itemNo, String mNo);
+
 
 }

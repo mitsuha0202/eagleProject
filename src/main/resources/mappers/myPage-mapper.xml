@@ -221,7 +221,7 @@
 	<select id="countQueryBoard" resultType="_int" parameterType="java.lang.String">
 		SELECT COUNT(*)
 		FROM BOARD  
-		WHERE DELETESTATUS = 'N' AND BOARDSTATUS = 'QUESTIONBOARD' AND MEMBERNO = #{memberNo}
+		WHERE DELETESTATUS = 'N' AND BOARDSTATUS = 'RECEIVEBOARD' AND MEMBERNO = #{memberNo}
 	</select>
 	
 	<!-- 문의게시판 조회 -->
@@ -230,7 +230,7 @@
 		FROM BOARD B
         JOIN MEMBER M ON(B.SMEMBERNO = M.MEMBERNO)
 		WHERE B.DELETESTATUS = 'N' 
-		AND B.BOARDSTATUS = 'QUESTIONBOARD' 
+		AND B.BOARDSTATUS = 'RECEIVEBOARD' 
 		AND B.MEMBERNO = #{memberNo} 
 		ORDER BY WRITEDAY DESC
 	</select>
@@ -239,7 +239,7 @@
 	<select id="selectOneQuery" resultMap="myPageOneResultSet" parameterType="java.lang.String">
 		SELECT * FROM BOARD 
 		WHERE DELETESTATUS = 'N'
-		AND BOARDSTATUS = 'QUESTIONBOARD'
+		AND BOARDSTATUS = 'RECEIVEBOARD'
 		AND BOARDNO = #{boardNo}
 	</select>
 	
@@ -249,7 +249,7 @@
 		FROM BOARD B  
         JOIN MEMBER M ON(B.SMEMBERNO = M.MEMBERNO)
 		WHERE B.DELETESTATUS = 'N' 
-		AND B.BOARDSTATUS = 'QUESTIONBOARD' 
+		AND B.BOARDSTATUS = 'RECEIVEBOARD' 
 		AND B.MEMBERNO = #{memberNo}	
 		<choose>
 			<when test="writer != null">
@@ -267,7 +267,7 @@
 		FROM BOARD B
         JOIN MEMBER M ON(B.SMEMBERNO = M.MEMBERNO)
 		WHERE B.DELETESTATUS = 'N' 
-		AND B.BOARDSTATUS = 'QUESTIONBOARD' 
+		AND B.BOARDSTATUS = 'RECEIVEBOARD' 
 		AND B.MEMBERNO = #{memberNo} 
 		<choose>
 			<when test="writer != null">
@@ -379,7 +379,7 @@
 		AND ITEMNO = #{itemNo}
 	</select>
 	
-<!-- ============================================================================================= -->
+
 	<!-- 낙찰받은 물품 페이징 -->
 	<select id="winBidCountList" resultType="_int" parameterType="java.lang.String">
 		SELECT COUNT(DISTINCT B.ITEMNO) 
@@ -391,4 +391,21 @@
 	<select id="selectWinBidList" resultMap="payTableResultSet" parameterType="java.lang.String">
 		
 	</select>
+
+	<!--//답변페이지 게시판번호 물품번호조회  -->
+	<select id="reanswerDetail" resultMap="answerBoardResultSet" parameterType="java.lang.String">
+		SELECT B.BOARDNO, B.ITEMNO , M.MEMBERNAME, B.TITLE FROM BOARD B JOIN MEMBER M ON(B.MEMBERNO = M.MEMBERNO) WHERE B.BOARDSTATUS = 'RECEIVEBOARD' AND B.BOARDNO = #{answerno}
+	</select>
+	
+	<!-- 답변페이지 답변등록-->
+	<insert id="answerBoardInsert" parameterType="AnswerBoard">
+		INSERT INTO REPLY VALUES(RN_SEQ.NEXTVAL, SYSDATE, #{memberContents},#{boardNo},#{memberNo},'N')
+	</insert>
+	
+	<!-- 답변페이지 답변여부확인  -->
+	<update id="answerBoardUpdate" parameterType="AnswerBoard">
+		UPDATE BOARD SET REPLYSTATUS = 'Y' WHERE BOARDNO = #{boardNo}
+	</update>
+
+
 </mapper>

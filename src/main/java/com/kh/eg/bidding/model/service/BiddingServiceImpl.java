@@ -67,4 +67,20 @@ private SqlSessionTemplate sqlSession;
 		
 		return i;
 	}
+
+	@Override
+	public int insertWishList(ItemDetail i) {
+		int result = bd.insertWishList(sqlSession, i);
+		
+		return result;
+	}
+
+	@Override
+	public ItemDetail selectWishList(String itemNo, String mNo) {
+		ItemDetail i = null;
+		
+		i = bd.selectWishList(sqlSession, itemNo, mNo);
+		
+		return i;
+	}
 }

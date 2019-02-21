@@ -106,6 +106,15 @@ public interface MyPageDao {
 	//낙찰받은 물품 목록 조회
 	ArrayList<PayTable> selectWinBid(SqlSessionTemplate sqlSession, PageInfo pi, String mid);
 	
+	//문의받은게시판 - 답변페이지 등록
+	int answerBoardInsert(SqlSessionTemplate sqlSession, AnswerBoard answer);
+	
+	//문의받은게시판 페이징 처리
+	int getSearchResultListCount(SqlSessionTemplate sqlSession, SearchCondition sc);
+	
+	//문의받은게시판 페이징 처리후 리스트결과
+	ArrayList<AnswerBoard> selectSearchResultList(SearchCondition sc, PageInfo pi, SqlSessionTemplate sqlSession);
+	
 	
 	
 	
