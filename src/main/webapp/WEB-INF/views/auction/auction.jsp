@@ -122,8 +122,8 @@ h4 {
 			<br>
 			<hr>
 			
-			<div class="ui grid">
-  			<div class="four wide column">
+			<div class="ui grid" style="display:inline-block;">
+  			<div id="addDiv" class="four wide column">
   			<c:forEach var="i" items="${list1}">
 			<div class="may" style=width:300px;>
 
@@ -150,7 +150,7 @@ h4 {
 			</c:forEach>
 		</div>
   			
-  			<div id="addDiv" class="four wide column">
+  			<!-- <div id="addDiv" class="four wide column"> -->
   			<%-- 	<c:forEach var="i" items="${list1}">
 			<div class="may" style=width:300px;>
 
@@ -207,8 +207,8 @@ h4 {
 			</div>
 			
 			</c:forEach> --%>
-			</div>
-  			<div class="four wide column">
+		<!-- 	</div> -->
+  			<%-- <div class="four wide column">
   				<c:forEach var="i" items="${list1}">
 			<div class="may" style=width:300px;>
 
@@ -232,7 +232,7 @@ h4 {
 
 			</tr>
 		</table>
-			</c:forEach></div>
+			</c:forEach></div> --%>
 			</div>
 			
 		
@@ -250,23 +250,22 @@ h4 {
 				type:'GET',
 				data:{alignName:alignName},
 				success:function(data) {
+				
+					$("#addDiv").html("");
 					
-					alert("성공");
-					console.log(data);
-					alert(data);
-					
-					for(var key in data){
-						var $add = $("#add");
-						var $div1 = $("<div class='may' style='width:300px';>");
-						 var $img = $("<img src='resources/uploadFiles/"+data[key].changeName+"'>");
-						 console.log($img);
+						
+				
+						for(key in data){
+						var $div1 = $("<div class='may' style='width:300px;height:200px';>");
+						var $img = $("<img style='width:300px;height:200px'; src='resources/uploadFiles/"+data[key].atta.changeName+"'>");
+						console.log(data[key].atta.changeName);
 						var $table = $("<table class='ui basic table' style='width:250px;'>");
 						var $tr1 = $("<tr>");
 						var $tr2 = $("<tr class='tr'>");
 						var $td1 = $("<td colspan='2'>");
-						$td1.text("입찰 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+data[key].bidCount+" 건");
+						$td1.text("입찰                            "+data[key].bidCount+ " 건");
 						var $td2 = $("<td>");
-						$td2.text("조회 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+data[key].itemcount+"회");
+						$td2.text("조회                            "+data[key].itemcount+"회");
 						var $tr3 = $("<tr class='tr'>");
 						var $td3 = $("<td colspan='2'>");
 						$td3.text("판매자 아이디");
@@ -288,11 +287,15 @@ h4 {
 						$table.append($tr2);
 						$table.append($tr3);
 						$table.append($tr4);
-						 $div1.append($img); 
-						$add.append($div1);
-						$add.append($table);
-						$addDiv.append($add);
-					}
+						$div1.append($img); 
+						$addDiv.append($div1);
+						$addDiv.append($table);
+						
+						// $add.append($div1);
+						//$add.append($table); 
+						//$addDiv.append($add);   
+						}
+					
 					
 					
 /* 					<div class="may" style=width:300px;>
@@ -314,8 +317,6 @@ h4 {
 							<td>00</td>
 						</tr>
 					</table> */
-					
-					
 					
 					
 				},

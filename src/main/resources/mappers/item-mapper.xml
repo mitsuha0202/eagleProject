@@ -124,4 +124,100 @@
 	</select>
 
 
+
+	<select id="selectItemC2" resultMap="itemResultSet" parameterType="java.lang.String">
+		select * from auctionitem a join auctiondetail ad on(a.itemno=ad.itemno) order by endday asc 
+	
+	</select>
+	
+	<select id="selectAttachmentC2" resultMap="attachmentResultSet" parameterType="java.lang.String">
+		SELECT * FROM ATTACHMENT 
+	
+	</select>
+	
+		<select id="selectBidC2" resultMap="biddingResultSet" parameterType="java.lang.String">
+		SELECT * FROM BID 
+	
+	</select>
+	
+		<select id="selectItemC3" resultMap="itemResultSet" parameterType="java.lang.String">
+		select * from auctionitem a join auctiondetail ad on(a.itemno=ad.itemno) order by startday desc 
+	
+	</select>
+	
+		<select id="selectAttachmentC3" resultMap="attachmentResultSet" parameterType="java.lang.String">
+		SELECT * FROM ATTACHMENT 
+	
+	</select>
+		<select id="selectBidC3" resultMap="biddingResultSet" parameterType="java.lang.String">
+		SELECT * FROM BID 
+	
+	</select>
+	
+	<select id="selectItemC4" resultMap="itemResultSet" parameterType="java.lang.String">
+		select * from auctionitem order by startprice desc
+	
+	</select>
+	
+		<select id="selectAttachmentC4" resultMap="attachmentResultSet" parameterType="java.lang.String">
+		SELECT * FROM ATTACHMENT 
+	
+	</select>
+	
+		<select id="selectBidC4" resultMap="biddingResultSet" parameterType="java.lang.String">
+		SELECT * FROM BID 
+	
+	</select>
+	
+		<select id="selectItemC5" resultMap="itemResultSet" parameterType="java.lang.String">
+			select * from auctionitem order by icount desc
+	
+	</select>
+	
+		<select id="selectAttachmentC5" resultMap="attachmentResultSet" parameterType="java.lang.String">
+		SELECT * FROM ATTACHMENT 
+	
+	</select>
+	
+		<select id="selectBidC5" resultMap="biddingResultSet" parameterType="java.lang.String">
+		SELECT * FROM BID 
+	
+	</select>
+	
+	<select id="selectItemC6" resultMap="itemResultSet" parameterType="java.lang.String">
+			select * from auctionitem order by icount desc
+	
+	</select>
+	
+		<select id="selectAttachmentC6" resultMap="attachmentResultSet" parameterType="java.lang.String">
+		SELECT * FROM ATTACHMENT 
+	
+	</select>
+	
+		<select id="selectBidC6" resultMap="biddingResultSet" parameterType="java.lang.String">
+		SELECT * FROM BID 
+	
+	</select>
+	
+		<select id="selectItemC7" resultMap="itemResultSet" parameterType="java.lang.String">
+			select * from auctionitem 
+	
+	</select>
+	
+		<select id="selectAttachmentC7" resultMap="attachmentResultSet" parameterType="java.lang.String">
+		SELECT * FROM ATTACHMENT 
+	
+	</select>
+	
+		<select id="selectBidC7" resultMap="biddingResultSet" parameterType="java.lang.String">
+		SELECT * FROM BID 
+	
+	</select>
+	
+	
+	
+	
+	
+
+
 </mapper>
