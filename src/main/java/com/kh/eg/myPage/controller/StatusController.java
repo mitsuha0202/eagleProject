@@ -31,11 +31,7 @@ public class StatusController {
 	
 	//구매현황상세페이지메인
 	@RequestMapping("purchasestatus.mp")
-	public String purchasestatusPage(HttpSession session, Model model, @RequestParam(value="currentPage", required=false) String temp, Member m) {
-		int currentPage = 1;
-		if(temp != null) {
-			currentPage = Integer.parseInt(temp);
-		}
+	public String purchasestatusPage(HttpSession session, Model model, @RequestParam(defaultValue="1") int currentPage, Member m) {
 		
 		m = (Member)session.getAttribute("loginUser");
 		int listCount = ms.getPayListCount(m.getMid());
@@ -44,7 +40,7 @@ public class StatusController {
 		
 		for(int i=0; i<list.size(); i++) {
 			Three three = new Three();			
-			list.get(i).setCurrentPrice(Integer.parseInt((three.toNumFormat(list.get(i).getCurrentPrice()))));
+			list.get(i).setCurrentPrice((three.toNumFormat(Integer.parseInt(list.get(i).getCurrentPrice()))));
 		}
 		
 		model.addAttribute("list", list);
@@ -52,38 +48,93 @@ public class StatusController {
 		return "myPage/management/purchasestatusMainPage";
 	}
 	
-	//구매현황상세페이지메인 물품갯수
+	//구매현황상세페이지메인(최고, 차순위 갯수) 물품갯수
 	@RequestMapping("countPayListMain.mp")
-	public @ResponseBody int countPayListMain(@RequestParam String userId) {
-		int count = ms.countPayListMain(userId);
+	public @ResponseBody int countPayListMain(@RequestParam String userId, @RequestParam(value="key", required=false) String key) {
+		int count = 0;
+		
+		if(key != null && key.equals("second")) {
+			count = ms.countPayListSecond(userId);
+		}else if(key != null && key.equals("exitAuction")) {
+			count = ms.countExitAuction(userId);
+		}else {
+			count = ms.countPayListMain(userId);
+		}
 		return count;
 	}
 		
 	//구매현황상세페이지메인 - 입찰중물품 - 진행중인 최고 입찰물품
 	@RequestMapping("highstbiditem.mp")
-	public String highstbiditemPage() {
+	public String highstbiditemPage(HttpSession session, Model model, @RequestParam(defaultValue="1") int currentPage, Member m) {
+		
+		m = (Member)session.getAttribute("loginUser");
+		int listCount = ms.getPayListCount(m.getMid());
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		ArrayList<PayTable> topList = ms.selectPayList(pi, m.getMid());
+		
+		ArrayList<PayTable> list = new ArrayList<PayTable>();
+		
+		for(int i=0; i<topList.size(); i++) {
+			if(topList.get(i).getRowBid() == 1) {
+				list.add(topList.get(i));
+			}
+			
+		}
+		for(int i=0; i<list.size(); i++) {
+			Three three = new Three();			
+			list.get(i).setCurrentPrice((three.toNumFormat(Integer.parseInt(list.get(i).getCurrentPrice()))));
+		}
+		model.addAttribute("list", list);
+		model.addAttribute("pi", pi);
 		return "myPage/management/purchasestatusMainPage";
 	}
 	
 	//구매현황 상세페이지 - 입찰중물품 - 진행중인 차순위 입찰 물품
 	@RequestMapping("secondbiditem.mp")
-	public String secondbiditemPage() {
+	public String secondbiditemPage(HttpSession session, Model model, @RequestParam(defaultValue="1") int currentPage, Member m) {
+		
+		m = (Member)session.getAttribute("loginUser");
+		int listCount = ms.getPayListCount(m.getMid());
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		ArrayList<PayTable> topList = ms.selectPayList(pi, m.getMid());
+		
+		ArrayList<PayTable> list = new ArrayList<PayTable>();
+		
+		for(int i=0; i<topList.size(); i++) {
+			if(topList.get(i).getRowBid() != 1) {
+				list.add(topList.get(i));
+			}
+		}
+		for(int i=0; i<list.size(); i++) {
+			Three three = new Three();			
+			list.get(i).setCurrentPrice((three.toNumFormat(Integer.parseInt(list.get(i).getCurrentPrice()))));
+		}
+		model.addAttribute("list", list);
+		model.addAttribute("pi", pi);
 		return "myPage/management/secondbiditemPage";
 	}
 	
 	
 //--------------------------------구매 종료 페이지들------------------------------------------------------	
 	
-	//구매현황상세페이지 - 구매종료페이지버튼
+	//구매현황상세페이지 - 구매종료페이지버튼, 낙찰받은물품
 	@RequestMapping("purchaseend.mp")
-	public String purchaseendPage() {
-		return "myPage/management/purchaseendPage";
-	}
+	public String purchaseendPage(HttpSession session, Model model, @RequestParam(defaultValue="1") int currentPage, Member m) {
 		
+		//여기서는 currentPrice가 낙찰받은 금액임
+		m = (Member)session.getAttribute("loginUser");
+		int listCount = ms.getWinBidListCount(m.getMid());
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		ArrayList<PayTable> list = ms.selectWinBid(pi, m.getMid());
 		
-	//구매현황 상세페이지 - 구매종료 - 낙찰받은물품
-	@RequestMapping("successbid.mp")
-	public String sucessbidPage() {
+		for(int i=0; i<list.size(); i++) {
+			Three three = new Three();			
+			list.get(i).setCurrentPrice((three.toNumFormat(Integer.parseInt(list.get(i).getCurrentPrice()))));
+		}
+		
+		model.addAttribute("list", list);
+		model.addAttribute("pi", pi);
+		
 		return "myPage/management/purchaseendPage";
 	}
 	

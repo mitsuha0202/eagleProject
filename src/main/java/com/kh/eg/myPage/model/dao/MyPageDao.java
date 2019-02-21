@@ -93,6 +93,18 @@ public interface MyPageDao {
 	
 	//답변페이지 게시판번호 물품번호조회
 	AnswerBoard reanswerDetail(SqlSessionTemplate sqlSession, String answerno);
+
+	//구매관리 입찰중 물품 차순위 갯수
+	int countPayListSecond(SqlSessionTemplate sqlSession, String userId);
+
+	//낙찰받은 물품 페이징
+	int countWinBidListCount(SqlSessionTemplate sqlSession, String mid);
+
+	//마감된 경매중 낙찰된 물품 갯수 
+	int countExitAuction(SqlSessionTemplate sqlSession, String userId);
+
+	//낙찰받은 물품 목록 조회
+	ArrayList<PayTable> selectWinBid(SqlSessionTemplate sqlSession, PageInfo pi, String mid);
 	
 	
 	

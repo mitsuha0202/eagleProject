@@ -76,7 +76,14 @@
 		<result property="saleMemberNo" column="saleMemberNo"/>
 		<result property="endDay" column="ENDDAY"/>
 		<result property="endYn" column="EXITYN"/>
-  </resultMap>
+  	</resultMap>
+	
+	<!-- 구매관리 입찰중 물품 차순위 조회 -->
+	<resultMap type="com.kh.eg.myPage.model.vo.PayTable" id="secondRankResultSet">
+		<id property="itemNo" column="ITEMNO"/>
+		<result property="rowBid" column="RANKING"/>
+	</resultMap>
+	
 	<!-- 문의받은게시판조회 -->
 	<resultMap type="com.kh.eg.myPage.model.vo.AnswerBoard" id="answerBoardResultSet">
 		<id property="boardNo" column="BOARDNO"/>
@@ -87,7 +94,6 @@
 		<result property="memberName" column="MEMBERNAME"/>
 		<result property="memberContents" column="BOARDCONTENT"/>
 		<result property="writeDay" column="WRITEDAY"/>
-
 	</resultMap>
 	
 	<!-- 게시글 조회 -->
@@ -274,6 +280,22 @@
 		ORDER BY WRITEDAY DESC
 	</select>
 	
+		<!-- 문의받은게시판 조회 -->
+	<select id="selectanswerBoard" resultMap="answerBoardResultSet" parameterType="java.lang.String">
+		SELECT B.BOARDNO, B.ITEMNO, B.TITLE, B.REPLYSTATUS, M.MEMBERID, B.WRITEDAY
+		FROM BOARD B JOIN MEMBER M ON(B.MEMBERNO = M.MEMBERNO) WHERE B.BOARDSTATUS = 'RECEIVEBOARD' AND B.SMEMBERNO = #{memberNo}
+	</select>
+	
+	<!-- 문의받은게시판 상세 조회-->
+	<select id="selectdetailanswer" resultMap="answerBoardResultSet" parameterType="java.lang.String">
+		SELECT B.BOARDNO, B.ITEMNO, M.MEMBERNAME, B.TITLE, B.BOARDCONTENT FROM BOARD B JOIN MEMBER M ON(B.MEMBERNO = M.MEMBERNO) WHERE B.BOARDSTATUS = 'RECEIVEBOARD' AND B.BOARDNO = #{searchTitle}
+	</select>
+	
+	<!--//답변페이지 게시판번호 물품번호조회  -->
+	<select id="reanswerDetail" resultMap="answerBoardResultSet" parameterType="java.lang.String">
+		SELECT B.BOARDNO, B.ITEMNO , M.MEMBERNAME FROM BOARD B JOIN MEMBER M ON(B.MEMBERNO = M.MEMBERNO) WHERE B.BOARDSTATUS = 'RECEIVEBOARD' AND B.BOARDNO = #{answerno}
+	</select>
+	
 <!-- ============================================================================================= -->
 	<!-- 구매관리 입찰중 쿼리문들 -->
 	
@@ -306,7 +328,7 @@
 	</select>
 	
 	<!-- 입찰중 내가 입력한 최고가 -->
-	<select id="maxCurrentPrice" resultType="_int" parameterType="java.lang.String">
+	<select id="maxCurrentPrice" resultType="java.lang.String" parameterType="java.lang.String">
 		SELECT MAX(CURRENTPRICE) FROM BID WHERE MEMBERNO = #{mid}
 	</select>
 	
@@ -344,20 +366,29 @@
 		SELECT ENDDAY FROM AUCTIONDETAIL WHERE ITEMNO = #{itemNo}
 	</select> 
 	
-	<!-- 문의받은게시판 조회 -->
-	<select id="selectanswerBoard" resultMap="answerBoardResultSet" parameterType="java.lang.String">
-		SELECT B.BOARDNO, B.ITEMNO, B.TITLE, B.REPLYSTATUS, M.MEMBERID, B.WRITEDAY
-		FROM BOARD B JOIN MEMBER M ON(B.MEMBERNO = M.MEMBERNO) WHERE B.BOARDSTATUS = 'RECEIVEBOARD' AND B.SMEMBERNO = #{memberNo}
+	<!-- 구매관리 입찰중 물품 차순위 갯수 찾기 위한 아이템번호 찾기 -->
+	<select id="countSecondSearchItemNo" resultMap="secondRankResultSet" parameterType="java.lang.String">
+		SELECT DISTINCT ITEMNO FROM BID WHERE MEMBERNO = 11 ORDER BY ITEMNO DESC
 	</select>
 	
-	<!-- 문의받은게시판 상세 조회-->
-	<select id="selectdetailanswer" resultMap="answerBoardResultSet" parameterType="java.lang.String">
-		SELECT B.BOARDNO, B.ITEMNO, M.MEMBERNAME, B.TITLE, B.BOARDCONTENT FROM BOARD B JOIN MEMBER M ON(B.MEMBERNO = M.MEMBERNO) WHERE B.BOARDSTATUS = 'RECEIVEBOARD' AND B.BOARDNO = #{searchTitle}
+	<!-- 구매관리 입찰중 물품 차순위 갯수 -->
+	<select id="countSecondRank" resultType="PayTable" parameterType="java.lang.String">
+		SELECT DISTINCT RANK() OVER (ORDER BY ITEMNO DESC) AS RANKING, ITEMNO
+		FROM BID
+		WHERE MEMBERNO = #{userId} 
+		AND ITEMNO = #{itemNo}
 	</select>
 	
-	<!--//답변페이지 게시판번호 물품번호조회  -->
-	<select id="reanswerDetail" resultMap="answerBoardResultSet" parameterType="java.lang.String">
-		SELECT B.BOARDNO, B.ITEMNO , M.MEMBERNAME FROM BOARD B JOIN MEMBER M ON(B.MEMBERNO = M.MEMBERNO) WHERE B.BOARDSTATUS = 'RECEIVEBOARD' AND B.BOARDNO = #{answerno}
+<!-- ============================================================================================= -->
+	<!-- 낙찰받은 물품 페이징 -->
+	<select id="winBidCountList" resultType="_int" parameterType="java.lang.String">
+		SELECT COUNT(DISTINCT B.ITEMNO) 
+		FROM BID B JOIN AUCTIONDETAIL A ON(B.ITEMNO = A.ITEMNO) 
+		WHERE B.MEMBERNO = #{mid} AND A.EXITYN = 'Y'
+	</select>	
+	
+	<!-- 낙찰받은 물품 목록 조회 -->
+	<select id="selectWinBidList" resultMap="payTableResultSet" parameterType="java.lang.String">
+		
 	</select>
-
 </mapper>

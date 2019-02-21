@@ -211,6 +211,34 @@ public class MyPageServiceImpl implements MyPageService{
 		
 		return md.reanswerDetail(sqlSession,answerno);
 	}
+
+	//구매관리 입찰중 물품 차순위 갯수
+	@Override
+	public int countPayListSecond(String userId) {
+
+		return md.countPayListSecond(sqlSession, userId);
+	}
+
+	//낙찰받은 물품 페이징
+	@Override
+	public int getWinBidListCount(String mid) {
+
+		return md.countWinBidListCount(sqlSession, mid);
+	}
+
+	//마감된 경매중 낙찰된 물품 갯수 
+	@Override
+	public int countExitAuction(String userId) {
+
+		return md.countExitAuction(sqlSession, userId);
+	}
+
+	//낙찰받은 물품 목록 조회
+	@Override
+	public ArrayList<PayTable> selectWinBid(PageInfo pi, String mid) {
+		
+		return md.selectWinBid(sqlSession, pi, mid);
+	}
 	
 	
 }

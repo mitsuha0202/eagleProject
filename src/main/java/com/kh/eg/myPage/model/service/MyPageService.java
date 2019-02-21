@@ -93,6 +93,18 @@ public interface MyPageService {
 	
 	//답변페이지 게시판번호 물품번호조회
 	AnswerBoard reanswerDetail(String answerno);
+
+	//구매관리 입찰중 물품 차순위 갯수
+	int countPayListSecond(String userId);
+
+	//낙찰받은 물품 페이징처리
+	int getWinBidListCount(String mid);
+
+	//마감된 경매중 낙찰된 물품 갯수 
+	int countExitAuction(String userId);
+
+	//낙찰받은 물품 목록
+	ArrayList<PayTable> selectWinBid(PageInfo pi, String mid);
 	
 	
 	
