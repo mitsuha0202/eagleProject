@@ -263,6 +263,13 @@ public class MyPageServiceImpl implements MyPageService{
 		
 		return list;
 	}
+
+	//최고순위 입찰중 물품 갯수
+	@Override
+	public int countPayListFirst(String userId) {
+
+		return md.countPayListFirst(sqlSession, userId);
+	}
 	
 	
 }

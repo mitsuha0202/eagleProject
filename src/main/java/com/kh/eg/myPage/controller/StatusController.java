@@ -48,12 +48,13 @@ public class StatusController {
 		return "myPage/management/purchasestatusMainPage";
 	}
 	
-	//구매현황상세페이지메인(최고, 차순위 갯수) 물품갯수
+	//구매현황상세페이지메인(최고, 차순위 갯수) 물품갯수(ajax)
 	@RequestMapping("countPayListMain.mp")
 	public @ResponseBody int countPayListMain(@RequestParam String userId, @RequestParam(value="key", required=false) String key) {
 		int count = 0;
-		
-		if(key != null && key.equals("second")) {
+		if(key != null && key.equals("first")) {
+			count = ms.countPayListFirst(userId);
+		}else if(key != null && key.equals("second")) {
 			count = ms.countPayListSecond(userId);
 		}else if(key != null && key.equals("exitAuction")) {
 			count = ms.countExitAuction(userId);
@@ -86,7 +87,7 @@ public class StatusController {
 		}
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
-		return "myPage/management/purchasestatusMainPage";
+		return "myPage/management/firstPurchasestatus";
 	}
 	
 	//구매현황 상세페이지 - 입찰중물품 - 진행중인 차순위 입찰 물품
@@ -121,15 +122,20 @@ public class StatusController {
 	@RequestMapping("purchaseend.mp")
 	public String purchaseendPage(HttpSession session, Model model, @RequestParam(defaultValue="1") int currentPage, Member m) {
 		
-		//여기서는 currentPrice가 낙찰받은 금액임
+		//여기서는 순위 따져 currentPrice가 낙찰받은 금액임
 		m = (Member)session.getAttribute("loginUser");
 		int listCount = ms.getWinBidListCount(m.getMid());
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-		ArrayList<PayTable> list = ms.selectWinBid(pi, m.getMid());
-		
-		for(int i=0; i<list.size(); i++) {
-			Three three = new Three();			
-			list.get(i).setCurrentPrice((three.toNumFormat(Integer.parseInt(list.get(i).getCurrentPrice()))));
+		ArrayList<PayTable> winBidList = ms.selectWinBid(pi, m.getMid());
+		ArrayList<PayTable> list = new ArrayList<PayTable>();
+		for(int i=0; i<winBidList.size(); i++) {
+			if(winBidList.get(i).getCurrentPrice() != null) {
+				Three three = new Three();			
+				winBidList.get(i).setCurrentPrice((three.toNumFormat(Integer.parseInt(winBidList.get(i).getCurrentPrice()))));
+			}
+			if(winBidList.get(i).getRowBid() == 1) {
+				list.add(winBidList.get(i));
+			}
 		}
 		
 		model.addAttribute("list", list);

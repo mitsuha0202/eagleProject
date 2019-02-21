@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>        
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>구매종료</title>
+<title>구매관리</title>
 </head>
 <style>
       /* 구매현황 테이블 div */
@@ -72,12 +72,13 @@
 	}
 </style>
 <body>
-	<!-- 헤더바 -->
+
+<!-- 헤더바 -->
 	<jsp:include page="../../common/header.jsp"/>
 	
 	<!-- 헤더바 밑 선 -->
 	<hr class="firstLine">
-	<h1>구매관리(구매종료)</h1>
+	<h1>구매관리(입찰중물품)</h1>
     <div class="buyStatus">
 		<table class="buyStatusTable">
 			<tr>
@@ -89,8 +90,8 @@
 			<tr>
 				<td><h5>경매상황</h5></td>
 				<!-- td태그 오른쪽 선 안보이게 하기  -->
-				<td style="border-right: hidden;" onclick="location.href='purchaseend.mp'"><h5>낙찰받은 물품</h5></td>
-				<td style="border-right: hidden;" onclick="location.href='unsuccessbid.mp'"><h5>낙찰 받지 못한 물품</h5></td>
+				<td style="border-right: hidden;" onclick="location.href='highstbiditem.mp'"><h5>진행중인 최고 입찰물품</h5></td>
+				<td style="border-right: hidden;" onclick="location.href='secondbiditem.mp'"><h5>진행중인 차순위 입찰 물품</h5></td>
 				<td></td>
 			
 				
@@ -102,8 +103,7 @@
 		</table>
 		
 		 <h5>꼭 읽어주세요! </h5><br>
-	     <h5>현재 입찰하신 물품중 낙찰받은 물품 리스트입니다.</h5>
-	     <h5>취소하기 선택시 패널티가 부여되며 물품가격의 수수료를 제외한 나머지 금액을 돌려받게 됩니다.</h5>
+	     <h5>현재 입찰하신 물품중 진행중인 물품 리스트입니다.</h5>
 	     <br>
 	     <h5 id="countMainPayList"></h5>
 	     
@@ -111,27 +111,33 @@
       
       <thead>
         <tr>
-		  <th class="firstTd">물품번호</th>
-          <th class="firstTd">물품명</th>     
-          <th class="firstTd">낙찰가</th>
-          <th class="firstTd">마감일</th>
+          <th class="firstTd">물품번호</th>
+          <th class="firstTd">물품명</th>
+          <th class="firstTd">현재가</th>
+          <th class="firstTd">입찰 수</th>
           <th class="firstTd">판매자</th>
-          <th class="firstTd">진행유무</th>
-          
+          <th class="firstTd">입찰 순위</th>
+          <th class="firstTd">마감일</th>
+          <th class="firstTd">마감상태</th>
         </tr>
       </thead>
       <tbody>
-      
-        <c:if test="${ !empty list }">
+      <c:if test="${ !empty list }">
 	      <c:forEach var="b" items="${ list }">
 	            <tr>
 	               <td name="choice">${ b.itemNo }</td>
 	               <td>${ b.itemName }</td>
 	               <td>${ b.currentPrice }</td>
-				   <td>${ b.endDay }</td>
+	               <td>${ b.bidCount }</td>
 	               <td>${ b.saleMemberName }</td>
-	               <td><button>거래하기</button></td>
-	               <td><button>취소하기</button></td>	                            
+	               <td>${ b.rowBid }</td>
+	               <td>${ b.endDay }</td>
+	               <c:if test="${ b.endYn eq 'Y'}">
+                  <td><h5>경매종료</h5></td>
+               </c:if>
+               <c:if test="${ b.endYn eq 'N' }">
+                  <td><h5>경매중</h5></td>
+               </c:if>                    
 	            </tr>
 	         </c:forEach>
         </c:if>
@@ -140,6 +146,7 @@
 	          <td colspan="8"><h5>검색된 내용이 없습니다.</h5></td>	      
         	</tr>
         </c:if>
+       
         
       </tbody>
      
@@ -199,7 +206,7 @@
 	<script>
 		$(function() {
 			var mid = '${sessionScope.loginUser.mid}';
-			var key = 'exitAuction';
+			var key = 'first';
 			$.ajax({
 				url:"countPayListMain.mp?key=" + key,
 				type:"get",
@@ -209,11 +216,22 @@
 				},
 				/* status는 에러의 상태를 나타냄 */
 				error:function(status){
-					$("#countMainPayList").text("진행중인 최고 입찰 물품에 대해서 모두 0 건이 검색되었습니다.");
+					$("#countMainPayList").text("쪽지 0건");
+				}
+			});
+			
+			$.ajax({
+				url:"payList,mp",
+				type:"get",
+				data:{userId:mid},
+				success:function(data){
+					
+				},
+				error:function(status){
+					
 				}
 			});
 		});
 	</script>
-	
 </body>
 </html>

@@ -196,76 +196,36 @@ public class MyPageDaoImpl implements MyPageDao{
 	//구매관리 입찰중 물품 리스트 조회
 	@Override
 	public ArrayList<PayTable> selectPayList(SqlSessionTemplate sqlSession, PageInfo pi, String mid) {
+		
+		int offset = (pi.getCurrentPage()  - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
 		//물품번호와 회원번호에 따른 결과 조회용 해쉬맵
-		HashMap<String, String> searchList = null;
+		HashMap<String, String> searchList = new HashMap<String, String>();
 		
 		//결과값 담기위한 객체
 		PayTable payTable = null;
-		
+						
 		//결과값 담기 위한 ArrayList
-		ArrayList<PayTable> list = new ArrayList<PayTable>();
-		
-		//물품번호 받아오기
-		ArrayList<Integer> itemList = (ArrayList)sqlSession.selectList("MyPage.itemNoSearch", mid);
-		int offset = (pi.getCurrentPage()  - 1) * pi.getLimit();
-		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
-		if(itemList != null) {
+		ArrayList<PayTable> list = (ArrayList)sqlSession.selectList("MyPage.selectContinueBidList", mid, rowBounds); 
+				
+		for(int i=0; i<list.size(); i++) {
+			payTable = new PayTable();
+			payTable.setItemNo(list.get(i).getItemNo());
+			searchList.put("itemNo", String.valueOf(payTable.getItemNo()));
+			int count = sqlSession.selectOne("MyPage.bidCount", searchList);
+			list.get(i).setBidCount(count);
 			
-			//물품번호 배열
-			String[] itemNo = new String[itemList.size()];
+			ArrayList<PayTable> temp = (ArrayList)sqlSession.selectList("MyPage.searchBidRank", searchList);
 			
-			//ArrayList에서 받아온 물품번호들 처리
-			for(int i=0; i<itemList.size(); i++) {			
-				itemNo[i] = String.valueOf(itemList.get(i));
+			for(int j=0; j<temp.size(); j++) {
+				if(list.get(i).getBidNo() == temp.get(j).getBidNo()) {
+					list.get(i).setRowBid(temp.get(j).getRowBid());
+				}
 			}
-			
-			//여기서 값을 담는다.
-			for(int i=0; i<itemNo.length; i++) {
-				payTable = new PayTable();
-				searchList = new HashMap<String, String>();
-				searchList.put("itemNo", itemNo[i]);
-				searchList.put("mid", mid);
-				
-				//물품번호
-				payTable.setItemNo(Integer.parseInt(itemNo[i]));
-				
-				//물품이름
-				String itemName = (String)sqlSession.selectOne("MyPage.itemNameSearch", searchList);
-				payTable.setItemName(itemName);
-				//최고가
-				String currentPrice = (String)sqlSession.selectOne("MyPage.maxCurrentPrice", searchList);
-				payTable.setCurrentPrice(currentPrice);
-				
-				//입찰수
-				int count = (Integer)sqlSession.selectOne("MyPage.bidCount", searchList);
-				payTable.setBidCount(count);
-				
-				//판매자 번호
-				int saleMemberNo = (Integer)sqlSession.selectOne("MyPage.selectSaleMember", searchList);
-				payTable.setSaleMemberNo(saleMemberNo);
-				
-				//판매자 이름
-				String saleMemberName = (String)sqlSession.selectOne("MyPage.searchSaleMemberName", saleMemberNo);
-				payTable.setSaleMemberName(saleMemberName);
-				
-				//입찰순위
-				int ranking = (Integer)sqlSession.selectOne("MyPage.selectRanking", searchList);
-				payTable.setRowBid(ranking);
-				
-				//경매종료여부
-				String endYn = (String)sqlSession.selectOne("MyPage.searchEndYn", searchList);
-				payTable.setEndYn(endYn);
-
-				//경매종료날짜
-				Date endDay = (Date)sqlSession.selectOne("MyPage.searchEndDay", searchList);
-				payTable.setEndDay(endDay);
-				
-				list.add(payTable);
-			}
-			return list;
-		}else {
-			return null;	
 		}
+		
+		return list;
 	}
 	
 	//문의받은게시판 조회
@@ -350,18 +310,27 @@ public class MyPageDaoImpl implements MyPageDao{
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 		
 		//물품번호와 회원번호에 따른 결과 조회용 해쉬맵
-		HashMap<String, String> searchList = null;
+		HashMap<String, Integer> searchList = new HashMap<String, Integer>();
 				
 		//결과값 담기위한 객체
 		PayTable payTable = null;
 				
 		//결과값 담기 위한 ArrayList
-		ArrayList<PayTable> list = new ArrayList<PayTable>();
-				
-		//물품번호 받아오기
-		ArrayList<Integer> itemList = (ArrayList)sqlSession.selectList("MyPage.itemNoSearch", mid);
+		ArrayList<PayTable> list = (ArrayList)sqlSession.selectList("MyPage.selectWinBidList", mid, rowBounds); 
 		
-		return (ArrayList)sqlSession.selectList("MyPage.selectWinBidList", mid, rowBounds);
+		for(int i=0; i<list.size(); i++) {
+			payTable = new PayTable();
+			payTable.setItemNo(list.get(i).getItemNo());
+			searchList.put("itemNo", payTable.getItemNo());
+			ArrayList<PayTable> temp = (ArrayList)sqlSession.selectList("MyPage.selectWinBidRank", searchList);
+			
+			for(int j=0; j<temp.size(); j++) {
+				if(list.get(i).getBidNo() == temp.get(j).getBidNo()) {
+					list.get(i).setRowBid(temp.get(j).getRowBid());
+				}
+			}
+		}
+		return list;
 	}
 	
 	//문의받은게시판 - 답변페이지 등록
@@ -397,6 +366,32 @@ public class MyPageDaoImpl implements MyPageDao{
 		
 	
 		return list;
+	}
+
+	//최고순위 입찰중 물품 갯수 조회
+	@Override
+	public int countPayListFirst(SqlSessionTemplate sqlSession, String userId) {
+		ArrayList<PayTable> itemNo = (ArrayList)sqlSession.selectList("MyPage.searchFirstBidItemNo", userId);
+		HashMap<String, String> hmap = new HashMap<String, String>();
+		hmap.put("userId", userId);
+		ArrayList<PayTable> list = null;
+		int count = 0;
+		for(int i=0; i<itemNo.size(); i++) {
+			hmap.put("itemNo", String.valueOf(itemNo.get(i).getItemNo()));			
+			list = new ArrayList<PayTable>();
+			list = (ArrayList)sqlSession.selectList("MyPage.selectFirstBid", hmap);
+			
+			if(list.get(i).getRowBid() == 1) {
+				count++;
+			}
+			
+			/*for(int j=0; j<list.size(); j++) {
+				if(list.get(j).getRowBid() == 1) {
+					count++;
+				}
+			}*/
+		}
+		return count;
 	}
 	
 	

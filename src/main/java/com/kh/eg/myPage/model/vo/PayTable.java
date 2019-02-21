@@ -4,6 +4,7 @@ import java.sql.Date;
 
 public class PayTable {
 	private int itemNo;
+	private int bidNo;
 	private String itemName;
 	private String currentPrice;
 	private int bidCount;
@@ -17,10 +18,11 @@ public class PayTable {
 	
 	}
 
-	public PayTable(int itemNo, String itemName, String currentPrice, int bidCount, int saleMemberNo,
+	public PayTable(int itemNo, int bidNo, String itemName, String currentPrice, int bidCount, int saleMemberNo,
 			String saleMemberName, int rowBid, Date endDay, String endYn) {
 		super();
 		this.itemNo = itemNo;
+		this.bidNo = bidNo;
 		this.itemName = itemName;
 		this.currentPrice = currentPrice;
 		this.bidCount = bidCount;
@@ -37,6 +39,14 @@ public class PayTable {
 
 	public void setItemNo(int itemNo) {
 		this.itemNo = itemNo;
+	}
+
+	public int getBidNo() {
+		return bidNo;
+	}
+
+	public void setBidNo(int bidNo) {
+		this.bidNo = bidNo;
 	}
 
 	public String getItemName() {
@@ -105,8 +115,9 @@ public class PayTable {
 
 	@Override
 	public String toString() {
-		return "PayTable [itemNo=" + itemNo + ", itemName=" + itemName + ", currentPrice=" + currentPrice
-				+ ", bidCount=" + bidCount + ", saleMemberNo=" + saleMemberNo + ", saleMemberName=" + saleMemberName
-				+ ", rowBid=" + rowBid + ", endDay=" + endDay + ", endYn=" + endYn + "]";
+		return "PayTable [itemNo=" + itemNo + ", bidNo=" + bidNo + ", itemName=" + itemName + ", currentPrice="
+				+ currentPrice + ", bidCount=" + bidCount + ", saleMemberNo=" + saleMemberNo + ", saleMemberName="
+				+ saleMemberName + ", rowBid=" + rowBid + ", endDay=" + endDay + ", endYn=" + endYn + "]";
 	}
+	
 }
