@@ -123,7 +123,7 @@ h4 {
 			<hr>
 			
 			<div class="ui grid" style="display:inline-block;">
-  			<div id="addDiv" class="four wide column">
+  			<div id="addDiv" class="four wide column" style="display:inline-block;">
   			<c:forEach var="i" items="${list1}">
 			<div class="may" style=width:300px;>
 
@@ -133,8 +133,8 @@ h4 {
 			 <tr>
 			</tr>
 			<tr class="tr">
-				<td colspan="2">입찰 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${i.bidCount} 건</td>
-				<td>조회 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${i.itemcount} 회</td>
+				<td colspan="2">입찰 &nbsp;&nbsp;&nbsp;&nbsp;${i.bidCount} 건</td>
+				<td>조회 &nbsp;&nbsp;&nbsp;&nbsp;${i.itemcount} 회</td>
 			</tr>
 			
 			<tr class="tr">
@@ -149,7 +149,7 @@ h4 {
 		</table>
 			</c:forEach>
 		</div>
-  			
+  	
   			<!-- <div id="addDiv" class="four wide column"> -->
   			<%-- 	<c:forEach var="i" items="${list1}">
 			<div class="may" style=width:300px;>
@@ -233,10 +233,12 @@ h4 {
 			</tr>
 		</table>
 			</c:forEach></div> --%>
+			
 			</div>
 			
 		
 		</div>
+			
 	<script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script type="text/javascript">
