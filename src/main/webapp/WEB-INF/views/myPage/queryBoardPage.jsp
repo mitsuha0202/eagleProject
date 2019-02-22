@@ -211,7 +211,16 @@
 			console.log(searchValue);	
 			location.href = "querySearch.mp?searchCondition="+searchCondition+"&searchValue="+searchValue;
 		}
-
+		
+   		/* 상세보기  */
+   		$("td[name=choice]").mouseenter(function() {
+			$(this).css({"cursor":"pointer","background-color":"lightgray"});
+		}).mouseout(function() {
+			$(this).css({"background":"white"});
+		}).click(function() {
+			var docno = $(this).parent().children().eq(1).text();
+			location.href="detailMessage.mp?docno=" + docno; 
+		}); 
    	</script>
 </body>
 </html>

@@ -117,6 +117,12 @@ public interface MyPageService {
 
 	//최고 순위 입찰중 물품
 	int countPayListFirst(String userId);
+
+	//낙찰받지 못한 물품 페이징
+	int getFalseBidListCount(String mid);
+
+	//낙찰받지 못한 물품 목록 조회
+	ArrayList<PayTable> selectFalseBidList(PageInfo pi, String mid);
 	
 	
 	

@@ -146,7 +146,20 @@ public class StatusController {
 	
 	//구매현황 상세페이지 - 구매종료 - 낙찰받지 못한 물품
 	@RequestMapping("unsuccessbid.mp")
-	public String unsuccessbidPage() {
+	public String unsuccessbidPage(HttpSession session, Model model, @RequestParam(defaultValue="1") int currentPage, Member m) {
+		
+		m = (Member)session.getAttribute("loginUser");
+		int listCount = ms.getFalseBidListCount(m.getMid());
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		ArrayList<PayTable> list = ms.selectFalseBidList(pi, m.getMid());
+		
+		for(int i=0; i<list.size(); i++) {
+			if(list.get(i).getRowBid() == 1) {
+				list.remove(i);
+			}
+		}
+		model.addAttribute("list", list);
+		model.addAttribute("pi", pi);
 		return "myPage/management/unsuccessbidPage";
 	}
 	
@@ -222,6 +235,5 @@ public class StatusController {
 		public String notrecevingPage() {
 			return "myPage/management/notrecevingPage";
 			
-		}
-		
+		}		
 }

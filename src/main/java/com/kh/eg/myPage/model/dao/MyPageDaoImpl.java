@@ -336,7 +336,7 @@ public class MyPageDaoImpl implements MyPageDao{
 	//문의받은게시판 - 답변페이지 등록
 	@Override
 	public int answerBoardInsert(SqlSessionTemplate sqlSession, AnswerBoard answer) {
-		// TODO Auto-generated method stub
+
 		int result = 0;
 		result = sqlSession.insert("MyPage.answerBoardInsert",answer);
 		if(result>0) {
@@ -362,9 +362,6 @@ public class MyPageDaoImpl implements MyPageDao{
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 		
 		list = (ArrayList)sqlSession.selectList("MyPage.selectSearchResultList",sc,rowBounds);
-		
-		
-	
 		return list;
 	}
 
@@ -376,24 +373,44 @@ public class MyPageDaoImpl implements MyPageDao{
 		hmap.put("userId", userId);
 		ArrayList<PayTable> list = null;
 		int count = 0;
+		
 		for(int i=0; i<itemNo.size(); i++) {
-			hmap.put("itemNo", String.valueOf(itemNo.get(i).getItemNo()));			
+			hmap.put("itemNo", String.valueOf(itemNo.get(i).getItemNo()));
 			list = new ArrayList<PayTable>();
 			list = (ArrayList)sqlSession.selectList("MyPage.selectFirstBid", hmap);
-			
-			if(list.get(i).getRowBid() == 1) {
-				count++;
-			}
-			
-			/*for(int j=0; j<list.size(); j++) {
-				if(list.get(j).getRowBid() == 1) {
-					count++;
-				}
-			}*/
 		}
 		return count;
 	}
-	
-	
-	
+
+	//낙찰 받지 못한 물품 페이징
+	@Override
+	public int getFalseBidListCount(SqlSessionTemplate sqlSession, String mid) {
+		int count = 0;
+		ArrayList<PayTable> list = (ArrayList)sqlSession.selectList("MyPage.countFalseBid", mid);
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("mid", mid);
+		
+		for(int i=0; i<list.size(); i++) {
+			map.put("itemNo", String.valueOf(list.get(i).getItemNo()));
+			ArrayList<PayTable> temp = (ArrayList)sqlSession.selectList("MyPage.countFalseBidRank", map);
+			
+			if(list.get(i).getBidNo() == temp.get(i).getBidNo() && temp.get(i).getRowBid() != 1 && list.get(i).getMemberNo() == temp.get(i).getMemberNo()) {
+				list.get(i).setCurrentPrice(temp.get(i).getCurrentPrice());
+				count++;
+			}			
+		}		
+		return count;
+	}
+
+	//낙찰받지 못한 물품 목록
+	@Override
+	public ArrayList<PayTable> selectFalseBidList(SqlSessionTemplate sqlSession, PageInfo pi, String mid) {
+		
+		int offset = (pi.getCurrentPage()  - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		HashMap<String, String> map = new HashMap<String, String>();
+		ArrayList<PayTable> list = (ArrayList)sqlSession.selectList("MyPage.countFalseBid", mid, rowBounds);
+		
+		return list;
+	}
 }

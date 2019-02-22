@@ -6,24 +6,26 @@ public class PayTable {
 	private int itemNo;
 	private int bidNo;
 	private String itemName;
+	private String memberNo;
 	private String currentPrice;
 	private int bidCount;
 	private int saleMemberNo;
 	private String saleMemberName;
 	private int rowBid;
-	private Date endDay;
+	private String endDay;
 	private String endYn;
 	
 	public PayTable() {
 	
 	}
 
-	public PayTable(int itemNo, int bidNo, String itemName, String currentPrice, int bidCount, int saleMemberNo,
-			String saleMemberName, int rowBid, Date endDay, String endYn) {
+	public PayTable(int itemNo, int bidNo, String itemName, String memberNo, String currentPrice, int bidCount,
+			int saleMemberNo, String saleMemberName, int rowBid, String endDay, String endYn) {
 		super();
 		this.itemNo = itemNo;
 		this.bidNo = bidNo;
 		this.itemName = itemName;
+		this.memberNo = memberNo;
 		this.currentPrice = currentPrice;
 		this.bidCount = bidCount;
 		this.saleMemberNo = saleMemberNo;
@@ -55,6 +57,14 @@ public class PayTable {
 
 	public void setItemName(String itemName) {
 		this.itemName = itemName;
+	}
+
+	public String getMemberNo() {
+		return memberNo;
+	}
+
+	public void setMemberNo(String memberNo) {
+		this.memberNo = memberNo;
 	}
 
 	public String getCurrentPrice() {
@@ -97,11 +107,11 @@ public class PayTable {
 		this.rowBid = rowBid;
 	}
 
-	public Date getEndDay() {
+	public String getEndDay() {
 		return endDay;
 	}
 
-	public void setEndDay(Date endDay) {
+	public void setEndDay(String endDay) {
 		this.endDay = endDay;
 	}
 
@@ -115,9 +125,9 @@ public class PayTable {
 
 	@Override
 	public String toString() {
-		return "PayTable [itemNo=" + itemNo + ", bidNo=" + bidNo + ", itemName=" + itemName + ", currentPrice="
-				+ currentPrice + ", bidCount=" + bidCount + ", saleMemberNo=" + saleMemberNo + ", saleMemberName="
-				+ saleMemberName + ", rowBid=" + rowBid + ", endDay=" + endDay + ", endYn=" + endYn + "]";
+		return "PayTable [itemNo=" + itemNo + ", bidNo=" + bidNo + ", itemName=" + itemName + ", memberNo=" + memberNo
+				+ ", currentPrice=" + currentPrice + ", bidCount=" + bidCount + ", saleMemberNo=" + saleMemberNo
+				+ ", saleMemberName=" + saleMemberName + ", rowBid=" + rowBid + ", endDay=" + endDay + ", endYn="
+				+ endYn + "]";
 	}
-	
 }

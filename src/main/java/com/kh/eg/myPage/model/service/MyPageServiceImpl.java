@@ -270,6 +270,20 @@ public class MyPageServiceImpl implements MyPageService{
 
 		return md.countPayListFirst(sqlSession, userId);
 	}
+
+	//낙찰받지 못한 물품 페이징
+	@Override
+	public int getFalseBidListCount(String mid) {
+		
+		return md.getFalseBidListCount(sqlSession, mid);
+	}
+
+	//낙찰받지 못한 물품 목록 조회
+	@Override
+	public ArrayList<PayTable> selectFalseBidList(PageInfo pi, String mid) {
+		
+		return md.selectFalseBidList(sqlSession, pi, mid);
+	}
 	
 	
 }
