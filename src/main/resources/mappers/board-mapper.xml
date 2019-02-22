@@ -15,6 +15,22 @@
 		<result property="bCount" column="BCOUNT"/>
 		<result property="sMid" column="SMEMBERNO"/>
 		<result property="itemNo" column="ITEMNO"/>
+		<result property="userName" column="MEMBERNAME"/>
+	</resultMap>
+	
+	<resultMap type="com.kh.eg.board.model.vo.Board" id="noticeResultSet">
+		<id property="bid" column="BOARDNO"></id>
+		<result property="bTitle" column="TITLE"/>
+		<result property="bContent" column="BOARDCONTENT"/>
+		<result property="bMid" column="MEMBERNO"/>
+		<result property="writeDay" column="WRITEDAY"/>
+		<result property="bStatus" column="DELETESTATUS"/>
+		<result property="bType" column="BOARDSTATUS"/>
+		<result property="reStatus" column="REPLYSTATUS"/>
+		<result property="bCount" column="BCOUNT"/>
+		<result property="sMid" column="SMEMBERNO"/>
+		<result property="itemNo" column="ITEMNO"/>
+		<result property="userName" column="MEMBERNAME"/>
 	</resultMap>
 	
 	<!-- 어레이리스트 추가한 resultMap -->
@@ -166,5 +182,13 @@
 			</otherwise>
 		</choose>
 		ORDER BY WRITEDAY DESC
+	</select>
+	
+	<select id="selectNotice" resultMap="noticeResultSet">
+		SELECT *
+		FROM BOARD B
+		JOIN MEMBER M ON(B.MEMBERNO = M.MEMBERNO)
+		WHERE B.BOARDSTATUS ='NOTICE'
+		AND B.DELETESTATUS ='N'
 	</select>
 </mapper>

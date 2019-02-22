@@ -32,4 +32,6 @@ public interface BoardService {
 
 	ArrayList<Board> selectSearchResultList(SearchCondition sc, PageInfo pi);
 
+	ArrayList<Board> selectNotice();
+
 }

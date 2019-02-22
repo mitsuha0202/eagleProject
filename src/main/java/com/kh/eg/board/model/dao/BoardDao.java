@@ -33,4 +33,6 @@ public interface BoardDao {
 
 	ArrayList<Board> selectSearchResultList(SearchCondition sc, PageInfo pi, SqlSessionTemplate sqlSession);
 
+	ArrayList<Board> selectNotice(SqlSessionTemplate sqlSession);
+
 }
