@@ -192,17 +192,26 @@ private JavaMailSender mailSender;
 		m.setUserId(userId);
 		m.setEmail(userEmail);
 		m.setUserPwd(passwordEncoder.encode(password));
-		int result = ms.insertKakaoUser(m);
 		
-		
-		if(result > 0) {
-		model.addAttribute("userId", userId);
-		model.addAttribute("userPwd",password);
-			return "redirect:snsLogin.me";
+		int result1 = ms.idDuplicationCheck(userId);
+		if(result1>0) {
+			model.addAttribute("userId", userId);
+			model.addAttribute("userPwd",password);
+				return "redirect:snsLogin.me";
 		}else {
-			model.addAttribute("msg","카카오 로그인 실패");
-			return "common/errorPage";
+			int result = ms.insertKakaoUser(m);
+			
+			
+			if(result > 0) {
+			model.addAttribute("userId", userId);
+			model.addAttribute("userPwd",password);
+				return "redirect:snsLogin.me";
+			}else {
+				model.addAttribute("msg","카카오 로그인 실패");
+				return "common/errorPage";
+			}
 		}
+		
 		
 	}
 	
@@ -244,16 +253,25 @@ private JavaMailSender mailSender;
 		m.setUserId(id);
 		m.setEmail(email);
 		m.setUserPwd(passwordEncoder.encode(password));
-		int result = ms.insertNaverUser(m);
+		int result1 = ms.idDuplicationCheck(id);
 		
-		
-		if(result > 0) {
+		if(result1>0) {
 			model.addAttribute("userId", id);
 			model.addAttribute("userPwd",password);
 			return "redirect:snsLogin.me";
 		}else {
-			model.addAttribute("msg","네이버 로그인 실패");
-			return "common/errorPage";
+			int result = ms.insertNaverUser(m);
+			
+			
+			if(result > 0) {
+				model.addAttribute("userId", id);
+				model.addAttribute("userPwd",password);
+				return "redirect:snsLogin.me";
+			}else {
+				model.addAttribute("msg","네이버 로그인 실패");
+				return "common/errorPage";
+			}
 		}
+		
 	}
 }

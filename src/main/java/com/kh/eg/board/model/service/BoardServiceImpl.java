@@ -94,4 +94,10 @@ private DataSourceTransactionManager transactionManager;
 		return list;
 	}
 
+	@Override
+	public ArrayList<Board> selectNotice() {
+		ArrayList<Board> list = bd.selectNotice(sqlSession);
+		return list;
+	}
+
 }

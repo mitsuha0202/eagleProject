@@ -71,7 +71,16 @@
 			    <th style="border-right: 1px solid white;">조회수</th>
 		  	</tr>
 		  </thead>
-		  <tbody>  
+		  <tbody>
+		  <c:forEach var="b" items="${ list1 }">
+		    <tr align="center" style="background-color: #81BEF7;">
+		      <td style="border-left: 1px solid white;">${b.bid}</td>
+		      <td>★공지★${b.bTitle}</td>
+		      <td>${b.userName}</td>
+		      <td>${b.writeDay}</td>
+		      <td style="border-right: 1px solid white;">${b.bCount}</td>
+		    </tr>
+		  </c:forEach>  
 		  <c:forEach var="b" items="${ list }">
 		    <tr align="center">
 		      <td style="border-left: 1px solid white;">${b.bid}</td>

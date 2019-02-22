@@ -37,11 +37,13 @@ private BoardService bs;
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
 		ArrayList<Board> list = bs.selectBoardList(pi);
+		ArrayList<Board> list1 = bs.selectNotice();
 		System.out.println("list : "+list);
 		for(int i=0; i<list.size();i++) {
 			list.get(i).setbCount(list.get(i).getbCount());
 		}
 		if(list != null) {
+			model.addAttribute("list1",list1);
 			model.addAttribute("list",list);
 			model.addAttribute("pi",pi);
 			return "board/board";

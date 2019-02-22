@@ -36,14 +36,14 @@ public class BoardDaoImpl implements BoardDao{
 		int offset = (pi.getCurrentPage() -1 ) * pi.getLimit();
 		
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
-		b.setbMid(m.getUserName());
+		/*b.setbMid(m.getUserName());*/
 		list = (ArrayList)sqlSession.selectList("Board.selectBoardList", null, rowBounds);
 		ArrayList<Member> name = null;
 		
-		name =(ArrayList)sqlSession.selectList("Member.selectListWriter",list, rowBounds);
+		/*name =(ArrayList)sqlSession.selectList("Member.selectListWriter",list, rowBounds);
 		for(int i=0; i<name.size();i++) {
 			list.get(i).setUserName(name.get(i).getUserName());
-		}
+		}*/
 
 		return list;
 	}
@@ -91,7 +91,10 @@ public class BoardDaoImpl implements BoardDao{
 			System.out.println(r.getrUserName());
 			list.add(r);
 		}
-		b.setUserName(name);
+		if(!name.equals("관리자")) {
+			b.setUserName(name);
+		}
+		
 		b.setReplyList(list);
 		
 		return b;
@@ -145,6 +148,13 @@ public class BoardDaoImpl implements BoardDao{
 		for(int i=0; i<name.size();i++) {
 			list.get(i).setUserName(name.get(i).getUserName());
 		}
+		return list;
+	}
+
+	@Override
+	public ArrayList<Board> selectNotice(SqlSessionTemplate sqlSession) {
+		ArrayList<Board> list = null;
+		list = (ArrayList)sqlSession.selectList("Board.selectNotice");
 		return list;
 	}
 
