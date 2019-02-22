@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kh.eg.admin.model.dao.AdMemberDao;
 import com.kh.eg.admin.model.exception.AdMemberselectException;
 import com.kh.eg.admin.model.vo.AdminVo;
+import com.kh.eg.admin.model.vo.Category;
 import com.kh.eg.admin.model.vo.PageInfo;
 import com.kh.eg.admin.model.vo.Report;
 import com.kh.eg.admin.model.vo.SearchCondition;
@@ -146,11 +147,21 @@ public class AdMemberServiceImpl implements AdMemberService{
 		
 		return list;
 	}
-	
-	
+
+	@Override
+	public ArrayList<Category> selectCategoryList() throws AdMemberselectException {
+		ArrayList<Category> list = amd.selectCategoryList(sqlSession);
+		
+		return list;
+	}
+
+	@Override
+	public int insertCategory(Category cg) throws AdMemberselectException {
+		int result = amd.inserBoard(sqlSession, cg);
+		return result;
+	}
 
 	
-
 	
 	
 	

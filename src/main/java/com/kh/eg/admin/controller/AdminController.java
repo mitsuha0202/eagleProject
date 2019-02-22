@@ -1,8 +1,10 @@
 package com.kh.eg.admin.controller;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,11 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.kh.eg.admin.model.exception.AdMemberselectException;
 import com.kh.eg.admin.model.service.AdMemberService;
 import com.kh.eg.admin.model.vo.AdminVo;
+import com.kh.eg.admin.model.vo.Category;
 import com.kh.eg.admin.model.vo.PageInfo;
 import com.kh.eg.admin.model.vo.Report;
 import com.kh.eg.admin.model.vo.SearchCondition;
 import com.kh.eg.admin.model.vo.SearchReport;
+import com.kh.eg.board.model.vo.Board;
 import com.kh.eg.common.Pagination;
+import com.kh.eg.member.model.vo.Member;
 
 @Controller
 public class AdminController {
@@ -52,9 +57,47 @@ public class AdminController {
 		}
 		
 	}
+	
+	//카테고리 리스트
 	@RequestMapping("category.ad")
-	public String categoryview(){
+	public String categoryview(Model model, HttpServletRequest request) throws AdMemberselectException{
+		
+		ArrayList<Category> list = ams.selectCategoryList();
+		
+		model.addAttribute("list", list);
+		
 		return "admin/category";
+	}
+	
+	//카테고리 추가
+	@RequestMapping("addcategory.ad")
+	public String addcategoryview(Model model, HttpServletRequest request){
+		String category = request.getParameter("category");
+		String size = request.getParameter("size");
+		String division = request.getParameter("division");
+		
+		
+		
+		System.out.println(category);
+		System.out.println(size);
+		System.out.println(division);
+		
+		Category cg = new Category();
+		java.math.BigDecimal bd = new BigDecimal(size);
+		
+		cg.setCategoryName(category);
+		cg.setCategoryLevel(bd);
+		cg.setUppercategoryNo(division);
+		
+		try {
+			int result = ams.insertCategory(cg);
+			model.addAttribute("result", result);
+			return "redirect:category.ad";
+		} catch (AdMemberselectException e) {
+			e.printStackTrace();
+			model.addAttribute("msg","회원 조회 실패!");
+			return "common/errorPage";
+		}
 	}
 	
 	//검색 후 블랙리스트

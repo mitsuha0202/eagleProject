@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.kh.eg.admin.model.exception.AdMemberselectException;
 import com.kh.eg.admin.model.vo.AdminVo;
+import com.kh.eg.admin.model.vo.Category;
 import com.kh.eg.admin.model.vo.PageInfo;
 import com.kh.eg.admin.model.vo.Report;
 import com.kh.eg.admin.model.vo.SearchCondition;
@@ -42,6 +43,11 @@ public interface AdMemberService {
 	int getSearchReportListCount(SearchReport sr) throws AdMemberselectException;
 
 	ArrayList<Report> searchReportList(SearchReport sr, PageInfo pi) throws AdMemberselectException;
+
+	ArrayList<Category> selectCategoryList() throws AdMemberselectException;
+
+	int insertCategory(Category cg) throws AdMemberselectException;
+
 
 
 

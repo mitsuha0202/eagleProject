@@ -27,6 +27,14 @@
 		<result property="title" column="ITEMNAME" />
 		<result property="status" column="BOARDSTATUS" />
 	</resultMap>
+	
+	<resultMap type="com.kh.eg.admin.model.vo.Category" id="categoryResultSet">
+		<result property="categoryNo" column="CATEGORYNO" />
+		<result property="categoryName" column="CATEGORYNAME" />
+		<result property="categoryLevel" column="CATEGORYLEVEL" />
+		<result property="uppercategoryNo" column="UPPERCATEGORYNO" />
+		<result property="deleteyn" column="DELETEYN" />
+	</resultMap>
 
 	<!-- <select id="loginCheck" resultMap="memberResultSet" parameterType="Member"> 
 		SELECT * FROM MEMBER WHERE MEMBERID = #{userId} AND MEMBERPWD = #{userPwd} 
@@ -205,7 +213,7 @@
 				AND ITEMNAME LIKE '%' || #{title} || '%'
 			</when>
 			<otherwise>
-				AND ITEMNO LIKE '%' || #{itemNo} || '%'
+				AND A.ITEMNO LIKE '%' || #{itemNo} || '%'
 			</otherwise>
 		</choose>
 	</select>
@@ -221,9 +229,32 @@
 				AND ITEMNAME LIKE '%' || #{title} || '%'
 			</when>
 			<otherwise>
-				AND ITEMNO LIKE '%' || #{itemNo} || '%'
+				AND A.ITEMNO LIKE '%' || #{itemNo} || '%'
 			</otherwise>
 		</choose>
 	</select>
+	
+	<!-- 카테고리 리스트 -->
+	<select id="categoryList" resultMap="categoryResultSet">
+		SELECT * FROM CATEGORY WHERE DELETEYN = 'N'
+	</select>
+	
+	<!-- 카테고리 추가 -->
+	<select id="insertCategory" resultMap="categoryResultSet">
+		INSERT INTO category(categoryNo,categoryName,categoryLevel,upperCategoryNo,deleteYN)
+   		VALUES(CN_SEQ.NEXTVAL,#{categoryName},#{categoryLevel},#{upperCategoryNo},'N')
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 </mapper>

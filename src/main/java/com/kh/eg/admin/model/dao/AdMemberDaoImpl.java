@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.eg.admin.model.exception.AdMemberselectException;
 import com.kh.eg.admin.model.vo.AdminVo;
+import com.kh.eg.admin.model.vo.Category;
 import com.kh.eg.admin.model.vo.PageInfo;
 import com.kh.eg.admin.model.vo.Report;
 import com.kh.eg.admin.model.vo.SearchCondition;
@@ -224,6 +225,25 @@ public class AdMemberDaoImpl implements AdMemberDao{
 		}
 		
 		return list;
+	}
+
+	@Override
+	public ArrayList<Category> selectCategoryList(SqlSessionTemplate session) throws AdMemberselectException {
+		ArrayList<Category> list = null;
+		
+		list = (ArrayList)session.selectList("AdminVo.categoryList", null);
+		
+		if(list == null) {
+			throw new AdMemberselectException("카테고리 조회 실패!");
+		}
+		
+		return list;
+	}
+
+	@Override
+	public int inserBoard(SqlSessionTemplate session, Category cg) throws AdMemberselectException {
+		int result = session.insert("AdminVo.insertCategory",cg);
+		return result;
 	}
 
 	
