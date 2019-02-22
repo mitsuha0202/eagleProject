@@ -2,7 +2,9 @@ package com.kh.eg.bidding.controller;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -103,9 +105,6 @@ private BiddingService bs;
 		ItemDetail i = null;
 		i = bs.selectDate(itemNo);
 		
-		System.out.println(i.getStartDay());
-		System.out.println(i.getEndDay());
-		
 		if(i != null) {
 			return i;
 		}
@@ -133,19 +132,64 @@ private BiddingService bs;
 	}
 	
 	@RequestMapping("compareWish.bi")
-	public @ResponseBody String selectWishList(@RequestParam(value="itemNo", required=false) String itemNo, @RequestParam(value="mNo", required=false) String mNo,
+	public @ResponseBody ItemDetail selectWishList(@RequestParam(value="itemNo", required=false) String itemNo, @RequestParam(value="mNo", required=false) String mNo,
 												HttpServletRequest request, HttpServletResponse response) {
 		ItemDetail i = null;
+		ItemDetail id = new ItemDetail();
 		
-		i = bs.selectWishList(itemNo, mNo);
+		id.setItemNo(itemNo);
+		id.setmNo(mNo);
 		
+		i = bs.selectWishList(id);
 		if(i != null) {
-			return "0";
+			return i;
 		}
 		else {
-			return "1";
+			i = new ItemDetail();
+			i.setmNo("0");
+			return i;
+		}
+	}
+	
+	@RequestMapping("selectTime.bi")
+	public @ResponseBody ItemDetail selectTime(@RequestParam(value="itemNo", required=false) String itemNo, HttpServletRequest request, HttpServletResponse response) {
+		ItemDetail i = null;
+		
+		i = bs.selectTime(itemNo);
+		
+		System.out.println(i.getStartDay());
+		System.out.println(i.getEndDay());
+		
+		String nowDay = i.getStartDay();
+		String endDay = i.getEndDay();
+		
+		SimpleDateFormat sft = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		
+		try {
+			Date nd = sft.parse(nowDay);
+			Date ed = sft.parse(endDay);
+			
+			long ndM = nd.getTime();
+			long edM = ed.getTime();
+			
+			System.out.println(ndM);
+			System.out.println(edM);
+			
+			long time = edM - ndM;
+			String remainTime = String.valueOf(time);
+			
+			System.out.println(remainTime);
+			
+			i.setEndDay(remainTime);
+		} catch (ParseException e) {
+			e.printStackTrace();
 		}
 		
-		
+		if(i != null) {
+			return i;
+		}
+		else {
+			return null;
+		}
 	}
 }
