@@ -466,7 +466,7 @@
 		SELECT COUNT(*)
 			FROM BOARD B
 			JOIN MEMBER M ON(B.MEMBERNO = M.MEMBERNO)
-			WHERE B.DELETESTATUS = 'N' AND B.BOARDSTATUS = 'RECEIVEBOARD'
+			WHERE B.DELETESTATUS = 'N' AND B.BOARDSTATUS = 'RECEIVEBOARD' AND B.SMEMBERNO = #{memberNo}
 			<choose>
 				<when test="writer != null">
 					AND MEMBERID LIKE '%' || #{writer} || '%'
@@ -481,7 +481,7 @@
 	<select id="selectSearchResultList" resultMap="answerBoardResultSet" parameterType="java.lang.String">
 		SELECT * FROM BOARD B
 		JOIN MEMBER M ON(B.MEMBERNO = M.MEMBERNO)
-		WHERE B.DELETESTATUS = 'N' AND B.BOARDSTATUS = 'RECEIVEBOARD'
+		WHERE B.DELETESTATUS = 'N' AND B.BOARDSTATUS = 'RECEIVEBOARD' AND B.SMEMBERNO = #{memberNo}
 		<choose>
 			<when test="writer != null">
 				AND MEMBERID LIKE '%' || #{writer} || '%'

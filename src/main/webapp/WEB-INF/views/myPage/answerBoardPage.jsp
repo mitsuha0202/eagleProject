@@ -185,10 +185,10 @@
 <script>
 function answerTableDetail(){
 	
-	answerboardno = $("td[name=boardno]").text();
+	answerboardno = $("td[name=boardno]").html();
 	console.log(answerboardno);
 	location.href='answerPageDetail.mp?answerboardno='+answerboardno;
-	
+	 
 }
 
 function searchBoard(){
