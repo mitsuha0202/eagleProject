@@ -146,6 +146,42 @@
 	<button class="closeBtn" onclick="location.href='myPageMain.mp'">닫기</button>
 	<button onclick="location.href='answerPageDetail.mp'">임시상세페이지예시</button>
 </body>
+		 <!-- 페이징 버튼 영역 -->
+		<div id="pagingArea" align="center">
+			<c:if test="${ pi.currentPage <= 1 }">
+				[이전]&nbsp;
+			</c:if>
+			<c:if test="${ pi.currentPage > 1 }">
+				<c:url var="blistBack" value="/searchreanswer.mp">
+					<c:param name="currentPage" value="${pi.currentPage - 1}"/>
+				</c:url>
+				<a href = "${ blistBack }">[이전]</a> &nbsp;
+			</c:if>
+			
+			<c:forEach var="p" begin="${ pi.startPage  }" end = "${pi.endPage}">
+				<c:if test="${ p eq pi.currentPage }">
+					<font color="red" size="4"><b>[${p}]</b></font>
+				</c:if>
+				<c:if test="${ p ne pi.currentPage }">
+					<c:url var="blistCheck" value = "searchreanswer.mp">
+						<c:param name="currentPage" value="${p}"/>
+					</c:url>
+					<a href="${blistCheck}">${p}</a>
+				</c:if>
+			
+			</c:forEach>
+			
+			
+			<c:if test="${ pi.currentPage >= pi.maxPage }">
+				&nbsp; [다음]
+			</c:if>
+			<c:if test="${pi.currentPage < pi.maxPage }">
+				<c:url var="blistEnd" value="searchreanswer.mp">
+					<c:param name="currentPage" value="${ pi.currentPage + 1 }"></c:param>
+				</c:url>
+				<a href="${blistEnd}">&nbsp;[다음]</a>
+			</c:if>
+		</div>
 <script>
 function answerTableDetail(){
 	

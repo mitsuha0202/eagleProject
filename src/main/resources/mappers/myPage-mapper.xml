@@ -95,8 +95,12 @@
 		<result property="memberId" column="MEMBERID"/>
 		<result property="memberName" column="MEMBERNAME"/>
 		<result property="memberContents" column="BOARDCONTENT"/>
+		<result property="memberNo" column="MEMBERNO"/>
+		<result property="bCount" column="BCOUNT"/>
 		<result property="writeDay" column="WRITEDAY"/>
 	</resultMap>
+	
+	
 	
 	<!-- 게시글 조회 -->
 	<select id="selectMessage" resultMap="myPageOneResultSet" parameterType="java.lang.String">
@@ -443,9 +447,9 @@
 	</select>
 
 	<!--//답변페이지 게시판번호 물품번호조회  -->
-	<!-- <select id="reanswerDetail" resultMap="answerBoardResultSet" parameterType="java.lang.String">
+	 <select id="reanswerDetail" resultMap="answerBoardResultSet" parameterType="java.lang.String">
 		SELECT B.BOARDNO, B.ITEMNO , M.MEMBERNAME, B.TITLE FROM BOARD B JOIN MEMBER M ON(B.MEMBERNO = M.MEMBERNO) WHERE B.BOARDSTATUS = 'RECEIVEBOARD' AND B.BOARDNO = #{answerno}
-	</select> -->
+	</select> 
 	
 	<!-- 답변페이지 답변등록-->
 	<insert id="answerBoardInsert" parameterType="AnswerBoard">
@@ -456,6 +460,39 @@
 	<update id="answerBoardUpdate" parameterType="AnswerBoard">
 		UPDATE BOARD SET REPLYSTATUS = 'Y' WHERE BOARDNO = #{boardNo}
 	</update>
+	
+	<!--문의받은게시판 검색 페이징 카운트처리  -->
+	<select id="selectSearchResultCount" resultType="_int" parameterType="java.lang.String">
+		SELECT COUNT(*)
+			FROM BOARD B
+			JOIN MEMBER M ON(B.MEMBERNO = M.MEMBERNO)
+			WHERE B.DELETESTATUS = 'N' AND B.BOARDSTATUS = 'RECEIVEBOARD'
+			<choose>
+				<when test="writer != null">
+					AND MEMBERID LIKE '%' || #{writer} || '%'
+				</when>
+				<otherwise >
+					AND TITLE LIKE '%' || #{title} || '%'
+				</otherwise>
+				
+			</choose>
+	</select>
+	<!-- 문의받은게시판 검색 페이징 처리후 결과  -->
+	<select id="selectSearchResultList" resultMap="answerBoardResultSet" parameterType="java.lang.String">
+		SELECT * FROM BOARD B
+		JOIN MEMBER M ON(B.MEMBERNO = M.MEMBERNO)
+		WHERE B.DELETESTATUS = 'N' AND B.BOARDSTATUS = 'RECEIVEBOARD'
+		<choose>
+			<when test="writer != null">
+				AND MEMBERID LIKE '%' || #{writer} || '%'
+			</when>
+			<otherwise >
+				AND TITLE LIKE '%' || #{title} || '%'
+			</otherwise>
+			
+		</choose>
+		ORDER BY WRITEDAY DESC
+	</select>
 
 
 </mapper>
