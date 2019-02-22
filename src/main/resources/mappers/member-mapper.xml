@@ -98,5 +98,12 @@
 		</choose>
 		ORDER BY WRITEDAY DESC
 	</select>
-
+	
+	<update id="updateEmoney">
+		UPDATE MEMBER 
+		SET EMONEY = (EMONEY + #{emoney})
+		WHERE MEMBERNO = #{mid} 
+	
+	</update>
+	
 </mapper>

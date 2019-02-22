@@ -10,6 +10,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<script type="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <title>pay charge</title>
 </head>
 <body>
@@ -86,9 +87,10 @@
 					</script>
 					<br>					
 					<td>충전금액  </td>
-					<td id="tdChargeCashMoney"><label id="amount">0</label>원</td>					
+					<td id="tdChargeCashMoney"><label id="amount">0</label>원</td>
+										
 					<td>충전 후 금액 </td>
-					<td id="afterChargeCash"></td>					
+					<td id="afterChargeCash"><label id="amount">0</label></td>					
 					<tr>
 						<br>						
 						<td>결제</td>
@@ -101,9 +103,13 @@
 	</div>
 	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 	<script>
+			/* memberNo = '${SessionScope.loginUser.memberNo}'; */  
+			memberNo = '${sessionScope.loginUser.mid}';
+			emoney = '${sessionScope.loginUser.emoney}';
+			
 			$("input[type = radio]").click(function(){
-				chargeMoney = $("#amount").text($(this).val());				
-				
+				$("#amount").text($(this).val());				
+				chargeMoney = $(this).val();
 				 
 			});
 			
@@ -121,32 +127,47 @@
 			}, function(rsp){
 				console.log(rsp);
 		    		if ( rsp.success ) {
+		    			var ok = false;
 		    			
 		    			jQuery.ajax({
-		    				url: "/eg/saveCharge.em",
-		    				type: 'POST',
-		    				dataType : 'json',
-		    				data :{
-		    					buyer_code : memmberNo,
-		    					amount : chargeMoney,
-		    					imp_uid : rsp.imp_uid
-		    				}
+		    				url: "saveCharge.em",
+		    	    		type: "POST",
+		    	    		dataType: "json",
+		    	    		data: {		    
+		    	    			imp_uid : rsp.imp_uid,
+		    		    		buyer_code : memberNo,
+		    		    		amount : chargeMoney
+		    	    		},
+		    	    		success:function(data){
+		    	    			console.log(data);
+		    	    			if(data == 1){
+		    	    				ok = true;
+		    	    			}
+		    	    		}
 		    				
-		    			})
-		    			
-		    			var msg = '결제가 완료되었습니다.';
-		    			msg += '\n고유ID : ' + rsp.imp_uid;
-		    			msg += '\n상점 거래ID : ' + rsp.merchant_uid;
-		    			msg += '\결제 금액 : ' + rsp.paid_amount;
-		    			msg += '카드 승인번호 : ' + rsp.apply_num;
-									
-				}else{	
-					var msg = '결제 실패';
-					msg += '에러내용 : ' + rsp.error_msg;
-				}
-				alert(msg);			
-			});
+		    			}).done(function (data){
+		    				if(ok){
+			    				var msg = '결제가 완료되었습니다.';
+				    			msg += '\n고유ID : ' + rsp.imp_uid;
+				    			msg += '\n상점 거래ID : ' + rsp.merchant_uid;
+				    			msg += '\결제 금액 : ' + rsp.paid_amount;
+				    			msg += '카드 승인번호 : ' + rsp.apply_num;
+				    			
+				    			
+				    			
+				    			alert(msg);
+		    				}else{
+		    					
+		    				}
+		    			});
+		    		}else{
+		    			var msg = '결제 실패';
+						msg += '에러내용 : ' + rsp.error_msg;	    			
+					
+						alert(msg);			
+			}
 		 }); 
+		});
 	
 	</script>
  	

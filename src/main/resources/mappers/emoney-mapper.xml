@@ -4,13 +4,13 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="emoney">
 	<resultMap type="com.kh.eg.emoney.model.vo.emoney" id="emoneyResultSet">
-		<result property="useNo" column="USENO"/>
+		<id property="payNo" column="PAYNO"/>
+		<id property="useNo" column="USENO"/>
+		<id property="exchangeNo" column="EXCHANGENO"/>
 		<result property="useDay" column="USEDAY"/>
 		<result property="money" column="MONEY"/>
-		<result property="userStatus" column="USERSTATUS"/>
+		<result property="useStatus" column="USESTATUS"/>
 		<result property="memberNo" column="MEMBERNO"/>
-		<result property="payNo" column="PAYNO"/>
-		<result property="exchangeNo" column="EXCHANGENO"/>
 		<result property="exchangeYn" column="EXCHANGEYN"/>
 		<result property="userNo" column="USERNO"/>
 		<result property="amount" column="AMOUNT"/>
@@ -32,8 +32,16 @@
 	<insert id="insertEmoney" parameterType="emoney">
 		INSERT 
 		INTO EMONEYC 
-		VALUES(MCN_SEQ.NEXTVAL, #{amount}, SYSDATE,  #{cardNo}, #{memberNo}, #{payStatus}, #{refundNo} )
-		)
+		VALUES(MCN_SEQ.NEXTVAL, #{amount}, SYSDATE,  NULL, #{memberNo}, 'payment',' ')
+		
+	</insert>
+	
+	<insert id="insertMemberEmoney" parameterType="emoney">
+		INSERT
+		INTO EMONEYR
+		VALUES(MRN_SEQ.NEXTVAL, SYSDATE,  #{money}, 'C', #{memberNo}, NULL )
+	
+	
 	</insert>
 	
 	<!-- 결제 목록 조회용 쿼리 -->
@@ -49,14 +57,10 @@
 	
 	</select> -->
 	
-	
-	<!-- <insert id="insertMemberCash">
-		
-		
-	</insert> -->
-	
 	<!-- <update id="updateEmoney">
-		
+		UPDATE 
+		MEMBER SET M.EMONEY = MONEY EMONEY + #{emoney} 
+		WHERE MEMBERNO = #{memberNo} 
 	
 	</update> -->
 	
