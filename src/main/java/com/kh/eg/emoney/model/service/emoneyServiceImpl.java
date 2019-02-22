@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.kh.eg.emoney.model.dao.emoneyDao;
 import com.kh.eg.emoney.model.vo.PageInfo;
 import com.kh.eg.emoney.model.vo.emoney;
+import com.kh.eg.member.model.vo.Member;
 
 @Service
 public class emoneyServiceImpl implements emoneyService {
@@ -25,16 +26,30 @@ public class emoneyServiceImpl implements emoneyService {
 	public int insertEmoney(emoney e) {
 		
 		int result = ed.insertEmoney(sqlSession, e);
+	
+		System.out.println("result1 : " + result);
+		
 		return result;
 	}
 
 	
 	//충전한 금액 유저에게 넣는 메소드
 	@Override
-	public int insertMemberCash(emoney e) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int insertMemberEmoney(emoney e) {
+		int result = ed.insertMemberEmoney(sqlSession, e);
+		
+		System.out.println("result2 : " + result);
+		return result;
 	}
+	
+	@Override
+	public int updateEmoney(Member m) {
+		int result = ed.updateEmoney(sqlSession, m);
+		
+		System.out.println("result3 : " + result);
+		return result;
+	}
+	
 	
 	//현재 유저의 보유금액 출력 메소드
 	@Override
@@ -57,6 +72,7 @@ public class emoneyServiceImpl implements emoneyService {
 		
 		return listCount;
 	}
+
 
 
 	

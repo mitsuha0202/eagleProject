@@ -23,18 +23,26 @@ public class emoneyDaoImpl implements emoneyDao{
 		return result;
 	}
 	
-	//충전 내역 리스트 메소드
+	//결제후 유저에게 이머니넣어주기
 	@Override
-	public emoney emoneyList(SqlSessionTemplate sqlSession, emoney e) {
-		// TODO Auto-generated method stub
-		return null;
+	public int insertMemberEmoney(SqlSessionTemplate sqlSession, emoney e) {
+		
+		int result = sqlSession.insert("emoney.insertMemberEmoney", e);
+		
+		System.out.println("result뭐찍히나2 : "+result);
+		
+		
+		return result;
 	}
 	
-	//충전한 금액 유저에게 넣는 메소드
 	@Override
-	public int insertMemberCash(SqlSessionTemplate sqlSession, emoney e) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updateEmoney(SqlSessionTemplate sqlSession, Member m) {
+		System.out.println("test");
+		int result = sqlSession.update("Member.updateEmoney", m);
+		
+		System.out.println("result이것도찍히나3 " + result);
+		
+		return result;
 	}
 
 	//현재 유저의 금액 출력하는 메소드
@@ -43,7 +51,8 @@ public class emoneyDaoImpl implements emoneyDao{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
+	//페이징처리하면서 리스트뽑기
 	@Override
 	public ArrayList<emoney> selectEmoneyList(SqlSessionTemplate sqlSession, PageInfo pi, emoney e) {
 		ArrayList<emoney> list = null;
@@ -57,6 +66,7 @@ public class emoneyDaoImpl implements emoneyDao{
 		return list;
 	}
 
+	//충전 내역 리스트 메소드
 	@Override
 	public int getlistCount(SqlSessionTemplate sqlSession, emoney e) {
 		
@@ -67,6 +77,10 @@ public class emoneyDaoImpl implements emoneyDao{
 		return result;
 		
 	}
+
+	
+
+
 
 	
 	
