@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.eg.admin.model.exception.AdMemberselectException;
 import com.kh.eg.admin.model.vo.AdminVo;
+import com.kh.eg.admin.model.vo.Category;
 import com.kh.eg.admin.model.vo.PageInfo;
 import com.kh.eg.admin.model.vo.Report;
 import com.kh.eg.admin.model.vo.SearchCondition;
@@ -44,7 +45,9 @@ public interface AdMemberDao {
 
 	ArrayList<Report> searchReportList(SqlSessionTemplate sqlSession, SearchReport sr, PageInfo pi) throws AdMemberselectException;
 
-	
+	ArrayList<Category> selectCategoryList(SqlSessionTemplate sqlSession) throws AdMemberselectException;
+
+	int inserBoard(SqlSessionTemplate sqlSession, Category cg) throws AdMemberselectException;
 
 
 	
