@@ -5,9 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title></title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<title>Insert title here</title>
 </head>
 <body>
 	<!-- 메뉴바 -->
@@ -27,15 +25,16 @@
 		</tr>
 		<tr>
 			<button onclick="location.href='charge.em'">충전하기</button>	
-			<button onclick="location.href='refundMain.em'">환급메인</button>		
+			<button onclick="location.href='refundMain.em'">환급메인</button>
+			<button onclick="location.href='refund.em'">환급하기</button>		
 		</tr>
 
 		<c:if test="${!empty list}">
 		<table align="center" id="listArea" class="table table-striped"  border:1px; solid #dddddd">
 		 		<thead>
 		 			<tr>
-						<th style="width: 20% background-color:#eeeeee; text-align: center;">결제번호</th>
-						<th style="width: 5% background-color:#eeeeee; text-align: center;">결제날짜</th>
+						<th style="width: 20% background-color:#eeeeee; text-align: center;">환급번호</th>
+						<th style="width: 5% background-color:#eeeeee; text-align: center;">환급날짜</th>
 						<th style="width: 5% background-color:#eeeeee; text-align: center;">금액</th>
 						<th style="width: 3% background-color:#eeeeee; text-align: center;">사용구분</th>
 					</tr>
@@ -56,8 +55,8 @@
 		<c:if test="${empty list}">
 			<thead>
 		 			<tr>
-						<th style="width: 20% background-color:#eeeeee; text-align: center;">결제번호</th>
-						<th style="width: 5% background-color:#eeeeee; text-align: center;">결제날짜</th>
+						<th style="width: 20% background-color:#eeeeee; text-align: center;">환급번호</th>
+						<th style="width: 5% background-color:#eeeeee; text-align: center;">환급날짜</th>
 						<th style="width: 5% background-color:#eeeeee; text-align: center;">금액</th>
 						<th style="width: 3% background-color:#eeeeee; text-align: center;">사용구분</th>
 					</tr>
@@ -67,13 +66,5 @@
 			  	<td colspan="5" style="border-right: 1px solid white; border-left: 1px solid white; font-size: 2.5em;" readonly>결제 정보가 없습니다.</td>
 				</tbody>
 		</c:if>			
-		<!-- <tr>
-			<button onclick="location.href=''">환급하기</button>
-		</tr> -->
-	</div>
-
-
-
-
 </body>
 </html>

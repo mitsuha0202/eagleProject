@@ -11,13 +11,21 @@ public interface emoneyService {
 	int insertEmoney(emoney e);	
 	
 	int insertMemberEmoney(emoney e);
-	
-	emoney selectMemberNowCash(emoney e);
 
 	ArrayList<emoney> selectEmoneyList(PageInfo pi, emoney e);
 
 	int getListCount(emoney e);
 
 	int updateEmoney(Member m);
-	
+
+	ArrayList<emoney> refundEmoneyList(PageInfo pi, emoney e);
+
+	int refundMemberEmoney(emoney e);
+
+	int updateRefundEmoney(Member m);
+
+/*	int selectCurrval(emoney e);
+
+	int selectNextval(emoney e);
+	*/
 }

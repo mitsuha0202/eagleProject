@@ -99,11 +99,20 @@
 		ORDER BY WRITEDAY DESC
 	</select>
 	
+	<!-- 결제시 보유 이머니 업데이트 -->
 	<update id="updateEmoney">
 		UPDATE MEMBER 
 		SET EMONEY = (EMONEY + #{emoney})
 		WHERE MEMBERNO = #{mid} 
 	
 	</update>
+	
+	<!-- 환급시 보유 이머니 업데이트 -->
+	<update id="updateRefundEmoney">
+		UPDATE MEMBER
+		SET EMONEY = (EMONEY - #{emoney})
+		WHERE MEMBERNO = #{mid}
+	</update>
+	
 	
 </mapper>

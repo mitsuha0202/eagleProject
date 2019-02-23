@@ -22,40 +22,66 @@
 		
 	</resultMap>
 	
-	<!-- 결제 숫자 조회용 메소드 -->
-	<select id="selectEmoneyList" resultType="_int">
-		SELECT COUNT(*)
-		FROM EMONEYR
-		WHERE MEMBERNO = #{memberNo}
+	<select id="selectSEQ">
+		SELECT MRN_SEQ.NEXTVAL FROM DUAL
 	</select>
 	
 	<insert id="insertEmoney" parameterType="emoney">
 		INSERT 
 		INTO EMONEYC 
-		VALUES(MCN_SEQ.NEXTVAL, #{amount}, SYSDATE,  NULL, #{memberNo}, 'payment',' ')
+		VALUES(MCN_SEQ.NEXTVAL, #{amount}, SYSDATE,  ' ', #{memberNo}, 'payment', NULL)
 		
 	</insert>
 	
 	<insert id="insertMemberEmoney" parameterType="emoney">
 		INSERT
 		INTO EMONEYR
-		VALUES(MRN_SEQ.NEXTVAL, SYSDATE,  #{money}, 'C', #{memberNo}, NULL )
-	
-	
+		VALUES(MRN_SEQ.NEXTVAL, SYSDATE, #{money}, 'C', #{memberNo}, NULL )	
 	</insert>
+	
+	<insert id="refundMemberEmoney" parameterType="emoney">
+		INSERT
+		INTO EMONEYR
+		VALUES(MRN_SEQ.NEXTVAL, SYSDATE, #{money}, 'R', #{memberNo}, NULL )
+	</insert>
+	
+	
+	<!-- 결제 숫자 조회용 메소드 -->
+	<select id="selectEmoneyList" resultType="_int">
+		SELECT COUNT(*)
+		FROM EMONEYR
+		WHERE MEMBERNO = #{memberNo} AND USESTATS = 'C'
+	</select>
+	
 	
 	<!-- 결제 목록 조회용 쿼리 -->
 	<select id="emoneyList" resultMap="emoneyResultSet" >
 		SELECT USENO, USEDAY, MONEY, USESTATUS, MEMBERNO, PAYNO
 		FROM EMONEYR E
-		WHERE MEMBERNO = #{memberNo}
+		WHERE MEMBERNO = #{memberNo} AND USESTATUS = 'C'
 	</select>
 	
-	<!-- <select id="selectMemberNowCash">
-		SELECT M.EMONEY_NOWCASH FROM (SELECT M.EMONEY_NOWCASH, MEMBER)
+	<!-- 환급 숫자 조회용 쿼리 -->
+	<select id="refundEmoneyList" resultType="_int">
+		SELECT COUNT(*)
+		FROM EMONEYR
+		WHERE MEMBERNO = #{memberNo} AND USESTATUS = 'R'
+	</select>
 	
+	<!-- 환급 목록 조회용 쿼리 -->
+	<select id="refundList" resultMap="emoneyResultSet">
+		SELECT USENO, USEDAY, MONEY, USESTATUS, MEMBERNO, PAYNO
+		FROM EMONEYR
+		WHERE MEMBERNO = #{memberNo} AND USESTATUS = 'R'
+	</select>
 	
-	</select> -->
+	<select id="selectCurrval" resultMap="emoneyResultSet">
+		SELECT SEQ_PRODUCT.CURRVAL FROM DUAL
+	</select>
+	
+	<select id="selectNextval" resultMap="emoneyResultSet">
+		SELECT SEQ_PRODUCT.NEXTVAL FROM DUAL
+	</select>
 	
 	<!-- <update id="updateEmoney">
 		UPDATE 

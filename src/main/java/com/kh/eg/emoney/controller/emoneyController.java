@@ -58,6 +58,31 @@ private emoneyService es;
 			return "common/errorPage";
 		}		
 	}	
+	
+	//환급메인페이지, 리스트도 출력
+		@RequestMapping("refundMain.em")
+		public String refundMain(@ModelAttribute("emoney") emoney e,
+				@RequestParam(defaultValue="1") int currentPage,
+				HttpServletRequest request, Model model, HttpSession session) {
+				Member m = new Member();
+				m = (Member)session.getAttribute("loginUser");
+				e.setMemberNo(m.getMid());
+				System.out.println(e.getMemberNo());
+				int listCount = es.getListCount(e);				
+				PageInfo pi = Pagination.getPageInfo(currentPage, listCount);		
+				ArrayList<emoney> list = es.refundEmoneyList(pi, e);
+				if(list !=null) {
+					model.addAttribute("list", list);
+					model.addAttribute("pi", pi);
+					return "emoney/refundMain";			
+				}else {
+					model.addAttribute("msg", "조회실패");
+					return "common/errorPage";
+				}
+		
+		}
+		
+		
 	//API에 전송할 값 넣는 메소드
 	@RequestMapping("saveCharge.em")
 	public void saveCharge(@RequestParam(value="buyer_code", required=false) String buyer_code, @RequestParam(value="amount", required=false) int amount,
@@ -99,11 +124,54 @@ private emoneyService es;
 
 	}
 	
+	@RequestMapping("refundMemberEmoney.em")
+	public void refundMemberEmoney( @RequestParam(value="refundEmoney", required=false) int refundEmoney,
+			HttpSession session, emoney e, HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		Member m = new Member();
+		m = (Member)session.getAttribute("loginUser");
+		e.setMemberNo(m.getMid());
+		e.setMoney(m.getEmoney());
+		
+		System.out.println("멤버넘버찍히나? : " + e.getMemberNo());
+		System.out.println("이머니찍히나? : " + e.getMoney());
+		
+		/*e.setMoney(refundEmoney);*/
+		System.out.println("리펀드머니찍히나? : " + refundEmoney);
+		
+		/*int result1 = es.selectCurrval(e);
+		int result2 = es.selectNextval(e);
+		int result3 = es.refundMemberEmoney(e);
+		int result4 = es.updateRefundEmoney(m);*/
+		
+		int result1 = es.refundMemberEmoney(e);
+		int result2 = es.updateRefundEmoney(m);
+		
+		int result = result1 + result2;
+		
+		/*int result = result1 + result2 + result3 + result4;*/
+		
+		
+		/*return "redirect:refundMain.em";*/
+		response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");
+		response.getWriter().println(result + "");
+	}
+	
+	
 	//결제하기 버튼 클릭시 결제 페이지
 	@RequestMapping("charge.em")
 	public String charge() {
 		return "emoney/charge";
 	}
+	
+	//환급하기 버튼 클릭시 환급 페이지
+	@RequestMapping("refund.em")
+	public String refund() {
+		return "emoney/refund";
+	}
+	
+	
 	
 	
 	
