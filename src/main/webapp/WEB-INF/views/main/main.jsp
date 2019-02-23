@@ -136,6 +136,9 @@ td {
 
 				</div>
 				<hr>
+				<div class="may" style=width:300px;>
+				
+				</div>
 				<table>
 					<tr class="tr">
 						<td colspan="2">입찰  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  건</td>
@@ -165,6 +168,9 @@ td {
 
 				</div>
 				<hr>
+				<div class="may" style=width:300px;>
+				
+				</div>
 				<table>
 					<tr class="tr">
 						<td colspan="2">입찰  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;건</td>

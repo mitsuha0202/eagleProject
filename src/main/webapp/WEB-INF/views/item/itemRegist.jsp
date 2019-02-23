@@ -324,7 +324,7 @@
 		console.log(cateCode);
 		$("#categoryNo").val(cateCode);
 		
-		$.ajax({
+		/* $.ajax({
 			url: "middleCategory.it",
 			type: "GET",
 			data:{bigc:bigc},
@@ -334,7 +334,7 @@
 			error:function(error){
 				alert("에러"+error);
 			}
-		});
+		}); */
 		
 		
 		

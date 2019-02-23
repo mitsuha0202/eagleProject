@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 import com.kh.eg.attachment.model.vo.Attachment;
 import com.kh.eg.bidding.model.vo.Bid;
 import com.kh.eg.item.model.vo.Item;
+import com.kh.eg.member.model.vo.Member;
+
 
 
 @Repository
@@ -118,6 +120,12 @@ public class AuctionDaoImpl implements AuctionDao {
 			attachmentlist=(ArrayList)sqlSession.selectList("Item.selectAttachmentC7");
 		}
 		return attachmentlist;
+	}
+
+	@Override
+	public ArrayList<Member> selectMember(SqlSessionTemplate sqlSession) {
+		// TODO Auto-generated method stub
+		return (ArrayList)sqlSession.selectList("Item.selectMember");
 	}
 
 	

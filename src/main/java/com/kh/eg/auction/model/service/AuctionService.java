@@ -7,6 +7,7 @@ import com.kh.eg.attachment.model.vo.Attachment;
 import com.kh.eg.auction.model.vo.PageInfo;
 import com.kh.eg.bidding.model.vo.Bid;
 import com.kh.eg.item.model.vo.Item;
+import com.kh.eg.member.model.vo.Member;
 
 public interface AuctionService {
 
@@ -21,6 +22,8 @@ public interface AuctionService {
 	ArrayList<Item> selectItem(String alignName);
 
 	ArrayList<Attachment> selectAttachment(String alignName);
+
+	ArrayList<Member> selectMember();
 
 
 }

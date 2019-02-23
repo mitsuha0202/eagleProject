@@ -61,7 +61,24 @@
 	
 	</resultMap>
 	
+	<resultMap type="com.kh.eg.member.model.vo.Member" id="memberResultSet">
 	
+	<id property="mid" column="MEMBERNO"/>
+	<result property="userName" column="MEMBERNAME"/>
+	<result property="userId" column="MEMBERID"/>
+	<result property="userPwd" column="MEMBERPWD"/>
+	<result property="account" column="ACCOUNTN"/>
+	<result property="phone" column="PHONE"/>
+	<result property="address" column="ADDRESS"/>
+	<result property="rating" column="RATING"/>
+	<result property="emoney" column="EMONEY"/>
+	<result property="wdStatus" column="WDSTATUS"/>
+	<result property="blStatus" column="BLSTATUS"/>
+	<result property="joinDate" column="JOINDATE"/>
+	<result property="email" column="EMAIL"/>
+	
+	
+	</resultMap>
 	
 	
 	<insert id="insertItem" >
@@ -89,6 +106,11 @@
 	
 	<select id="selectItem" resultMap="itemResultSet" parameterType="java.lang.String">
 		select * from auctionitem
+	
+	</select>
+	
+	<select id="selectMember" resultMap="memberResultSet" parameterType="java.lang.String">
+		select * from member
 	
 	</select>
 	
