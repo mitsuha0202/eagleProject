@@ -19,13 +19,14 @@
 				<span>
 					<span>
 						<select id="size" name="size" class="wth140">
-							<option value="" selected="selected">선택</option>
+							<option value="select" selected="selected">선택</option>
 							<option value="0">대분류</option>
 							<option value="1">중분류</option>
 						</select> 
 					</span>
 					<span>
 						<select id="division" name="division" class="wth140">
+							<option value="null">선택</option>
 							<option value="1">미술</option>
 							<option value="2">음악앨범</option>
 							<option value="3">의류</option>
@@ -37,7 +38,7 @@
 					</span>
 					<label for="Keyword"></label><input id="search" name="search" class="wth240" type="text">
 					<span><a class="bbtn bl" onclick="category();">추가</a></span>
-					<span><a class="bbtn rd" href="#">삭제</a></span>
+					<span><a class="bbtn rd" onclick="delcategory();">삭제</a></span>
 				</span>
 			</div>
 			<table class="boardList mt20">
@@ -62,16 +63,16 @@
 					</tbody>
 			</table>
 			<script>
+				$("#division").hide();
 				$("#size").change(function(){
 					var state = $("#size option:selected").val();
-					if ( state == '0' ) {
+					if ( state == 'select' || state == '0') {
 						$("#division").hide();
 					} else {
 						$("#division").show();
 					}
 				})
-			
-			
+				
 				function category(){
 					var category = $("#search").val();
 					var size = $("#size").val();
@@ -79,6 +80,14 @@
 					
 					location.href = "addcategory.ad?category=" + category + "&size=" + size + "&division=" + division;
 				}
+			</script>
+			<script>
+			function delcategory(){
+				
+				var category = $("#search").val();
+				
+				location.href = "delcategory.ad?category=" + category;
+			}
 			</script>
 			
 			

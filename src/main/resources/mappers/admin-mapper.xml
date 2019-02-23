@@ -242,7 +242,12 @@
 	<!-- 카테고리 추가 -->
 	<select id="insertCategory" resultMap="categoryResultSet">
 		INSERT INTO category(categoryNo,categoryName,categoryLevel,upperCategoryNo,deleteYN)
-   		VALUES(CN_SEQ.NEXTVAL,#{categoryName},#{categoryLevel},#{upperCategoryNo},'N')
+   		VALUES(CN_SEQ.NEXTVAL,#{categoryName},#{categoryLevel},#{uppercategoryNo},'N')
+	</select>
+	
+	<!-- 카테고리 삭제 -->
+	<select id="delcategory" resultMap="categoryResultSet">
+		UPDATE CATEGORY SET DELETEYN = 'Y' WHERE CATEGORYNAME = #{categoryName}
 	</select>
 	
 	

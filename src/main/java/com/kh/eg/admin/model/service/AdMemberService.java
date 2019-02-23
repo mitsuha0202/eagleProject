@@ -48,6 +48,9 @@ public interface AdMemberService {
 
 	int insertCategory(Category cg) throws AdMemberselectException;
 
+	int delCategory(Category cg) throws AdMemberselectException;
+
+
 
 
 
