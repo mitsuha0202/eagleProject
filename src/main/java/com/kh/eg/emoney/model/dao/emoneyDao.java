@@ -13,14 +13,22 @@ public interface emoneyDao {
 	int insertEmoney(SqlSessionTemplate sqlSession, emoney e);
 	
 	int insertMemberEmoney(SqlSessionTemplate sqlSession, emoney e);
-	
-	emoney selectMemberNowCash(SqlSessionTemplate sqlSession, emoney e);
 
 	ArrayList<emoney> selectEmoneyList(SqlSessionTemplate sqlSession, PageInfo pi, emoney e);
 
 	int getlistCount(SqlSessionTemplate sqlSession, emoney e);
 
 	int updateEmoney(SqlSessionTemplate sqlSession, Member m);
+
+	ArrayList<emoney> refundEmoneyList(SqlSessionTemplate sqlSession, PageInfo pi, emoney e);
+
+	int refundMemberEmoney(SqlSessionTemplate sqlSession, emoney e);
+
+	int updateRefundEmoney(SqlSessionTemplate sqlSession, Member m);
+	
+	int selectCurrval(SqlSessionTemplate sqlSession, emoney e);
+	
+	int selectNextval(SqlSessionTemplate sqlSession, emoney e);
 
 	
 	

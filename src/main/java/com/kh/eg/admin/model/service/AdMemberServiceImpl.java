@@ -147,17 +147,26 @@ public class AdMemberServiceImpl implements AdMemberService{
 		
 		return list;
 	}
-
+	
+	//카테고리 리스트 
 	@Override
 	public ArrayList<Category> selectCategoryList() throws AdMemberselectException {
 		ArrayList<Category> list = amd.selectCategoryList(sqlSession);
 		
 		return list;
 	}
-
+	
+	//카테고리 추가
 	@Override
 	public int insertCategory(Category cg) throws AdMemberselectException {
-		int result = amd.inserBoard(sqlSession, cg);
+		int result = amd.insertCategory(sqlSession, cg);
+		return result;
+	}
+	
+	//카테고리 삭제
+	@Override
+	public int delCategory(Category cg) throws AdMemberselectException {
+		int result = amd.delcategory(sqlSession, cg);
 		return result;
 	}
 

@@ -49,14 +49,6 @@ public class emoneyServiceImpl implements emoneyService {
 		System.out.println("result3 : " + result);
 		return result;
 	}
-	
-	
-	//현재 유저의 보유금액 출력 메소드
-	@Override
-	public emoney selectMemberNowCash(emoney e) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	//결제 내역 리스트
 	@Override
@@ -73,6 +65,49 @@ public class emoneyServiceImpl implements emoneyService {
 		return listCount;
 	}
 
+
+	@Override
+	public ArrayList<emoney> refundEmoneyList(PageInfo pi, emoney e) {
+		ArrayList<emoney> list = ed.refundEmoneyList(sqlSession, pi, e);
+		return list;
+	}
+
+
+	@Override
+	public int refundMemberEmoney(emoney e) {
+		int result = ed.refundMemberEmoney(sqlSession, e);
+		
+		System.out.println("환급신청 잘되나? : " + result);
+		
+		return result;
+	}
+
+
+	@Override
+	public int updateRefundEmoney(Member m) {
+		int result = ed.updateRefundEmoney(sqlSession, m);
+		
+		System.out.println("환급시 업데이트잘되나? : "+ result);
+		
+		return result;
+	}
+
+
+	/*@Override
+	public int selectCurrval(emoney e) {
+		int result = ed.selectCurrval(sqlSession, e);
+		System.out.println("서비스에서찍히나 커발");
+		return result;
+	}
+
+
+	@Override
+	public int selectNextval(emoney e) {
+		int result = ed.selectNextval(sqlSession, e);
+		System.out.println("서비스에서찍히나 넥스트발");
+		return result;
+	}
+*/
 
 
 	

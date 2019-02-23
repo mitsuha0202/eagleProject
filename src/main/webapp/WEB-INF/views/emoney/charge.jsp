@@ -27,8 +27,7 @@
 		<br><br>
 
 		<div>
-			<td><h5>사용 가능 금액</h5></td>
-			<%-- <td id="tdHaveMoney"><%= nowCash%></td> --%>
+			<td><h5>보유 금액 : <c:out value="${ sessionScope.loginUser.emoney } 원"/></h5></td>
 			
 		</div>
 		<br>
@@ -87,10 +86,7 @@
 					</script>
 					<br>					
 					<td>충전금액  </td>
-					<td id="tdChargeCashMoney"><label id="amount">0</label>원</td>
-										
-					<td>충전 후 금액 </td>
-					<td id="afterChargeCash"><label id="amount">0</label></td>					
+					<td id="tdChargeCashMoney"><label id="amount">0</label>원</td>														
 					<tr>
 						<br>						
 						<td>결제</td>

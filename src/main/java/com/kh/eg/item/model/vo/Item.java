@@ -3,6 +3,7 @@ package com.kh.eg.item.model.vo;
 import org.springframework.stereotype.Component;
 
 import com.kh.eg.attachment.model.vo.Attachment;
+import com.kh.eg.category.model.vo.Category;
 import com.kh.eg.member.model.vo.Member;
 
 @Component
@@ -24,6 +25,7 @@ public class Item implements java.io.Serializable {
 	private int bidCount;
 	private Attachment atta; 
 	private Member memberName;
+	private Category categoryInfo;
 	
 	
 	public Item() {}
@@ -184,9 +186,34 @@ public class Item implements java.io.Serializable {
 	}
 
 
+	public void setMemberName(Member memberName) {
+		this.memberName = memberName;
+	}
+
+
+	public Category getCategoryInfo() {
+		return categoryInfo;
+	}
+
+
+	public void setCategoryInfo(Category categoryInfo) {
+		this.categoryInfo = categoryInfo;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Item [itemNo=" + itemNo + ", itemName=" + itemName + ", startPrice=" + startPrice + ", bidUnit="
+				+ bidUnit + ", deliveryPay=" + deliveryPay + ", origin=" + origin + ", deleteYN=" + deleteYN
+				+ ", categoryNo=" + categoryNo + ", mid=" + mid + ", auctionCode=" + auctionCode + ", detail=" + detail
+				+ ", deliveryPrice=" + deliveryPrice + ", itemcount=" + itemcount + ", bidCount=" + bidCount + ", atta="
+				+ atta + ", memberName=" + memberName + ", categoryInfo=" + categoryInfo + "]";
+	}
+
+
 	public Item(int itemNo, String itemName, String startPrice, String bidUnit, String deliveryPay, String origin,
 			String deleteYN, String categoryNo, String mid, String auctionCode, String detail, String deliveryPrice,
-			String itemcount, int bidCount, Attachment atta, Member memberName) {
+			String itemcount, int bidCount, Attachment atta, Member memberName, Category categoryInfo) {
 		super();
 		this.itemNo = itemNo;
 		this.itemName = itemName;
@@ -204,22 +231,11 @@ public class Item implements java.io.Serializable {
 		this.bidCount = bidCount;
 		this.atta = atta;
 		this.memberName = memberName;
+		this.categoryInfo = categoryInfo;
 	}
 
 
-	@Override
-	public String toString() {
-		return "Item [itemNo=" + itemNo + ", itemName=" + itemName + ", startPrice=" + startPrice + ", bidUnit="
-				+ bidUnit + ", deliveryPay=" + deliveryPay + ", origin=" + origin + ", deleteYN=" + deleteYN
-				+ ", categoryNo=" + categoryNo + ", mid=" + mid + ", auctionCode=" + auctionCode + ", detail=" + detail
-				+ ", deliveryPrice=" + deliveryPrice + ", itemcount=" + itemcount + ", bidCount=" + bidCount + ", atta="
-				+ atta + ", memberName=" + memberName + "]";
-	}
-
-
-	public void setMemberName(Member memberName) {
-		this.memberName = memberName;
-	}
+	
 
 
 	

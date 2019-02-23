@@ -47,8 +47,10 @@ public interface AdMemberDao {
 
 	ArrayList<Category> selectCategoryList(SqlSessionTemplate sqlSession) throws AdMemberselectException;
 
-	int inserBoard(SqlSessionTemplate sqlSession, Category cg) throws AdMemberselectException;
+	int insertCategory(SqlSessionTemplate sqlSession, Category cg) throws AdMemberselectException;
 
+	int delcategory(SqlSessionTemplate sqlSession, Category cg) throws AdMemberselectException;
+	
 
 	
 

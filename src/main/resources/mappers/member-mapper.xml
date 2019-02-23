@@ -99,6 +99,7 @@
 		ORDER BY WRITEDAY DESC
 	</select>
 	
+	<!-- 결제시 보유 이머니 업데이트 -->
 	<update id="updateEmoney">
 		UPDATE MEMBER 
 		SET EMONEY = (EMONEY + #{emoney})
@@ -106,9 +107,19 @@
 	
 	</update>
 	
+
 	<!-- 운영자 로그인 처리용 -->
 	<select id="adminCheck" parameterType="SecondAdmin" resultMap="memberResultSet">
 		SELECT * FROM MEMBER WHERE MEMBERID=#{memberId} AND MEMBERPWD=#{memberPwd}
 	</select>
+
+	<!-- 환급시 보유 이머니 업데이트 -->
+	<update id="updateRefundEmoney">
+		UPDATE MEMBER
+		SET EMONEY = (EMONEY - #{emoney})
+		WHERE MEMBERNO = #{mid}
+	</update>
+	
+
 	
 </mapper>
