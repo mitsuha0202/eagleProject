@@ -73,9 +73,9 @@
  		height:auto;
  		font-size:15px;
  	}
- 	#remainTime{
+ 	/* #remainTime{
  		color:white !important;
- 	}
+ 	} */
  	a.step:hover{
  		text-decoration:none !important;
  	}
@@ -112,7 +112,7 @@
         <br>
         <div class="ui grid" style="clear:both;">
   			<div class="eight wide column">
-  				<img src="../views/images/image1.jpg">
+  				<img src="resources/uploadFiles/4bcb1d45c54649ee87768e94679d3a67.jpg" style="width:650px; height:525px;">
   			</div>
 		  	<div class="eight wide column">
 		  		<div class="ui equal width grid">
@@ -124,7 +124,7 @@
 				  </div>
 				  <div class="column">
 				  	<div id="reTime" class="ui massive label">
-				  		<i class="clock outline icon"></i>남은시간 <a id="remainTime">1일 2시간 16분 15초</a>
+				  		<i id="remainTime" class="clock outline icon"></i> 
 					</div>
 				  </div>
 				</div>
@@ -372,13 +372,14 @@
 	    	var numStr = String(num);
 	    	return numStr.replace(/(\d)(?=(?:\d{3})+(?!\d))/g,"$1,");
 	    }
-		var time = null;
+		var time;
+		
 		$(function(){
 			var currentPrice = 0;
 			var bidUnit = 0;
 			var mid = '${sessionScope.loginUser.mid}';
 
-			var times = null;
+			
 			$.ajax({
 				url:"auctionDetails.bi",
 				type:"get",
@@ -407,10 +408,10 @@
 						 
 							$("#startDay").text(data.startDay);
 							$("#endDay").text(data.endDay);
-							console.log("날짜조회 성공");
+							console.log("날짜 조회 성공");
 						},
 						error:function(){
-							console.log("날짜조회 실패");					
+							console.log("날짜 조회 실패");					
 						}
 					});
 					
@@ -419,7 +420,6 @@
 							type:"get",
 							data:{itemNo : itemNo},
 							success:function(data){
-								console.log(data);
 								if(data.currentPrice != 0){
 									currentPrice = data.currentPrice + bidUnit;
 									$("#cPrice").text(numComma(currentPrice));
@@ -428,13 +428,12 @@
 									$("#cPrice").text(numComma(data.startPrice));
 								}
 								
-								console.log("현재가 조회성공");
+								console.log("현재가 조회 성공");
 							},
 							error:function(){
-								console.log("현재가 조회실패");
+								console.log("현재가 조회 실패");
 							}
 					});
-					var remainTime = null;
 					
 					$.ajax({
 						url:"selectTime.bi",
@@ -443,15 +442,15 @@
 						data:{itemNo : itemNo},
 						success:function(data){
 							console.log(data.endDay);
-							remainTime = data.endDay;
-							console.log("남은시간 성공");
+							time = data.endDay;
+							
+							console.log("남은시간 조회 성공");
 						},
 						error:function(){
-							console.log("남은시간 실패");
+							console.log("남은시간 조회 실패");
 						}
 					});
 					
-					times = remainTime;
 					
 					
 					$("#bidBtn").click(function(){
@@ -477,10 +476,10 @@
 											$("#cPrice").text(numComma(currentPrice));
 											
 											alert("입찰이 완료되었습니다.");
-											console.log("입찰성공");
+											console.log("입찰 성공");
 										},
 										error:function(){
-											console.log("입찰실패");
+											console.log("입찰 실패");
 										}
 									});
 								}else{
@@ -493,13 +492,44 @@
 						});
 					});
 					
-					console.log("성공");
+					console.log("리스트 조회 성공");
 				},
 				error:function(){
-					console.log("실패");
+					console.log("리스트 조회 실패");
 				}
 			});
-			time = times;
+			
+			
+			
+			$(function(){
+				
+				function printTime(){
+					time = time - 1000;								
+					var ms = time / 1000;
+					var day = Math.floor(ms / 86400);
+					var hour = Math.floor((ms % 86400) / 3600);
+					var min = Math.floor((ms % 3600) / 60);
+					var sec = ms % 60;
+					
+					$("#remainTime").text("남은시간 " + day + "일 " + hour + "시간 " + min + "분 " + sec + "초");
+				}
+				
+				var timeId;
+				
+					timeId = setInterval(function(){
+						if(time > 0){
+							printTime();
+						}
+						else{
+							clearInterval(timeId);
+							$("#remainTime").text("종료");
+						}
+					},1000);
+			});
+			
+			
+			
+			
 		});
 		
 		$("#wishBtn").click(function(){
@@ -536,22 +566,9 @@
 			});
 		});
 		
-
-		function printTime(){
-			time = time - 1000;								
-			var ms = time / 1000;
-			var day = Math.floor(ms / 86400);
-			var hour = Math.floor((ms % 86400) / 3600);
-			var min = Math.floor((ms % 3600) / 60);
-			var sec = ms % 60;
-			console.log("day : " + day + ", hour : " + hour + ", min : " + min + ", sec : " + sec);
-		}
 		
-		var timeId = null;
 		
-		function startTime(){
-			timeId = setInterval(printTime(),1000);
-		}
+		
 		
 	</script>
 </html>
