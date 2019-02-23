@@ -13,6 +13,7 @@ import com.kh.eg.auction.model.dao.AuctionDao;
 import com.kh.eg.auction.model.vo.PageInfo;
 import com.kh.eg.bidding.model.vo.Bid;
 import com.kh.eg.item.model.vo.Item;
+import com.kh.eg.member.model.vo.Member;
 
 @Service
 public class AuctionServiceImpl implements AuctionService {
@@ -55,6 +56,12 @@ public class AuctionServiceImpl implements AuctionService {
 	public ArrayList<Attachment> selectAttachment(String alignName) {
 		// TODO Auto-generated method stub
 		return ad.selectAttachment(sqlSession,alignName);
+	}
+
+	@Override
+	public ArrayList<Member> selectMember() {
+	
+		return ad.selectMember(sqlSession);
 	}
 
 }

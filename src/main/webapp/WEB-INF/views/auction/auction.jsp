@@ -77,24 +77,29 @@ h4 {
 				<div class="results"></div>
 			</div>
 			<br> <br> <br> <br>
+			<c:forEach var="c" items="${category}">
 			<table class="ui basic table" style="width: 500px;">
+				
 				<thead>
-					<tr>
-						<th>전체보기</th>
-						<th>미술</th>
-						<th>음악앨범</th>
-						<th>의류</th>
+					<tr >
+						
+						<th class="thclass"><input type="hidden" value="8">전체보기</th>
+						<th class="thclass"><input type="hidden" value="1">미술</th>
+						<th class="thclass"><input type="hidden" value="2">음악앨범</th>
+						<th class="thclass"><input type="hidden" value="3">의류</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<th>생활가전</th>
-						<th>비디오게임</th>
-						<th>피규어</th>
-						<th>레고</th>
+					<tr >
+						<th class="thclass"><input type="hidden" value="4">생활가전</th>
+						<th class="thclass"><input type="hidden" value="5">비디오게임</th>
+						<th class="thclass"><input type="hidden" value="6">피규어</th>
+						<th class="thclass"><input type="hidden" value="7">레고</th>
 					</tr>
 				</tbody>
+				
 			</table>
+			</c:forEach>
 			<br> <br>
 			<h4>모두 0000000개의 물품이 검색되었습니다</h4>
 			<div class="nay">
@@ -139,7 +144,7 @@ h4 {
 			
 			<tr class="tr">
 				<td colspan="2">판매자 아이디</td>
-				<td>${i.mid}</td>
+				<td>${i.memberName.userId}</td>
 			</tr>
 			<tr class="tr">
 				<td colspan="2">남은 시간</td>
@@ -242,6 +247,28 @@ h4 {
 	<script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script type="text/javascript">
+	
+		$(".thclass").click(function(){
+			
+			var categoryLevel=$(this).val();
+			$.ajax({
+				url:"searchCate.au",
+				type:'GET',
+				data:{categoryLevel:categoryLevel},
+				success:function(data){
+					alert("성공");
+				},
+				error:function(data) {
+					alert("error:"+error);
+				}
+					
+				});
+				
+			});
+			
+	
+	
+	
 			
 		$(".jung").click(function(){
 			 alignName=$(this).children().val();

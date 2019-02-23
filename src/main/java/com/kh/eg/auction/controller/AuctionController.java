@@ -25,7 +25,9 @@ import com.kh.eg.auction.model.service.AuctionServiceImpl;
 import com.kh.eg.auction.model.vo.PageInfo;
 import com.kh.eg.auction.model.vo.Pagination;
 import com.kh.eg.bidding.model.vo.Bid;
+import com.kh.eg.category.model.vo.Category;
 import com.kh.eg.item.model.vo.Item;
+import com.kh.eg.member.model.vo.Member;
 
 import net.sf.json.JSONArray;
 
@@ -119,12 +121,46 @@ public class AuctionController {
 					list1.get(i).setAtta(list3.get(j));break;
 				}
 			}
-		}
+		};
 
+		
+		ArrayList<Member> list4= as.selectMember();
+		System.out.println(list4);
+		for(int i=0;i<list1.size();i++) {
+			for(int j=0;j<list4.size();j++) {
+				if(list1.get(i).getMid()==(list4.get(j).getMid())) {
+					list1.get(i).setMemberName(list4.get(j));break;
+				}
+			}
+		}
+		
+		
+		
+		
+	/*	for(int i=0;i<list1.size();i++) {
+			for(int j=0;j<list4.size();j++) {
+				if(list1.get(i).getMid()==(list4.get(j).getMid())) {
+					list1.get(i).setMemberName(list4.get(j));break;
+					
+				}
+			}
+			
+		}*/
+		
+		
 		model.addAttribute("list1",list1);
 		System.out.println(list1);
-
+		
 		return "auction/auction";
+	}
+	
+	@RequestMapping("searchCate.au")
+	public @ResponseBody Category searchCategory(Model model) {
+		
+		Category category=new Category();
+		
+		model.addAttribute("category",category);
+		return category;
 	}
 
 

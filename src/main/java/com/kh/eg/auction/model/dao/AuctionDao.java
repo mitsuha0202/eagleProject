@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import com.kh.eg.attachment.model.vo.Attachment;
 import com.kh.eg.bidding.model.vo.Bid;
 import com.kh.eg.item.model.vo.Item;
+import com.kh.eg.member.model.vo.Member;
 
 public interface AuctionDao {
 
@@ -23,6 +24,8 @@ public interface AuctionDao {
 	ArrayList<Item> selectItem(SqlSessionTemplate sqlSession, String alignName);
 
 	ArrayList<Attachment> selectAttachment(SqlSessionTemplate sqlSession, String alignName);
+
+	ArrayList<Member> selectMember(SqlSessionTemplate sqlSession);
 
 	/*Object selectAttachment(SqlSessionTemplate sqlSession, int itemNo);*/
 

@@ -3,6 +3,7 @@ package com.kh.eg.item.model.vo;
 import org.springframework.stereotype.Component;
 
 import com.kh.eg.attachment.model.vo.Attachment;
+import com.kh.eg.member.model.vo.Member;
 
 @Component
 public class Item implements java.io.Serializable {
@@ -22,19 +23,10 @@ public class Item implements java.io.Serializable {
 	private String itemcount;
 	private int bidCount;
 	private Attachment atta; 
+	private Member memberName;
 	
 	
 	public Item() {}
-
-
-	@Override
-	public String toString() {
-		return "Item [itemNo=" + itemNo + ", itemName=" + itemName + ", startPrice=" + startPrice + ", bidUnit="
-				+ bidUnit + ", deliveryPay=" + deliveryPay + ", origin=" + origin + ", deleteYN=" + deleteYN
-				+ ", categoryNo=" + categoryNo + ", mid=" + mid + ", auctionCode=" + auctionCode + ", detail=" + detail
-				+ ", deliveryPrice=" + deliveryPrice + ", itemcount=" + itemcount + ", bidCount=" + bidCount + ", atta="
-				+ atta + "]";
-	}
 
 
 	public int getItemNo() {
@@ -187,9 +179,14 @@ public class Item implements java.io.Serializable {
 	}
 
 
+	public Member getMemberName() {
+		return memberName;
+	}
+
+
 	public Item(int itemNo, String itemName, String startPrice, String bidUnit, String deliveryPay, String origin,
 			String deleteYN, String categoryNo, String mid, String auctionCode, String detail, String deliveryPrice,
-			String itemcount, int bidCount, Attachment atta) {
+			String itemcount, int bidCount, Attachment atta, Member memberName) {
 		super();
 		this.itemNo = itemNo;
 		this.itemName = itemName;
@@ -206,7 +203,25 @@ public class Item implements java.io.Serializable {
 		this.itemcount = itemcount;
 		this.bidCount = bidCount;
 		this.atta = atta;
+		this.memberName = memberName;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Item [itemNo=" + itemNo + ", itemName=" + itemName + ", startPrice=" + startPrice + ", bidUnit="
+				+ bidUnit + ", deliveryPay=" + deliveryPay + ", origin=" + origin + ", deleteYN=" + deleteYN
+				+ ", categoryNo=" + categoryNo + ", mid=" + mid + ", auctionCode=" + auctionCode + ", detail=" + detail
+				+ ", deliveryPrice=" + deliveryPrice + ", itemcount=" + itemcount + ", bidCount=" + bidCount + ", atta="
+				+ atta + ", memberName=" + memberName + "]";
+	}
+
+
+	public void setMemberName(Member memberName) {
+		this.memberName = memberName;
+	}
+
+
 	
 	
 
