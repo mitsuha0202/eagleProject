@@ -159,13 +159,13 @@
             <tr>
                <td><input type="checkbox" class="checkChild"></td> 
                <td name="choice">${ b.boardNo }</td>
-               <td>${ b.title }</td>
-               <td>${ b.writeDay }</td>
+               <td name="choice">${ b.title }</td>
+               <td name="choice">${ b.writeDay }</td>
                <c:if test="${ b.replyStatus eq 'Y'}">
-                  <td><h5>답변완료</h5></td>
+                  <td name="choice"><h5>답변완료</h5></td>
                </c:if>
                <c:if test="${ b.replyStatus eq 'N' }">
-                  <td><h5>답변대기</h5></td>
+                  <td name="choice"><h5>답변대기</h5></td>
                </c:if>                  
             </tr>
          </c:forEach>
@@ -260,12 +260,11 @@
    		
    		/* 상세보기  */
    		$("td[name=choice]").mouseenter(function() {
-			$(this).css({"cursor":"pointer"});
+			$(this).css({"cursor":"pointer","background-color":"lightgray"});
 		}).mouseout(function() {
-			/* $(this).parent().css({"background":"white"}); */
+			$(this).css({"background":"white"});
 		}).click(function() {
 			var docno = $(this).parent().children().eq(1).text();
-			console.log(docno);
 			location.href="detailMessage.mp?docno=" + docno; 
 		}); 
    </script>

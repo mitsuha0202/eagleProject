@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -98,7 +99,7 @@
 		 <h5>꼭 읽어주세요! </h5><br>
 	     <h5>현재 입찰하신 물품중 진행중인 물품 리스트입니다.</h5>
 	     <br>
-	     <h5 id="countMainPayList"></h5>
+	     <h5> 진행중인 최고 입찰 물품에 대해서 모두 ${ fn:length(list) }건이 검색되었습니다.</h5>
 	     
 	     <table class="buyStatusTable">
       
@@ -190,38 +191,6 @@
 				</c:url>
 				<a href="${ blistEnd }">&nbsp;[다음]</a>
 			</c:if>
-		</div>
-		
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		<script>
-			$(function() {
-				var mid = '${sessionScope.loginUser.mid}';
-				var key = 'second';
-				$.ajax({
-					url:"countPayListMain.mp?key=" + key,
-					type:"get",
-					data:{userId:mid},
-					success:function(data){
-						$("#countMainPayList").text("진행중인 최고 입찰 물품에 대해서 모두 " + data + "건이 검색되었습니다.");
-					},
-					/* status는 에러의 상태를 나타냄 */
-					error:function(status){
-						$("#countMainPayList").text("진행중인 최고 입찰 물품에 대해서 모두 0 건이 검색되었습니다.");
-					}
-				});
-				
-				$.ajax({
-					url:"payList,mp",
-					type:"get",
-					data:{userId:mid},
-					success:function(data){
-						
-					},
-					error:function(status){
-						
-					}
-				});
-			});
-		</script>
+		</div>	
 </body>
 </html>

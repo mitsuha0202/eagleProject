@@ -117,6 +117,12 @@ public interface MyPageDao {
 
 	//최고순위 입찰중 물품 갯수 조회
 	int countPayListFirst(SqlSessionTemplate sqlSession, String userId);
+
+	//낙찰받지 못한 물품 페이징
+	int getFalseBidListCount(SqlSessionTemplate sqlSession, String mid);
+
+	//낙찰받지 못한 물품 목록 조회
+	ArrayList<PayTable> selectFalseBidList(SqlSessionTemplate sqlSession, PageInfo pi, String mid);
 	
 	
 	
