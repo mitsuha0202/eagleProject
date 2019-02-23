@@ -477,17 +477,25 @@ import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 		
 		//문의받은 게시판 검색
 		@RequestMapping("searchreanswer.mp")
-		public String searchreanswer(HttpServletRequest request, @RequestParam(value="searchCondition") String searchCondition, @RequestParam(value="searchValue") String searchValue, Model model, @RequestParam(defaultValue="1") int currentPage) {
+		public String searchreanswer(HttpServletRequest request,HttpSession session, @RequestParam(value="searchCondition") String searchCondition, @RequestParam(value="searchValue") String searchValue, Model model, @RequestParam(defaultValue="1") int currentPage, Member m) {
 			
 			System.out.println(searchCondition);
 			System.out.println(searchValue);
+			m = (Member)session.getAttribute("loginUser");
+			String memberNo= m.getMid();
+			System.out.println("멤버번호 : " + memberNo);
+			
 			SearchCondition sc = new SearchCondition();
 			if(searchCondition.equals("writer")) {
 				sc.setWriter(searchValue);
+				sc.setMemberNo(memberNo);
+				
 			}
 			if(searchCondition.equals("title")) {
 				sc.setTitle(searchValue);
+				sc.setMemberNo(memberNo);
 			}
+			
 			
 			int listCount = ms.getSearchResultListCount(sc);
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
