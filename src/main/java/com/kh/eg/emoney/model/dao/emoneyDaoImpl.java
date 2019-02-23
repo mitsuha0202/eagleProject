@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.eg.emoney.model.vo.PageInfo;
 import com.kh.eg.emoney.model.vo.emoney;
 import com.kh.eg.member.model.vo.Member;
+import com.kh.eg.common.Attachment;
 
 @Repository
 public class emoneyDaoImpl implements emoneyDao{
@@ -44,13 +45,6 @@ public class emoneyDaoImpl implements emoneyDao{
 		
 		return result;
 	}
-
-	//현재 유저의 금액 출력하는 메소드
-	@Override
-	public emoney selectMemberNowCash(SqlSessionTemplate sqlSession, emoney e) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
 	//페이징처리하면서 리스트뽑기
 	@Override
@@ -78,10 +72,55 @@ public class emoneyDaoImpl implements emoneyDao{
 		
 	}
 
+	@Override
+	public ArrayList<emoney> refundEmoneyList(SqlSessionTemplate sqlSession, PageInfo pi, emoney e) {
+		ArrayList<emoney> list = null;
+		
+		int offset = (pi.getCurrentPage() -1 ) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList)sqlSession.selectList("emoney.refundList", e, rowBounds);
+		System.out.println("환급리스트뽑기"+list);
+		return list;
+	}
+
+	@Override
+	public int refundMemberEmoney(SqlSessionTemplate sqlSession, emoney e) {
+		int result = sqlSession.insert("emoney.refundMemberEmoney", e);
+		System.out.println("환급인설트잘되나? : " + result);		
+		
+		return result;
+	}
+
+	@Override
+	public int updateRefundEmoney(SqlSessionTemplate sqlSession, Member m) {
+		System.out.println("환급test");
+		int result = sqlSession.update("Member.updateRefundEmoney", m);
+		System.out.println("환급업데이트잘되는지확인 : " + result);		
+		
+		return result;
+	}
+
+	@Override
+	public int selectCurrval(SqlSessionTemplate sqlSession, emoney e) {
+		System.out.println("셀렉트커발찍히나?");
+		int useNo = 0;
+		int result = sqlSession.selectOne("emoney.selectCurrval", e);
+		
+		return useNo;
+	}
+
+	@Override
+	public int selectNextval(SqlSessionTemplate sqlSession, emoney e) {
+		System.out.println("넥스트발찍히나?");
+		int useNo = 0;
+		int result = sqlSession.selectOne("emoney.selectNextval", e);
+		
+		return useNo;
+	}
+
 	
-
-
-
 	
 	
 }
