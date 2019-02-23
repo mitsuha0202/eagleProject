@@ -85,9 +85,15 @@
   		INSERT INTO WISHLIST VALUES(WN_SEQ.NEXTVAL , 'N' , #{mNo} , #{itemNo})
   	</select>
   	
-  	<select id="selectWishList" resultMap="itemDetailResultSet" parameterType="java.lang.String">
+  	<select id="selectWishList" resultMap="itemDetailResultSet" parameterType="ItemDetail">
 		SELECT *
 		FROM WISHLIST
 		WHERE ITEMNO = #{itemNo} AND MEMBERNO = #{mNo}
+  	</select>
+  	
+  	<select id="selectTime" resultMap="itemDetailResultSet" parameterType="java.lang.String">
+  		SELECT TO_CHAR(SYSDATE, 'YYYY/MM/DD HH24:MI:SS') AS STARTDAY, TO_CHAR(ENDDAY,'YYYY/MM/DD HH24:MI:SS') AS ENDDAY
+		FROM AUCTIONDETAIL
+		WHERE ITEMNO = #{itemNo} AND EXITYN = 'N'
   	</select>
   </mapper>

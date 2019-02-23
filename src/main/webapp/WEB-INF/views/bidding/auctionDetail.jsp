@@ -367,21 +367,22 @@
    	<!-- footer -->
 </body>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="/eg/webapp/WEB-INF/views/common/moment.min.js"></script>
 	<script>
 		function numComma(num){
 	    	var numStr = String(num);
 	    	return numStr.replace(/(\d)(?=(?:\d{3})+(?!\d))/g,"$1,");
 	    }
-	
+		var time = null;
 		$(function(){
 			var currentPrice = 0;
 			var bidUnit = 0;
 			var mid = '${sessionScope.loginUser.mid}';
 
+			var times = null;
 			$.ajax({
 				url:"auctionDetails.bi",
 				type:"get",
+				async:false,
 				data:{itemNo : "6"},
 				success:function(data){
 					$("#itemNo").text(data.itemNo);
@@ -433,6 +434,25 @@
 								console.log("현재가 조회실패");
 							}
 					});
+					var remainTime = null;
+					
+					$.ajax({
+						url:"selectTime.bi",
+						type:"get",
+						async:false,
+						data:{itemNo : itemNo},
+						success:function(data){
+							console.log(data.endDay);
+							remainTime = data.endDay;
+							console.log("남은시간 성공");
+						},
+						error:function(){
+							console.log("남은시간 실패");
+						}
+					});
+					
+					times = remainTime;
+					
 					
 					$("#bidBtn").click(function(){
 						var itemNo = $("#itemNo").text();
@@ -479,6 +499,7 @@
 					console.log("실패");
 				}
 			});
+			time = times;
 		});
 		
 		$("#wishBtn").click(function(){
@@ -486,12 +507,12 @@
 			var mid = '${sessionScope.loginUser.mid}';
 			
 			$.ajax({
-				url:"compareWish.bi"
+				url:"compareWish.bi",
 				type:"get",
 				data:{itemNo : itemNo , mNo : mid},
 				success:function(data){
 					console.log("위시리스트 비교 성공");
-					if(data == "1"){
+					if(data.mNo == "0"){
 						$.ajax({
 							url:"insertWishList.bi",
 							type:"get",
@@ -506,7 +527,7 @@
 						});
 					}
 					else{
-						alert("이미 위시르스트에 등록된 경매물품 입니다.");
+						alert("이미 위시리스트에 등록된 경매물품 입니다.");
 					}
 				},
 				error:function(){
@@ -515,12 +536,22 @@
 			});
 		});
 		
+
+		function printTime(){
+			time = time - 1000;								
+			var ms = time / 1000;
+			var day = Math.floor(ms / 86400);
+			var hour = Math.floor((ms % 86400) / 3600);
+			var min = Math.floor((ms % 3600) / 60);
+			var sec = ms % 60;
+			console.log("day : " + day + ", hour : " + hour + ", min : " + min + ", sec : " + sec);
+		}
 		
-		/* $(function(){
-			
-		}); */
+		var timeId = null;
 		
-		
+		function startTime(){
+			timeId = setInterval(printTime(),1000);
+		}
 		
 	</script>
 </html>

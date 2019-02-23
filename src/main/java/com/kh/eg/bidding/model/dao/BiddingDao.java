@@ -21,7 +21,9 @@ public interface BiddingDao {
 
 	int insertWishList(SqlSessionTemplate sqlSession, ItemDetail i);
 
-	ItemDetail selectWishList(SqlSessionTemplate sqlSession, String itemNo, String mNo);
+	ItemDetail selectWishList(SqlSessionTemplate sqlSession, ItemDetail i);
+
+	ItemDetail selectTime(SqlSessionTemplate sqlSession, String itemNo);
 
 
 

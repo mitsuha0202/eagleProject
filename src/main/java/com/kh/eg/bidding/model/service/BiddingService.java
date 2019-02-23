@@ -20,7 +20,9 @@ public interface BiddingService {
 
 	int insertWishList(ItemDetail i);
 
-	ItemDetail selectWishList(String itemNo, String mNo);
+	ItemDetail selectWishList(ItemDetail i);
+
+	ItemDetail selectTime(String itemNo);
 
 
 }

@@ -76,10 +76,19 @@ private SqlSessionTemplate sqlSession;
 	}
 
 	@Override
-	public ItemDetail selectWishList(String itemNo, String mNo) {
+	public ItemDetail selectWishList(ItemDetail i) {
+		ItemDetail id = null;
+		
+		id = bd.selectWishList(sqlSession, i);
+		
+		return id;
+	}
+
+	@Override
+	public ItemDetail selectTime(String itemNo) {
 		ItemDetail i = null;
 		
-		i = bd.selectWishList(sqlSession, itemNo, mNo);
+		i = bd.selectTime(sqlSession, itemNo);
 		
 		return i;
 	}
