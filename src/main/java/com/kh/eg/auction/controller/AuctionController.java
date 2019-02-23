@@ -65,6 +65,20 @@ public class AuctionController {
 			}
 		}
 		
+		ArrayList<Member> list4= as.selectMember(alignName);
+		System.out.println(list4);
+		for(int i=0;i<list1.size();i++) {
+			for(int j=0;j<list4.size();j++) {
+				if(list1.get(i).getMid().equals(list4.get(j).getMid())) {
+					list1.get(i).setMemberName(list4.get(j));break;
+				}
+			}
+		}
+		
+		
+		
+		
+		
 		if(alignName.equals("7")) {
 
 			Collections.sort(list1, new Comparator<Item>() {
@@ -128,7 +142,7 @@ public class AuctionController {
 		System.out.println(list4);
 		for(int i=0;i<list1.size();i++) {
 			for(int j=0;j<list4.size();j++) {
-				if(list1.get(i).getMid()==(list4.get(j).getMid())) {
+				if(list1.get(i).getMid().equals(list4.get(j).getMid())) {
 					list1.get(i).setMemberName(list4.get(j));break;
 				}
 			}
@@ -155,12 +169,56 @@ public class AuctionController {
 	}
 	
 	@RequestMapping("searchCate.au")
-	public @ResponseBody Category searchCategory(Model model) {
+	public @ResponseBody ArrayList<Item> searchCategory(Model model,@RequestParam String categoryLevel) {
 		
-		Category category=new Category();
 		
-		model.addAttribute("category",category);
-		return category;
+		
+		ArrayList<Bid> list2=as.selectBid1(categoryLevel);
+		ArrayList<Item> list1=as.selectItem1(categoryLevel);
+		for(int i=0;i<list1.size();i++) {
+			int count=0;
+			for(int j=0;j<list2.size();j++) {
+				if(list2.get(j).getItemNo()==(list1.get(i).getItemNo())) {
+					count++;
+
+				}
+			}
+			list1.get(i).setBidCount(count);
+
+		}
+
+		ArrayList<Attachment>list3=as.selectAttachment1(categoryLevel);
+
+		for(int i=0;i<list1.size();i++) {
+			for(int j=0;j<list3.size();j++) {
+				if(list1.get(i).getItemNo()==(list3.get(j).getItemNo())) {
+					list1.get(i).setAtta(list3.get(j));break;
+				}
+			}
+		}
+		
+		ArrayList<Member> list4= as.selectMember1(categoryLevel);
+		System.out.println(list4);
+		for(int i=0;i<list1.size();i++) {
+			for(int j=0;j<list4.size();j++) {
+				if(list1.get(i).getMid().equals(list4.get(j).getMid())) {
+					list1.get(i).setMemberName(list4.get(j));break;
+				}
+			}
+		}
+		ArrayList<Category> list5=as.selectCategory(categoryLevel);
+		for(int i=0;i<list1.size();i++) {
+			for(int j=0;j<list5.size();j++) {
+				if(list1.get(i).getCategoryNo().equals(list5.get(j).getCategoryNo())) {
+					list1.get(i).setCategoryInfo(list5.get(j));break;
+				}
+			}
+		}
+		return list1;
+	
+			
+
+		
 	}
 
 

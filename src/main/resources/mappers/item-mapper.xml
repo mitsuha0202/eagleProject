@@ -236,6 +236,117 @@
 	
 	</select>
 	
+		<select id="selectMemberC" resultMap="memberResultSet" parameterType="java.lang.String">
+			select * from member
+
+	</select>
+		<select id="selectMemberC2" resultMap="memberResultSet" parameterType="java.lang.String">
+			select * from member
+
+	</select>
+		<select id="selectMemberC3" resultMap="memberResultSet" parameterType="java.lang.String">
+			select * from member
+
+	</select>
+		<select id="selectMemberC4" resultMap="memberResultSet" parameterType="java.lang.String">
+			select * from member
+
+	</select>
+		<select id="selectMemberC5" resultMap="memberResultSet" parameterType="java.lang.String">
+			select * from member
+
+	</select>
+		<select id="selectMemberC6" resultMap="memberResultSet" parameterType="java.lang.String">
+			select * from member
+
+	</select>
+		<select id="selectMemberC7" resultMap="memberResultSet" parameterType="java.lang.String">
+			select * from member
+
+	</select>
+		<select id="selectCategory1" resultMap="categoryResultSet" parameterType="java.lang.String">
+			select * from category where categoryno=1
+
+	</select>
+	<select id="selectCategory2" resultMap="categoryResultSet" parameterType="java.lang.String">
+			select * from category where categoryno=2
+
+	</select>
+	<select id="selectCategory3" resultMap="categoryResultSet" parameterType="java.lang.String">
+			select * from category where categoryno=3
+
+	</select>
+	<select id="selectCategory4" resultMap="categoryResultSet" parameterType="java.lang.String">
+			select * from category where categoryno=4
+
+	</select>
+	<select id="selectCategory5" resultMap="categoryResultSet" parameterType="java.lang.String">
+			select * from category where categoryno=5
+
+	</select>
+	<select id="selectCategory6" resultMap="categoryResultSet" parameterType="java.lang.String">
+			select * from category where categoryno=6
+
+	</select>
+	<select id="selectCategory7" resultMap="categoryResultSet" parameterType="java.lang.String">
+			select * from category where categoryno=7
+
+	</select>
+	<select id="selectCategory8" resultMap="categoryResultSet" parameterType="java.lang.String">
+			select * from category
+
+	</select>
+	
+	<select id="selectItemlist1" resultMap="itemResultSet" parameterType="java.lang.String">
+	
+		select * from auctionitem a join category c on(a.categoryno=c.categoryno) where uppercategoryno=1
+	
+	
+	</select>
+	
+	<select id="selectItemlist2" resultMap="itemResultSet" parameterType="java.lang.String">
+	
+	select * from auctionitem a join category c on(a.categoryno=c.categoryno) where uppercategoryno=2
+	
+	
+	</select>
+	<select id="selectItemlist3" resultMap="itemResultSet" parameterType="java.lang.String">
+	
+	select * from auctionitem a join category c on(a.categoryno=c.categoryno) where uppercategoryno=3
+	
+	
+	</select>
+	<select id="selectItemlist4" resultMap="itemResultSet" parameterType="java.lang.String">
+	
+	select * from auctionitem a join category c on(a.categoryno=c.categoryno) where uppercategoryno=4
+	
+	
+	</select>
+	<select id="selectItemlist5" resultMap="itemResultSet" parameterType="java.lang.String">
+	
+		select * from auctionitem a join category c on(a.categoryno=c.categoryno) where uppercategoryno=5
+	
+	
+	</select>
+	<select id="selectItemlist6" resultMap="itemResultSet" parameterType="java.lang.String">
+	
+	select * from auctionitem a join category c on(a.categoryno=c.categoryno) where uppercategoryno=6
+	
+	
+	</select>
+	<select id="selectItemlist7" resultMap="itemResultSet" parameterType="java.lang.String">
+	
+		select * from auctionitem a join category c on(a.categoryno=c.categoryno) where uppercategoryno=7
+	
+	
+	
+	</select>
+	<select id="selectItemlist8" resultMap="itemResultSet" parameterType="java.lang.String">
+	
+		select*from auctionitem
+	
+	
+	</select>
 	
 	
 	

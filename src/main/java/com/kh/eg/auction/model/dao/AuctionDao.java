@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.eg.attachment.model.vo.Attachment;
 import com.kh.eg.bidding.model.vo.Bid;
+import com.kh.eg.category.model.vo.Category;
 import com.kh.eg.item.model.vo.Item;
 import com.kh.eg.member.model.vo.Member;
 
@@ -26,6 +27,18 @@ public interface AuctionDao {
 	ArrayList<Attachment> selectAttachment(SqlSessionTemplate sqlSession, String alignName);
 
 	ArrayList<Member> selectMember(SqlSessionTemplate sqlSession);
+
+	ArrayList<Member> selectMember(SqlSessionTemplate sqlSession, String alignName);
+
+	ArrayList<Category> selectCategory(SqlSessionTemplate sqlSession, String categoryLevel);
+
+	ArrayList<Bid> selectBid1(SqlSessionTemplate sqlSession, String categoryLevel);
+
+	ArrayList<Item> selectItem1(SqlSessionTemplate sqlSession, String categoryLevel);
+
+	ArrayList<Attachment> selectAttachment1(SqlSessionTemplate sqlSession, String categoryLevel);
+
+	ArrayList<Member> selectMember1(SqlSessionTemplate sqlSession, String categoryLevel);
 
 	/*Object selectAttachment(SqlSessionTemplate sqlSession, int itemNo);*/
 

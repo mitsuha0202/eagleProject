@@ -10,6 +10,7 @@ public class Category implements java.io.Serializable {
 	private int categoryLevel;
 	private String upperCategoryNo;
 	private String deleteYn;
+	private String cateInfo;
 	
 	public Category() {}
 
@@ -53,21 +54,33 @@ public class Category implements java.io.Serializable {
 		this.deleteYn = deleteYn;
 	}
 
+	public String getCateInfo() {
+		return cateInfo;
+	}
+
+	public void setCateInfo(String cateInfo) {
+		this.cateInfo = cateInfo;
+	}
+
 	@Override
 	public String toString() {
 		return "Category [categoryNo=" + categoryNo + ", categoryName=" + categoryName + ", categoryLevel="
-				+ categoryLevel + ", upperCategoryNo=" + upperCategoryNo + ", deleteYn=" + deleteYn + "]";
+				+ categoryLevel + ", upperCategoryNo=" + upperCategoryNo + ", deleteYn=" + deleteYn + ", cateInfo="
+				+ cateInfo + "]";
 	}
 
-	public Category(String categoryNo, String categoryName, int categoryLevel, String upperCategoryNo,
-			String deleteYn) {
+	public Category(String categoryNo, String categoryName, int categoryLevel, String upperCategoryNo, String deleteYn,
+			String cateInfo) {
 		super();
 		this.categoryNo = categoryNo;
 		this.categoryName = categoryName;
 		this.categoryLevel = categoryLevel;
 		this.upperCategoryNo = upperCategoryNo;
 		this.deleteYn = deleteYn;
+		this.cateInfo = cateInfo;
 	}
+
+	
 	
 	
 	
