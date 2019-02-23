@@ -60,7 +60,7 @@ h4 {
 	<!-- navigation - header.jsp -->
 	<jsp:include page="../common/header.jsp" />
 	<!-- 해당 페이지를 view_template파일과 다른 경로에 만들었다면 include path를 수정해야합니 -->
-	<div class="ui grid">
+	<div id="grid" class="ui grid">
 		<div class="two wide column"></div>
 		<div class="twelve wide column" style="margin-top: 50px;">
 
@@ -77,7 +77,7 @@ h4 {
 				<div class="results"></div>
 			</div>
 			<br> <br> <br> <br>
-			<c:forEach var="c" items="${category}">
+			
 			<table class="ui basic table" style="width: 500px;">
 				
 				<thead>
@@ -99,7 +99,7 @@ h4 {
 				</tbody>
 				
 			</table>
-			</c:forEach>
+			
 			<br> <br>
 			<h4>모두 0000000개의 물품이 검색되었습니다</h4>
 			<div class="nay">
@@ -127,10 +127,13 @@ h4 {
 			<br>
 			<hr>
 			
-			<div class="ui grid" style="display:inline-block;">
+			<!-- <div id="grid" class="ui grid" style="display:inline-block;"> -->
+			<div id="firstColumn">
+			 <c:forEach var="i" items="${list1}">
+			
   			<div id="addDiv" class="four wide column" style="display:inline-block;">
-  			<c:forEach var="i" items="${list1}">
-			<div class="may" style=width:300px;>
+  			<div>
+			<div class="may" style="width:300px;">
 
 				 <img src="resources/uploadFiles/${i.atta.changeName}" style="width: 300px;height:200px;">
 				</div>
@@ -152,93 +155,12 @@ h4 {
 
 			</tr>
 		</table>
-			</c:forEach>
+			
 		</div>
-  	
-  			<!-- <div id="addDiv" class="four wide column"> -->
-  			<%-- 	<c:forEach var="i" items="${list1}">
-			<div class="may" style=width:300px;>
-
-				 <img src="../../../resources/uploadFiles/${i.atta.changeName}">
-				</div>
-			<table class="ui basic table" style="width:250px;">
-			 <tr>
-			</tr>
-			<tr class="tr">
-				<td colspan="2">입찰 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${i.bidCount} 건</td>
-				<td>조회 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${i.itemcount} 회</td>
-			</tr>
-			
-			<tr class="tr">
-				<td colspan="2">판매자 아이디</td>
-				<td>${i.mid}</td>
-			</tr>
-			<tr class="tr">
-				<td colspan="2">남은 시간</td>
-				<td>00</td>
-
-			</tr>
-		</table>
-			</c:forEach>
-  			
-  			</div>
-  			<div class="four wide column">
-  				<c:forEach var="i" items="${list1}">
-  			
-  			<div id="add">
-  				
-			<div class="may" style=width:300px;>
-
-				 <img src="../../../resources/uploadFiles/${i.atta.changeName}">
-				</div>
-			<table class="ui basic table" style="width:250px;">
-			 <tr>
-			</tr>
-			<tr class="tr">
-				<td colspan="2">입찰 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${i.bidCount} 건</td>
-				<td>조회 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${i.itemcount} 회</td>
-			</tr>
-			
-			<tr class="tr">
-				<td colspan="2">판매자 아이디</td>
-				<td>${i.mid}</td>
-			</tr>
-			<tr class="tr">
-				<td colspan="2">남은 시간</td>
-				<td>00</td>
-			</tr>
-			</table>
-			
-			</div>
-			
-			</c:forEach> --%>
-		<!-- 	</div> -->
-  			<%-- <div class="four wide column">
-  				<c:forEach var="i" items="${list1}">
-			<div class="may" style=width:300px;>
-
-				 <img src="resources/uploadFiles/${i.atta.changeName}">
-				</div>
-			<table class="ui basic table" style="width:250px;">
-			 <tr>
-			</tr>
-			<tr class="tr">
-				<td colspan="2">입찰 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${i.bidCount} 건</td>
-				<td>조회 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${i.itemcount} 회</td>
-			</tr>
-			
-			<tr class="tr">
-				<td colspan="2">판매자 아이디</td>
-				<td>${i.mid}</td>
-			</tr>
-			<tr class="tr">
-				<td colspan="2">남은 시간</td>
-				<td>00</td>
-
-			</tr>
-		</table>
-			</c:forEach></div> --%>
-			
+	</div>
+  	</c:forEach>
+  	</div>
+  		
 			</div>
 			
 		
@@ -248,15 +170,62 @@ h4 {
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script type="text/javascript">
 	
+	
+	//카테고리 클릭 했을 때
 		$(".thclass").click(function(){
 			
-			var categoryLevel=$(this).val();
+			var categoryLevel=$(this).children().val();
+			console.log(categoryLevel);
 			$.ajax({
 				url:"searchCate.au",
 				type:'GET',
 				data:{categoryLevel:categoryLevel},
 				success:function(data){
 					alert("성공");
+					console.log(data);
+					$("#addDiv").html("");
+					
+					
+					for(key in data){
+					var $div1 = $("<div class='may' style='width:300px;height:200px';>");
+					var $img = $("<img style='width:300px;height:200px'; src='resources/uploadFiles/"+data[key].atta.changeName+"'>");
+					console.log(data[key].atta.changeName);
+					var $table = $("<table class='ui basic table' style='width:250px;'>");
+					var $tr1 = $("<tr>");
+					var $tr2 = $("<tr class='tr'>");
+					var $td1 = $("<td colspan='2'>");
+					$td1.text("입찰                            "+data[key].bidCount+ " 건");
+					var $td2 = $("<td>");
+					$td2.text("조회                            "+data[key].itemcount+"회");
+					var $tr3 = $("<tr class='tr'>");
+					var $td3 = $("<td colspan='2'>");
+					$td3.text("판매자 아이디");
+					var $td4 = $("<td>");
+					$td4.text(data[key].memberName.userId);
+					var $tr4 = $("<tr class='tr'>");
+					var $td5 = $("<td colspan='2'>");
+					$td5.text("남은 시간");
+					var $td6 = $("<td>");
+					$td6.text("00");
+					var $addDiv = $("#addDiv");
+					$tr2.append($td1);
+					$tr2.append($td2);
+					$tr3.append($td3);
+					$tr3.append($td4);
+					$tr4.append($td5);
+					$tr4.append($td6);
+					$table.append($tr1);
+					$table.append($tr2);
+					$table.append($tr3);
+					$table.append($tr4);
+					$div1.append($img); 
+					$addDiv.append($div1);
+					$addDiv.append($table);
+					
+					// $add.append($div1);
+					//$add.append($table); 
+					//$addDiv.append($add);   
+					}
 				},
 				error:function(data) {
 					alert("error:"+error);
@@ -268,21 +237,18 @@ h4 {
 			
 	
 	
-	
+	//인기경매순------ 정렬 클릭했을 때
 			
 		$(".jung").click(function(){
 			 alignName=$(this).children().val();
 			console.log(alignName);
-			
+			 $("#firstColumn").html("");
+			 
 			$.ajax({
 				url:"selectAlign.au",
 				type:'GET',
 				data:{alignName:alignName},
 				success:function(data) {
-				
-					$("#addDiv").html("");
-					
-						
 				
 						for(key in data){
 						var $div1 = $("<div class='may' style='width:300px;height:200px';>");
@@ -299,13 +265,13 @@ h4 {
 						var $td3 = $("<td colspan='2'>");
 						$td3.text("판매자 아이디");
 						var $td4 = $("<td>");
-						$td4.text(data[key].mid);
+						$td4.text(data[key].memberName.userId);
 						var $tr4 = $("<tr class='tr'>");
 						var $td5 = $("<td colspan='2'>");
 						$td5.text("남은 시간");
 						var $td6 = $("<td>");
 						$td6.text("00");
-						var $addDiv = $("#addDiv");
+						var $addDiv = $("<div id='addDiv' class='four wide column' style='display:inline-block;'>");
 						$tr2.append($td1);
 						$tr2.append($td2);
 						$tr3.append($td3);
@@ -319,7 +285,12 @@ h4 {
 						$div1.append($img); 
 						$addDiv.append($div1);
 						$addDiv.append($table);
+						var $firstcolumn=$("#firstColumn");
+						$firstcolumn.append($addDiv); 
+						 //$("#addDiv").html(""); 			
 						
+					/* 	 var $grid=$("#grid");
+						$grid.append($addDiv); */
 						// $add.append($div1);
 						//$add.append($table); 
 						//$addDiv.append($add);   
@@ -361,7 +332,7 @@ h4 {
 
 
 		<!-- 내용 넣기 -->
-	</div>
+	
 	<div class="two wide column"></div>
 
 

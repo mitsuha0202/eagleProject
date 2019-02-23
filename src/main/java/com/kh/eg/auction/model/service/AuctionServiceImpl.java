@@ -12,6 +12,7 @@ import com.kh.eg.attachment.model.vo.Attachment;
 import com.kh.eg.auction.model.dao.AuctionDao;
 import com.kh.eg.auction.model.vo.PageInfo;
 import com.kh.eg.bidding.model.vo.Bid;
+import com.kh.eg.category.model.vo.Category;
 import com.kh.eg.item.model.vo.Item;
 import com.kh.eg.member.model.vo.Member;
 
@@ -62,6 +63,42 @@ public class AuctionServiceImpl implements AuctionService {
 	public ArrayList<Member> selectMember() {
 	
 		return ad.selectMember(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Member> selectMember(String alignName) {
+		// TODO Auto-generated method stub
+		return ad.selectMember(sqlSession,alignName);
+	}
+
+	@Override
+	public ArrayList<Category> selectCategory(String categoryLevel) {
+		// TODO Auto-generated method stub
+		return ad.selectCategory(sqlSession,categoryLevel);
+	}
+
+	@Override
+	public ArrayList<Bid> selectBid1(String categoryLevel) {
+		// TODO Auto-generated method stub
+		return ad.selectBid1(sqlSession,categoryLevel);
+	}
+
+	@Override
+	public ArrayList<Item> selectItem1(String categoryLevel) {
+		// TODO Auto-generated method stub
+		return ad.selectItem1(sqlSession,categoryLevel);
+	}
+
+	@Override
+	public ArrayList<Attachment> selectAttachment1(String categoryLevel) {
+		// TODO Auto-generated method stub
+		return ad.selectAttachment1(sqlSession,categoryLevel);
+	}
+
+	@Override
+	public ArrayList<Member> selectMember1(String categoryLevel) {
+		// TODO Auto-generated method stub
+		return ad.selectMember1(sqlSession,categoryLevel);
 	}
 
 }
