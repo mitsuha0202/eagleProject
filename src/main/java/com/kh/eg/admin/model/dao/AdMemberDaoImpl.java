@@ -241,8 +241,14 @@ public class AdMemberDaoImpl implements AdMemberDao{
 	}
 
 	@Override
-	public int inserBoard(SqlSessionTemplate session, Category cg) throws AdMemberselectException {
+	public int insertCategory(SqlSessionTemplate session, Category cg) throws AdMemberselectException {
 		int result = session.insert("AdminVo.insertCategory",cg);
+		return result;
+	}
+
+	@Override
+	public int delcategory(SqlSessionTemplate session, Category cg) throws AdMemberselectException {
+		int result = session.update("AdminVo.delcategory",cg);
 		return result;
 	}
 

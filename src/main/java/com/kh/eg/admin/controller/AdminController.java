@@ -76,12 +76,6 @@ public class AdminController {
 		String size = request.getParameter("size");
 		String division = request.getParameter("division");
 		
-		
-		
-		System.out.println(category);
-		System.out.println(size);
-		System.out.println(division);
-		
 		Category cg = new Category();
 		java.math.BigDecimal bd = new BigDecimal(size);
 		
@@ -99,6 +93,29 @@ public class AdminController {
 			return "common/errorPage";
 		}
 	}
+	
+	//카테고리 삭제
+	@RequestMapping("delcategory.ad")
+	public String delcategoryview(Model model, HttpServletRequest request){
+		
+		String category = request.getParameter("category");
+		
+		Category cg = new Category();
+		
+		cg.setCategoryName(category);
+		System.out.println(category);
+		try {
+			int result = ams.delCategory(cg);
+			model.addAttribute("result", result);
+			return "redirect:category.ad";
+		} catch (AdMemberselectException e) {
+			e.printStackTrace();
+			model.addAttribute("msg","카테고리 삭제 실패!");
+			return "common/errorPage";
+		}
+	}
+	
+	
 	
 	//검색 후 블랙리스트
 	@RequestMapping("searchBlackList.ad")
