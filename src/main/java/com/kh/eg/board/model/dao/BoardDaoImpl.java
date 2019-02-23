@@ -70,7 +70,7 @@ public class BoardDaoImpl implements BoardDao{
 		ArrayList<String> replyC = null;
 		ArrayList<Date> replyDate = null;
 		b = sqlSession.selectOne("Board.selectBoardOne", bid);
-		String name = sqlSession.selectOne("Board.selectWriter", bid);
+		/*String name = sqlSession.selectOne("Board.selectWriter", bid);*/
 		reply = (ArrayList)sqlSession.selectList("Board.replyWriter",bid);
 		replyC = (ArrayList)sqlSession.selectList("Board.replyContent",bid);
 		replyDate = (ArrayList)sqlSession.selectList("Board.replyDate",bid);
@@ -90,9 +90,6 @@ public class BoardDaoImpl implements BoardDao{
 			System.out.println("여기안찍힘?");
 			System.out.println(r.getrUserName());
 			list.add(r);
-		}
-		if(!name.equals("관리자")) {
-			b.setUserName(name);
 		}
 		
 		b.setReplyList(list);

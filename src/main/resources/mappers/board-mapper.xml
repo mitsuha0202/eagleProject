@@ -46,6 +46,7 @@
 		<result property="bCount" column="BCOUNT"/>
 		<result property="sMid" column="SMEMBERNO"/>
 		<result property="itemNo" column="ITEMNO"/>
+		<result property="userName" column="MEMBERNAME"/>
 		<collection property="replyList" javaType="java.util.ArrayList" resultMap="replyResultSet"/>
 	</resultMap>
 	
@@ -169,7 +170,7 @@
 	<select id="selectSearchResultList" resultMap="boardResultSet">
 		SELECT * FROM BOARD B
 		JOIN MEMBER M ON(B.MEMBERNO = M.MEMBERNO)
-		WHERE B.DELETESTATUS = 'N' 
+		WHERE B.DELETESTATUS = 'N'
 		<choose>
 			<when test="writer != null">
 				AND MEMBERNAME = #{writer}
