@@ -37,7 +37,6 @@
    	height: 65px;
    }
    
-   
    </style>
 </head>
 <body>
@@ -64,7 +63,7 @@
 		<table class="ui black table" align="center" id="listArea">
 		  <thead>
 		    <tr align="center">
-			    <th style="border-left: 1px solid white;">번호</th>
+			    <th style="border-left: 1px solid white;">구분</th>
 			    <th align="center">제목</th>
 			    <th >글쓴이</th>
 			    <th >등록일</th>
@@ -73,16 +72,17 @@
 		  </thead>
 		  <tbody>
 		  <c:forEach var="b" items="${ list1 }">
-		    <tr align="center" style="background-color: #81BEF7;">
-		      <td style="border-left: 1px solid white;">${b.bid}</td>
-		      <td>★공지★${b.bTitle}</td>
-		      <td>${b.userName}</td>
-		      <td>${b.writeDay}</td>
-		      <td style="border-right: 1px solid white;">${b.bCount}</td>
+		   <input type="hidden" id="notice" value= "${b.bid}">
+		    <tr align="center" id="noticeTr" style="color: #3104B4; background-color: #E6E6E6; font-weight: bolder; font-size: 1.4em">
+		      <td class="dark" style="border-left: 1px solid white;" ">※공지※</td>
+		      <td class="dark">${b.bTitle}</td>
+		      <td class="dark">${b.userName}</td>
+		      <td class="dark">${b.writeDay}</td>
+		      <td class="dark" style="border-right: 1px solid white;">${b.bCount}</td>
 		    </tr>
 		  </c:forEach>  
 		  <c:forEach var="b" items="${ list }">
-		    <tr align="center">
+		    <tr align="center" id="free" style="font-size:1.3em;">
 		      <td style="border-left: 1px solid white;">${b.bid}</td>
 		      <td>${b.bTitle}</td>
 		      <td>${b.userName}</td>
@@ -97,7 +97,7 @@
 		<table class="ui black table" align="center" id="listArea">
 		  <thead>
 		    <tr align="center">
-			    <th style="border-left: 1px solid white;">번호</th>
+			    <th style="border-left: 1px solid white;">구분</th>
 			    <th align="center">제목</th>
 			    <th >글쓴이</th>
 			    <th >등록일</th>
@@ -153,6 +153,7 @@
 			<button class="ui black button" style="width:200px; font-size: 1.5rem;" onclick="insertBoard();">글쓰기</button>
 		</div>
 	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script>
 		function insertBoard() {
 			 var loginUser = '${sessionScope.loginUser}';
@@ -178,15 +179,26 @@
 		
 		$(function(){
 			$("#listArea td").mouseenter(function(){
-				$(this).parent().css({"background":"darkgray","cursor":"pointer"})
+				 $(this).parent().css({"cursor":"pointer"}) 
 			}).mouseout(function(){
-				$(this).parent().css({"background":"white"});
+					/* if($(this).parent("#noticeTr")){
+						$(this).parent().css({"background":"#E6E6E6"});
+					}else{
+						$(this).parent().css({"background":"white"});
+					} */
 			}).click(function(){
-				var bid=$(this).parent().children().eq(0).text();
+					var bid=$(this).parent().children().eq(0).text();
+					if(bid.indexOf("공지") != -1){
+						var bid = $("#notice").val();
+					}else{
+						
+					}
+					console.log(bid);
+					location.href="boardSelectOne.bo?bid="+bid;
 				
-				console.log(bid);
 				
-				location.href="boardSelectOne.bo?bid="+bid;
+				
+				
 			});
 			
 		})

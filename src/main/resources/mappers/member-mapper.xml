@@ -106,4 +106,9 @@
 	
 	</update>
 	
+	<!-- 운영자 로그인 처리용 -->
+	<select id="adminCheck" parameterType="SecondAdmin" resultMap="memberResultSet">
+		SELECT * FROM MEMBER WHERE MEMBERID=#{memberId} AND MEMBERPWD=#{memberPwd}
+	</select>
+	
 </mapper>

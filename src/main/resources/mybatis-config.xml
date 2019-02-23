@@ -29,6 +29,7 @@
 		<typeAlias type="com.kh.eg.board.model.vo.Reply" alias="Reply"/>
 
 		<typeAlias type="com.kh.eg.auction.model.vo.AuctionDetail" alias="AuctionDetail"/>
+		<typeAlias type="com.kh.eg.secondAdmin.model.vo.SecondAdmin" alias="SecondAdmin"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mappers/member-mapper.xml"/>
@@ -40,6 +41,7 @@
 		<mapper resource="mappers/emoney-mapper.xml"/>
 	 <mapper resource="mappers/bid-mapper.xml"/>
     <mapper resource="mappers/admin-mapper.xml"/>
+    <mapper resource="mappers/secondAdmin-mapper.xml"/>
 	</mappers>
 	
 </configuration>
