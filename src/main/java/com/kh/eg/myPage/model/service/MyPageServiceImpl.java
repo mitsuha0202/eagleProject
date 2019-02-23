@@ -284,6 +284,20 @@ public class MyPageServiceImpl implements MyPageService{
 		
 		return md.selectFalseBidList(sqlSession, pi, mid);
 	}
+
+	//입금요청 물품 목록 페이징 
+	@Override
+	public int getPayContinueList(String[] itemNo) {
+		
+		return md.getPayContinueList(sqlSession, itemNo);
+	}
+
+	//입금요청 물품 리스트 조회
+	@Override
+	public ArrayList<PayTable> selectPayContinueList(PageInfo pi, String mid, String[] itemNo) {
+		
+		return md.selectPayContinueList(sqlSession, pi, mid, itemNo);
+	}
 	
 	
 }

@@ -317,7 +317,7 @@ public class MyPageDaoImpl implements MyPageDao{
 				
 		//결과값 담기 위한 ArrayList
 		ArrayList<PayTable> list = (ArrayList)sqlSession.selectList("MyPage.selectWinBidList", mid, rowBounds); 
-		
+		searchList.put("mid", Integer.parseInt(mid));
 		for(int i=0; i<list.size(); i++) {
 			payTable = new PayTable();
 			payTable.setItemNo(list.get(i).getItemNo());
@@ -411,6 +411,46 @@ public class MyPageDaoImpl implements MyPageDao{
 		HashMap<String, String> map = new HashMap<String, String>();
 		ArrayList<PayTable> list = (ArrayList)sqlSession.selectList("MyPage.countFalseBid", mid, rowBounds);
 		
+		return list;
+	}
+
+	//입금요청 물품 목록 페이징
+	@Override
+	public int getPayContinueList(SqlSessionTemplate sqlSession, String[] itemNo) {
+		int count = 0;
+		
+		for(int i=0; i<itemNo.length; i++) {
+			PayTable payTable = (PayTable)sqlSession.selectOne("MyPage.countPayContinueList", itemNo[i]);
+			if(payTable != null) {
+				count++;
+			}
+		}
+		return count;
+	}
+
+	//입금요청 물품 리스트 조회
+	@Override
+	public ArrayList<PayTable> selectPayContinueList(SqlSessionTemplate sqlSession, PageInfo pi, String mid, String[] itemNo) {
+		ArrayList<PayTable> list = (ArrayList)sqlSession.selectList("MyPage.selectPayContinueList", mid);
+		int temp = 0;
+		for(int i =0; i<list.size(); i++) {
+			if(!itemNo[i].equals("")) {
+				if(list.get(i).getItemNo() != Integer.parseInt(itemNo[temp])) {
+					list.remove(i);
+					temp++;
+				}
+			}else {
+				return null;
+			}
+		}
+		PayTable payTable = null;
+		
+		for(int i=0; i<list.size(); i++) {
+			payTable = sqlSession.selectOne("MyPage.continueWinBidPay", String.valueOf(list.get(i).getItemNo()));
+			if(payTable != null) {
+				list.get(i).setCurrentPrice(payTable.getCurrentPrice());
+			}
+		}
 		return list;
 	}
 }

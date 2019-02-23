@@ -1,6 +1,7 @@
 package com.kh.eg.myPage.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
@@ -167,7 +168,19 @@ public class StatusController {
 //-------------------------------구매물품 거래진행중 페이지들------------------------------------------------------	
 	//구매현황상세페이지 - 구매 물품 거래 진행중 페이지 - 입금요청
 		@RequestMapping("purchaseitemdeal.mp")
-		public String purchaseitemdealPage() {
+		public String purchaseitemdealPage(@RequestParam(defaultValue="1") int currentPage, @RequestParam(value="itemNo", defaultValue="") String itemNoList, HttpSession session, Model model) {
+			
+			//아이템 번호 담기
+			String[] itemNo = itemNoList.split(",");
+			
+			Member m = (Member)session.getAttribute("loginUser");
+			
+			int listCount = ms.getPayContinueList(itemNo);
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			ArrayList<PayTable> list = ms.selectPayContinueList(pi, m.getMid(), itemNo);
+			
+			model.addAttribute("list", list);
+			model.addAttribute("pi", pi);
 			return "myPage/management/purchaseitemdealPage";
 	}
 	
