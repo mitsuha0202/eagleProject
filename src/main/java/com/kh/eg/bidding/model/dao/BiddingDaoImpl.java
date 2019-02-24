@@ -1,9 +1,12 @@
 package com.kh.eg.bidding.model.dao;
 
+import java.util.ArrayList;
+
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.eg.bidding.model.vo.Attachment;
 import com.kh.eg.bidding.model.vo.Bid;
 import com.kh.eg.bidding.model.vo.Bidding;
 import com.kh.eg.bidding.model.vo.ItemDetail;
@@ -65,5 +68,17 @@ public class BiddingDaoImpl implements BiddingDao{
 		ItemDetail id = new ItemDetail();
 		id = sqlSession.selectOne("ItemDetails.selectTime",itemNo);
 		return id;
+	}
+
+	@Override
+	public Attachment selectImage(SqlSessionTemplate sqlSession, String itemNo) {
+
+		return sqlSession.selectOne("ItemDetails.selectImage", itemNo);
+	}
+
+	@Override
+	public ArrayList<Attachment> selectDetailImage(SqlSessionTemplate sqlSession, String itemNo) {
+
+		return (ArrayList)sqlSession.selectList("ItemDetails.selectDetailImage", itemNo);
 	}
 }
