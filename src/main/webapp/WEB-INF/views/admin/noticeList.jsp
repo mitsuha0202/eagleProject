@@ -33,7 +33,6 @@
 			</div>			
 			
 			<div class="flo_left mt30 mb30">
-				<!-- <span><a class="mbtn wh" href="#">전체선택</a></span> -->
 				<span><a class="mbtn bk" href="noticeView.jsp">작성하기</a></span>
 				<span><a class="mbtn rd" href="#">삭제</a></span>
 			</div>

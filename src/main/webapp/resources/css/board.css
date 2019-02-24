@@ -161,10 +161,25 @@
 
 /* numberStyle */
 .numbox {clear:both; position:relative; text-align:center; height:30px;}
-.numbox span {display:inline-block; }
+.numbox span {display:inline-block; position:relative; vertical-align:middle;}
 .numbox a {display:block; width:30px; height:30px; line-height:30px;}
 .numbox .num {border:1px solid #dfdfdf;}
 .numbox .on,.numbox a:hover {border:0; background:#444; border:1px solid #444; color:#fff;}
+
+.numbox .prev {width:30px; height:30px; border:1px solid #dfdfdf; position:relative; text-indent:-9999px;}
+.numbox .prev:before {content:''; width:8px; height:8px; position:absolute; left:60%; top:50%; border-left:1px solid #000; border-top:1px solid #000; transform:translate(-50%,-50%) rotate(-45deg);}
+
+.numbox .next {width:30px; height:30px; border:1px solid #dfdfdf; position:relative; text-indent:-9999px;}
+.numbox .next:before {content:''; width:8px; height:8px; position:absolute; left:40%; top:50%; border-left:1px solid #000; border-top:1px solid #000; transform:translate(-50%,-50%) rotate(135deg);}
+
+.numbox .prev:hover:before,
+.numbox .next:hover:before {border-color:#fff}
+
+.numbox .prevnc {display:inline-block; width:30px; height:30px; border:1px solid #dfdfdf; position:relative; text-indent:-9999px;}
+.numbox .prevnc:before {content:''; width:8px; height:8px; position:absolute; left:60%; top:50%; border-left:1px solid #000; border-top:1px solid #000; transform:translate(-50%,-50%) rotate(-45deg);}
+
+.numbox .nextnc {display:inline-block; width:30px; height:30px; border:1px solid #dfdfdf; position:relative; text-indent:-9999px;}
+.numbox .nextnc:before {content:''; width:8px; height:8px; position:absolute; left:40%; top:50%; border-left:1px solid #000; border-top:1px solid #000; transform:translate(-50%,-50%) rotate(135deg);}
 
 /* searchStyle */
 
@@ -203,4 +218,3 @@ background:url('../images/select-arrow.png') no-repeat 95% 50%; /* 화살표 아
 /* replyBox */
 .replyBox table tr td textarea {width:88%; height:50px; float:left;}
 .replyBox table tr td .bbtn {height:42px; line-height:42px;}
-
