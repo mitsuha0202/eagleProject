@@ -310,23 +310,33 @@ public class MyPageDaoImpl implements MyPageDao{
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 		
 		//물품번호와 회원번호에 따른 결과 조회용 해쉬맵
-		HashMap<String, Integer> searchList = new HashMap<String, Integer>();
+		HashMap<String, String> searchList = new HashMap<String, String>();
 				
 		//결과값 담기위한 객체
 		PayTable payTable = null;
-				
+		
+		ArrayList<PayTable> itemNo = new ArrayList<PayTable>();
+		
 		//결과값 담기 위한 ArrayList
-		ArrayList<PayTable> list = (ArrayList)sqlSession.selectList("MyPage.selectWinBidList", mid, rowBounds); 
-		searchList.put("mid", Integer.parseInt(mid));
-		for(int i=0; i<list.size(); i++) {
+		ArrayList<PayTable> list = null;
+		int count = sqlSession.selectOne("MyPage.winBidCountList", mid);
+		
+		searchList.put("mid", mid);
+		for(int i=0; i<count; i++) {
 			payTable = new PayTable();
-			payTable.setItemNo(list.get(i).getItemNo());
-			searchList.put("itemNo", payTable.getItemNo());
-			ArrayList<PayTable> temp = (ArrayList)sqlSession.selectList("MyPage.selectWinBidRank", searchList);
-			
-			for(int j=0; j<temp.size(); j++) {
-				if(list.get(i).getBidNo() == temp.get(j).getBidNo()) {
-					list.get(i).setRowBid(temp.get(j).getRowBid());
+			itemNo = (ArrayList)sqlSession.selectList("MyPage.selectWinBidList", mid, rowBounds); 
+			payTable.setItemNo(itemNo.get(i).getItemNo());
+			searchList.put("itemNo", String.valueOf(payTable.getItemNo()));
+			WinBid winBid = (WinBid)sqlSession.selectOne("MyPage.winBidSelect", searchList);
+			if(winBid != null) {				
+				continue;				
+			}else {
+				list = (ArrayList)sqlSession.selectList("MyPage.selectWinBidList", mid, rowBounds);
+				ArrayList<PayTable> temp = (ArrayList)sqlSession.selectList("MyPage.selectWinBidRank", searchList);			
+				for(int j=0; j<temp.size(); j++) {
+					if(list.get(i).getBidNo() == temp.get(j).getBidNo()) {
+						list.get(i).setRowBid(temp.get(j).getRowBid());
+					}
 				}
 			}
 		}
@@ -431,8 +441,44 @@ public class MyPageDaoImpl implements MyPageDao{
 	//입금요청 물품 리스트 조회
 	@Override
 	public ArrayList<PayTable> selectPayContinueList(SqlSessionTemplate sqlSession, PageInfo pi, String mid, String[] itemNo) {
-		ArrayList<PayTable> list = (ArrayList)sqlSession.selectList("MyPage.selectPayContinueList", mid);
+		HashMap<String, String> map = new HashMap<String, String>();
+		ArrayList<PayTable> list = new ArrayList<PayTable>();
+		
+		int offset = (pi.getCurrentPage()  - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		int result1 = 0;
+		int result2 = 0;
+		int result = 0;
+		
+		map.put("mid", mid);
+		for(int i=0; i<itemNo.length; i++) {
+			map.put("itemNo", itemNo[i]);
+			PayTable payTable = (PayTable)sqlSession.selectOne("MyPage.selectSaleMemberNo", map);
+			map.put("saleMemberNo", payTable.getMemberNo());
+			result1 = sqlSession.insert("MyPage.winBidDetailInsert", map);
+			WinBid winBid = sqlSession.selectOne("MyPage.winBidSelect", map);
+			map.put("dealNo", winBid.getDealNo());
+			result2 = sqlSession.insert("MyPage.winBidInsert", map);
+		}
+		
+		list = (ArrayList)sqlSession.selectList("MyPage.selectPayContinueList", mid, rowBounds);
+		
+		if(result1 > 0 && result2 > 0) {
+			for(int i=0; i<itemNo.length; i++) {
+				PayTable payTable = new PayTable();
+				map.put("itemNo", itemNo[i]);
+				payTable = sqlSession.selectOne("MyPage.selectPayContinueListPayment", map);
+				if(payTable != null) {
+					list.get(i).setCurrentPrice(payTable.getCurrentPrice());
+				}
+			}
+		} 
+		
+		/*ArrayList<PayTable> list = (ArrayList)sqlSession.selectList("MyPage.selectPayContinueList", mid);
 		int temp = 0;
+		
+		
 		for(int i =0; i<list.size(); i++) {
 			if(!itemNo[i].equals("")) {
 				if(list.get(i).getItemNo() != Integer.parseInt(itemNo[temp])) {
@@ -447,10 +493,50 @@ public class MyPageDaoImpl implements MyPageDao{
 		
 		for(int i=0; i<list.size(); i++) {
 			payTable = sqlSession.selectOne("MyPage.continueWinBidPay", String.valueOf(list.get(i).getItemNo()));
+			
 			if(payTable != null) {
 				list.get(i).setCurrentPrice(payTable.getCurrentPrice());
 			}
-		}
+			HashMap<String, String> map = new HashMap<String, String>();
+			map.put("mid", mid);
+			map.put("itemNo", String.valueOf(list.get(i).getItemNo()));
+			map.put("saleMemberNo", String.valueOf(list.get(i).getSaleMemberNo()));
+			
+			
+		}*/		
+		return list;
+	}
+
+	//입금요청 아이템번호 없을시 페이징
+	@Override
+	public int getPayContinueList2(SqlSessionTemplate sqlSession, String mid) {
+		
+		return sqlSession.selectOne("MyPage.getPayContinueList2", mid);
+	}
+	
+	//입금요청 아이템번호 없을시
+	@Override
+	public ArrayList<PayTable> selectPayContinueList2(SqlSessionTemplate sqlSession, PageInfo pi, String mid) {
+		sqlSession.delete("MyPage.deleteTemp");
+		HashMap<String, String> map = new HashMap<String, String>();
+		ArrayList<PayTable> list = new ArrayList<PayTable>();
+		
+		int offset = (pi.getCurrentPage()  - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList)sqlSession.selectList("MyPage.selectPayContinueList", mid, rowBounds);
+		
+		
+		ArrayList<WinBid> itemNoList = (ArrayList)sqlSession.selectList("MyPage.searchWinBidItemNo", mid);
+		
+			for(int i=0; i<itemNoList.size(); i++) {
+				PayTable payTable = new PayTable();
+				map.put("itemNo", String.valueOf(list.get(i).getItemNo()));
+				payTable = sqlSession.selectOne("MyPage.selectPayContinueListPayment", map);
+				if(payTable != null) {
+					list.get(i).setCurrentPrice(payTable.getCurrentPrice());
+				}
+			}
 		return list;
 	}
 }

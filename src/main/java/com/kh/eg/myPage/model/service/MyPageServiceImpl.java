@@ -298,6 +298,19 @@ public class MyPageServiceImpl implements MyPageService{
 		
 		return md.selectPayContinueList(sqlSession, pi, mid, itemNo);
 	}
+
+	@Override
+	public int getPayContinueList2(String mid) {
+	
+		return md.getPayContinueList2(sqlSession, mid);
+	}
+
+	//입금요청 아이템번호 없을시
+	@Override
+	public ArrayList<PayTable> selectPayContinueList2(PageInfo pi, String mid) {
+		
+		return md.selectPayContinueList2(sqlSession, pi, mid);
+	}
 	
 	
 }

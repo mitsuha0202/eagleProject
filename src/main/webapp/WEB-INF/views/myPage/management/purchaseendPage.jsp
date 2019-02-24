@@ -214,11 +214,11 @@
 				type:"get",
 				data:{userId:mid},
 				success:function(data){
-					$("#countMainPayList").text("진행중인 최고 입찰 물품에 대해서 모두 " + data + "건이 검색되었습니다.");
+					$("#countMainPayList").text("낙찰된 물품에 대해서 모두 " + data + "건이 검색되었습니다.");
 				},
 				/* status는 에러의 상태를 나타냄 */
 				error:function(status){
-					$("#countMainPayList").text("진행중인 최고 입찰 물품에 대해서 모두 0 건이 검색되었습니다.");
+					$("#countMainPayList").text("낙찰된 물품에 대해서 모두 0 건이 검색되었습니다.");
 				}
 			});
 		});

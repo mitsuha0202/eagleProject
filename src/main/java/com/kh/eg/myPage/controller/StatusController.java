@@ -168,19 +168,28 @@ public class StatusController {
 //-------------------------------구매물품 거래진행중 페이지들------------------------------------------------------	
 	//구매현황상세페이지 - 구매 물품 거래 진행중 페이지 - 입금요청
 		@RequestMapping("purchaseitemdeal.mp")
-		public String purchaseitemdealPage(@RequestParam(defaultValue="1") int currentPage, @RequestParam(value="itemNo", defaultValue="") String itemNoList, HttpSession session, Model model) {
-			
-			//아이템 번호 담기
-			String[] itemNo = itemNoList.split(",");
+		public String purchaseitemdealPage(@RequestParam(defaultValue="1") int currentPage, @RequestParam(value="itemNo", required=false) String itemNoList, HttpSession session, Model model) {
 			
 			Member m = (Member)session.getAttribute("loginUser");
+			//아이템 번호 담기
+			if(itemNoList != null && !itemNoList.equals("")) {
+				String[] itemNo = itemNoList.split(",");
+				int listCount = ms.getPayContinueList(itemNo);
+				PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+				ArrayList<PayTable> list = ms.selectPayContinueList(pi, m.getMid(), itemNo);
+				model.addAttribute("list", list);
+				model.addAttribute("pi", pi);
+			}else {
+				int listCount = ms.getPayContinueList2(m.getMid());
+				PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+				ArrayList<PayTable> list = ms.selectPayContinueList2(pi, m.getMid());
+				model.addAttribute("list", list);
+				model.addAttribute("pi", pi);
+			}
 			
-			int listCount = ms.getPayContinueList(itemNo);
-			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-			ArrayList<PayTable> list = ms.selectPayContinueList(pi, m.getMid(), itemNo);
 			
-			model.addAttribute("list", list);
-			model.addAttribute("pi", pi);
+			
+			
 			return "myPage/management/purchaseitemdealPage";
 	}
 	

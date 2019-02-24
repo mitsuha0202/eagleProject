@@ -129,6 +129,10 @@ public interface MyPageDao {
 
 	//입금요청 물품 리스트 조회
 	ArrayList<PayTable> selectPayContinueList(SqlSessionTemplate sqlSession, PageInfo pi, String mid, String[] itemNo);
+
+	int getPayContinueList2(SqlSessionTemplate sqlSession, String mid);
+	//입금요청 아이템번호 없을시
+	ArrayList<PayTable> selectPayContinueList2(SqlSessionTemplate sqlSession, PageInfo pi, String mid);
 	
 	
 	
