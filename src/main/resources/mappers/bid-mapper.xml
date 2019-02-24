@@ -36,7 +36,17 @@
 		<result property="currentPrice" column="CURRENTPRICE" />
 		<result property="bidDate" column="BIDDATE" /> 
 	</resultMap>  	
-  	
+
+	<resultMap type="AttachmentVo" id="attResultSet">
+		<id property="attachmentNo" column="ATTACHMENTNO" />
+		<result property="originName" column="ORIGINNAME" />
+		<result property="changeName" column="CHANGENAME" />
+		<result property="root" column="ROOT" />
+		<result property="fileLevel" column="FILELEVEL" />
+		<result property="addStatus" column="ADDSTATUS" />
+		<result property="boardNo" column="BOARDNO" />
+		<result property="itemNo" column="ITEMNO" />
+	</resultMap>  	
   	
   	<select id="selectDetailItem" resultMap="itemDetailResultSet" parameterType="java.lang.String">
   		SELECT *
@@ -95,5 +105,17 @@
   		SELECT TO_CHAR(SYSDATE, 'YYYY/MM/DD HH24:MI:SS') AS STARTDAY, TO_CHAR(ENDDAY,'YYYY/MM/DD HH24:MI:SS') AS ENDDAY
 		FROM AUCTIONDETAIL
 		WHERE ITEMNO = #{itemNo} AND EXITYN = 'N'
+  	</select>
+  	
+  	<select id="selectImage" resultMap="attResultSet" parameterType="java.lang.String">
+  		SELECT *
+  		FROM ATTACHMENT
+  		WHERE ITEMNO = #{itemNo} AND FILELEVEL = 0 AND ADDSTATUS = 'product'
+  	</select>
+  	
+  	<select id="selectDetailImage" resultMap="attResultSet" parameterType="java.lang.String">
+  		SELECT *
+  		FROM ATTACHMENT
+  		WHERE ITEMNO = #{itemNo} AND FILELEVEL = 1 AND ADDSTATUS = 'product'
   	</select>
   </mapper>

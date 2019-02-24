@@ -4,6 +4,7 @@ import static org.hamcrest.CoreMatchers.instanceOf;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.kh.eg.bidding.model.service.BiddingService;
+import com.kh.eg.bidding.model.vo.Attachment;
 import com.kh.eg.bidding.model.vo.Bid;
 import com.kh.eg.bidding.model.vo.Bidding;
 import com.kh.eg.bidding.model.vo.ItemDetail;
@@ -51,7 +53,6 @@ private BiddingService bs;
 											@RequestParam(value="mid", required=false) String mid, HttpServletRequest request, HttpServletResponse response) {
 		
 		Bidding b = new Bidding();
-		
 		int prices = Integer.parseInt(price);
 		b.setItemNo(itemNo);
 		b.setCurrentPrice(prices);
@@ -187,6 +188,32 @@ private BiddingService bs;
 		
 		if(i != null) {
 			return i;
+		}
+		else {
+			return null;
+		}
+	}
+	
+	@RequestMapping("selectThumbnail.bi")
+	public @ResponseBody Attachment selectImage(@RequestParam(value="itemNo", required=false) String itemNo, HttpServletRequest request, HttpServletResponse response) {
+		Attachment att = null;
+		
+		att = bs.selectImage(itemNo);
+		
+		if(att != null) {
+			return att;
+		}
+		else {
+			return null;
+		}
+	}
+	
+	@RequestMapping("selectDetailImage.bi")
+	public @ResponseBody ArrayList<Attachment> selectDetailImage(@RequestParam(value="itemNo", required=false) String itemNo, HttpServletRequest request, HttpServletResponse response){
+		ArrayList<Attachment> att = bs.selectDetailImage(itemNo);
+		
+		if(att != null) {
+			return att;
 		}
 		else {
 			return null;

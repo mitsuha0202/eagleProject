@@ -1,7 +1,10 @@
 package com.kh.eg.bidding.model.dao;
 
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.kh.eg.bidding.model.vo.Attachment;
 import com.kh.eg.bidding.model.vo.Bidding;
 import com.kh.eg.bidding.model.vo.ItemDetail;
 
@@ -24,6 +27,10 @@ public interface BiddingDao {
 	ItemDetail selectWishList(SqlSessionTemplate sqlSession, ItemDetail i);
 
 	ItemDetail selectTime(SqlSessionTemplate sqlSession, String itemNo);
+
+	Attachment selectImage(SqlSessionTemplate sqlSession, String itemNo);
+
+	ArrayList<Attachment> selectDetailImage(SqlSessionTemplate sqlSession, String itemNo);
 
 
 

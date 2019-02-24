@@ -1,10 +1,13 @@
 package com.kh.eg.bidding.model.service;
 
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.eg.bidding.model.dao.BiddingDao;
+import com.kh.eg.bidding.model.vo.Attachment;
 import com.kh.eg.bidding.model.vo.Bid;
 import com.kh.eg.bidding.model.vo.Bidding;
 import com.kh.eg.bidding.model.vo.ItemDetail;
@@ -91,5 +94,23 @@ private SqlSessionTemplate sqlSession;
 		i = bd.selectTime(sqlSession, itemNo);
 		
 		return i;
+	}
+
+	@Override
+	public Attachment selectImage(String itemNo) {
+		Attachment att = null;
+		
+		att = bd.selectImage(sqlSession, itemNo);
+		
+		return att;
+	}
+
+	@Override
+	public ArrayList<Attachment> selectDetailImage(String itemNo) {
+		ArrayList<Attachment> att = null;
+		
+		att = bd.selectDetailImage(sqlSession, itemNo);
+		
+		return att;
 	}
 }

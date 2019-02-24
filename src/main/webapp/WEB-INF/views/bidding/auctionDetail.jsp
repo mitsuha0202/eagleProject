@@ -89,6 +89,9 @@
  	#bidBtn:hover , #wishBtn:hover , #qaBtn:hover{
  		cursor:pointer;
  	}
+ 	#dImage{
+ 		text-align:center;
+ 	}
 </style>
 
 </head>
@@ -111,8 +114,8 @@
         <hr class="line">
         <br>
         <div class="ui grid" style="clear:both;">
-  			<div class="eight wide column">
-  				<img src="resources/uploadFiles/4bcb1d45c54649ee87768e94679d3a67.jpg" style="width:650px; height:525px;">
+  			<div id="thumbNail" class="eight wide column">
+  				
   			</div>
 		  	<div class="eight wide column">
 		  		<div class="ui equal width grid">
@@ -229,7 +232,13 @@
 		<!-- 물품정보 내용 -->
 		
 		
-		물품정보 내용 & 사진
+		<div id="dContent">
+		
+		</div>
+		
+		<div id="dImage">
+			
+		</div>
 		<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 		
 		
@@ -396,10 +405,41 @@
 					$("#mId").text(data.mId);
 					$("#rating").text(data.rating);
 					$("#productName").text(data.itemName);
+					$("#dContent").text(data.detail);
 					
 					bidUnit = data.bidUnit;
 					var itemNo = $("#itemNo").text();
-	
+					
+					$.ajax({
+						url:"selectThumbnail.bi",
+						type:"get",
+						data:{itemNo : itemNo},
+						success:function(data){
+							var $img = $("<img src='"+ data.root + data.changeName +"' style='width:650px; height:525px;'>");
+							$("#thumbNail").append($img);
+							console.log("썸네일 조회 성공");
+						},
+						error:function(){
+							console.log("썸네일 조회 실패");
+						}
+					});
+					
+					$.ajax({
+						url:"selectDetailImage.bi",
+						type:"get",
+						data:{itemNo : itemNo},
+						success:function(data){
+							for(var key in data){
+								var $img = $("<img src='"+ data[key].root + data[key].changeName +"' style='width:1200px; height:1000px;'>");
+								$("#dImage").append($img);
+							}
+							console.log("상세이미지 조회 성공");
+						},
+						error:function(){
+							console.log("상세이미지 조회 실패");
+						}
+					});
+					
 					$.ajax({
 						url:"selectDate.bi",
 						type:"get",
@@ -415,17 +455,21 @@
 						}
 					});
 					
+					var sPrice;
 					$.ajax({
 							url:"selectPrice.bi",
 							type:"get",
+							async:false,
 							data:{itemNo : itemNo},
 							success:function(data){
 								if(data.currentPrice != 0){
 									currentPrice = data.currentPrice + bidUnit;
 									$("#cPrice").text(numComma(currentPrice));
+									sPrice = currentPrice;
 								}else{
 									currentPrice = data.startPrice;
 									$("#cPrice").text(numComma(data.startPrice));
+									sPrice = currentPrice;
 								}
 								
 								console.log("현재가 조회 성공");
@@ -459,21 +503,24 @@
 						$.ajax({
 							url:"compareMid.bi",
 							type:"get",
+							async:false,
 							data:{itemNo : itemNo},
 							success:function(data){
 								maxMid = data.memberNo;
 
 								if(mid != maxMid){
 									var itemNo = $("#itemNo").text();
-									var price = $("#cPrice").text();
+									var price = sPrice;
 									
 									$.ajax({
 										url:"insertBidding.bi",
 										type:"get",
+										async:false,
 										data:{itemNo : itemNo , price : price , mid : mid},
 										success:function(data){
 											currentPrice = currentPrice + bidUnit;
 											$("#cPrice").text(numComma(currentPrice));
+											sPrice = currentPrice;
 											
 											alert("입찰이 완료되었습니다.");
 											console.log("입찰 성공");
