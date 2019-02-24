@@ -129,6 +129,11 @@ public interface MyPageService {
 
 	//입금요청 물품 리스트 조회
 	ArrayList<PayTable> selectPayContinueList(PageInfo pi, String mid, String[] itemNo);
+
+	//입금요청 아이템번호 없을시
+	int getPayContinueList2(String mid);
+	//입금요청 아이템번호 없을시
+	ArrayList<PayTable> selectPayContinueList2(PageInfo pi, String mid);
 	
 	
 	
