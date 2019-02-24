@@ -123,6 +123,12 @@ public interface MyPageDao {
 
 	//낙찰받지 못한 물품 목록 조회
 	ArrayList<PayTable> selectFalseBidList(SqlSessionTemplate sqlSession, PageInfo pi, String mid);
+
+	//입금요청 물품 목록 페이징
+	int getPayContinueList(SqlSessionTemplate sqlSession, String[] itemNo);
+
+	//입금요청 물품 리스트 조회
+	ArrayList<PayTable> selectPayContinueList(SqlSessionTemplate sqlSession, PageInfo pi, String mid, String[] itemNo);
 	
 	
 	

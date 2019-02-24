@@ -123,6 +123,12 @@ public interface MyPageService {
 
 	//낙찰받지 못한 물품 목록 조회
 	ArrayList<PayTable> selectFalseBidList(PageInfo pi, String mid);
+
+	//입금요청 물품 리스트 페이징
+	int getPayContinueList( String[] itemNo);
+
+	//입금요청 물품 리스트 조회
+	ArrayList<PayTable> selectPayContinueList(PageInfo pi, String mid, String[] itemNo);
 	
 	
 	

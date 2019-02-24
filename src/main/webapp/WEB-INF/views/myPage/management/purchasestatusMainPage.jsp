@@ -218,18 +218,6 @@
 					$("#countMainPayList").text("쪽지 0건");
 				}
 			});
-			
-			$.ajax({
-				url:"payList,mp",
-				type:"get",
-				data:{userId:mid},
-				success:function(data){
-					
-				},
-				error:function(status){
-					
-				}
-			});
 		});
 	</script>
 </body>

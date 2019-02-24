@@ -111,12 +111,12 @@
       
       <thead>
         <tr>
+          <td class="firstTd"><input type="checkbox" id="checkAll" onclick="check();"></td>
 		  <th class="firstTd">물품번호</th>
           <th class="firstTd">물품명</th>     
           <th class="firstTd">낙찰가</th>
           <th class="firstTd">마감일</th>
           <th class="firstTd">판매자</th>
-          <th class="firstTd">진행유무</th>
           
         </tr>
       </thead>
@@ -125,13 +125,12 @@
         <c:if test="${ !empty list }">
 	      <c:forEach var="b" items="${ list }">
 	            <tr>
-	               <td name="choice">${ b.itemNo }</td>
+	               <td><input type="checkbox" class="checkChild"></td> 
+	               <td>${ b.itemNo }</td>
 	               <td>${ b.itemName }</td>
 	               <td>${ b.currentPrice }</td>
 				   <td>${ b.endDay }</td>
-	               <td>${ b.saleMemberName }</td>
-	               <td><button>거래하기</button></td>
-	               <td><button>취소하기</button></td>	                            
+	               <td>${ b.saleMemberName }</td>                            
 	            </tr>
 	         </c:forEach>
         </c:if>
@@ -144,7 +143,8 @@
       </tbody>
      
     </table>
-	     
+	     <button onclick="itemNo();">거래하기</button>
+	     <button>구매거부</button>
 	</div>
 	
 	<!-- 하단 div영역 -->
@@ -197,6 +197,15 @@
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script>
+		/* 체크박스 */
+		function check() {
+   			if( $("#checkAll").is(':checked') ){
+       			$(".checkChild").prop("checked", true);
+     		}else{
+       			$(".checkChild").prop("checked", false);
+     		}
+		}
+		
 		$(function() {
 			var mid = '${sessionScope.loginUser.mid}';
 			var key = 'exitAuction';
@@ -213,6 +222,20 @@
 				}
 			});
 		});
+		
+		function itemNo() {
+   			var sendArr = new Array();
+   			var checkbox = $(".checkChild:checked");
+   	        alert("거래가 진행되었습니다.");
+   		 	checkbox.each(function(i){
+   		 		var tr = checkbox.parent().parent().eq(i);
+   		 		var td = tr.children();
+   	            var docNum = td.eq(1).text();
+   	            sendArr.push(docNum);
+ 				location.href="purchaseitemdeal.mp?itemNo=" + sendArr +",";
+   		 	}); 		 	
+		}
+		
 	</script>
 	
 </body>
