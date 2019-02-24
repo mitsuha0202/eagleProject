@@ -119,8 +119,8 @@
 				<td class="td1">등록일</td>			
 			</tr>
 			<c:forEach var="a" items="${list }">
-			<tr onclick="answerTableDetail();">
-				<td name="boardno">${a.boardNo }</td>
+			<tr >
+				<td name="boardresult" onclick="answerTableDetail();">${a.boardNo }</td>
 				<td>${a.itemNo }</td>
 				<td>${a.title }</td>
 				<td>${a.replystatus }</td>
@@ -130,6 +130,7 @@
 			</c:forEach>
 		</table>
 		<!-- 검색부분 div -->
+		
 			<div class="selectSize">
 				<select id="searchCondition" name="searchCondition">
 		  			
@@ -183,13 +184,13 @@
 			</c:if>
 		</div>
 <script>
-function answerTableDetail(){
+
+
+$("td[name=boardresult]").click(function(){
 	
-	answerboardno = $("td[name=boardno]").html();
-	console.log(answerboardno);
+	answerboardno = $(this).parent().children().eq(0).text();
 	location.href='answerPageDetail.mp?answerboardno='+answerboardno;
-	 
-}
+});
 
 function searchBoard(){
 	var searchCondition = $("#searchCondition").val();
