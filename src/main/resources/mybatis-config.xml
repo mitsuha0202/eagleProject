@@ -21,6 +21,7 @@
 		<typeAlias type="com.kh.eg.bidding.model.vo.Bidding" alias="Bidding"/>
 		<typeAlias type="com.kh.eg.bidding.model.vo.ItemDetail" alias="ItemDetail"/>
 		<typeAlias type="com.kh.eg.bidding.model.vo.Attachment" alias="AttachmentVo"/>
+		<typeAlias type="com.kh.eg.bidding.model.vo.Board" alias="ItemBoard"/>
 		<typeAlias type="com.kh.eg.emoney.model.vo.emoney" alias="emoney"/>
 		
     <typeAlias type="com.kh.eg.admin.model.vo.AdminVo" alias="AdminVo"/>

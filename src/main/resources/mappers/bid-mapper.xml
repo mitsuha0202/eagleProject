@@ -46,7 +46,22 @@
 		<result property="addStatus" column="ADDSTATUS" />
 		<result property="boardNo" column="BOARDNO" />
 		<result property="itemNo" column="ITEMNO" />
-	</resultMap>  	
+	</resultMap>
+	
+	<resultMap type="ItemBoard" id="itemBoardResultSet">
+		<id property="boardNo" column="BOARDNO" />
+		<result property="title" column="TITLE" />
+		<result property="boardContent" column="BOARDCONTENT" />
+		<result property="mNo" column="MEMBERNO" />
+		<result property="writeDay" column="WRITEDAY" />
+		<result property="deleteStatus" column="DELETESTATUS" />
+		<result property="boardStatus" column="BOARDSTATUS" />
+		<result property="replyStatus" column="REPLYSTATUS" />
+		<result property="bCount" column="BCOUNT" />
+		<result property="sMno" column="SMEMBERNO" />
+		<result property="itemNo" column="ITEMNO" />
+		<result property="mName" column="MEMBERNAME" />
+	</resultMap>
   	
   	<select id="selectDetailItem" resultMap="itemDetailResultSet" parameterType="java.lang.String">
   		SELECT *
@@ -123,5 +138,12 @@
   		UPDATE AUCTIONDETAIL
   		SET EXITYN = 'Y'
   		WHERE ITEMNO = #{itemNo}
+  	</select>
+  	
+  	<select id="selectQa" resultMap="itemBoardResultSet" parameterType="java.lang.String">
+  		SELECT M.MEMBERNAME , B.BOARDNO , B.TITLE , B.BOARDCONTENT , B.WRITEDAY , B.BOARDSTATUS , B.SMEMBERNO , B.ITEMNO
+  		FROM BOARD B
+  		JOIN MEMBER M ON(B.MEMBERNO = M.MEMBERNO)
+  		WHERE BOARDSTATUS = 'QUESTIONBOARD' AND DELETESTATUS = 'N' AND ITEMNO = #{itemNo}
   	</select>
   </mapper>

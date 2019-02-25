@@ -21,6 +21,7 @@ import com.kh.eg.bidding.model.service.BiddingService;
 import com.kh.eg.bidding.model.vo.Attachment;
 import com.kh.eg.bidding.model.vo.Bid;
 import com.kh.eg.bidding.model.vo.Bidding;
+import com.kh.eg.bidding.model.vo.Board;
 import com.kh.eg.bidding.model.vo.ItemDetail;
 
 @SessionAttributes("loginUser")
@@ -158,35 +159,35 @@ private BiddingService bs;
 		
 		i = bs.selectTime(itemNo);
 		
-		System.out.println(i.getStartDay());
-		System.out.println(i.getEndDay());
-		
-		String nowDay = i.getStartDay();
-		String endDay = i.getEndDay();
-		
-		SimpleDateFormat sft = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		
-		try {
-			Date nd = sft.parse(nowDay);
-			Date ed = sft.parse(endDay);
-			
-			long ndM = nd.getTime();
-			long edM = ed.getTime();
-			
-			System.out.println(ndM);
-			System.out.println(edM);
-			
-			long time = edM - ndM;
-			String remainTime = String.valueOf(time);
-			
-			System.out.println(remainTime);
-			
-			i.setEndDay(remainTime);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
 		
 		if(i != null) {
+			System.out.println(i.getStartDay());
+			System.out.println(i.getEndDay());
+			
+			String nowDay = i.getStartDay();
+			String endDay = i.getEndDay();
+			
+			SimpleDateFormat sft = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			
+			try {
+				Date nd = sft.parse(nowDay);
+				Date ed = sft.parse(endDay);
+				
+				long ndM = nd.getTime();
+				long edM = ed.getTime();
+				
+				System.out.println(ndM);
+				System.out.println(edM);
+				
+				long time = edM - ndM;
+				String remainTime = String.valueOf(time);
+				
+				System.out.println(remainTime);
+				
+				i.setEndDay(remainTime);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
 			return i;
 		}
 		else {
@@ -229,6 +230,18 @@ private BiddingService bs;
 		}
 		else {
 			return 0;
+		}
+	}
+	
+	@RequestMapping("selectQa.bi")
+	public @ResponseBody ArrayList<Board> selectQa(@RequestParam(value="itemNo", required=false) String itemNo, HttpServletRequest request, HttpServletResponse response){
+		ArrayList<Board> list = bs.selectQa(itemNo);
+		
+		if(list != null) {
+			return list;
+		}
+		else {
+			return null;
 		}
 	}
 }

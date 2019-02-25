@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.kh.eg.bidding.model.vo.Attachment;
 import com.kh.eg.bidding.model.vo.Bid;
 import com.kh.eg.bidding.model.vo.Bidding;
+import com.kh.eg.bidding.model.vo.Board;
 import com.kh.eg.bidding.model.vo.ItemDetail;
 
 public interface BiddingService {
@@ -32,6 +33,8 @@ public interface BiddingService {
 	ArrayList<Attachment> selectDetailImage(String itemNo);
 
 	int updateStatus(String itemNo);
+
+	ArrayList<Board> selectQa(String itemNo);
 
 
 }
