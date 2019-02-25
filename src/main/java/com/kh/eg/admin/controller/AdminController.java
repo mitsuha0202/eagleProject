@@ -15,7 +15,10 @@ import com.kh.eg.admin.model.exception.AdMemberselectException;
 import com.kh.eg.admin.model.service.AdMemberService;
 import com.kh.eg.admin.model.vo.AdminVo;
 import com.kh.eg.admin.model.vo.Category;
+import com.kh.eg.admin.model.vo.Exchange;
+import com.kh.eg.admin.model.vo.Notice;
 import com.kh.eg.admin.model.vo.PageInfo;
+import com.kh.eg.admin.model.vo.Post;
 import com.kh.eg.admin.model.vo.Report;
 import com.kh.eg.admin.model.vo.SearchCondition;
 import com.kh.eg.admin.model.vo.SearchReport;
@@ -420,20 +423,77 @@ public class AdminController {
 	
 	
 	@RequestMapping("payBackList.ad")
-	public String payBackListview(){
-		return "admin/payBackList";
+	public String payBackListview(Model model, HttpServletRequest request){
+		
+		int currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		int listCount;
+		try {
+			listCount = ams.payBackListCount();
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
+			ArrayList<Exchange> list = ams.selectPayBackList(pi);
+			
+			model.addAttribute("list", list);
+			model.addAttribute("pi", pi);
+			return "admin/payBackList";
+		} catch (AdMemberselectException e) {
+			e.printStackTrace();
+			model.addAttribute("msg","회원 조회 실패!");
+			return "common/errorPage";
+			
+		}
 	}
 	
 	
 	
 	@RequestMapping("postList.ad")
-	public String postListview(){
-		return "admin/postList";
+	public String postListview(Model model, HttpServletRequest request){
+		
+		int currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		int listCount;
+		try {
+			listCount = ams.postListCount();
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			
+			ArrayList<Post> list = ams.selectPostList(pi);
+			
+			model.addAttribute("list", list);
+			model.addAttribute("pi", pi);
+			return "admin/payBackList";
+		} catch (AdMemberselectException e) {
+			e.printStackTrace();
+			model.addAttribute("msg","회원 조회 실패!");
+			return "common/errorPage";
+			
+		}
 	}
+	
+	
 	@RequestMapping("noticeList.ad")
-	public String noticeListview(){
-		return "admin/noticeList";
+	public String noticeListview(Model model, HttpServletRequest request){
+		
+		try {
+			ArrayList<Notice> list = ams.selectNoticeList();
+			model.addAttribute("list", list);
+			return "admin/noticeList";
+		} catch (AdMemberselectException e) {
+			e.printStackTrace();
+			model.addAttribute("msg","공지사항 조회 실패!");
+			return "common/errorPage";
+		}
+		
 	}
+	
 	@RequestMapping("returnList.ad")
 	public String returnListview(){
 		return "admin/returnList";

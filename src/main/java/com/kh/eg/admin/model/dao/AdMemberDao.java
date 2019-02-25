@@ -7,7 +7,10 @@ import org.mybatis.spring.SqlSessionTemplate;
 import com.kh.eg.admin.model.exception.AdMemberselectException;
 import com.kh.eg.admin.model.vo.AdminVo;
 import com.kh.eg.admin.model.vo.Category;
+import com.kh.eg.admin.model.vo.Exchange;
+import com.kh.eg.admin.model.vo.Notice;
 import com.kh.eg.admin.model.vo.PageInfo;
+import com.kh.eg.admin.model.vo.Post;
 import com.kh.eg.admin.model.vo.Report;
 import com.kh.eg.admin.model.vo.SearchCondition;
 import com.kh.eg.admin.model.vo.SearchReport;
@@ -50,6 +53,17 @@ public interface AdMemberDao {
 	int insertCategory(SqlSessionTemplate sqlSession, Category cg) throws AdMemberselectException;
 
 	int delcategory(SqlSessionTemplate sqlSession, Category cg) throws AdMemberselectException;
+
+	int payBackListCount(SqlSessionTemplate sqlSession) throws AdMemberselectException;
+
+	ArrayList<Exchange> selectPayBackList(SqlSessionTemplate sqlSession, PageInfo pi) throws AdMemberselectException;
+
+	ArrayList<Notice> selectNoticeList(SqlSessionTemplate sqlSession) throws AdMemberselectException;
+
+	int postListCount(SqlSessionTemplate sqlSession) throws AdMemberselectException;
+
+	ArrayList<Post> selectPostList(SqlSessionTemplate sqlSession, PageInfo pi) throws AdMemberselectException;
+
 	
 
 	

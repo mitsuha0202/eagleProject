@@ -10,7 +10,10 @@ import com.kh.eg.admin.model.dao.AdMemberDao;
 import com.kh.eg.admin.model.exception.AdMemberselectException;
 import com.kh.eg.admin.model.vo.AdminVo;
 import com.kh.eg.admin.model.vo.Category;
+import com.kh.eg.admin.model.vo.Exchange;
+import com.kh.eg.admin.model.vo.Notice;
 import com.kh.eg.admin.model.vo.PageInfo;
+import com.kh.eg.admin.model.vo.Post;
 import com.kh.eg.admin.model.vo.Report;
 import com.kh.eg.admin.model.vo.SearchCondition;
 import com.kh.eg.admin.model.vo.SearchReport;
@@ -169,6 +172,43 @@ public class AdMemberServiceImpl implements AdMemberService{
 		int result = amd.delcategory(sqlSession, cg);
 		return result;
 	}
+
+	@Override
+	public int payBackListCount() throws AdMemberselectException {
+		int listCount = amd.payBackListCount(sqlSession);
+		return listCount;
+	}
+
+	@Override
+	public ArrayList<Exchange> selectPayBackList(PageInfo pi) throws AdMemberselectException {
+		ArrayList<Exchange> list = amd.selectPayBackList(sqlSession, pi);
+		
+		return list;
+	}
+
+	@Override
+	public ArrayList<Notice> selectNoticeList() throws AdMemberselectException {
+		ArrayList<Notice> list = amd.selectNoticeList(sqlSession);
+		
+		return list;
+	}
+
+	@Override
+	public int postListCount() throws AdMemberselectException {
+		int listCount = amd.postListCount(sqlSession);
+		return listCount;
+	}
+
+	@Override
+	public ArrayList<Post> selectPostList(PageInfo pi) throws AdMemberselectException {
+		ArrayList<Post> list = amd.selectPostList(sqlSession, pi);
+		
+		return list;
+	}
+
+	
+
+	
 
 	
 	

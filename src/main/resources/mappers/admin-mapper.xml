@@ -35,6 +35,31 @@
 		<result property="uppercategoryNo" column="UPPERCATEGORYNO" />
 		<result property="deleteyn" column="DELETEYN" />
 	</resultMap>
+	
+	<resultMap type="com.kh.eg.admin.model.vo.Exchange" id="exchangeResultSet">
+		<result property="rating" column="RATING" />
+		<result property="memberId" column="MEMBERID" />
+		<result property="mMoney" column="EMONEY" />
+		<result property="eMoney" column="MONEY" />
+		<result property="acName" column="ACNAME" />
+		<result property="bkName" column="BANKNAME" />
+		<result property="accountNo" column="ACCOUNTNO" />
+	</resultMap>
+	
+	<resultMap type="com.kh.eg.admin.model.vo.Notice" id="noticeResultSet">
+		<result property="writeDay" column="WRITEDAY" />
+		<result property="memberId" column="MEMBERID" />
+		<result property="title" column="TITLE" />
+		<result property="content" column="BOARDCONTENT" />
+	</resultMap>
+	
+	<resultMap type="com.kh.eg.admin.model.vo.Post" id="postResultSet">
+		<result property="memberId" column="MEMBERID" />
+		<result property="writeDay" column="WRITEDAY" />
+		<result property="phone" column="PHONE" />
+		<result property="reply" column="REPLYSTATUS" />
+		<result property="title" column="TITLE" />
+	</resultMap>
 
 	<!-- <select id="loginCheck" resultMap="memberResultSet" parameterType="Member"> 
 		SELECT * FROM MEMBER WHERE MEMBERID = #{userId} AND MEMBERPWD = #{userPwd} 
@@ -250,11 +275,33 @@
 		UPDATE CATEGORY SET DELETEYN = 'Y' WHERE CATEGORYNAME = #{categoryName}
 	</select>
 	
+	<!-- 환전 페이징 -->
+	<select id="payBackListCount" resultType="_int">
+		SELECT COUNT(*) FROM MEMBER M JOIN EMONEYR R ON (M.MEMBERNO = R.MEMBERNO)JOIN MACCOUNT C ON (M.MEMBERNO = C.MEMBERNO) JOIN EMONEYE E ON (M.MEMBERNO = E.USENO) 
+		WHERE R.USESTATUS = 'R' AND E.EXCHANGEYN = 'Y'
+	</select>
 	
+	<!-- 환전 리스트 -->
+	<select id="selectPayBackList" resultMap="exchangeResultSet">
+		SELECT M.RATING, M.MEMBERID, M.EMONEY, R.MONEY, C.ACNAME, C.BANKNAME, C.ACCOUNTNO FROM MEMBER M JOIN EMONEYR R ON (M.MEMBERNO = R.MEMBERNO)JOIN MACCOUNT C ON (M.MEMBERNO = C.MEMBERNO) JOIN EMONEYE E ON (M.MEMBERNO = E.USENO) WHERE R.USESTATUS = 'R' AND E.EXCHANGEYN = 'Y'
+	</select>
 	
+	<!-- 공지사항 리스트 -->
+	<select id="selectNoticeList" resultMap="noticeResultSet">
+		SELECT B.WRITEDAY, M.MEMBERID, B.TITLE, B.BOARDCONTENT FROM BOARD B JOIN MEMBER M ON (B.MEMBERNO = M.MEMBERNO)WHERE DELETESTATUS = 'N' AND BOARDSTATUS = 'NOTICE'
+	</select>
 	
+	<!-- 문의 카운트 -->
+	<select id="postListCount" resultType="_int">
+		SELECT COUNT(*) FROM BOARD B JOIN MEMBER M ON (B.MEMBERNO = M.MEMBERNO) 
+		WHERE BOARDSTATUS = 'ONEBYONE' AND REPLYSTATUS = 'Y' AND DELETESTATUS = 'N'
+	</select>
 	
-	
+	<!-- 문의 리스트 -->
+	<select id="selectPostList" resultMap="postResultSet">
+		SELECT M.MEMBERID, B.WRITEDAY, M.PHONE, B.REPLYSTATUS, B.TITLE FROM BOARD B JOIN MEMBER M ON (B.MEMBERNO = M.MEMBERNO) 
+		WHERE BOARDSTATUS = 'ONEBYONE' AND REPLYSTATUS = 'Y' AND DELETESTATUS = 'N'
+	</select>
 	
 	
 	
