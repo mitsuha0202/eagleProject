@@ -53,7 +53,6 @@
 				</colgroup>
 				<thead>
 					<tr>
-						<th scope="col">선택</th>
 						<th scope="col">경매 번호</th>
 						<th scope="col">신고 횟수</th>
 						<th scope="col">신고물 제목</th>
@@ -68,15 +67,12 @@
 					</tr> -->
 					<c:forEach var="a" items="${ reportlist }">
 					<tr>
-						<td>
-							<input name="check"value="${ a.memberId }" type="checkbox">
-						</td>
 						<td>${ a.itemNo }</td>
 						<td>${ a.reportCount }</td>
 						<td>${ a.title }</td>
 						<td>${ a.memberId }</td>
 						<td>${ a.status }</td>
-						<td><a class="mbtn bl" href="#">상세보기</a></td>
+						<td><a class="mbtn bl" onclick="detail();">상세보기</a></td>
 					</tr>
 					</c:forEach>
 				</tbody>
@@ -122,8 +118,7 @@
 	</div><!--// container E-->
 
 	<%@ include file="include/footer.jsp" %>
-
-
+	
 </div><!--// Wrap E-->
 
 </body>

@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-	
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
 <%@ include file="../admin/include/common.jsp" %>
 
 
 <title>Eagle 관리자페이지</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
 <div id="Wrap"><!-- Wrap S -->
@@ -46,6 +47,7 @@
 						<th scope="col">날짜</th>
 						<th scope="col">연락처</th>
 						<th scope="col">상태</th>
+						<th scope="col">제목</th>
 						<th scope="col">상세보기</th>
 					</tr>
 				</thead>
@@ -58,25 +60,58 @@
 							<label for=""> 체크</label>
 							<input id="" name="" class="check" type="checkbox">
 						</td>
-						<td>test1234</td>
-						<td>2019-02-10</td>
-						<td>010-1234-5678</td>
-						<td>답변 대기중</td>
-						<td>버튼</td>
+							<c:forEach var="b" items="${ list }">
+					<tr>
+						<td>
+							<input name="check"value="${ b.writeDay }" type="checkbox">
+						</td>
+						<td>${ b.memberId }</td>
+						<td>${ b.writeDay }</td>
+						<td>${ b.phone }</td>
+						<td>${ b.reply }</td>
+						<td>${ b.title }</td>
+						<td><a class="mbtn bl" onclick="">상세보기</a></td>
 					</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 
+			<!-- 페이징 버튼 영역 -->
+      	<div id="pagingArea" class="numbox mt50">
+         <c:if test="${ pi.currentPage <= 1 }">
+            <span class="prevnc">이전</span>
+         </c:if>
+         <c:if test="${ pi.currentPage > 1 }">
+            <c:url var="blistBack" value="/postList.ad">
+               <c:param name="currentPage" value="${ pi.currentPage - 1}"/>
+            </c:url>
+            <span><a class="prev" href="${ blistBack }">이전</a></span>
+         </c:if>
+         
+         <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+            <c:if test="${ p eq pi.currentPage }">
+               <span><a class="num on" href="${ blistCheck }">${p}</a></span>
+            </c:if>
+            <c:if test="${ p ne pi.currentPage }">
+               <c:url var="blistCheck" value="postList.ad">
+                  <c:param name="currentPage" value="${p}"/>
+               </c:url>
+               <span><a class="num" href="${ blistCheck }">${ p }</a></span>
+            </c:if>
+         </c:forEach>
+         
+         <c:if test="${ pi.currentPage >= pi.maxPage }">
+            <span class="nextnc">다음</span>
+         </c:if>
+         <c:if test="${ pi.currentPage < pi.maxPage }">
+            <c:url var="blistEnd" value="postList.ad">
+               <c:param name="currentPage" value="${ pi.currentPage + 1}"/>
+            </c:url>
+            <span><a class="next" href="${ blistEnd }">다음</a></span>
+         </c:if>
+      </div>
 			
-			<div class="numbox pt40 pb50"> 
-				<span><a class="num" href="#">&lt;&lt;</a></span>
-				<span><a class="num" href="#">&lt;</a></span>
-				<span><a class="num on" href="#">1</a></span>
-				<span><a class="num" href="#">2</a></span>
-				<span><a class="num" href="#">3</a></span>
-				<span><a class="num" href="#">&gt;</a></span>
-				<span><a class="num" href="#">&gt;&gt;</a></span>
-			</div>
+			
 		</div><!--// contBox E-->
 
 	</div><!--// container E-->

@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import com.kh.eg.admin.model.exception.AdMemberselectException;
 import com.kh.eg.admin.model.vo.AdminVo;
 import com.kh.eg.admin.model.vo.Category;
+import com.kh.eg.admin.model.vo.Exchange;
+import com.kh.eg.admin.model.vo.Notice;
 import com.kh.eg.admin.model.vo.PageInfo;
+import com.kh.eg.admin.model.vo.Post;
 import com.kh.eg.admin.model.vo.Report;
 import com.kh.eg.admin.model.vo.SearchCondition;
 import com.kh.eg.admin.model.vo.SearchReport;
@@ -49,6 +52,16 @@ public interface AdMemberService {
 	int insertCategory(Category cg) throws AdMemberselectException;
 
 	int delCategory(Category cg) throws AdMemberselectException;
+
+	int payBackListCount() throws AdMemberselectException;
+
+	ArrayList<Exchange> selectPayBackList(PageInfo pi) throws AdMemberselectException;
+
+	ArrayList<Notice> selectNoticeList() throws AdMemberselectException;
+
+	int postListCount() throws AdMemberselectException;
+
+	ArrayList<Post> selectPostList(PageInfo pi) throws AdMemberselectException;
 
 
 

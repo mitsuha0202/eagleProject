@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="../admin/include/common.jsp" %>
 
 
 <title>Eagle 관리자페이지</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
 <div id="Wrap"><!-- Wrap S -->
@@ -14,28 +16,10 @@
 
 		<div class="tit">&bull; 환전신청내역</div>
 
-		<div class="contBox mt30"><!-- contBox S -->
-				
-			<div class="topsearch mt30 mb30"><!-- topsearch S -->
-				<span>
-					<label for="col01"></label>
-					<select id="col01" name="col01" class="wth140">
-						<option value="">아이디</option>
-						<option value="">이름</option>
-						<option value="">휴대폰번호</option>
-						<option value="">이메일주소</option>
-					</select> 
-				</span>
-				<span>
-					<label for="Keyword"></label><input id="Keyword" name="Keyword" class="wth240" type="text">
-					<a class="sch" href="#"><img src="resources/images/icoSearch.png" alt="검색" title="검색"></a> 
-				</span>
-			</div>			
-			
 			<div class="flo_left mt30 mb30">
 				<!-- <span><a class="mbtn wh" href="#">전체선택</a></span> -->
 				<span><a class="mbtn bk" href="#">인쇄하기</a></span>
-				<span><a class="mbtn rd" href="#">삭제</a></span>
+				<span><a class="mbtn rd" href="#">환전 완료</a></span>
 			</div>
 
 
@@ -63,39 +47,80 @@
 						<th scope="col">예금주</th>
 						<th scope="col">은행</th>
 						<th scope="col">계좌번호</th>
+						<th scope="col">최종 환전 금액</th>
 					</tr>
 				</thead>
 				<tbody>
 					<!-- <tr>
 						<td colspan="9">등록된 정보가 없습니다.</td>
 					</tr> -->
+					<c:forEach var="b" items="${ list }">
 					<tr>
 						<td>
-							<label for=""> 체크</label>
-							<input id="" name="" class="check" type="checkbox">
+							<input name="check"value="${ b.memberId }" type="checkbox">
 						</td>
-						<td>일반</td>
-						<td>test1234</td>
-						<td>10000</td>
-						<td>35000</td>
-						<td>20</td>
-						<td>배수현</td>
-						<td>농협</td>
-						<td>123-456-789120</td>
+						<td>${ b.rating }</td>
+						<td>${ b.memberId }</td>
+						<td>${ b.mMoney }</td>
+						<td>${ b.eMoney }</td>
+						<c:if test="${b.rating eq 'BRONZE'}">
+						<c:set var="premium" value="10" scope="page"/>
+						</c:if>
+						<c:if test="${b.rating eq 'SILVER'}">
+						<c:set var="premium" value="8" scope="page"/>
+						</c:if>
+						<c:if test="${b.rating eq 'GOLD'}">
+						<c:set var="premium" value="6" scope="page"/>
+						</c:if>
+						<c:if test="${b.rating eq 'DIA'}">
+						<c:set var="premium" value="3" scope="page"/>
+						</c:if>
+						<td>${ pageScope.premium }</td>
+						<td>${ b.acName }</td>
+						<td>${ b.bkName }</td>
+						<td>${ b.accountNo }</td>
+						<fmt:parseNumber var="exchange" integerOnly="true" value="${ (b.eMoney - b.eMoney*pageScope.premium/100)/10}"/>
+						<td>${ exchange*10 }</td>
 					</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 
 			
-			<div class="numbox pt40 pb50"> 
-				<span><a class="num" href="#">&lt;&lt;</a></span>
-				<span><a class="num" href="#">&lt;</a></span>
-				<span><a class="num on" href="#">1</a></span>
-				<span><a class="num" href="#">2</a></span>
-				<span><a class="num" href="#">3</a></span>
-				<span><a class="num" href="#">&gt;</a></span>
-				<span><a class="num" href="#">&gt;&gt;</a></span>
-			</div>
+			<!-- 페이징 버튼 영역 -->
+      <div id="pagingArea" class="numbox mt50">
+         <c:if test="${ pi.currentPage <= 1 }">
+            <span class="prevnc">이전</span>
+         </c:if>
+         <c:if test="${ pi.currentPage > 1 }">
+            <c:url var="blistBack" value="/payBackList.ad">
+               <c:param name="currentPage" value="${ pi.currentPage - 1}"/>
+            </c:url>
+            <span><a class="prev" href="${ blistBack }">이전</a></span>
+         </c:if>
+         
+         <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+            <c:if test="${ p eq pi.currentPage }">
+               <span><a class="num on" href="${ blistCheck }">${p}</a></span>
+            </c:if>
+            <c:if test="${ p ne pi.currentPage }">
+               <c:url var="blistCheck" value="payBackList.ad">
+                  <c:param name="currentPage" value="${p}"/>
+               </c:url>
+               <span><a class="num" href="${ blistCheck }">${ p }</a></span>
+            </c:if>
+         </c:forEach>
+         
+         <c:if test="${ pi.currentPage >= pi.maxPage }">
+            <span class="nextnc">다음</span>
+         </c:if>
+         <c:if test="${ pi.currentPage < pi.maxPage }">
+            <c:url var="blistEnd" value="payBackList.ad">
+               <c:param name="currentPage" value="${ pi.currentPage + 1}"/>
+            </c:url>
+            <span><a class="next" href="${ blistEnd }">다음</a></span>
+         </c:if>
+      </div>
 		</div><!--// contBox E-->
 
 	</div><!--// container E-->

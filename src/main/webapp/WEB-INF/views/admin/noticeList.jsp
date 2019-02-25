@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../admin/include/common.jsp" %>
 
 
 <title>Eagle 관리자페이지</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
 <div id="Wrap"><!-- Wrap S -->
@@ -17,23 +18,10 @@
 		<div class="contBox mt30"><!-- contBox S -->
 				
 			<div class="topsearch mt30 mb30"><!-- topsearch S -->
-				<span>
-					<label for="col01"></label>
-					<select id="col01" name="col01" class="wth140">
-						<option value="">아이디</option>
-						<option value="">이름</option>
-						<option value="">휴대폰번호</option>
-						<option value="">이메일주소</option>
-					</select> 
-				</span>
-				<span>
-					<label for="Keyword"></label><input id="Keyword" name="Keyword" class="wth240" type="text">
-					<a class="sch" href="#"><img src="resources/images/icoSearch.png" alt="검색" title="검색"></a> 
-				</span>
 			</div>			
 			
 			<div class="flo_left mt30 mb30">
-				<span><a class="mbtn bk" href="noticeView.jsp">작성하기</a></span>
+				<span><a class="mbtn bk" href="insertBoardView.bo">작성하기</a></span>
 				<span><a class="mbtn rd" href="#">삭제</a></span>
 			</div>
 
@@ -42,14 +30,15 @@
 				<caption>공지사항관리 리스트입니다.</caption>
 				<colgroup>
 					<col style="width:7%;"><!-- No -->
+					<col style="width:%;"><!--  -->
+					<col style="width:%;"><!--  -->
 					<col style="width:10%;"><!--  -->
-					<col style="width:%;"><!--  -->
-					<col style="width:%;"><!--  -->
 				</colgroup>
 				<thead>
 					<tr>
 						<th scope="col">선택</th>
 						<th scope="col">등록일자</th>
+						<th scope="col">작성자</th>
 						<th scope="col">제목</th>
 						<th scope="col">내용</th>
 					</tr>
@@ -58,28 +47,20 @@
 					<!-- <tr>
 						<td colspan="9">등록된 정보가 없습니다.</td>
 					</tr> -->
+					<c:forEach var="b" items="${ list }">
 					<tr>
 						<td>
-							<label for=""> 체크</label>
-							<input id="" name="" class="check" type="checkbox">
+							<input name="check"value="${ b.memberId }" type="checkbox">
 						</td>
-						<td>2019-01-01</td>
-						<td>공지사항입니다 긴급공지사항</td>
-						<td>설날연휴로 인하여 택배 물량....</td>
+						<td>${ b.writeDay }</td>
+						<td>${ b.memberId }</td>
+						<td>${ b.title }</td>
+						<td>${ b.content }</td>
 					</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 
-			
-			<div class="numbox pt40 pb50"> 
-				<span><a class="num" href="#">&lt;&lt;</a></span>
-				<span><a class="num" href="#">&lt;</a></span>
-				<span><a class="num on" href="#">1</a></span>
-				<span><a class="num" href="#">2</a></span>
-				<span><a class="num" href="#">3</a></span>
-				<span><a class="num" href="#">&gt;</a></span>
-				<span><a class="num" href="#">&gt;&gt;</a></span>
-			</div>
 		</div><!--// contBox E-->
 
 	</div><!--// container E-->

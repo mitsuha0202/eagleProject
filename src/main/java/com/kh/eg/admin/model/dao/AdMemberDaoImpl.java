@@ -9,10 +9,16 @@ import org.springframework.stereotype.Repository;
 import com.kh.eg.admin.model.exception.AdMemberselectException;
 import com.kh.eg.admin.model.vo.AdminVo;
 import com.kh.eg.admin.model.vo.Category;
+import com.kh.eg.admin.model.vo.Exchange;
+import com.kh.eg.admin.model.vo.Notice;
 import com.kh.eg.admin.model.vo.PageInfo;
+import com.kh.eg.admin.model.vo.Post;
 import com.kh.eg.admin.model.vo.Report;
 import com.kh.eg.admin.model.vo.SearchCondition;
 import com.kh.eg.admin.model.vo.SearchReport;
+import com.kh.eg.board.model.vo.Reply;
+
+import oracle.net.aso.e;
 
 @Repository
 public class AdMemberDaoImpl implements AdMemberDao{
@@ -251,6 +257,74 @@ public class AdMemberDaoImpl implements AdMemberDao{
 		int result = session.update("AdminVo.delcategory",cg);
 		return result;
 	}
+
+	@Override
+	public int payBackListCount(SqlSessionTemplate session) throws AdMemberselectException {
+		int result = session.selectOne("AdminVo.payBackListCount");
+		
+		if(result <= 0) {
+			throw new AdMemberselectException("게시글 수 조회 실패!");
+		}
+		
+		return result;
+	}
+
+	@Override
+	public ArrayList<Exchange> selectPayBackList(SqlSessionTemplate session, PageInfo pi) throws AdMemberselectException {
+		ArrayList<Exchange> list = null;
+		
+		list = (ArrayList)session.selectList("AdminVo.selectPayBackList", null);
+		
+		if(list == null) {
+			throw new AdMemberselectException("환전 조회 실패!");
+		}
+		
+		return list;
+	}
+
+	@Override
+	public ArrayList<Notice> selectNoticeList(SqlSessionTemplate session) throws AdMemberselectException {
+		ArrayList<Notice> list = null;
+		
+		list = (ArrayList)session.selectList("AdminVo.selectNoticeList", null);
+		
+		if(list == null) {
+			throw new AdMemberselectException("공지사항 조회 실패!");
+		}
+		
+		return list;
+	}
+
+	@Override
+	public int postListCount(SqlSessionTemplate session) throws AdMemberselectException {
+		int result = session.selectOne("AdminVo.postListCount");
+		
+		if(result <= 0) {
+			throw new AdMemberselectException("게시글 수 조회 실패!");
+		}
+		
+		return result;
+	}
+
+	@Override
+	public ArrayList<Post> selectPostList(SqlSessionTemplate session, PageInfo pi) throws AdMemberselectException {
+		ArrayList<Post> list = null;
+		
+		int offset = (pi.getCurrentPage() -1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList)session.selectList("AdminVo.selectPostList", null, rowBounds);
+		
+		if(list == null) {
+			throw new AdMemberselectException("회원 조회 실패!");
+		}
+		
+		return list;	
+	}
+
+	
+
 
 	
 
