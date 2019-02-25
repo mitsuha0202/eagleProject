@@ -310,10 +310,7 @@ public class MyPageDaoImpl implements MyPageDao{
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 		
 		//물품번호와 회원번호에 따른 결과 조회용 해쉬맵
-		HashMap<String, String> searchList = new HashMap<String, String>();
-				
-		//결과값 담기위한 객체
-		PayTable payTable = null;
+		HashMap<String, String> searchList = new HashMap<String, String>();		
 		
 		ArrayList<PayTable> itemNo = new ArrayList<PayTable>();
 		
@@ -322,21 +319,22 @@ public class MyPageDaoImpl implements MyPageDao{
 		int count = sqlSession.selectOne("MyPage.winBidCountList", mid);
 		
 		searchList.put("mid", mid);
+		itemNo = (ArrayList)sqlSession.selectList("MyPage.selectWinBidListSearchItemNo", mid, rowBounds); 
 		for(int i=0; i<count; i++) {
-			payTable = new PayTable();
-			itemNo = (ArrayList)sqlSession.selectList("MyPage.selectWinBidList", mid, rowBounds); 
-			payTable.setItemNo(itemNo.get(i).getItemNo());
-			searchList.put("itemNo", String.valueOf(payTable.getItemNo()));
+
+			searchList.put("itemNo", String.valueOf(itemNo.get(i).getItemNo()));
 			WinBid winBid = (WinBid)sqlSession.selectOne("MyPage.winBidSelect", searchList);
-			if(winBid != null) {				
+			if(winBid != null) {		
 				continue;				
 			}else {
-				list = (ArrayList)sqlSession.selectList("MyPage.selectWinBidList", mid, rowBounds);
-				ArrayList<PayTable> temp = (ArrayList)sqlSession.selectList("MyPage.selectWinBidRank", searchList);			
+				list = (ArrayList)sqlSession.selectList("MyPage.selectWinBidList", searchList, rowBounds);				
+				ArrayList<PayTable> temp = (ArrayList)sqlSession.selectList("MyPage.selectWinBidRank", searchList);
 				for(int j=0; j<temp.size(); j++) {
 					if(list.get(i).getBidNo() == temp.get(j).getBidNo()) {
 						list.get(i).setRowBid(temp.get(j).getRowBid());
 					}
+				}
+				for(PayTable p : list) {
 				}
 			}
 		}
@@ -396,19 +394,52 @@ public class MyPageDaoImpl implements MyPageDao{
 	@Override
 	public int getFalseBidListCount(SqlSessionTemplate sqlSession, String mid) {
 		int count = 0;
-		ArrayList<PayTable> list = (ArrayList)sqlSession.selectList("MyPage.countFalseBid", mid);
+		
+		//아이템번호 리스트
+		ArrayList<PayTable> itemNo = (ArrayList)sqlSession.selectList("MyPage.countFalseBidRank", mid);
+		//키값 사용할 hashmap
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("mid", mid);
+		ArrayList<PayTable> list = null;
+		count = itemNo.size();
+		
+		/*for(int i=0; i<itemNo.size(); i++) {
+			map.put("itemNo", String.valueOf(itemNo.get(i).getItemNo()));
+			map.put("currentPrice", itemNo.get(i).getCurrentPrice());			
+
+			System.out.println("삭제후 rank: " + rank);
+			map.put("currentPrice", rank.get(i).getCurrentPrice());
+			PayTable payTable = sqlSession.selectOne("MyPage.countFalseBid", map);
+			if(payTable != null) {
+				list.add(payTable);
+				System.out.println(list);
+			}
+		}*/
+		
+		/*ArrayList<PayTable> list = null;
+		HashMap<String, String> map = new HashMap<String, String>();
+		ArrayList<PayTable> itemNo = (ArrayList)sqlSession.selectList("MyPage.selectWinBidListSearchItemNo", mid);
+		map.put("mid", mid);
+		for(int i=0; i<itemNo.size(); i++) {
+			map.put("itemNo", String.valueOf(itemNo.get(i).getItemNo()));
+			ArrayList<PayTable> temp = (ArrayList)sqlSession.selectList("MyPage.countFalseBidRank", map);
+			for(int j=0; j<temp.size(); i++) {
+				if(temp.get(j).getRowBid() == 1) {
+					temp.remove(i);
+				}
+			}
+			count = temp.size();
+			map.put("currentPrice", temp.get(i).getCurrentPrice());
+			list = (ArrayList)sqlSession.selectList("MyPage.countFalseBid", map);			
+		}
 		
 		for(int i=0; i<list.size(); i++) {
 			map.put("itemNo", String.valueOf(list.get(i).getItemNo()));
-			ArrayList<PayTable> temp = (ArrayList)sqlSession.selectList("MyPage.countFalseBidRank", map);
-			
-			if(list.get(i).getBidNo() == temp.get(i).getBidNo() && temp.get(i).getRowBid() != 1 && list.get(i).getMemberNo() == temp.get(i).getMemberNo()) {
-				list.get(i).setCurrentPrice(temp.get(i).getCurrentPrice());
-				count++;
-			}			
-		}		
+			System.out.println(list.size());
+			for(PayTable p : list) {
+				System.out.println(p);
+			}	
+		}*/		
 		return count;
 	}
 
@@ -418,9 +449,60 @@ public class MyPageDaoImpl implements MyPageDao{
 		
 		int offset = (pi.getCurrentPage()  - 1) * pi.getLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		//아이템번호
+		ArrayList<PayTable> list = (ArrayList)sqlSession.selectList("MyPage.selectWinBidListSearchItemNo", mid, rowBounds);
 		HashMap<String, String> map = new HashMap<String, String>();
-		ArrayList<PayTable> list = (ArrayList)sqlSession.selectList("MyPage.countFalseBid", mid, rowBounds);
+		map.put("mid", mid);
+		for(int i=0; i<list.size(); i++) {
+			map.put("itemNo", String.valueOf(list.get(i).getItemNo()));
+			//낙찰된 금액 조회해서 제외하기 
+			PayTable pay = sqlSession.selectOne("MyPage.selectFalseBidPay", map);
+			map.put("currentPrice", pay.getCurrentPrice());
+			PayTable lists = sqlSession.selectOne("MyPage.countFalseBid", map);
+			if(lists != null) {
+				list.get(i).setItemName(lists.getItemName());
+				list.get(i).setBidNo(lists.getBidNo());
+				list.get(i).setCurrentPrice(pay.getCurrentPrice());
+				list.get(i).setEndDay(lists.getEndDay());
+				list.get(i).setMemberNo(lists.getMemberNo());
+				list.get(i).setSaleMemberName(lists.getSaleMemberName());
+				System.out.println(list);
+		}	
+		/*//아이템번호 리스트
+		ArrayList<PayTable> list = (ArrayList)sqlSession.selectList("MyPage.countFalseBidRank", mid, rowBounds);
+		//키값 사용할 hashmap
 		
+		for(int i=0; i<list.size(); i++) {
+			map.put("itemNo", String.valueOf(list.get(i).getItemNo()));
+			map.put("currentPrice", list.get(i).getCurrentPrice());
+			
+			PayTable payTable = sqlSession.selectOne("MyPage.countFalseBid", map);
+			if(payTable != null) {
+				list.get(i).setItemName(payTable.getItemName());
+				list.get(i).setBidNo(payTable.getBidNo());
+				list.get(i).setEndDay(payTable.getEndDay());
+				list.get(i).setMemberNo(payTable.getMemberNo());
+				list.get(i).setSaleMemberName(payTable.getSaleMemberName());
+				System.out.println(list);
+			}
+		}*/
+		
+		/*HashMap<String, String> map = new HashMap<String, String>();
+		ArrayList<PayTable> list = (ArrayList)sqlSession.selectList("MyPage.countFalseBid", mid, rowBounds);
+		map.put("mid", mid);
+		
+		for(int i=0; i<list.size(); i++) {
+			map.put("itemNo", String.valueOf(list.get(i).getItemNo()));
+			ArrayList<PayTable> temp = (ArrayList)sqlSession.selectList("MyPage.countFalseBidRank", map);
+			
+			if(list.get(i).getBidNo() == temp.get(i).getBidNo() && temp.get(i).getRowBid() != 1 && list.get(i).getMemberNo() == temp.get(i).getMemberNo()) {
+				list.get(i).setCurrentPrice(temp.get(i).getCurrentPrice());
+				for(PayTable p : list) {
+					System.out.println(p);
+				}
+			}			
+		}	*/
+		}
 		return list;
 	}
 

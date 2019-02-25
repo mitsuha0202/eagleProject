@@ -128,14 +128,19 @@ public class StatusController {
 		int listCount = ms.getWinBidListCount(m.getMid());
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		ArrayList<PayTable> winBidList = ms.selectWinBid(pi, m.getMid());
+		for(PayTable p : winBidList) {
+			System.out.println(p);
+		}
 		ArrayList<PayTable> list = new ArrayList<PayTable>();
-		for(int i=0; i<winBidList.size(); i++) {
-			if(winBidList.get(i).getCurrentPrice() != null) {
-				Three three = new Three();			
-				winBidList.get(i).setCurrentPrice((three.toNumFormat(Integer.parseInt(winBidList.get(i).getCurrentPrice()))));
-			}
-			if(winBidList.get(i).getRowBid() == 1) {
-				list.add(winBidList.get(i));
+		if(winBidList != null) {
+			for(int i=0; i<winBidList.size(); i++) {
+				if(winBidList.get(i).getCurrentPrice() != null) {
+					Three three = new Three();			
+					winBidList.get(i).setCurrentPrice((three.toNumFormat(Integer.parseInt(winBidList.get(i).getCurrentPrice()))));
+				}
+				if(winBidList.get(i).getRowBid() == 1) {
+					list.add(winBidList.get(i));
+				}
 			}
 		}
 		

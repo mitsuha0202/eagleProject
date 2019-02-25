@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>        
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -105,7 +106,7 @@
 	     <h5>현재 입찰하신 물품중 낙찰받은 물품 리스트입니다.</h5>
 	     <h5>취소하기 선택시 패널티가 부여되며 물품가격의 수수료를 제외한 나머지 금액을 돌려받게 됩니다.</h5>
 	     <br>
-	     <h5 id="countMainPayList"></h5>
+	     <h5>낙찰된 물품에 대해서 모두 ${ fn:length(list) }건이 검색되었습니다.</h5>
 	     
 	     <table class="buyStatusTable">
       
@@ -205,23 +206,6 @@
        			$(".checkChild").prop("checked", false);
      		}
 		}
-		
-		$(function() {
-			var mid = '${sessionScope.loginUser.mid}';
-			var key = 'exitAuction';
-			$.ajax({
-				url:"countPayListMain.mp?key=" + key,
-				type:"get",
-				data:{userId:mid},
-				success:function(data){
-					$("#countMainPayList").text("낙찰된 물품에 대해서 모두 " + data + "건이 검색되었습니다.");
-				},
-				/* status는 에러의 상태를 나타냄 */
-				error:function(status){
-					$("#countMainPayList").text("낙찰된 물품에 대해서 모두 0 건이 검색되었습니다.");
-				}
-			});
-		});
 		
 		function itemNo() {
    			var sendArr = new Array();

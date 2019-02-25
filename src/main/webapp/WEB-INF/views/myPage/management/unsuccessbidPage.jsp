@@ -105,12 +105,11 @@
       
       <thead>
         <tr>
-          <th class="firstTd">물품번호</th>
-          <th class="firstTd">물품명</th>     
-          <th class="firstTd">낙찰가</th>
-          <th class="firstTd">마감일</th>
-          <th class="firstTd">판매자</th>
-          <th class="firstTd">진행유무</th>
+	          <th class="firstTd">물품번호</th>
+	          <th class="firstTd">물품명</th>     
+	          <th class="firstTd">낙찰가</th>
+	          <th class="firstTd">마감일</th>
+	          <th class="firstTd">판매자</th>
         </tr>
       </thead>
       <tbody>
@@ -122,8 +121,6 @@
 	               <td>${ b.currentPrice }</td>
 				   <td>${ b.endDay }</td>
 	               <td>${ b.saleMemberName }</td>
-	               <td><button>거래하기</button></td>
-	               <td><button>취소하기</button></td>	                            
 	            </tr>
 	         </c:forEach>
         </c:if>
@@ -135,7 +132,6 @@
       </tbody>
      
     </table>
-	     
 	</div>
 	
 	<div id="pagingArea" align="center">
