@@ -145,7 +145,7 @@
       </tbody>
      
     </table>
-	<button onclick="payment">결제하기</button>
+	<button onclick="payment();">결제하기</button>
 	</div>
 	
 	<div id="pagingArea" align="center">
@@ -205,6 +205,22 @@
 				alert("입금요청된 물품이 없습니다.");
 			}
 		});
+		
+		function payment() {
+			var sendArr = new Array();
+			var sendCurArr = new Array();
+   			var checkbox = $(".checkChild:checked");
+   	        alert("거래가 시작되었습니다.");
+   		 	checkbox.each(function(i){
+   		 		var tr = checkbox.parent().parent().eq(i);
+   		 		var td = tr.children();
+   	            var docNum = td.eq(2).text();
+   	            var curPrice = td.eq(4).text();
+   	            sendArr.push(docNum);   	 
+   	            sendCurArr.push(curPrice);
+ 				location.href="paymentconfirm.mp?itemNo=" + sendArr +"," + "&currentPrice=" + sendCurArr + ",";
+   		 	}); 		 	
+		}
 	</script>
 </body>
 </html>

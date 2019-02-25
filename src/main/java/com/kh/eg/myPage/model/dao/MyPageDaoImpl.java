@@ -402,44 +402,7 @@ public class MyPageDaoImpl implements MyPageDao{
 		map.put("mid", mid);
 		ArrayList<PayTable> list = null;
 		count = itemNo.size();
-		
-		/*for(int i=0; i<itemNo.size(); i++) {
-			map.put("itemNo", String.valueOf(itemNo.get(i).getItemNo()));
-			map.put("currentPrice", itemNo.get(i).getCurrentPrice());			
-
-			System.out.println("삭제후 rank: " + rank);
-			map.put("currentPrice", rank.get(i).getCurrentPrice());
-			PayTable payTable = sqlSession.selectOne("MyPage.countFalseBid", map);
-			if(payTable != null) {
-				list.add(payTable);
-				System.out.println(list);
-			}
-		}*/
-		
-		/*ArrayList<PayTable> list = null;
-		HashMap<String, String> map = new HashMap<String, String>();
-		ArrayList<PayTable> itemNo = (ArrayList)sqlSession.selectList("MyPage.selectWinBidListSearchItemNo", mid);
-		map.put("mid", mid);
-		for(int i=0; i<itemNo.size(); i++) {
-			map.put("itemNo", String.valueOf(itemNo.get(i).getItemNo()));
-			ArrayList<PayTable> temp = (ArrayList)sqlSession.selectList("MyPage.countFalseBidRank", map);
-			for(int j=0; j<temp.size(); i++) {
-				if(temp.get(j).getRowBid() == 1) {
-					temp.remove(i);
-				}
-			}
-			count = temp.size();
-			map.put("currentPrice", temp.get(i).getCurrentPrice());
-			list = (ArrayList)sqlSession.selectList("MyPage.countFalseBid", map);			
-		}
-		
-		for(int i=0; i<list.size(); i++) {
-			map.put("itemNo", String.valueOf(list.get(i).getItemNo()));
-			System.out.println(list.size());
-			for(PayTable p : list) {
-				System.out.println(p);
-			}	
-		}*/		
+			
 		return count;
 	}
 
@@ -453,55 +416,24 @@ public class MyPageDaoImpl implements MyPageDao{
 		ArrayList<PayTable> list = (ArrayList)sqlSession.selectList("MyPage.selectWinBidListSearchItemNo", mid, rowBounds);
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("mid", mid);
+		
 		for(int i=0; i<list.size(); i++) {
+			PayTable lists = new PayTable();
 			map.put("itemNo", String.valueOf(list.get(i).getItemNo()));
 			//낙찰된 금액 조회해서 제외하기 
 			PayTable pay = sqlSession.selectOne("MyPage.selectFalseBidPay", map);
 			map.put("currentPrice", pay.getCurrentPrice());
-			PayTable lists = sqlSession.selectOne("MyPage.countFalseBid", map);
+			lists = sqlSession.selectOne("MyPage.countFalseBid", map);
+			
 			if(lists != null) {
 				list.get(i).setItemName(lists.getItemName());
 				list.get(i).setBidNo(lists.getBidNo());
-				list.get(i).setCurrentPrice(pay.getCurrentPrice());
+				list.get(i).setCurrentPrice(lists.getCurrentPrice());
 				list.get(i).setEndDay(lists.getEndDay());
 				list.get(i).setMemberNo(lists.getMemberNo());
 				list.get(i).setSaleMemberName(lists.getSaleMemberName());
-				System.out.println(list);
-		}	
-		/*//아이템번호 리스트
-		ArrayList<PayTable> list = (ArrayList)sqlSession.selectList("MyPage.countFalseBidRank", mid, rowBounds);
-		//키값 사용할 hashmap
-		
-		for(int i=0; i<list.size(); i++) {
-			map.put("itemNo", String.valueOf(list.get(i).getItemNo()));
-			map.put("currentPrice", list.get(i).getCurrentPrice());
-			
-			PayTable payTable = sqlSession.selectOne("MyPage.countFalseBid", map);
-			if(payTable != null) {
-				list.get(i).setItemName(payTable.getItemName());
-				list.get(i).setBidNo(payTable.getBidNo());
-				list.get(i).setEndDay(payTable.getEndDay());
-				list.get(i).setMemberNo(payTable.getMemberNo());
-				list.get(i).setSaleMemberName(payTable.getSaleMemberName());
-				System.out.println(list);
 			}
-		}*/
-		
-		/*HashMap<String, String> map = new HashMap<String, String>();
-		ArrayList<PayTable> list = (ArrayList)sqlSession.selectList("MyPage.countFalseBid", mid, rowBounds);
-		map.put("mid", mid);
-		
-		for(int i=0; i<list.size(); i++) {
-			map.put("itemNo", String.valueOf(list.get(i).getItemNo()));
-			ArrayList<PayTable> temp = (ArrayList)sqlSession.selectList("MyPage.countFalseBidRank", map);
-			
-			if(list.get(i).getBidNo() == temp.get(i).getBidNo() && temp.get(i).getRowBid() != 1 && list.get(i).getMemberNo() == temp.get(i).getMemberNo()) {
-				list.get(i).setCurrentPrice(temp.get(i).getCurrentPrice());
-				for(PayTable p : list) {
-					System.out.println(p);
-				}
-			}			
-		}	*/
+
 		}
 		return list;
 	}
@@ -555,37 +487,7 @@ public class MyPageDaoImpl implements MyPageDao{
 					list.get(i).setCurrentPrice(payTable.getCurrentPrice());
 				}
 			}
-		} 
-		
-		/*ArrayList<PayTable> list = (ArrayList)sqlSession.selectList("MyPage.selectPayContinueList", mid);
-		int temp = 0;
-		
-		
-		for(int i =0; i<list.size(); i++) {
-			if(!itemNo[i].equals("")) {
-				if(list.get(i).getItemNo() != Integer.parseInt(itemNo[temp])) {
-					list.remove(i);
-					temp++;
-				}
-			}else {
-				return null;
-			}
-		}
-		PayTable payTable = null;
-		
-		for(int i=0; i<list.size(); i++) {
-			payTable = sqlSession.selectOne("MyPage.continueWinBidPay", String.valueOf(list.get(i).getItemNo()));
-			
-			if(payTable != null) {
-				list.get(i).setCurrentPrice(payTable.getCurrentPrice());
-			}
-			HashMap<String, String> map = new HashMap<String, String>();
-			map.put("mid", mid);
-			map.put("itemNo", String.valueOf(list.get(i).getItemNo()));
-			map.put("saleMemberNo", String.valueOf(list.get(i).getSaleMemberNo()));
-			
-			
-		}*/		
+		} 	
 		return list;
 	}
 
