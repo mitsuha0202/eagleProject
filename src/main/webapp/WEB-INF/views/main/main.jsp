@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -83,6 +84,7 @@ td {
 	height:200px;
 	border:1px solid black;
 }
+
 </style>
 
 
@@ -103,29 +105,46 @@ td {
 						id="more-txt">더보기 </font>
 				</div>
 				<hr>
-				<div class="may" style=width:300px;>
+				<script>
+					var abc=1;
+					console.log(abc);
+				</script>
+				<div id="firstColumn">
 				
-				</div>
+				<c:forEach var="i" items="${list1}">
+							
+					<div id="addDiv" class="four wide column"
+						style="display: inline-block;">
+						<div>
+							<div class="may" style="width: 300px;">
 
-				<table>
-					<tr class="tr">
-						<td colspan="2">입찰  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  건</td>
-						<td>조회 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   회</td>
-						
+								<img src="resources/uploadFiles/${i.atta.changeName}"
+									style="width: 300px; height: 200px;">
+							</div>
+							<table class="ui basic table" style="width: 250px;">
+								<tr>
+								</tr>
+								<tr class="tr">
+									<td colspan="2">입찰 &nbsp;&nbsp;&nbsp;&nbsp;${i.bidCount} 건</td>
+									<td>조회 &nbsp;&nbsp;&nbsp;&nbsp;${i.itemcount} 회</td>
+								</tr>
 
-					</tr>
-					<tr class="tr">
-						<td colspan="2">판매자 아이디</td>
-						<td >${userId}</td>
-					</tr>
-					<tr class="tr">
-						<td colspan="2">남은 시간</td>
-						<td >00</td>
-						
-					</tr>
+								<tr class="tr">
+									<td colspan="2">판매자 아이디</td>
+									<td>${i.memberName.userId}</td>
+								</tr>
+								<tr class="tr">
+									<td colspan="2">남은 시간</td>
+									<td>00</td>
 
-				</table>
+								</tr>
+							</table>
+
+						</div>
+					</div>
+				</c:forEach>
 			</div>
+		
 			<br>
 			<div class="chu">
 				<h1 class="pre">Eagle's Auction 인기경매</h1>
@@ -136,27 +155,41 @@ td {
 
 				</div>
 				<hr>
-				<div class="may" style=width:300px;>
+				<div id="firstColumn">
 				
-				</div>
-				<table>
-					<tr class="tr">
-						<td colspan="2">입찰  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  건</td>
-						<td>조회 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   회</td>
-						
+				<c:forEach var="i" items="${list5}">
+							
+					<div id="addDiv" class="four wide column"
+						style="display: inline-block;">
+						<div>
+							<div class="may" style="width: 300px;">
 
-					</tr>
-					<tr class="tr">
-						<td colspan="2">판매자 아이디</td>
-						<td >${userId }</td>
-					</tr>
-					<tr class="tr">
-						<td colspan="2">남은 시간</td>
-						<td >00</td>
-						
-					</tr>
+								<img src="resources/uploadFiles/${i.atta.changeName}"
+									style="width: 300px; height: 200px;">
+							</div>
+							<table class="ui basic table" style="width: 250px;">
+								<tr>
+								</tr>
+								<tr class="tr">
+									<td colspan="2">입찰 &nbsp;&nbsp;&nbsp;&nbsp;${i.bidCount} 건</td>
+									<td>조회 &nbsp;&nbsp;&nbsp;&nbsp;${i.itemcount} 회</td>
+								</tr>
 
-				</table>
+								<tr class="tr">
+									<td colspan="2">판매자 아이디</td>
+									<td>${i.memberName.userId}</td>
+								</tr>
+								<tr class="tr">
+									<td colspan="2">남은 시간</td>
+									<td>00</td>
+
+								</tr>
+							</table>
+
+						</div>
+					</div>
+				</c:forEach>
+			</div>
 			</div>
 
 			<div class="chu">
@@ -168,31 +201,47 @@ td {
 
 				</div>
 				<hr>
-				<div class="may" style=width:300px;>
+			<div id="firstColumn">
 				
-				</div>
-				<table>
-					<tr class="tr">
-						<td colspan="2">입찰  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;건</td>
-						<td>조회 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   회</td>
-						
+				<c:forEach var="i" items="${list6}">
+							
+					<div id="addDiv" class="four wide column"
+						style="display: inline-block;">
+						<div>
+							<div class="may" style="width: 300px;">
 
-					</tr>
-					<tr class="tr">
-						<td colspan="2">판매자 아이디</td>
-						<td >${userId}</td>
-					</tr>
-					<tr class="tr">
-						<td colspan="2">남은 시간</td>
-						<td >00</td>
-						
-					</tr>
+								<img src="resources/uploadFiles/${i.atta.changeName}"
+									style="width: 300px; height: 200px;">
+							</div>
+							<table class="ui basic table" style="width: 250px;">
+								<tr>
+								</tr>
+								<tr class="tr">
+									<td colspan="2">입찰 &nbsp;&nbsp;&nbsp;&nbsp;${i.bidCount} 건</td>
+									<td>조회 &nbsp;&nbsp;&nbsp;&nbsp;${i.itemcount} 회</td>
+								</tr>
 
-				</table>
+								<tr class="tr">
+									<td colspan="2">판매자 아이디</td>
+									<td>${i.memberName.userId}</td>
+								</tr>
+								<tr class="tr">
+									<td colspan="2">남은 시간</td>
+									<td>00</td>
+
+								</tr>
+							</table>
+
+						</div>
+					</div>
+				</c:forEach>
 			</div>
-
-			<div class="two wide column"></div>
+			
+</div>
+			
 		</div>
+		<div class="two wide column"></div>
+</div>
 
 </body>
 </html>

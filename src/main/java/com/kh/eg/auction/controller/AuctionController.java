@@ -40,7 +40,7 @@ public class AuctionController {
 	public @ResponseBody ArrayList<Item> selectAlign(Model model,@RequestParam String alignName) {
 
 
-		System.out.println("alignName"+alignName);
+		
 		ArrayList<Bid> list2=as.selectBid(alignName);
 		ArrayList<Item> list1=as.selectItem(alignName);
 		for(int i=0;i<list1.size();i++) {
@@ -76,7 +76,14 @@ public class AuctionController {
 		}
 		
 		
-		
+		for(Item i : list1) {
+			if(i.getAtta() != null) {
+				System.out.println(i.getItemNo() + ":" + i.getAtta().getChangeName());
+			} else {
+				System.out.println(i.getItemNo() + ":" + i.getAtta());
+			}
+			
+		}
 		
 		
 		if(alignName.equals("7")) {
@@ -95,14 +102,14 @@ public class AuctionController {
 
 				}
 			});
-			for(Item item:list1) {
-				System.out.println(item);
-			}
+		
 			return list1;
 
 		}
 		else {
+			
 			return list1;
+			
 
 		}
 		//return list1;
@@ -150,20 +157,9 @@ public class AuctionController {
 		
 		
 		
-		
-	/*	for(int i=0;i<list1.size();i++) {
-			for(int j=0;j<list4.size();j++) {
-				if(list1.get(i).getMid()==(list4.get(j).getMid())) {
-					list1.get(i).setMemberName(list4.get(j));break;
-					
-				}
-			}
-			
-		}*/
-		
-		
 		model.addAttribute("list1",list1);
-		System.out.println(list1);
+		
+		
 		
 		return "auction/auction";
 	}
@@ -220,7 +216,56 @@ public class AuctionController {
 
 		
 	}
+	
+	@RequestMapping("mainPage.au")
+	public String selectMain(HttpServletRequest request,Model model,Item it ) {
 
+		ArrayList<Bid> list2=as.selectBidM();
+		ArrayList<Item> list1=as.selectItemM();
+		for(int i=0;i<list1.size();i++) {
+			int count=0;
+			for(int j=0;j<list2.size();j++) {
+				if(list2.get(j).getItemNo()==(list1.get(i).getItemNo())) {
+					count++;
+				}
+			}
+			list1.get(i).setBidCount(count);
+
+		};
+		ArrayList<Attachment>list3=as.selectAttachmentM();
+
+		for(int i=0;i<list1.size();i++) {
+			for(int j=0;j<list3.size();j++) {
+				if(list1.get(i).getItemNo()==(list3.get(j).getItemNo())) {
+					list1.get(i).setAtta(list3.get(j));break;
+				}
+			}
+		};
+
+		
+		ArrayList<Member> list4= as.selectMemberM();
+		System.out.println(list4);
+		for(int i=0;i<list1.size();i++) {
+			for(int j=0;j<list4.size();j++) {
+				if(list1.get(i).getMid().equals(list4.get(j).getMid())) {
+					list1.get(i).setMemberName(list4.get(j));break;
+				}
+			}
+		}
+		
+		ArrayList<Item> list5 = list1;
+		ArrayList<Item> list6= list1;
+		
+		
+		model.addAttribute("list1",list1);
+	
+		model.addAttribute("list5",list5);
+		model.addAttribute("list6",list6);
+		
+		return "main/main";
+	
+	
+	}
 
 
 

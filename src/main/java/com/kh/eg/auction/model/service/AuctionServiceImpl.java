@@ -101,4 +101,28 @@ public class AuctionServiceImpl implements AuctionService {
 		return ad.selectMember1(sqlSession,categoryLevel);
 	}
 
+	@Override
+	public ArrayList<Bid> selectBidM() {
+		// TODO Auto-generated method stub
+		return ad.mainBid(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Item> selectItemM() {
+		// TODO Auto-generated method stub
+		return ad.mainItem(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Attachment> selectAttachmentM() {
+		// TODO Auto-generated method stub
+		return ad.mainAttachment(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Member> selectMemberM() {
+		// TODO Auto-generated method stub
+		return ad.mainMember(sqlSession);
+	}
+
 }

@@ -148,7 +148,7 @@
 
 
 	<select id="selectItemC2" resultMap="itemResultSet" parameterType="java.lang.String">
-		select * from auctionitem a join auctiondetail ad on(a.itemno=ad.itemno) order by endday asc 
+		select * from auctionitem a left outer join auctiondetail ad on(a.itemno=ad.itemno) order by endday asc 
 	
 	</select>
 	
@@ -163,7 +163,7 @@
 	</select>
 	
 		<select id="selectItemC3" resultMap="itemResultSet" parameterType="java.lang.String">
-		select * from auctionitem a join auctiondetail ad on(a.itemno=ad.itemno) order by startday desc 
+		select * from auctionitem a left outer join auctiondetail ad on(a.itemno=ad.itemno) order by startday desc 
 	
 	</select>
 	
@@ -347,7 +347,13 @@
 	
 	
 	</select>
-	
+	<select id="popularItem" resultMap="itemResultSet" parameterType="java.lang.String" >
+		SELECT RNUM,ITEMNO,ITEMNAME,STARTPRICE,BIDUNIT,DELIVERYPAY,ORIGIN,DELETEYN,CATEGORYNO,MEMBERNO,AUCTIONCODE,DETAIL,
+DELIVERYPRICE, ICOUNT,STARTDAY FROM(
+SELECT ROWNUM RNUM, A.ITEMNO,A.ITEMNAME,A.STARTPRICE,A.BIDUNIT,A.DELIVERYPAY,A.ORIGIN,A.DELETEYN,A.CATEGORYNO,A.MEMBERNO,AUCTIONCODE,DETAIL,
+DELIVERYPRICE, ICOUNT,AD.STARTDAY FROM AUCTIONITEM A JOIN AUCTIONDETAIL AD ON(A.ITEMNO=AD.ITEMNO)) 
+WHERE RNUM BETWEEN 1 AND 8 ORDER BY STARTDAY DESC
+	</select>
 	
 	
 	
