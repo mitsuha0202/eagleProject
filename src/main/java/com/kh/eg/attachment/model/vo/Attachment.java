@@ -14,6 +14,8 @@ public class Attachment implements java.io.Serializable {
 	private String boardNo;
 	private int itemNo;
 	
+	
+	
 
 	public Attachment() {}
 
