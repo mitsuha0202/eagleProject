@@ -39,9 +39,9 @@
 			</div>
 			<div id=chartArea align="center" style="margin-top: 40px;">
 			<div id="chart" class="chart" style="width:500px;height:324px; margin-right: 30px;"></div>
-			<div id="chart1" class="chart" style="width:500px;height:324px;"></div>
+			<!-- <div id="chart1" class="chart" style="width:500px;height:324px;"></div>
 			<div id="chart2" class="chart" style="width:500px;height:324px; margin-right: 30px; margin-top: 50px;"></div>
-			<div id="chart3" class="chart" style="width:500px;height:324px; margin-top: 50px;"></div>
+			<div id="chart3" class="chart" style="width:500px;height:324px; margin-top: 50px;"></div> -->
 			</div>
 		</div><!--// contBox E-->
 
@@ -55,6 +55,36 @@
 
 <script type="text/javascript">
 jQuery(document).ready(function () {
+	
+	
+	$.ajax({
+		url:"categoryDays.sad",
+		type:"get",
+		dataType:"json",
+		success:function(data){
+			var line = [6, 5, 2, 4, 6, 6, 4];
+		    jQuery("#chart").jqplot([line], {
+		          title:"일일"
+		        , seriesDefaults:{
+		              renderer:jQuery.jqplot.BarRenderer
+		            , rendererOptions:{
+		                varyBarColor:true
+		            }
+		        }
+		        , axes:{
+		            xaxis:{
+		                  renderer:jQuery.jqplot.CategoryAxisRenderer
+
+		                , ticks:['미술', '음악앨범', '의류', '생활가전', '비디오게임','피규어','레고']
+
+		            }
+		        }
+		    });
+		},
+		error:function(data){
+			alert()
+		}
+	});
     var line = [6, 5, 2, 4, 6, 6, 4];
     jQuery("#chart").jqplot([line], {
           title:"일일"
@@ -75,7 +105,7 @@ jQuery(document).ready(function () {
     });
 });
 
-jQuery(document).ready(function () {
+/* jQuery(document).ready(function () {
     var line = [6, 5, 2, 4, 6, 6, 4];
     jQuery("#chart1").jqplot([line], {
           title:"주간"
@@ -136,7 +166,7 @@ jQuery(document).ready(function () {
             }
         }
     });
-});
+}); */
 </script>
 
 
