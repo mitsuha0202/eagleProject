@@ -178,4 +178,21 @@
     <servlet-name>AdMemberList</servlet-name>
     <url-pattern>/memberList</url-pattern>
   </servlet-mapping>
+  
+   <servlet>
+    <servlet-name>mainPage</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>/WEB-INF/config/mainPage-servlet.xml</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>mainPage</servlet-name>
+    <url-pattern>*.ma</url-pattern>
+  </servlet-mapping>
+  
+  
+  
 </web-app>

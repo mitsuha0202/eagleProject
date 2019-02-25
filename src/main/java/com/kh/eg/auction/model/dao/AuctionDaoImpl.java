@@ -305,5 +305,30 @@ public class AuctionDaoImpl implements AuctionDao {
 		return memberlist1;
 	}
 
+	@Override
+	public ArrayList<Bid> mainBid(SqlSessionTemplate sqlSession) {
+		// TODO Auto-generated method stub
+		return (ArrayList)sqlSession.selectList("Item.selectBid");
+	}
+
+	@Override
+	public ArrayList<Item> mainItem(SqlSessionTemplate sqlSession) {
+		
+		return (ArrayList)sqlSession.selectList("Item.popularItem");
+		
+	}
+
+	@Override
+	public ArrayList<Attachment> mainAttachment(SqlSessionTemplate sqlSession) {
+		// TODO Auto-generated method stub
+		return (ArrayList)sqlSession.selectList("Item.selectAttachment");
+	}
+
+	@Override
+	public ArrayList<Member> mainMember(SqlSessionTemplate sqlSession) {
+		// TODO Auto-generated method stub
+		return (ArrayList)sqlSession.selectList("Item.selectMember");
+	}
+
 
 }

@@ -38,5 +38,13 @@ public interface AuctionService {
 
 	ArrayList<Member> selectMember1(String categoryLevel);
 
+	ArrayList<Bid> selectBidM();
+
+	ArrayList<Item> selectItemM();
+
+	ArrayList<Attachment> selectAttachmentM();
+
+	ArrayList<Member> selectMemberM();
+
 
 }

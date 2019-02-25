@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-	 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,9 +49,10 @@ h4 {
 .nay {
 	float: right;
 }
+
 .may {
-	height:200px;
-	border:1px solid black;
+	height: 200px;
+	border: 1px solid black;
 }
 </style>
 
@@ -77,12 +78,12 @@ h4 {
 				<div class="results"></div>
 			</div>
 			<br> <br> <br> <br>
-			
+
 			<table class="ui basic table" style="width: 500px;">
-				
+
 				<thead>
-					<tr >
-						
+					<tr>
+
 						<th class="thclass"><input type="hidden" value="8">전체보기</th>
 						<th class="thclass"><input type="hidden" value="1">미술</th>
 						<th class="thclass"><input type="hidden" value="2">음악앨범</th>
@@ -90,249 +91,268 @@ h4 {
 					</tr>
 				</thead>
 				<tbody>
-					<tr >
+					<tr>
 						<th class="thclass"><input type="hidden" value="4">생활가전</th>
 						<th class="thclass"><input type="hidden" value="5">비디오게임</th>
 						<th class="thclass"><input type="hidden" value="6">피규어</th>
 						<th class="thclass"><input type="hidden" value="7">레고</th>
 					</tr>
 				</tbody>
-				
+
 			</table>
-			
+
 			<br> <br>
 			<h4>모두 0000000개의 물품이 검색되었습니다</h4>
 			<div class="nay">
 				<div style="font-size: 20px;">
-				<span class="jung">
-				<input type="hidden" value="1">인기경매순</span>&nbsp;|&nbsp;
-				<span class="jung" >
-				<input type="hidden" value="2">마감임박순</span>&nbsp;|&nbsp;
-				<span class="jung" >
-				<input type="hidden" value="3">신규경매순</span>&nbsp;|&nbsp;
-				<span class="jung" >
-				<input type="hidden" value="4">높은가격순</span>&nbsp;|&nbsp;
-				<span class="jung" >
-				<input type="hidden" value="5">낮은가격순</span>&nbsp;|&nbsp;
-				<span class="jung" >
-				<input type="hidden" value="6">조회많은순</span>&nbsp;|&nbsp;
-				<span class="jung" >
-				<input type="hidden" value="7">입찰많은순
-				</span>
-				
+					<span class="jung"> <input type="hidden" value="1">인기경매순
+					</span>&nbsp;|&nbsp; <span class="jung"> <input type="hidden"
+						value="2">마감임박순
+					</span>&nbsp;|&nbsp; <span class="jung"> <input type="hidden"
+						value="3">신규경매순
+					</span>&nbsp;|&nbsp; <span class="jung"> <input type="hidden"
+						value="4">높은가격순
+					</span>&nbsp;|&nbsp; <span class="jung"> <input type="hidden"
+						value="5">낮은가격순
+					</span>&nbsp;|&nbsp; <span class="jung"> <input type="hidden"
+						value="6">조회많은순
+					</span>&nbsp;|&nbsp; <span class="jung"> <input type="hidden"
+						value="7">입찰많은순
+					</span>
+
 				</div>
-				
+
 			</div>
-			<br>
-			<br>
+			<br> <br>
 			<hr>
-			
+
 			<!-- <div id="grid" class="ui grid" style="display:inline-block;"> -->
 			<div id="firstColumn">
-			 <c:forEach var="i" items="${list1}">
-			
-  			<div id="addDiv" class="four wide column" style="display:inline-block;">
-  			<div>
-			<div class="may" style="width:300px;">
+				<c:forEach var="i" items="${list1}">
 
-				 <img src="resources/uploadFiles/${i.atta.changeName}" style="width: 300px;height:200px;">
-				</div>
-			<table class="ui basic table" style="width:250px;">
-			 <tr>
-			</tr>
-			<tr class="tr">
-				<td colspan="2">입찰 &nbsp;&nbsp;&nbsp;&nbsp;${i.bidCount} 건</td>
-				<td>조회 &nbsp;&nbsp;&nbsp;&nbsp;${i.itemcount} 회</td>
-			</tr>
-			
-			<tr class="tr">
-				<td colspan="2">판매자 아이디</td>
-				<td>${i.memberName.userId}</td>
-			</tr>
-			<tr class="tr">
-				<td colspan="2">남은 시간</td>
-				<td>00</td>
+					<div id="addDiv" class="four wide column"
+						style="display: inline-block;">
+						<div>
+							<div class="may" style="width: 300px;">
 
-			</tr>
-		</table>
-			
-		</div>
-	</div>
-  	</c:forEach>
-  	</div>
-  		
-			</div>
-			
-		
-		</div>
-			
-	<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script type="text/javascript">
-	
-	
-	//카테고리 클릭 했을 때
-		$(".thclass").click(function(){
-			
-			var categoryLevel=$(this).children().val();
-			console.log(categoryLevel);
-			$.ajax({
-				url:"searchCate.au",
-				type:'GET',
-				data:{categoryLevel:categoryLevel},
-				success:function(data){
-					alert("성공");
-					console.log(data);
-					$("#addDiv").html("");
-					
-					
-					for(key in data){
-					var $div1 = $("<div class='may' style='width:300px;height:200px';>");
-					var $img = $("<img style='width:300px;height:200px'; src='resources/uploadFiles/"+data[key].atta.changeName+"'>");
-					console.log(data[key].atta.changeName);
-					var $table = $("<table class='ui basic table' style='width:250px;'>");
-					var $tr1 = $("<tr>");
-					var $tr2 = $("<tr class='tr'>");
-					var $td1 = $("<td colspan='2'>");
-					$td1.text("입찰                            "+data[key].bidCount+ " 건");
-					var $td2 = $("<td>");
-					$td2.text("조회                            "+data[key].itemcount+"회");
-					var $tr3 = $("<tr class='tr'>");
-					var $td3 = $("<td colspan='2'>");
-					$td3.text("판매자 아이디");
-					var $td4 = $("<td>");
-					$td4.text(data[key].memberName.userId);
-					var $tr4 = $("<tr class='tr'>");
-					var $td5 = $("<td colspan='2'>");
-					$td5.text("남은 시간");
-					var $td6 = $("<td>");
-					$td6.text("00");
-					var $addDiv = $("#addDiv");
-					$tr2.append($td1);
-					$tr2.append($td2);
-					$tr3.append($td3);
-					$tr3.append($td4);
-					$tr4.append($td5);
-					$tr4.append($td6);
-					$table.append($tr1);
-					$table.append($tr2);
-					$table.append($tr3);
-					$table.append($tr4);
-					$div1.append($img); 
-					$addDiv.append($div1);
-					$addDiv.append($table);
-					
-					// $add.append($div1);
-					//$add.append($table); 
-					//$addDiv.append($add);   
-					}
-				},
-				error:function(data) {
-					alert("error:"+error);
-				}
-					
-				});
-				
-			});
-			
-	
-	
-	//인기경매순------ 정렬 클릭했을 때
-			
-		$(".jung").click(function(){
-			 alignName=$(this).children().val();
-			console.log(alignName);
-			 $("#firstColumn").html("");
-			 
-			$.ajax({
-				url:"selectAlign.au",
-				type:'GET',
-				data:{alignName:alignName},
-				success:function(data) {
-				
-						for(key in data){
-						var $div1 = $("<div class='may' style='width:300px;height:200px';>");
-						var $img = $("<img style='width:300px;height:200px'; src='resources/uploadFiles/"+data[key].atta.changeName+"'>");
-						console.log(data[key].atta.changeName);
-						var $table = $("<table class='ui basic table' style='width:250px;'>");
-						var $tr1 = $("<tr>");
-						var $tr2 = $("<tr class='tr'>");
-						var $td1 = $("<td colspan='2'>");
-						$td1.text("입찰                            "+data[key].bidCount+ " 건");
-						var $td2 = $("<td>");
-						$td2.text("조회                            "+data[key].itemcount+"회");
-						var $tr3 = $("<tr class='tr'>");
-						var $td3 = $("<td colspan='2'>");
-						$td3.text("판매자 아이디");
-						var $td4 = $("<td>");
-						$td4.text(data[key].memberName.userId);
-						var $tr4 = $("<tr class='tr'>");
-						var $td5 = $("<td colspan='2'>");
-						$td5.text("남은 시간");
-						var $td6 = $("<td>");
-						$td6.text("00");
-						var $addDiv = $("<div id='addDiv' class='four wide column' style='display:inline-block;'>");
-						$tr2.append($td1);
-						$tr2.append($td2);
-						$tr3.append($td3);
-						$tr3.append($td4);
-						$tr4.append($td5);
-						$tr4.append($td6);
-						$table.append($tr1);
-						$table.append($tr2);
-						$table.append($tr3);
-						$table.append($tr4);
-						$div1.append($img); 
-						$addDiv.append($div1);
-						$addDiv.append($table);
-						var $firstcolumn=$("#firstColumn");
-						$firstcolumn.append($addDiv); 
-						 //$("#addDiv").html(""); 			
-						
-					/* 	 var $grid=$("#grid");
-						$grid.append($addDiv); */
-						// $add.append($div1);
-						//$add.append($table); 
-						//$addDiv.append($add);   
-						}
-					
-					
-					
-/* 					<div class="may" style=width:300px;>
-						 <img src="../../../resources/uploadFiles/${i.atta.changeName}">
+								<img src="resources/uploadFiles/${i.atta.changeName}"
+									style="width: 300px; height: 200px;">
+							</div>
+							<table class="ui basic table" style="width: 250px;">
+								<tr>
+								</tr>
+								<tr class="tr">
+									<td colspan="2">입찰 &nbsp;&nbsp;&nbsp;&nbsp;${i.bidCount} 건</td>
+									<td>조회 &nbsp;&nbsp;&nbsp;&nbsp;${i.itemcount} 회</td>
+								</tr>
+
+								<tr class="tr">
+									<td colspan="2">판매자 아이디</td>
+									<td>${i.memberName.userId}</td>
+								</tr>
+								<tr class="tr">
+									<td colspan="2">남은 시간</td>
+									<td>00</td>
+
+								</tr>
+							</table>
+
+						</div>
 					</div>
-					<table class="ui basic table" style="width:250px;">
-						 <tr>
-						</tr>
-						<tr class="tr">
-							<td colspan="2">입찰 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${i.bidCount} 건</td>
-							<td>조회 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${i.itemcount} 회</td>
-						</tr>
-						<tr class="tr">
-							<td colspan="2">판매자 아이디</td>
-							<td>${i.mid}</td>
-						</tr>
-						<tr class="tr">
-							<td colspan="2">남은 시간</td>
-							<td>00</td>
-						</tr>
-					</table> */
-					
-					
-				},
-				error:function(error) {
-					alert("error"+error);
-				}
-				
-			});
-		});
-		
-		
-		</script>
+				</c:forEach>
+			</div>
+
+		</div>
 
 
-		<!-- 내용 넣기 -->
-	
+	</div>
+
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		//카테고리 클릭 했을 때
+		$(".thclass")
+				.click(
+						function() {
+
+							var categoryLevel = $(this).children().val();
+							console.log(categoryLevel);
+							$
+									.ajax({
+										url : "searchCate.au",
+										type : 'GET',
+										data : {
+											categoryLevel : categoryLevel
+										},
+										success : function(data) {
+											alert("성공");
+											console.log(data);
+											$("#addDiv").html("");
+
+											for (key in data) {
+												var $div1 = $("<div class='may' style='width:300px;height:200px';>");
+												var $img = $("<img style='width:300px;height:200px'; src='resources/uploadFiles/"+data[key].atta.changeName+"'>");
+												console
+														.log(data[key].atta.changeName);
+												var $table = $("<table class='ui basic table' style='width:250px;'>");
+												var $tr1 = $("<tr>");
+												var $tr2 = $("<tr class='tr'>");
+												var $td1 = $("<td colspan='2'>");
+												$td1
+														.text("입찰                            "
+																+ data[key].bidCount
+																+ " 건");
+												var $td2 = $("<td>");
+												$td2
+														.text("조회                            "
+																+ data[key].itemcount
+																+ "회");
+												var $tr3 = $("<tr class='tr'>");
+												var $td3 = $("<td colspan='2'>");
+												$td3.text("판매자 아이디");
+												var $td4 = $("<td>");
+												$td4
+														.text(data[key].memberName.userId);
+												var $tr4 = $("<tr class='tr'>");
+												var $td5 = $("<td colspan='2'>");
+												$td5.text("남은 시간");
+												var $td6 = $("<td>");
+												$td6.text("00");
+												var $addDiv = $("#addDiv");
+												$tr2.append($td1);
+												$tr2.append($td2);
+												$tr3.append($td3);
+												$tr3.append($td4);
+												$tr4.append($td5);
+												$tr4.append($td6);
+												$table.append($tr1);
+												$table.append($tr2);
+												$table.append($tr3);
+												$table.append($tr4);
+												$div1.append($img);
+												$addDiv.append($div1);
+												$addDiv.append($table);
+
+												// $add.append($div1);
+												//$add.append($table); 
+												//$addDiv.append($add);   
+											}
+										},
+										error : function(data) {
+											alert("error:" + error);
+										}
+
+									});
+
+						});
+
+		//인기경매순------ 정렬 클릭했을 때
+
+		$(".jung")
+				.click(
+						function() {
+							alignName = $(this).children().val();
+							console.log(alignName);
+							$("#firstColumn").html("");
+
+							$.ajax({
+								url : "selectAlign.au",
+								type : 'GET',
+								data : {
+									alignName : alignName
+								},
+								success : function(data) {
+
+									console.log(data);
+
+									for (var i = 0; i < data.length; i++) {
+										console.log(i);
+										var $div1 = $("<div class='may' style='width:300px;'>");
+										var $img = $("<img style='width:300px;height:200px;' src='resources/uploadFiles/"+data[i].atta.changeName+"'>");
+										/* console.log(data[i].atta.changeName); */
+										var $table = $("<table class='ui basic table' style='width:250px;'>");
+										var $tbody = $("<tbody>");
+										var $tr1 = $("<tr>");
+										var $tr2 = $("<tr class='tr'>");
+										var $td1 = $("<td colspan='2'>");
+										$td1.text("입찰                            "
+														+ data[i].bidCount
+														+ " 건");
+										var $td2 = $("<td>");
+										$td2.text("조회                            "
+														+ data[i].itemcount
+														+ "회");
+										var $tr3 = $("<tr class='tr'>");
+										var $td3 = $("<td colspan='2'>");
+										$td3.text("판매자 아이디");
+										var $td4 = $("<td>");
+										$td4.text(data[i].memberName.userId);
+										var $tr4 = $("<tr class='tr'>");
+										var $td5 = $("<td colspan='2'>");
+										$td5.text("남은 시간");
+										var $td6 = $("<td>");
+										$td6.text("00");
+										var $div=$("<div>");
+										var $addDiv = $("<div id='addDiv' class='four wide column' style='display:inline-block;'>");
+										$tr2.append($td1);
+										$tr2.append($td2);
+										$tr3.append($td3);
+										$tr3.append($td4);
+										$tr4.append($td5);
+										$tr4.append($td6);
+										$tbody.append($tr1);
+										$tbody.append($tr2);
+										$tbody.append($tr3);
+										$tbody.append($tr4);
+										$table.append($tbody);
+										$div1.append($img);
+										$div.append($div1);
+										$div.append($table);
+										$addDiv.append($div);
+									
+										var $firstcolumn = $("#firstColumn");
+										$firstcolumn.append($addDiv);
+										//$("#addDiv").html(""); 			
+
+										/* 	 var $grid=$("#grid");
+											$grid.append($addDiv); */
+										// $add.append($div1);
+										//$add.append($table); 
+										//$addDiv.append($add);   
+									}
+
+									/* 					<div class="may" style=width:300px;>
+									 <img src="../../../resources/uploadFiles/${i.atta.changeName}">
+									 </div>
+									 <table class="ui basic table" style="width:250px;">
+									 <tr>
+									 </tr>
+									 <tr class="tr">
+									 <td colspan="2">입찰 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${i.bidCount} 건</td>
+									 <td>조회 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${i.itemcount} 회</td>
+									 </tr>
+									 <tr class="tr">
+									 <td colspan="2">판매자 아이디</td>
+									 <td>${i.mid}</td>
+									 </tr>
+									 <tr class="tr">
+									 <td colspan="2">남은 시간</td>
+									 <td>00</td>
+									 </tr>
+									 </table> */
+
+								},
+								error : function(error) {
+									alert("error" + error);
+								}
+
+							});
+						});
+	</script>
+
+
+	<!-- 내용 넣기 -->
+
 	<div class="two wide column"></div>
 
 
