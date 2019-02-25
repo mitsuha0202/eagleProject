@@ -219,4 +219,16 @@ private BiddingService bs;
 			return null;
 		}
 	}
+	
+	@RequestMapping("auctionFinish.bi")
+	public @ResponseBody int updateStatus(@RequestParam(value="itemNo", required=false) String itemNo, HttpServletRequest request, HttpServletResponse response) {
+		int result = bs.updateStatus(itemNo);
+	
+		if(result > 0) {
+			return result;
+		}
+		else {
+			return 0;
+		}
+	}
 }

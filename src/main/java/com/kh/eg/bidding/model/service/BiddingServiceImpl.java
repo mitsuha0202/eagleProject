@@ -113,4 +113,11 @@ private SqlSessionTemplate sqlSession;
 		
 		return att;
 	}
+
+	@Override
+	public int updateStatus(String itemNo) {
+		int result = bd.updateStatus(sqlSession, itemNo);
+		
+		return result;
+	}
 }
