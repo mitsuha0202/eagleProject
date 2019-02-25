@@ -22,8 +22,11 @@
 		
 	</resultMap>
 	
-	<select id="selectSEQ">
+	<select id="selectSEQ" resultMap="emoneyResultSet">
 		SELECT MRN_SEQ.NEXTVAL FROM DUAL
+	</select>
+	<select id="selectSEQb">
+		SELECT MCN_SEQ.NEXTVAL FROM DUAL
 	</select>
 	
 	<insert id="insertEmoney" parameterType="emoney">
@@ -46,7 +49,7 @@
 	</insert>
 	
 	<select id="selectEmoneyeSq" resultType="_int">
-		SELECT MCN_SEQ.NEXTVAL FROM DUAL 
+		SELECT MEN_SEQ.NEXTVAL FROM DUAL 
 	</select>
 	<insert id="refundEmoneyeInsert" parameterType="emoney">
 		INSERT

@@ -39,11 +39,13 @@ public class emoneyDaoImpl implements emoneyDao{
 	}
 	
 	@Override
-	public int updateEmoney(SqlSessionTemplate sqlSession, Member m) {
+	public int updateEmoney(SqlSessionTemplate sqlSession, Member m, emoney e) {
 		System.out.println("test");
-		int result = sqlSession.update("Member.updateEmoney", m);
-		
-		System.out.println("result이것도찍히나3 " + result);
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("mid", Integer.parseInt(m.getMid()));
+		map.put("emoney", m.getEmoney());
+		int result = sqlSession.update("Member.updateEmoney", map);
+		System.out.println("멤버이머니업데이트되나 " + result);
 		
 		return result;
 	}

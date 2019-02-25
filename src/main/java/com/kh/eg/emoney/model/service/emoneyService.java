@@ -16,7 +16,7 @@ public interface emoneyService {
 
 	int getListCount(emoney e);
 
-	int updateEmoney(Member m);
+	int updateEmoney(Member m, emoney e);
 
 	ArrayList<emoney> refundEmoneyList(PageInfo pi, emoney e);
 

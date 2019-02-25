@@ -27,10 +27,10 @@
 		</tr>
 		<br><br>
 		<tr>
-			<button onclick="location.href='charge.em'">충전하기</button>	
-			<button onclick="location.href='refundMain.em'">환급메인</button>		
+			<button class="btn btn-secondary btn-lg active" onclick="location.href='charge.em'">충전하기</button>	
+			<button class="btn btn-secondary btn-lg active" onclick="location.href='refundMain.em'">환급메인</button>		
 		</tr>
-
+		<br><br>
 		<c:if test="${!empty list}">
 		<table align="center" id="listArea" class="table table-striped"  border:1px; solid #dddddd">
 		 		<thead>

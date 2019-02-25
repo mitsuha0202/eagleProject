@@ -43,8 +43,8 @@ public class emoneyServiceImpl implements emoneyService {
 	}
 	
 	@Override
-	public int updateEmoney(Member m) {
-		int result = ed.updateEmoney(sqlSession, m);
+	public int updateEmoney(Member m, emoney e) {
+		int result = ed.updateEmoney(sqlSession, m, e);
 		
 		System.out.println("result3 : " + result);
 		return result;

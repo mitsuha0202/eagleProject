@@ -136,7 +136,7 @@
 		    	    		},
 		    	    		success:function(data){
 		    	    			console.log(data);
-		    	    			if(data == 1){
+		    	    			if(data > 0){
 		    	    				ok = true;
 		    	    			}
 		    	    		}
