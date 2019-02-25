@@ -22,9 +22,10 @@
 		<div class="title"><h1>사이버머니</h1></div>
 		<br><br><br>
 		<tr>
-			<td>보유 금액 : </td>
-			<td>${ e.money }</td>
+			<td>보유 금액 : <c:out value="${ sessionScope.loginUser.emoney } 원"/></td>
+			
 		</tr>
+		<br><br>
 		<tr>
 			<button onclick="location.href='charge.em'">충전하기</button>	
 			<button onclick="location.href='refundMain.em'">환급메인</button>		

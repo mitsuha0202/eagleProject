@@ -114,9 +114,9 @@
 	</select>
 
 	<!-- 환급시 보유 이머니 업데이트 -->
-	<update id="updateRefundEmoney">
+	<update id="updateRefundEmoney" parameterType="java.lang.Integer" >
 		UPDATE MEMBER
-		SET EMONEY = (EMONEY - #{emoney})
+		SET EMONEY = (EMONEY-#{emoney, jdbcType=NUMERIC})
 		WHERE MEMBERNO = #{mid}
 	</update>
 	

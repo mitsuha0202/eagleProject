@@ -1,15 +1,17 @@
 package com.kh.eg.emoney.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
+import org.eclipse.jdt.internal.compiler.parser.ParserBasicInformation;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.eg.emoney.model.vo.PageInfo;
 import com.kh.eg.emoney.model.vo.emoney;
 import com.kh.eg.member.model.vo.Member;
-import com.kh.eg.common.Attachment;
+
 
 @Repository
 public class emoneyDaoImpl implements emoneyDao{
@@ -42,6 +44,20 @@ public class emoneyDaoImpl implements emoneyDao{
 		int result = sqlSession.update("Member.updateEmoney", m);
 		
 		System.out.println("result이것도찍히나3 " + result);
+		
+		return result;
+	}
+	
+	@Override
+	public int updateRefundEmoney(SqlSessionTemplate sqlSession, Member m, emoney e) {
+		System.out.println("환급test");
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("mid", Integer.parseInt(m.getMid()));
+		/*map.put("emoney", String.valueOf(m.getEmoney()));*/
+		map.put("emoney", m.getEmoney());
+		/*String money = String.valueOf(m.getEmoney());*/
+		int result = sqlSession.update("Member.updateRefundEmoney", map);
+		System.out.println("환급업데이트잘되는지확인 : " + result);		
 		
 		return result;
 	}
@@ -93,14 +109,7 @@ public class emoneyDaoImpl implements emoneyDao{
 		return result;
 	}
 
-	@Override
-	public int updateRefundEmoney(SqlSessionTemplate sqlSession, Member m) {
-		System.out.println("환급test");
-		int result = sqlSession.update("Member.updateRefundEmoney", m);
-		System.out.println("환급업데이트잘되는지확인 : " + result);		
-		
-		return result;
-	}
+	
 
 	@Override
 	public int selectCurrval(SqlSessionTemplate sqlSession, emoney e) {
@@ -120,6 +129,21 @@ public class emoneyDaoImpl implements emoneyDao{
 		return useNo;
 	}
 
+	@Override
+	public int selectEmoneyeSq(SqlSessionTemplate sqlSession, emoney e) {
+
+		int result = sqlSession.selectOne("emoney.selectEmoneyeSq", e);
+		return result;
+	}
+
+	@Override
+	public int refundEmoneyeInsert(SqlSessionTemplate sqlSession, emoney e) {
+
+		int result = sqlSession.insert("emoney.refundEmoneyeInsert", e);
+		return result;
+	}
+
+	
 	
 	
 	

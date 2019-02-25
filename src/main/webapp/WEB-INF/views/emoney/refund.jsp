@@ -83,13 +83,9 @@
 					</script>
 					<br>					
 					<td>환급금액  </td>
-					<td id="tdChargeCashMoney"><label id="amount">0</label>원</td>
-										
-					<td>환급 후 금액 </td>
-					<td id="afterChargeCash"><label id="amount">0</label></td>					
+					<td id="tdChargeCashMoney"><label id="amount">0</label>원</td>					
 					<tr>
 						<br>						
-						<td>환급신청</td>
 							<button  id="refundFunction" type="button" >환급신청</button>
 					</tr>
 					
@@ -105,23 +101,23 @@
 		
 		$("input[type = radio]").click(function(){
 			$("#amount").text($(this).val());				
-			chargeMoney = $(this).val();
+			refundEmoney = $(this).val();
 			 
 		});
 		
 		$("#refundFunction").click(function(){
-			/* var loginUser = '${sessionScope.loginUser}'; */
 				var ok = false;
 				jQuery.ajax({
 					url:"refundMemberEmoney.em",
 					type: "POST",
 					dataType: "json",
 					data : {
-						refundEmoney : chargeMoney
+						refundEmoney : refundEmoney  
 					},
 					success:function(data){
 						console.log(data);
-						if(data == 1){
+						if(data > 0){
+							
 							ok = true;
 						}
 					}
@@ -129,7 +125,8 @@
 				}).done(function (data){
 					if(ok){
 						var msg = '환급신청되었습니다.';
-						alert(msg);				
+						alert(msg);
+						
 					}else{
 						var msg ='환급실패';
 						

@@ -22,7 +22,11 @@ public interface emoneyService {
 
 	int refundMemberEmoney(emoney e);
 
-	int updateRefundEmoney(Member m);
+	int updateRefundEmoney(Member m, emoney e);
+
+	int selectEmoneyeSq(emoney e);
+
+	int refundEmoneyeInsert(emoney e);
 
 /*	int selectCurrval(emoney e);
 

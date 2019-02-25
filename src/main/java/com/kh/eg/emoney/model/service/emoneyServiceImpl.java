@@ -84,11 +84,27 @@ public class emoneyServiceImpl implements emoneyService {
 
 
 	@Override
-	public int updateRefundEmoney(Member m) {
-		int result = ed.updateRefundEmoney(sqlSession, m);
+	public int updateRefundEmoney(Member m, emoney e) {
+		int result = ed.updateRefundEmoney(sqlSession, m, e);
 		
 		System.out.println("환급시 업데이트잘되나? : "+ result);
 		
+		return result;
+	}
+
+
+	@Override
+	public int selectEmoneyeSq(emoney e) {
+		int result = ed.selectEmoneyeSq(sqlSession, e);
+		System.out.println("시퀀스확인중 : " + result);
+		return result;
+	}
+
+
+	@Override
+	public int refundEmoneyeInsert(emoney e) {
+		int result = ed.refundEmoneyeInsert(sqlSession, e);
+		System.out.println("인설트 잘 되는지 확인중 : " + result);
 		return result;
 	}
 
