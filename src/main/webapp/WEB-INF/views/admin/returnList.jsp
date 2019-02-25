@@ -36,8 +36,8 @@
 				<thead>
 					<tr>
 						<th scope="col">선택</th>
-						<th scope="col">신청자 아이디</th>
-						<th scope="col">수령인 아이디</th>
+						<th scope="col">구매자 아이디</th>
+						<th scope="col">판매자 아이디</th>
 						<th scope="col">연락처</th>
 						<th scope="col">배송주소</th>
 						<th scope="col">경매물품</th>
