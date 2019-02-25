@@ -21,4 +21,6 @@ public interface ItemDao {
 
 	ArrayList<Category> selectCategory(SqlSessionTemplate sqlSession);
 
+	ArrayList<Category> selectMiddleCategory(SqlSessionTemplate sqlSession, String cateNo);
+
 }

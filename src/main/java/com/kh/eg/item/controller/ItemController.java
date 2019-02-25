@@ -52,12 +52,13 @@ public class ItemController {
 			return "item/itemRegist";
 		}
 	@RequestMapping("middleCategory.it")
-	public @ResponseBody ArrayList<Category> middleCategory(Model model,@RequestParam String bigc) {
+	public @ResponseBody ArrayList<Category> middleCategory(Model model,@RequestParam(value="cateNo") String cateNo) {
 		
-		System.out.println("bigc"+bigc);
+		System.out.println("cateNo"+cateNo);
+		ArrayList<Category> category =is.selectMiddleCategory(cateNo);
+		System.out.println("category: asdf" + category);
 		
-		
-		return null;
+		return category;
 		
 	}
 	

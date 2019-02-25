@@ -51,5 +51,11 @@ public class ItemDaoImpl implements ItemDao {
 		
 		return (ArrayList)sqlSession.selectList("Item.selectCategory");
 	}
+
+	@Override
+	public ArrayList<Category> selectMiddleCategory(SqlSessionTemplate sqlSession, String cateNo) {
+		// TODO Auto-generated method stub
+		return (ArrayList)sqlSession.selectList("Item.selectMiddleCategory",cateNo);
+	}
 	
 }
