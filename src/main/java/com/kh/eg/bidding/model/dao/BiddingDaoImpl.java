@@ -81,4 +81,10 @@ public class BiddingDaoImpl implements BiddingDao{
 
 		return (ArrayList)sqlSession.selectList("ItemDetails.selectDetailImage", itemNo);
 	}
+
+	@Override
+	public int updateStatus(SqlSessionTemplate sqlSession, String itemNo) {
+
+		return sqlSession.update("ItemDetails.updateStatus", itemNo);
+	}
 }

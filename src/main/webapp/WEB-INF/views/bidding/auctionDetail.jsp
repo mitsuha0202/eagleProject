@@ -73,9 +73,6 @@
  		height:auto;
  		font-size:15px;
  	}
- 	/* #remainTime{
- 		color:white !important;
- 	} */
  	a.step:hover{
  		text-decoration:none !important;
  	}
@@ -88,6 +85,7 @@
  	}
  	#bidBtn:hover , #wishBtn:hover , #qaBtn:hover{
  		cursor:pointer;
+ 		
  	}
  	#dImage{
  		text-align:center;
@@ -562,7 +560,7 @@
 				}
 				
 				var timeId;
-				
+				var itemNo = $("#itemNo").text();
 					timeId = setInterval(function(){
 						if(time > 0){
 							printTime();
@@ -570,6 +568,18 @@
 						else{
 							clearInterval(timeId);
 							$("#remainTime").text("종료");
+							
+							$.ajax({
+								url:"auctionFinish.bi"
+								type:"get",
+								data:{itemNo : itemNo},
+								success:function(data){
+									console.log("마감종료 성공");
+								},
+								error:function(){
+									console.log("마감종료 실패");
+								}
+							});
 						}
 					},1000);
 			});

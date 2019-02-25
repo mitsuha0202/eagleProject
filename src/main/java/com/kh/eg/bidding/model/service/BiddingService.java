@@ -31,5 +31,7 @@ public interface BiddingService {
 
 	ArrayList<Attachment> selectDetailImage(String itemNo);
 
+	int updateStatus(String itemNo);
+
 
 }

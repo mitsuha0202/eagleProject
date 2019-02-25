@@ -32,6 +32,8 @@ public interface BiddingDao {
 
 	ArrayList<Attachment> selectDetailImage(SqlSessionTemplate sqlSession, String itemNo);
 
+	int updateStatus(SqlSessionTemplate sqlSession, String itemNo);
+
 
 
 

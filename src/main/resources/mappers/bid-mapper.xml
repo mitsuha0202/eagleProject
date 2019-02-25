@@ -118,4 +118,10 @@
   		FROM ATTACHMENT
   		WHERE ITEMNO = #{itemNo} AND FILELEVEL = 1 AND ADDSTATUS = 'product'
   	</select>
+  	
+  	<select id="updateStatus" parameterType="java.lang.String">
+  		UPDATE AUCTIONDETAIL
+  		SET EXITYN = 'Y'
+  		WHERE ITEMNO = #{itemNo}
+  	</select>
   </mapper>
