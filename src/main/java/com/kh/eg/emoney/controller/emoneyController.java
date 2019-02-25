@@ -136,26 +136,20 @@ private emoneyService es;
 		System.out.println("멤버넘버찍히나? : " + e.getMemberNo());
 		System.out.println("이머니찍히나? : " + e.getMoney());
 		
-		/*e.setMoney(refundEmoney);*/
+		e.setMoney(refundEmoney);		
 		System.out.println("리펀드머니찍히나? : " + refundEmoney);
-		
-		/*int result1 = es.selectCurrval(e);
-		int result2 = es.selectNextval(e);
-		int result3 = es.refundMemberEmoney(e);
-		int result4 = es.updateRefundEmoney(m);*/
-		
+		m.setEmoney(refundEmoney);
 		int result1 = es.refundMemberEmoney(e);
-		int result2 = es.updateRefundEmoney(m);
+		int result2 = es.updateRefundEmoney(m, e);
+		int result3 = es.selectEmoneyeSq(e);
+		int result4 = es.refundEmoneyeInsert(e);
 		
-		int result = result1 + result2;
+		int result = result1 + result2 + result3 + result4;
 		
-		/*int result = result1 + result2 + result3 + result4;*/
-		
-		
-		/*return "redirect:refundMain.em";*/
 		response.setContentType("application/json");
 		response.setCharacterEncoding("utf-8");
 		response.getWriter().println(result + "");
+		
 	}
 	
 	

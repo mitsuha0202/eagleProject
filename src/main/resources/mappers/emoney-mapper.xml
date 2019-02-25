@@ -39,10 +39,19 @@
 		VALUES(MRN_SEQ.NEXTVAL, SYSDATE, #{money}, 'C', #{memberNo}, NULL )	
 	</insert>
 	
-	<insert id="refundMemberEmoney" parameterType="emoney">
+	<insert id="refundMemberEmoney" parameterType="emoney" >
 		INSERT
 		INTO EMONEYR
 		VALUES(MRN_SEQ.NEXTVAL, SYSDATE, #{money}, 'R', #{memberNo}, NULL )
+	</insert>
+	
+	<select id="selectEmoneyeSq" resultType="_int">
+		SELECT MCN_SEQ.NEXTVAL FROM DUAL 
+	</select>
+	<insert id="refundEmoneyeInsert" parameterType="emoney">
+		INSERT
+		INTO EMONEYE
+		VALUES(MEN_SEQ.NEXTVAL, 'N', MCN_SEQ.NEXTVAL)
 	</insert>
 	
 	
@@ -50,7 +59,7 @@
 	<select id="selectEmoneyList" resultType="_int">
 		SELECT COUNT(*)
 		FROM EMONEYR
-		WHERE MEMBERNO = #{memberNo} AND USESTATS = 'C'
+		WHERE MEMBERNO = #{memberNo} AND USESTATUS = 'C'
 	</select>
 	
 	
