@@ -10,6 +10,7 @@ import com.kh.eg.bidding.model.dao.BiddingDao;
 import com.kh.eg.bidding.model.vo.Attachment;
 import com.kh.eg.bidding.model.vo.Bid;
 import com.kh.eg.bidding.model.vo.Bidding;
+import com.kh.eg.bidding.model.vo.Board;
 import com.kh.eg.bidding.model.vo.ItemDetail;
 
 @Service
@@ -119,5 +120,14 @@ private SqlSessionTemplate sqlSession;
 		int result = bd.updateStatus(sqlSession, itemNo);
 		
 		return result;
+	}
+
+	@Override
+	public ArrayList<Board> selectQa(String itemNo) {
+		ArrayList<Board> list = null;
+		
+		list = bd.selectQa(sqlSession, itemNo);
+		
+		return list;
 	}
 }

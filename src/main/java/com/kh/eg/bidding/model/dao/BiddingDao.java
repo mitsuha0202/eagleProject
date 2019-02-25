@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.eg.bidding.model.vo.Attachment;
 import com.kh.eg.bidding.model.vo.Bidding;
+import com.kh.eg.bidding.model.vo.Board;
 import com.kh.eg.bidding.model.vo.ItemDetail;
 
 public interface BiddingDao {
@@ -33,6 +34,8 @@ public interface BiddingDao {
 	ArrayList<Attachment> selectDetailImage(SqlSessionTemplate sqlSession, String itemNo);
 
 	int updateStatus(SqlSessionTemplate sqlSession, String itemNo);
+
+	ArrayList<Board> selectQa(SqlSessionTemplate sqlSession, String itemNo);
 
 
 

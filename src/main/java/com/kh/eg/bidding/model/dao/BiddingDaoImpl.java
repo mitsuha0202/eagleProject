@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.eg.bidding.model.vo.Attachment;
 import com.kh.eg.bidding.model.vo.Bid;
 import com.kh.eg.bidding.model.vo.Bidding;
+import com.kh.eg.bidding.model.vo.Board;
 import com.kh.eg.bidding.model.vo.ItemDetail;
 
 @Repository
@@ -86,5 +87,11 @@ public class BiddingDaoImpl implements BiddingDao{
 	public int updateStatus(SqlSessionTemplate sqlSession, String itemNo) {
 
 		return sqlSession.update("ItemDetails.updateStatus", itemNo);
+	}
+
+	@Override
+	public ArrayList<Board> selectQa(SqlSessionTemplate sqlSession, String itemNo) {
+
+		return (ArrayList)sqlSession.selectList("ItemDetails.selectQa", itemNo);
 	}
 }
