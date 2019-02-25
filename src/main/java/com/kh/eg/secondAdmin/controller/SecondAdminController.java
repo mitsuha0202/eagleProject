@@ -1,5 +1,8 @@
 package com.kh.eg.secondAdmin.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,7 +44,16 @@ public class SecondAdminController {
 	}
 	
 	
-	
+	@RequestMapping("categoryDays")
+	public ArrayList<HashMap<String, String>> categoryDays(){
+		
+		ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
+		/*HashMap<String, String> cName = sas.categoryName();
+		HashMap<String, String> cCount = sas.categoryCount();*/
+		
+		return list;
+		
+	}
 	
 	
 	
