@@ -22,7 +22,7 @@
 		<br><br>
 
 		<div>
-			<td><h5>보유 이머니 : <c:out value="${ sessionScope.loginUser.emoney } 원"/></h5></td>
+			<td><h4>보유 이머니 : <c:out value="${ sessionScope.loginUser.emoney } 원"/></h4></td>
 			
 			<%-- <td>${  }</td> --%>
 			
@@ -86,14 +86,13 @@
 					<td id="tdChargeCashMoney"><label id="amount">0</label>원</td>					
 					<tr>
 						<br>						
-							<button  id="refundFunction" type="button" >환급신청</button>
+							<button class="btn btn-secondary" id="refundFunction" type="button" >환급신청</button>
+							<br><br>
 					</tr>
-					
-
 				</table>
 			</div>
 		</div>
-	</div>
+
 	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 	<script>
 		memberNo = '${sessionScope.loginUser.mid}';

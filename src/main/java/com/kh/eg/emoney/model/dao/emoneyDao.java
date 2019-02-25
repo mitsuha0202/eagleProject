@@ -28,7 +28,7 @@ public interface emoneyDao {
 	
 	int selectNextval(SqlSessionTemplate sqlSession, emoney e);
 
-	int updateEmoney(SqlSessionTemplate sqlSession, Member m);
+	int updateEmoney(SqlSessionTemplate sqlSession, Member m, emoney e);
 
 	int selectEmoneyeSq(SqlSessionTemplate sqlSession, emoney e);
 

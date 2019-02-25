@@ -100,9 +100,9 @@
 	</select>
 	
 	<!-- 결제시 보유 이머니 업데이트 -->
-	<update id="updateEmoney">
+	<update id="updateEmoney" parameterType="java.lang.Integer">
 		UPDATE MEMBER 
-		SET EMONEY = (EMONEY + #{emoney})
+		SET EMONEY = (EMONEY + #{emoney, jdbcType=NUMERIC})
 		WHERE MEMBERNO = #{mid} 
 	
 	</update>

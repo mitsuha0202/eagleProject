@@ -101,7 +101,7 @@ private emoneyService es;
 		/*e.setMemberNo(buyer_code);*/
 		e.setAmount(amount);
 		e.setMoney(amount);
-		
+		m.setEmoney(amount);
 		System.out.println("buyer_code : " + buyer_code);
 		System.out.println("amount : " + amount);
 		
@@ -109,12 +109,12 @@ private emoneyService es;
 		int resultA = es.insertEmoney(e);
 		int resultB = es.insertMemberEmoney(e);
 		
-		int result1 = resultA + resultB;
+		/*int result1 = resultA + resultB;*/
 		/*int result = resultA + resultB;*/
 		
-		int result2 = es.updateEmoney(m);
+		int resultC = es.updateEmoney(m,e);
 		
-		int result = result1 + result2;
+		int result = resultA + resultB + resultC;
 		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("utf-8");
