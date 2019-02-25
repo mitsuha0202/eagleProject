@@ -99,44 +99,43 @@
 				<c:forEach var="c" items="${category}">
 					<tr>
 						<td class="cateName">
-							${c.categoryName}<input type="hidden" value="${c.categoryNo}">
+							${c.categoryName}
+							<input type="hidden" name="categoryNo" value="${c.categoryNo}">
 						</td>
 					</tr>
-					
 				</c:forEach>
+				
 				</table>
 				<input type="hidden" name="categoryNo" id="categoryNo">
-
+				
+				
+				
 			</div>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<div class="scroll">
 				-선택하세요- 
+				 <!-- 해당 카테고리 레벨 0 을 찍으면 -- 해당 카테고리에 레벨1 목록을 보여줌 -->
+				<!--  카테고리 no->1은  8,9
+				upper 카테고리 no->2는 10,11
+				upper 카테고리 no->3는 12,13,14
+				upper카테고리 no->4는 15,16
+				upper 카테고리 no->5는 17,18,19
+				upper 카테고리 no->6은 20,21,22
+			    upper 카테고리 no->7은 23,24 -->
 				<table id="middleCate">
-			<!-- 	<input type="hidden" name="middleCode" value=""> 
-               <input type="hidden" name="middleName" value="">  -->
+		<!-- 	<input type="hidden" name="middleCode" value=""> 
+              <input type="hidden" name="middleName" value=""> -->
+              <%-- <c:forEach var="c" items="${category}">  
 					<tr>
-						<td>미술</td>
+						<td class="middleCateName">${c.categoryName}<input type="hidden" value="${c.categoryNo}"></td>
 					</tr>
-					<tr>
-						<td>음악앨범</td>
-					</tr>
-					<tr>
-						<td>의류</td>
-					</tr>
-					<tr>
-						<td>생활가전</td>
-					</tr>
-					<tr>
-						<td>비디오게임</td>
-					</tr>
-					<tr>
-						<td>피규어</td>
-					</tr>
-					<tr>
-						<td>레고</td>
-					</tr>
+				</c:forEach> --%>
+				<tr>
+					<td></td>
+				</tr>
 				
 				</table>
+				<input type="hidden" name="categoryNo" id="middleCategoryNo">
 				</div>
 			
 			<hr>
@@ -184,7 +183,7 @@
 					<td>경매 방법 선택</td>
 					<td>
 						
-  							<select name="auctionCode">
+  							<select name="auctionCode">	
     						<option value="선택">선택해주세요</option>
     						<option value="AC003">다운경매</option>
     						<option value="AC001">최고가밀봉경매</option>
@@ -317,25 +316,27 @@
 			});
 	}); */
 	
-	var bigc;
+
 	$(".cateName").click(function(){
-		cateCode = $(this).children().val();
-		$("#spath").text($(this).text());
-		console.log(cateCode);
-		$("#categoryNo").val(cateCode);
+		var cateCode = $(this).children().val();
 		
-		/* $.ajax({
+		$("#spath").text($(this).text());
+		//$("#categoryNo").val(cateCode);
+		console.log(cateCode);
+		var cateNo= cateCode;
+		 
+	 	  $.ajax({
 			url: "middleCategory.it",
 			type: "GET",
-			data:{bigc:bigc},
+			data:{cateNo:cateNo},
 			success:function(data){
 				console.log(data);
 			},
 			error:function(error){
 				alert("에러"+error);
 			}
-		}); */
-		
+		});  
+		 
 		
 		
 		

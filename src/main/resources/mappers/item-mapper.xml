@@ -355,6 +355,10 @@ DELIVERYPRICE, ICOUNT,AD.STARTDAY FROM AUCTIONITEM A JOIN AUCTIONDETAIL AD ON(A.
 WHERE RNUM BETWEEN 1 AND 8 ORDER BY STARTDAY DESC
 	</select>
 	
+	<select id="selectMiddleCategory" resultMap="categoryResultSet">
+	select * from category where categorylevel=1
+	
+	</select>
 	
 	
 

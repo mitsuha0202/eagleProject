@@ -61,4 +61,11 @@ private DataSourceTransactionManager transactionManager;
 		return id.selectCategory(sqlSession);
 	}
 
+
+	@Override
+	public ArrayList<Category> selectMiddleCategory(String cateNo) {
+		// TODO Auto-generated method stub
+		return id.selectMiddleCategory(sqlSession,cateNo);
+	}
+
 }

@@ -12,4 +12,6 @@ public interface ItemService {
 
 	ArrayList<Category> selectCategory();
 
+	ArrayList<Category> selectMiddleCategory(String cateNo);
+
 }
