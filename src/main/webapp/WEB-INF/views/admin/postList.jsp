@@ -56,10 +56,6 @@
 						<td colspan="7">등록된 정보가 없습니다.</td>
 					</tr> -->
 					<tr>
-						<td>
-							<label for=""> 체크</label>
-							<input id="" name="" class="check" type="checkbox">
-						</td>
 							<c:forEach var="b" items="${ list }">
 					<tr>
 						<td>

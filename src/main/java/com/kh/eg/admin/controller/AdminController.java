@@ -469,7 +469,7 @@ public class AdminController {
 			
 			model.addAttribute("list", list);
 			model.addAttribute("pi", pi);
-			return "admin/payBackList";
+			return "admin/postList";
 		} catch (AdMemberselectException e) {
 			e.printStackTrace();
 			model.addAttribute("msg","회원 조회 실패!");
