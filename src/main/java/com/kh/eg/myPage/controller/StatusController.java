@@ -128,10 +128,8 @@ public class StatusController {
 		int listCount = ms.getWinBidListCount(m.getMid());
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		ArrayList<PayTable> winBidList = ms.selectWinBid(pi, m.getMid());
-		for(PayTable p : winBidList) {
-			System.out.println(p);
-		}
 		ArrayList<PayTable> list = new ArrayList<PayTable>();
+		
 		if(winBidList != null) {
 			for(int i=0; i<winBidList.size(); i++) {
 				if(winBidList.get(i).getCurrentPrice() != null) {
@@ -160,7 +158,7 @@ public class StatusController {
 		ArrayList<PayTable> list = ms.selectFalseBidList(pi, m.getMid());
 		
 		for(int i=0; i<list.size(); i++) {
-			if(list.get(i).getRowBid() == 1) {
+			if(list.get(i).getMemberNo() == null) {
 				list.remove(i);
 			}
 		}
@@ -191,17 +189,21 @@ public class StatusController {
 				model.addAttribute("list", list);
 				model.addAttribute("pi", pi);
 			}
-			
-			
-			
-			
 			return "myPage/management/purchaseitemdealPage";
 	}
 	
-	
 	//구매현황상세페이지 - 구매 물품 거래 진행중 페이지 - 입금확인중
 		@RequestMapping("paymentconfirm.mp")
-		public String paymentconfirmPage() {
+		public String paymentconfirmPage(@RequestParam(value="itemNo", required=false) String itemNo, @RequestParam(value="currentPrice", required=false) String currentPrice, Model model) {
+			String[] itemNoList = null;
+			String[] currentPriceList = null;
+			if(itemNo != null && currentPrice != null) {
+				itemNoList = itemNo.split(",");
+				currentPriceList = currentPrice.split(",");
+				
+			}else {
+				return "myPage/management/paymentconfirmPage";
+			}			
 			return "myPage/management/paymentconfirmPage";
 		}
 		

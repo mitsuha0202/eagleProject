@@ -417,8 +417,8 @@
 		JOIN AUCTIONDETAIL A ON(B.ITEMNO = A.ITEMNO) 
 		JOIN MEMBER M ON(I.MEMBERNO = M.MEMBERNO)
 		WHERE A.EXITYN = 'Y' 
-		AND B.MEMBERNO = 11 
-		AND ITEMNO = 1
+		AND B.MEMBERNO = #{mid}
+		AND ITEMNO = #{itemNo}
 		AND CURRENTPRICE <![CDATA[
 		<
 	]]> #{currentPrice}
@@ -433,7 +433,7 @@
 	</select>
 	
 <!-- ============================================================================================= -->
-	
+	<!-- 입금요청 -->
 	<!-- 입금요청 물품 목록 페이징 -->
 	<select id="countPayContinueList" resultType="payTable" parameterType="java.lang.String">
 		SELECT * FROM AUCTIONDETAIL WHERE EXITYN = 'Y' AND ITEMNO = #{itemNo}
@@ -451,7 +451,9 @@
 		JOIN AUCTIONITEM A ON(W.ITEMNO = A.ITEMNO)
 		JOIN AUCTIONDETAIL D ON(W.ITEMNO = D.ITEMNO)
 		JOIN MEMBER M ON(A.MEMBERNO = M.MEMBERNO)
+		JOIN WINBIDDETAIL B ON(W.DEALNO = B.DEALNO)
 		WHERE W.MEMBERNO = #{mid}
+		AND B.ORDERM = '입금요청'
 	</select>
 	
 	<!-- 입금요청 물품 리스트 낙찰금액 조회 -->
