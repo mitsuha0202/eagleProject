@@ -44,7 +44,6 @@ public class StatusController {
 			Three three = new Three();			
 			list.get(i).setCurrentPrice((three.toNumFormat(Integer.parseInt(list.get(i).getCurrentPrice()))));
 		}
-		
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
 		return "myPage/management/purchasestatusMainPage";
@@ -218,10 +217,7 @@ public class StatusController {
 				PageInfo pi = Pagination.getPageInfo(currentPage, listCount);	
 				
 				ArrayList<PayTable> list = ms.selectDelivery(m.getMid(), pi);
-				
-				for(PayTable p : list) {
-					System.out.println(p);
-				}
+
 				if(list != null) {
 					model.addAttribute("list", list);
 					model.addAttribute("pi", pi);
@@ -231,20 +227,43 @@ public class StatusController {
 		}
 	//구매현황상세페이지 - 구매 물품 거래 진행중 페이지 - 배송중
 		@RequestMapping("shipping.mp")
-		public String shippingPage() {
+		public String shippingPage(@RequestParam(defaultValue="1") int currentPage, HttpSession session, Model model, Member m) {
+			m = (Member)session.getAttribute("loginUser");
+			int listCount = ms.getShippingListCount(m.getMid());
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);	
+			ArrayList<PayTable> list = ms.selectShipping(m.getMid(), pi);
+			if(list != null) {
+				model.addAttribute("list", list);
+				model.addAttribute("pi", pi);
+			}
 			return "myPage/management/shippingPage";
 		}
+		
 	//구매현황상세페이지 - 구매 물품 거래 진행중 페이지 - 구매결정대기
 		@RequestMapping("purchasedecisionwaiting.mp")
-		public String purchasedecisionwaitingPage() {
+		public String purchasedecisionwaitingPage(@RequestParam(defaultValue="1") int currentPage, HttpSession session, Model model, Member m) {
+			m = (Member)session.getAttribute("loginUser");
+			int listCount = ms.getWaitingListCount(m.getMid());
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);	
+			ArrayList<PayTable> list = ms.selectWaiting(m.getMid(), pi);
+			if(list != null) {
+				model.addAttribute("list", list);
+				model.addAttribute("pi", pi);
+			}
 			return "myPage/management/purchasedecisionwaitingPage";
 		}
+		
 	//구매현황상세페이지 - 구매 물품 거래 진행중 페이지 - 수령이후/송금예정
 		@RequestMapping("afterreceipt.mp")
-		public String afterreceiptPage() {
+		public String afterreceiptPage(@RequestParam(defaultValue="1") int currentPage, HttpSession session, Model model, Member m) {
+			m = (Member)session.getAttribute("loginUser");
+			int listCount = ms.getAfterSend(m.getMid());
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			ArrayList<PayTable> list = ms.selectAfterSend(m.getMid(), pi);
 			return "myPage/management/afterreceiptPage";
 			
 		}
+		
 	//구매현황상세페이지 - 구매 물품 거래 진행중 페이지 - 거래완료 물품
 		@RequestMapping("transactioncomplete.mp")
 		public String transactioncompletePage() {
@@ -255,7 +274,13 @@ public class StatusController {
 
 	//구매거부/반품/미입금/판매거부/미수령신고 - 구매거부
 	@RequestMapping("purchaseother.mp")
-	public String purchaseotherPage() {
+	public String purchaseotherPage(@RequestParam(value="itemNo", required=false) String itemNo, @RequestParam(value="currentPrice", required=false) String currentPrice, @RequestParam(defaultValue="1") int currentPage, HttpSession session, Model model, Member m) {
+		if(itemNo != null && !itemNo.equals("") && currentPrice != null && !currentPrice.equals("")) {
+			m = (Member)session.getAttribute("loginUser");
+			int listCount = ms.getPurchaseOther(m.getMid(), itemNo, currentPrice);
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			ArrayList<PayTable> list = ms.selectPurChaseOther(pi, m.getMid(), itemNo, currentPrice);
+		}
 		return "myPage/management/purchaseotherPage";
 	}
 	

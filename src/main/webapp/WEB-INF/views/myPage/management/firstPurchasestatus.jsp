@@ -202,6 +202,5 @@
 				<a href="${ blistEnd }">&nbsp;[다음]</a>
 			</c:if>
 		</div>
-	</script>
 </body>
 </html>

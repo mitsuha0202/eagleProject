@@ -143,6 +143,31 @@ public interface MyPageDao {
 	
 	//마이페이지 - 회원등급확인
 	ArrayList<RatingMyPage> selectRating(SqlSessionTemplate sqlSession, String memberNo);
+
+	//배송중 페이징 처리
+	int getShippingListCount(SqlSessionTemplate sqlSession, String mid);
+
+	//배송중 목록 조회
+	ArrayList<PayTable> selectShipping(SqlSessionTemplate sqlSession, String mid, PageInfo pi);
+
+	//구매결정대기 페이징 처리
+	int getWaitingListCount(SqlSessionTemplate sqlSession, String mid);
+
+	//구매결정대기 목록 조회
+	ArrayList<PayTable> selectWaiting(SqlSessionTemplate sqlSession, String mid, PageInfo pi);
+
+	//수령이후 송금예정
+	int getAfterSend(SqlSessionTemplate sqlSession, String mid);
+
+	//수령이후 입금 목록 조회
+	ArrayList<PayTable> selectAfterSend(SqlSessionTemplate sqlSession, String mid, PageInfo pi);
+
+	//구매거부 페이징 처리
+	int getPurchaseOther(SqlSessionTemplate sqlSession, String mid, String itemNo, String currentPrice);
+
+	//구매거부 목록 조회
+	ArrayList<PayTable> selectPurChaseOther(SqlSessionTemplate sqlSession, PageInfo pi, String mid, String itemNo,
+			String currentPrice);
 	
 	
 	

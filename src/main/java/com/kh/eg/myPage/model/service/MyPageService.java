@@ -143,7 +143,32 @@ public interface MyPageService {
 	//배송요청 페이징 처리
 	int getDeliveryListCount(String mid);
 	
+	//배송요청 목록 조회
 	ArrayList<PayTable> selectDelivery(String mid, PageInfo pi);
+
+	//배송중 페이징 처리
+	int getShippingListCount(String mid);
+
+	//배송중 목록 조회
+	ArrayList<PayTable> selectShipping(String mid, PageInfo pi);
+
+	//구매결정대기 페이징 처리
+	int getWaitingListCount(String mid);
+	
+	//구매결정대기 목록 조회
+	ArrayList<PayTable> selectWaiting(String mid, PageInfo pi);
+
+	//수령이후 입금예정 페이징
+	int getAfterSend(String mid);
+
+	//수령이후 입금예정 목록 조회
+	ArrayList<PayTable> selectAfterSend(String mid, PageInfo pi);
+
+	//구매거부 페이징 처리
+	int getPurchaseOther(String mid, String itemNo, String currentPrice);
+
+	//구매거부 목록 조회
+	ArrayList<PayTable> selectPurChaseOther(PageInfo pi, String mid, String itemNo, String currentPrice);
 
 
 	
