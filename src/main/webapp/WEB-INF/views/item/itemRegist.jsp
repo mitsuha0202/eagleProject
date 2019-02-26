@@ -85,6 +85,7 @@
 					<tr>
 					<td >선택한 카테고리 경로:</td>
 					<td id="spath"></td>
+					<td id="spath2"></td>
 					</tr>
 				</tbody>
 				</table>
@@ -95,7 +96,6 @@
 			<div class="scroll">
 				-선택하세요- 
 				<table class="bigCate">
-				<!-- <input type="hidden" class="bigCode" value="">  -->
 				<c:forEach var="c" items="${category}">
 					<tr>
 						<td class="cateName">
@@ -112,7 +112,7 @@
 				
 			</div>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<div class="scroll">
+			<div id="subCate" class="scroll">
 				-선택하세요- 
 				 <!-- 해당 카테고리 레벨 0 을 찍으면 -- 해당 카테고리에 레벨1 목록을 보여줌 -->
 				<!--  카테고리 no->1은  8,9
@@ -122,7 +122,7 @@
 				upper 카테고리 no->5는 17,18,19
 				upper 카테고리 no->6은 20,21,22
 			    upper 카테고리 no->7은 23,24 -->
-				<table id="middleCate">
+				<table class="middleCate">
 		<!-- 	<input type="hidden" name="middleCode" value=""> 
               <input type="hidden" name="middleName" value=""> -->
               <%-- <c:forEach var="c" items="${category}">  
@@ -130,9 +130,11 @@
 						<td class="middleCateName">${c.categoryName}<input type="hidden" value="${c.categoryNo}"></td>
 					</tr>
 				</c:forEach> --%>
-				<tr>
-					<td></td>
-				</tr>
+				<%-- <tr>
+					<td class="middleTd">
+						<input type="hidden" name="categoryNo" value="${c.categoryNo}">
+					</td>
+				</tr> --%>
 				
 				</table>
 				<input type="hidden" name="categoryNo" id="middleCategoryNo">
@@ -294,32 +296,11 @@
 		
 	}); */
 	
-	
-	
-	/* var bigc;
-	$('.bigCate').on('click','td',function(){
-			$(this).each(function(){
-			    bigc=$("#spath").text($(this).html());
-				 $.ajax({
-					url: "middleCategory.it",
-					type: "GET",
-					data:{bigc:bigc},
-					success:function(data){
-						console.log(data);
-					},
-					error:function(error){
-						alert("에러"+error);
-					}
-				});
-				
-			 
-			});
-	}); */
+
 	
 
 	$(".cateName").click(function(){
 		var cateCode = $(this).children().val();
-		
 		$("#spath").text($(this).text());
 		//$("#categoryNo").val(cateCode);
 		console.log(cateCode);
@@ -331,18 +312,58 @@
 			data:{cateNo:cateNo},
 			success:function(data){
 				console.log(data);
+				$("#subCate").html(''); 
+				for (var key in data) {
+					
+					var $div=$("#subCate");
+					var $table =$("<table class='middleCate'>")
+					var $tr1 =$("<tr>")
+					var $td1 =$("<td class='middleTd'>");
+					var $input = $("<input type='hidden' name='categoryNo' value='"+ data[key].categoryNo +"'>");
+				
+					
+					 if(cateNo==data[key].upperCategoryNo) {
+					 	$td1.text(data[key].categoryName);
+					 	$td1.append($input);
+						/* $("#spath").text($(this).text());  */
+						$tr1.append($td1);
+					
+						$table.append($tr1);
+						$div.append($table);
+						
+						
+						$(".cateName").click(function() {
+							$("#spath2").html('');
+						});
+						
+						
+					 }
+					
+					
+				}
+				$(".middleTd").click(function(){
+					
+					var middle=$("#spath2").text($(this).text());
+					
+				 	var cateCode2=$(this).children().val();
+				 	console.log(cateCode2);
+				 	
+				 	var cateNo2=cateCode2
+					 console.log(cateNo2); 
+					
+				});
+				
+				
 			},
 			error:function(error){
 				alert("에러"+error);
 			}
 		});  
-		 
-		
-		
-		
-		
+
 	});
 	
+	
+
 	
 	/*  $(function(){ 
 		$(".bigCate").click(function(){ 
