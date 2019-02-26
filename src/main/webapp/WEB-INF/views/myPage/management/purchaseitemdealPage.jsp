@@ -92,7 +92,6 @@
 				<td><h5>거래상태</h5></td>
 				<!-- td태그 오른쪽 선 안보이게 하기  -->
 				<td style="border-right: hidden;" onclick="location.href='purchaseitemdeal.mp'"><h5>입금요청</h5></td>
-				<td style="border-right: hidden;" onclick="location.href='paymentconfirm.mp'"><h5>입금확인중</h5></td>
 				<td style="border-right: hidden;" onclick="location.href='requestdelivery.mp'"><h5>배송요청</h5></td>
 				<td style="border-right: hidden;" onclick="location.href='shipping.mp'"><h5>배송중</h5></td>
 				<td style="border-right: hidden;" onclick="location.href='purchasedecisionwaiting.mp'"><h5>구매결정대기</h5></td>
@@ -206,9 +205,10 @@
 			}
 		});
 		
+		//결제페이지로 넘기기
 		function payment() {
 			var sendArr = new Array();
-			var sendCurArr = new Array();
+			var sendCurArr = new Array();ㄴ
    			var checkbox = $(".checkChild:checked");
    	        alert("거래가 시작되었습니다.");
    		 	checkbox.each(function(i){

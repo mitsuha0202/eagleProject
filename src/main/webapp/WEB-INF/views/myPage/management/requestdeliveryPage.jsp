@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>        
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -90,7 +92,6 @@
 				<td><h5>거래상태</h5></td>
 				<!-- td태그 오른쪽 선 안보이게 하기  -->
 				<td style="border-right: hidden;" onclick="location.href='purchaseitemdeal.mp'"><h5>입금요청</h5></td>
-				<td style="border-right: hidden;" onclick="location.href='paymentconfirm.mp'"><h5>입금확인중</h5></td>
 				<td style="border-right: hidden;" onclick="location.href='requestdelivery.mp'"><h5>배송요청</h5></td>
 				<td style="border-right: hidden;" onclick="location.href='shipping.mp'"><h5>배송중</h5></td>
 				<td style="border-right: hidden;" onclick="location.href='purchasedecisionwaiting.mp'"><h5>구매결정대기</h5></td>
@@ -108,15 +109,13 @@
 		 <h5>꼭 읽어주세요! </h5><br>
 	     <h5>구매물품거래진행중인 페이지 입니다.</h5>
 	     <br>
-	     <h5>배송요청 물품에 대해서 모두</h5><h5>개가 검색되었습니다.</h5>
+	     <h5>배송요청 물품에 대해서 모두 ${ fn:length(list) }개가 검색되었습니다.</h5>
 	     
 	     <table class="buyStatusTable">
       
       <thead>
         <tr>
-           <th class="firstTd">구분</th>
           <th class="firstTd">물품번호</th>
-          <th class="firstTd">이미지</th>
           <th class="firstTd">물품명</th>
           <th class="firstTd">구매가격</th>
           <th class="firstTd">구매정보</th>
@@ -125,20 +124,22 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>1</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-         
-          
-        </tr>
-       
-        
+        <c:if test="${ !empty list }">
+	      <c:forEach var="b" items="${ list }">
+	            <tr>
+	               <td>${ b.itemNo }</td>
+	               <td>${ b.itemName }</td>
+	               <td>${ b.currentPrice }</td>
+				   <td>${ b.endDay }</td>
+	               <td>${ b.saleMemberName }</td>                            
+	            </tr>
+	         </c:forEach>
+        </c:if>
+        <c:if test="${ empty list }">
+        	 <tr>
+	          <td colspan="8"><h5>검색된 내용이 없습니다.</h5></td>	      
+        	</tr>
+        </c:if>          
       </tbody>
      
     </table>
@@ -158,5 +159,40 @@
 		<i class="dollar sign icon" id="accountInfo"></i>
 		<h4 class="tutorialIcon2">자주묻는 질문</h4>		
 	</div>
+	
+	<div id="pagingArea" align="center">
+			<c:if test="${ pi.currentPage <= 1 }">
+				[이전] &nbsp;
+			</c:if>
+			<c:if test="${ pi.currentPage > 1 }">
+				<c:url var="blistBack" value="requestdelivery.mp">
+					<c:param name="currentPage" value="${ pi.currentPage - 1 }"/>
+				</c:url>
+				<a href="${ blistBack }">[이전]</a> &nbsp;
+			</c:if>
+			
+			<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+				<c:if test="${ p eq pi.currentPage }">
+					<font color="red" size="4"><b>[${ p }]</b></font>
+				</c:if>
+				<c:if test="${ p ne pi.currentPage }">
+					<c:url var="blistCheck" value="requestdelivery.mp">
+						<c:param name="currentPage" value="${ p }"/>
+					</c:url>
+					<a href="${ blistCheck }">${ p }</a>
+				</c:if>
+			</c:forEach>
+			
+			<c:if test="${ pi.currentPage >= pi.maxPage }">
+				&nbsp; [다음]
+			</c:if>
+			<c:if test="${ pi.currentPage < pi.maxPage }">
+				<c:url var="blistEnd" value="requestdelivery.mp">
+					<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
+				</c:url>
+				<a href="${ blistEnd }">&nbsp;[다음]</a>
+			</c:if>
+		</div>
+		
 </body>
 </html>
