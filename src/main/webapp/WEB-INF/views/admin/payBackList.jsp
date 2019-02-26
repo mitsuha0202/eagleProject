@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ include file="../admin/include/common.jsp" %>
-
+<%@ include file="../admin/include/common.jsp" %>	
 
 <title>Eagle 관리자페이지</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -18,11 +17,12 @@
 
 			<div class="flo_left mt30 mb30">
 				<!-- <span><a class="mbtn wh" href="#">전체선택</a></span> -->
-				<span><a class="mbtn bk" href="#">인쇄하기</a></span>
+				<span><a class="mbtn bk" onclick="info_print();">인쇄하기</a></span>
 				<span><a class="mbtn rd" href="#">환전 완료</a></span>
+				<span><a class="mbtn bl" href="#">삭제</a></span>
 			</div>
 
-
+			<div id="test">
 			<table class="boardList mt20">
 				<caption>환전신청내역 리스트입니다.</caption>
 				<colgroup>
@@ -50,7 +50,7 @@
 						<th scope="col">최종 환전 금액</th>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody  id="test">
 					<!-- <tr>
 						<td colspan="9">등록된 정보가 없습니다.</td>
 					</tr> -->
@@ -64,7 +64,7 @@
 						<td>${ b.mMoney }</td>
 						<td>${ b.eMoney }</td>
 						<c:if test="${b.rating eq 'BRONZE'}">
-						<c:set var="premium" value="10" scope="page"/>
+						<c:set var="premium" value="10" scope="page"/> 
 						</c:if>
 						<c:if test="${b.rating eq 'SILVER'}">
 						<c:set var="premium" value="8" scope="page"/>
@@ -85,6 +85,8 @@
 					</c:forEach>
 				</tbody>
 			</table>
+			
+			</div>
 
 			
 			<!-- 페이징 버튼 영역 -->
@@ -126,9 +128,33 @@
 	</div><!--// container E-->
 
 	<%@ include file="include/footer.jsp" %>
+	<script>
+	function info_print() {
 
+		var initBody = document.body.innerHTML;
 
+		window.onbeforeprint = function () {
+
+			document.body.innerHTML = document.getElementById("test").innerHTML;
+
+		}
+
+		window.onafterprint = function () {
+
+			document.body.innerHTML = initBody;
+			
+		}
+
+		window.print();
+
+	}
+
+	
+	</script>
+	
+	
 </div><!--// Wrap E-->
+
 
 </body>
 </html>
