@@ -1,5 +1,7 @@
 package com.kh.eg.secondAdmin.model.service;
 
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -25,6 +27,12 @@ public class SecondAdminSerivceImpl implements SecondAdminService{
 	public Member loginAdmin(SecondAdmin sa) {
 		
 		return sad.loginAdminCheck(sqlSession, sa);
+	}
+
+	@Override
+	public ArrayList<SecondAdmin> categoryName() {
+		ArrayList<SecondAdmin> list = sad.categoryName(sqlSession);
+		return list;
 	}
 	
 	
