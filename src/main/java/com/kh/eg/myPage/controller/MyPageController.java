@@ -26,6 +26,7 @@ import com.kh.eg.myPage.model.vo.AnswerBoard;
 import com.kh.eg.myPage.model.vo.Maccount;
 import com.kh.eg.myPage.model.vo.MyPageBoard;
 import com.kh.eg.myPage.model.vo.PageInfo;
+import com.kh.eg.myPage.model.vo.RatingMyPage;
 import com.kh.eg.myPage.model.vo.SearchCondition;
 import com.kh.eg.myPage.model.vo.WishList;
 import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
@@ -41,13 +42,56 @@ import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 		@Autowired
 		private BCryptPasswordEncoder passwordEncoder;
 		
-		//마이페이지로 이동
+		//마이페이지로 이동 - 회원등급 확인
 		@RequestMapping("myPageMain.mp")
-		public String myPageMainPage() {
+		public String myPageMainPage(Model model, Member m, HttpSession session, HttpServletRequest request) {
 			
-		   return "myPage/myPageMain";
+			//유저번호 받기위해 
+		    m = (Member)session.getAttribute("loginUser");
+		    String memberNo= m.getMid();
+		    System.out.println("아이디 : " + memberNo);
+		    ArrayList<RatingMyPage> list = ms.selectRating(memberNo);
+		    
+		    
+		    String rating;
+		    System.out.println(list.size());
+		    if(list != null) {
+			    if(Integer.parseInt(list.get(0).getAmount())>=1000000 && list.get(0).getCount()>=6) {
+			    	
+			    	rating = "VIP";
+			    	
+			    		
+						model.addAttribute("list",list);
+						model.addAttribute("rating",rating);
+						return "myPage/myPageMain";
+					
+			    }
+			    else if(Integer.parseInt(list.get(0).getAmount())<1000000 && list.get(0).getCount()<6 && Integer.parseInt(list.get(0).getAmount())>=500000 && list.get(0).getCount()>=2) {
+			    	rating = "GOLD";
+			    	
+			    	
+						model.addAttribute("list",list);
+						model.addAttribute("rating",rating);
+						return "myPage/myPageMain";
+					
+			    }
+			    else {
+			    	rating = "일반";
+			    
+			    	
+						model.addAttribute("list",list);
+						model.addAttribute("rating",rating);
+						return "myPage/myPageMain";
+					
+			    }
+		    }else {
+				model.addAttribute("msg","위시리스트 조회 실패");
+				return "common/errorPage";
+			}
+		    
+		  
 		   }
-		
+			
 		//회원등급 혜택안내 페이지로 이동
 		@RequestMapping("userGradeInfo.mp")
 		public String userGradeInfoPage() {

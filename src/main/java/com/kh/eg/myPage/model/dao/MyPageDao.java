@@ -11,6 +11,7 @@ import com.kh.eg.myPage.model.vo.Maccount;
 import com.kh.eg.myPage.model.vo.MyPageBoard;
 import com.kh.eg.myPage.model.vo.PageInfo;
 import com.kh.eg.myPage.model.vo.PayTable;
+import com.kh.eg.myPage.model.vo.RatingMyPage;
 import com.kh.eg.myPage.model.vo.SearchCondition;
 import com.kh.eg.myPage.model.vo.WishList;
 
@@ -139,6 +140,10 @@ public interface MyPageDao {
 
 	//배송요청 목록 조회
 	ArrayList<PayTable> selectDelivery(SqlSessionTemplate sqlSession, String mid, PageInfo pi);
+	
+	//마이페이지 - 회원등급확인
+	ArrayList<RatingMyPage> selectRating(SqlSessionTemplate sqlSession, String memberNo);
+	
 	
 	
 	

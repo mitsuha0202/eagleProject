@@ -283,7 +283,9 @@
 	<div class="mpUserDiv">
 		<br>
 		<h5 style="color: white"><c:out value="${ sessionScope.loginUser.userName }님"/></h5>
-		<h5 style="color: white">회원등급 <c:out value="${ sessionScope.loginUser.rating }"/></h5><br>
+		<h5 style="color: white">회원등급 <c:out value="${ rating }입니다"/></h5><br>
+		
+		
 		<button class="mpUserDivBtn" onclick="location.href='userGradeInfo.mp'">회원등급 혜택안내</button>
 	</div>
 	<div class="mpMessageDiv">

@@ -15,6 +15,7 @@ import com.kh.eg.myPage.model.vo.Maccount;
 import com.kh.eg.myPage.model.vo.MyPageBoard;
 import com.kh.eg.myPage.model.vo.PageInfo;
 import com.kh.eg.myPage.model.vo.PayTable;
+import com.kh.eg.myPage.model.vo.RatingMyPage;
 import com.kh.eg.myPage.model.vo.SearchCondition;
 import com.kh.eg.myPage.model.vo.WinBid;
 import com.kh.eg.myPage.model.vo.WishList;
@@ -524,6 +525,30 @@ public class MyPageDaoImpl implements MyPageDao{
 		return list;
 	}
 	
+
+	//마이페이지 - 회원등급확인
+	@Override
+	public ArrayList<RatingMyPage> selectRating(SqlSessionTemplate sqlSession, String memberNo) {
+		
+		ArrayList<RatingMyPage> list = (ArrayList)sqlSession.selectList("MyPage.selectRating", memberNo);
+		int result = 0;
+			if(Integer.parseInt(list.get(0).getAmount())>=1000000 && list.get(0).getCount()>=6) {
+				result = sqlSession.update("MyPage.selectMemberRatingVip",memberNo);
+			}else if(Integer.parseInt(list.get(0).getAmount())<1000000 && list.get(0).getCount()<6 && Integer.parseInt(list.get(0).getAmount())>=500000 && list.get(0).getCount()>=2) {
+				result = sqlSession.update("MyPage.selectMemberRatingGold",memberNo);
+			}else {
+				result = sqlSession.update("MyPage.selectMemberRatingNormal",memberNo);
+			}
+		return list;
+		
+		
+		
+		
+		
+	}
+	
+	
+
 	//배송요청 페이징 처리
 	@Override
 	public int getDeliveryListCount(SqlSessionTemplate sqlSession, String mid) {
@@ -543,4 +568,5 @@ public class MyPageDaoImpl implements MyPageDao{
 		ArrayList<PayTable> list = (ArrayList)sqlSession.selectList("MyPage.selectDeliveryList", mid, rowBounds);
 		return list;
 	}
+
 }

@@ -7,6 +7,7 @@
 	<typeAliases>
 		<typeAlias type="com.kh.eg.member.model.vo.Member" alias="Member"/>
 		<typeAlias type="com.kh.eg.myPage.model.vo.MyPageBoard" alias="MyPageBoard"/>
+		<typeAlias type="com.kh.eg.myPage.model.vo.RatingMyPage" alias="RatingMyPage"/>
 		<typeAlias type="com.kh.eg.myPage.model.vo.WishList" alias="WishList"/>
 		<typeAlias type="com.kh.eg.myPage.model.vo.Maccount" alias="Maccount"/>
 		<typeAlias type="com.kh.eg.myPage.model.vo.PayTable" alias="PayTable"/>
@@ -15,7 +16,7 @@
 		<typeAlias type="com.kh.eg.myPage.model.vo.AnswerBoard" alias="AnswerBoard"/>
 		<typeAlias type="com.kh.eg.attachment.model.vo.Attachment" alias="Attachment"/>
 		<typeAlias type="com.kh.eg.category.model.vo.Category" alias="Category"/>
-
+		
     	<typeAlias type="com.kh.eg.admin.model.vo.AdminVo" alias="AdminVo"/>
 		<typeAlias type="com.kh.eg.bidding.model.vo.Bid" alias="Bid"/>
 		<typeAlias type="com.kh.eg.bidding.model.vo.Bidding" alias="Bidding"/>
