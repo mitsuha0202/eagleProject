@@ -40,7 +40,7 @@
 			</script>
 
 
-			<table class="boardList mt20">
+			<table id="test" class="boardList mt20">
 				<caption>신고 관리 리스트입니다.</caption>
 				<colgroup>
 					<col style="width:7%;"><!-- No -->
@@ -72,7 +72,7 @@
 						<td>${ a.title }</td>
 						<td>${ a.memberId }</td>
 						<td>${ a.status }</td>
-						<td><a class="mbtn bl" onclick="detail();">상세보기</a></td>
+						<td><a class="mbtn bl" onclick="detail('${ a.itemNo }');">상세보기</a></td>
 					</tr>
 					</c:forEach>
 				</tbody>
@@ -120,6 +120,17 @@
 	<%@ include file="include/footer.jsp" %>
 	
 </div><!--// Wrap E-->
+		<script>
+				function detail(itemNo){
+					
+					location.href = "auctionDetail.bi?itemNo=" + itemNo;
+					
+				}
+				
+		</script>
+
+
+
 
 </body>
 </html>

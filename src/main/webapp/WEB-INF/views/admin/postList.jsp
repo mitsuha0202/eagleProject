@@ -115,7 +115,18 @@
 	<%@ include file="include/footer.jsp" %>
 
 
-</div><!--// Wrap E-->
+</div><!--// Wrap E-->	
+	
+	<!-- 	<script>
+				function detail(){
+					
+					location.href = "boardSelectOne.bo?;
+					
+				}
+				
+		</script> -->
+
+
 
 </body>
 </html>

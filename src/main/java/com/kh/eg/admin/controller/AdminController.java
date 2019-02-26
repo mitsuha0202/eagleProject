@@ -352,6 +352,18 @@ public class AdminController {
 	
 	}
 	
+	@RequestMapping("moneyChange.ad")
+	public String moneyChangeview(Model model, HttpServletRequest request){
+		String money = request.getParameter("money");
+		
+		System.out.println(money);
+		
+		return "admin/moneyList";
+	}
+	
+	
+	
+	
 	
 	//신고 리스트
 	@RequestMapping("reportList.ad")
@@ -421,7 +433,7 @@ public class AdminController {
 	}
 	
 	
-	
+	//환전하기 리스트
 	@RequestMapping("payBackList.ad")
 	public String payBackListview(Model model, HttpServletRequest request){
 		
@@ -450,7 +462,7 @@ public class AdminController {
 	}
 	
 	
-	
+	//공지사항 리스트
 	@RequestMapping("postList.ad")
 	public String postListview(Model model, HttpServletRequest request){
 		
@@ -492,6 +504,18 @@ public class AdminController {
 			return "common/errorPage";
 		}
 		
+	}
+	
+	@RequestMapping("noticeInsert.ad")
+	public String noticeInsertView(Model model, HttpServletRequest request){
+		
+		return "admin/noticeInsert";
+	}
+	
+	@RequestMapping("noticeView.ad")
+	public String noticeView(Model model, HttpServletRequest request){
+		
+		return "admin/noticeView";
 	}
 	
 	@RequestMapping("returnList.ad")
