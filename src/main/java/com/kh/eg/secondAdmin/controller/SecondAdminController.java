@@ -1,6 +1,9 @@
 package com.kh.eg.secondAdmin.controller;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.kh.eg.admin.model.service.AdMemberService;
 import com.kh.eg.member.model.vo.Member;
 import com.kh.eg.secondAdmin.model.service.SecondAdminService;
 import com.kh.eg.secondAdmin.model.vo.SecondAdmin;
@@ -23,7 +25,7 @@ public class SecondAdminController {
 	@Autowired
 	private SecondAdminService sas;
 	
-	@RequestMapping("adminLogin")
+	@RequestMapping("adminLogin.sad")
 	public String adminLogin(@RequestParam String memberId, @RequestParam String memberPwd, Model model, SecondAdmin sa) {
 		
 		if(!memberId.equals("admin")) {
@@ -55,7 +57,7 @@ public class SecondAdminController {
 		return list;
 		
 	}*/
-	@RequestMapping("categoryDays")
+	@RequestMapping("categoryDays.sad")
 	public @ResponseBody ArrayList<SecondAdmin> categoryDays() {
 		HashMap<String, ArrayList<SecondAdmin>> hmap = new HashMap<String, ArrayList<SecondAdmin>>();
 		ArrayList<SecondAdmin> list = sas.categoryName();
@@ -64,7 +66,42 @@ public class SecondAdminController {
 		return list;
 	}
 	
-	
+	@RequestMapping("categoryDaySearch.sad")
+	public @ResponseBody ArrayList<SecondAdmin> categorySearch(@RequestParam(value="datepicker1") String datepicker1, @RequestParam(value="datepicker2") String datepicker2){
+		
+		Date startDay = null;
+		Date endDay = null;
+		System.out.println("datepicker1:"+datepicker1);
+		System.out.println("datepicker2:"+datepicker2);
+		
+		/*String[] dateArr = datepicker1.split("-");
+		int[] drr = new int[dateArr.length];
+		
+		for(int i=0;i<dateArr.length;i++) {
+			drr[i] = Integer.parseInt(dateArr[i]);
+		}
+		
+		startDay = new java.sql.Date(new GregorianCalendar(drr[0], drr[1]-1, drr[2]).getTimeInMillis());
+		
+		dateArr = datepicker2.split("-");
+		drr = new int[dateArr.length];
+		
+		for(int i=0;i<dateArr.length;i++) {
+			drr[i] = Integer.parseInt(dateArr[i]);
+		}
+		endDay = new java.sql.Date(new GregorianCalendar(drr[0], drr[1]-1, drr[2]).getTimeInMillis());
+		
+		System.out.println(startDay);
+		System.out.println(endDay);
+		HashMap<String, Date> hmap = new HashMap<String, Date>();
+		hmap.put("startDay", startDay);
+		hmap.put("endDay", endDay);*/
+		HashMap<String, String> hmap = new HashMap<String, String>();
+		hmap.put("datepicker1", datepicker1);
+		hmap.put("datepicker2", datepicker2);
+		ArrayList<SecondAdmin> list = sas.searchCategory(hmap);
+		return list;
+	}
 	
 	
 	

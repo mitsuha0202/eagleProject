@@ -2,6 +2,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../admin/include/common.jsp" %>
 <link rel="stylesheet" type="text/css" href="../eg/css/jquery.jqplot.css"/>
+<link rel="stylesheet" href="../eg/css/jquery-ui.css">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+<script
+	src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 <style>
 	.#chartArea{
 		display:inline-block;	
@@ -23,7 +28,15 @@
 		<div class="tit">&bull; 통계보기</div>
 
 		<div class="contBox mt30"><!-- contBox S -->			
-						
+			<p><h3>조회기간</h3>
+			    <input type="text" id="datepicker1" style="height: 30px;"> ~
+			    <input type="text" id="datepicker2" style="height: 30px;">
+			    
+			    <button class="ui button" onclick="dateSearch();">
+				  	조회하기
+				</button>
+			</p>
+			
 			<div class="tabBigBox btab_2ea mt40">
 				<ul>
 					<li class="on"><a href="statList1.ad">카테고리별 통계</a></li>
@@ -53,6 +66,8 @@
 <script type="text/javascript" src="../eg/js/jquery.excanvas.js"></script>
 <script type="text/javascript" src="../eg/js/plugins/jqplot.barRenderer.js"></script>
 <script type="text/javascript" src="../eg/js/plugins/jqplot.categoryAxisRenderer.js"></script>
+ <script src="../eg/js/jquery-ui.min.js"></script>
+
 
 <script type="text/javascript">
 jQuery(document).ready(function () {
@@ -100,19 +115,6 @@ jQuery(document).ready(function () {
 			alert("에러");
 		}
 	}); 
- 	
- 	
- 	
- 	
- 	
- 	
- 	
- 	
- 	
- 	
- 	
- 	
- 	
 });
   /*   var line = [6, 5, 2, 4, 6, 6, 4];
     jQuery("#chart").jqplot([line], {
@@ -197,8 +199,44 @@ jQuery(document).ready(function () {
     });
 }); */
 
+	function dateSearch() {
+		var datepicker1 = $("#datepicker1").val();
+		var datepicker2 = $("#datepicker2").val();
+			console.log(datepicker1);
+			console.log(datepicker2);
+			$.ajax({
+				url:"categoryDaySearch.sad",
+				type:"get",
+				data:{datepicker1:datepicker1, datepicker2:datepicker2},
+				dataType:"JSON",
+				contentType : "application/json",
+				success:function(data){
+					alert("성공");
+				},
+				error:function(data){
+					alert("에러");
+				}
+			}); 
+	} 
 </script>
 
+<script>
+jQuery.browser = {};
+(function () {
+    jQuery.browser.msie = false;
+    jQuery.browser.version = 0;
+    if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+        jQuery.browser.msie = true;
+        jQuery.browser.version = RegExp.$1;
+    }
+})();
+    $(function() {
+        $("#datepicker1, #datepicker2").datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
+    });
+
+</script>
 
 
 

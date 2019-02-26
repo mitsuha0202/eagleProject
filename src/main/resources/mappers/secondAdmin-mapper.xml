@@ -16,5 +16,7 @@
 		SELECT COUNT(*) FROM AUCTIONITEM A JOIN CATEGORY C ON(A.CATEGORYNO = C.CATEGORYNO) WHERE C.UPPERCATEGORYNO = #{i}
 	</select>
 	
-	
+	<!-- <select id="searchCategoryCount" parameterType="java.lang.String" resultType="_int">
+			
+	</select> -->
 </mapper>

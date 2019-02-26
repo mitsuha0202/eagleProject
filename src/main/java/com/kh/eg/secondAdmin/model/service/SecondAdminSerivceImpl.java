@@ -1,6 +1,8 @@
 package com.kh.eg.secondAdmin.model.service;
 
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,12 @@ public class SecondAdminSerivceImpl implements SecondAdminService{
 	@Override
 	public ArrayList<SecondAdmin> categoryName() {
 		ArrayList<SecondAdmin> list = sad.categoryName(sqlSession);
+		return list;
+	}
+
+	@Override
+	public ArrayList<SecondAdmin> searchCategory(HashMap<String, String> hmap) {
+		ArrayList<SecondAdmin> list = sad.searchCategory(sqlSession, hmap);
 		return list;
 	}
 	
