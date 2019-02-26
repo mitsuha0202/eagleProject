@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.kh.eg.emoney.model.vo.PageInfo;
 import com.kh.eg.emoney.model.vo.emoney;
 import com.kh.eg.member.model.vo.Member;
+import com.kh.eg.myPage.model.vo.WinBid;
 
 public interface emoneyService {
 
@@ -22,11 +23,15 @@ public interface emoneyService {
 
 	int refundMemberEmoney(emoney e);
 
-	int updateRefundEmoney(Member m, emoney e);
+	/*int updateRefundEmoney(Member m, emoney e);*/
 
 	int selectEmoneyeSq(emoney e);
 
 	int refundEmoneyeInsert(emoney e);
+
+	int paymentMember(Member m, emoney e);
+
+	int paymentInsert(emoney e, WinBid w);
 
 /*	int selectCurrval(emoney e);
 

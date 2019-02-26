@@ -512,10 +512,10 @@ public class MyPageDaoImpl implements MyPageDao{
 		
 		
 		ArrayList<WinBid> itemNoList = (ArrayList)sqlSession.selectList("MyPage.searchWinBidItemNo", mid);
-		
+
 			for(int i=0; i<itemNoList.size(); i++) {
 				PayTable payTable = new PayTable();
-				map.put("itemNo", String.valueOf(list.get(i).getItemNo()));
+				map.put("itemNo", String.valueOf(itemNoList.get(i).getItemNo()));
 				payTable = sqlSession.selectOne("MyPage.selectPayContinueListPayment", map);
 				if(payTable != null) {
 					list.get(i).setCurrentPrice(payTable.getCurrentPrice());

@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import com.kh.eg.emoney.model.vo.PageInfo;
 import com.kh.eg.emoney.model.vo.emoney;
 import com.kh.eg.member.model.vo.Member;
+import com.kh.eg.myPage.model.vo.WinBid;
 
 public interface emoneyDao {
 
@@ -22,7 +23,7 @@ public interface emoneyDao {
 
 	int refundMemberEmoney(SqlSessionTemplate sqlSession, emoney e);
 
-	int updateRefundEmoney(SqlSessionTemplate sqlSession, Member m, emoney e);
+	/*int updateRefundEmoney(SqlSessionTemplate sqlSession, Member m, emoney e);*/
 	
 	int selectCurrval(SqlSessionTemplate sqlSession, emoney e);
 	
@@ -33,6 +34,10 @@ public interface emoneyDao {
 	int selectEmoneyeSq(SqlSessionTemplate sqlSession, emoney e);
 
 	int refundEmoneyeInsert(SqlSessionTemplate sqlSession, emoney e);
+
+	int paymentMember(SqlSessionTemplate sqlSession, Member m, emoney e);
+
+	int paymentInsert(SqlSessionTemplate sqlSession, emoney e, WinBid w);
 
 
 

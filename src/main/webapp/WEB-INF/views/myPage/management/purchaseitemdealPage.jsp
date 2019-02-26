@@ -196,6 +196,7 @@
 	</div>
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 	<script>
 		$(function() {
 			if("${ fn:length(list) }" != 0){
@@ -204,6 +205,8 @@
 				alert("입금요청된 물품이 없습니다.");
 			}
 		});
+		memberNo = '${sessionScope.loginUser.mid}';
+		emoney = '${sessionScope.loginUser.emoney}';
 		
 		//결제페이지로 넘기기
 		function payment() {
@@ -216,11 +219,38 @@
    		 		var td = tr.children();
    	            var docNum = td.eq(2).text();
    	            var curPrice = td.eq(4).text();
-   	            sendArr.push(docNum);   	 
-   	            sendCurArr.push(curPrice);
- 				location.href="paymentconfirm.mp?itemNo=" + sendArr +"," + "&currentPrice=" + sendCurArr + ",";
-   		 	}); 		 	
-		}
+   	            /* sendArr.push(docNum);   	 
+   	            sendCurArr.push(curPrice); */
+   		 	
+ 				/* location.href="paymentconfirm.mp?itemNo=" + sendArr +"," + "&currentPrice=" + sendCurArr + ","; */
+   		 	var ok = false;
+   		 	jQuery.ajax({
+   		 		url:"paymentA.em",
+   		 		type: "POST",
+   		 		dataType: "json",
+   		 		data : {
+   		 			docNum : docNum,
+   		 			curPrice : curPrice
+   		 			
+   		 		},
+   		 		success:function(data){
+   		 			console.log(data);
+   		 			if(data > 0){
+   		 				ok = true;
+   		 			}
+   		 		}
+   		 		
+   		 	}).done(function (data){
+   		 		if(ok){
+   		 			var msg = '결제되었습니다.';
+   		 			alert(msg);
+   		 		}else{
+   		 			var msg = '결제실패';
+   		 			alert(msg);
+   		 		}
+   		 	}); 
+   		 	});
+		}  
 	</script>
 </body>
 </html>

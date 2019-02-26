@@ -113,12 +113,12 @@
 		SELECT * FROM MEMBER WHERE MEMBERID=#{memberId} AND MEMBERPWD=#{memberPwd}
 	</select>
 
-	<!-- 환급시 보유 이머니 업데이트 -->
-	<update id="updateRefundEmoney" parameterType="java.lang.Integer" >
+	<!-- 결제시 보유 이머니 업데이트 -->
+	 <update id="paymentMember" parameterType="java.lang.Integer" >
 		UPDATE MEMBER
 		SET EMONEY = (EMONEY-#{emoney, jdbcType=NUMERIC})
 		WHERE MEMBERNO = #{mid}
-	</update>
+	</update> 
 	
 
 	
