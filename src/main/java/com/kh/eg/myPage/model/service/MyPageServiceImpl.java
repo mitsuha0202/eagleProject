@@ -294,9 +294,9 @@ public class MyPageServiceImpl implements MyPageService{
 
 	//입금요청 물품 리스트 조회
 	@Override
-	public ArrayList<PayTable> selectPayContinueList(PageInfo pi, String mid, String[] itemNo) {
+	public ArrayList<PayTable> selectPayContinueList(PageInfo pi, String mid, String[] itemNo, String[] curList) {
 		
-		return md.selectPayContinueList(sqlSession, pi, mid, itemNo);
+		return md.selectPayContinueList(sqlSession, pi, mid, itemNo, curList);
 	}
 
 	@Override
@@ -310,6 +310,20 @@ public class MyPageServiceImpl implements MyPageService{
 	public ArrayList<PayTable> selectPayContinueList2(PageInfo pi, String mid) {
 		
 		return md.selectPayContinueList2(sqlSession, pi, mid);
+	}
+	
+	//배송요청 페이징처리
+	@Override
+	public int getDeliveryListCount(String mid) {
+
+		return md.getDeliveryListCount(sqlSession, mid);
+	}
+	
+	//배송요청 목록 조회
+	@Override
+	public ArrayList<PayTable> selectDelivery(String mid, PageInfo pi) {
+		
+		return md.selectDelivery(sqlSession, mid, pi);
 	}
 	
 	

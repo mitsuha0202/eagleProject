@@ -128,11 +128,17 @@ public interface MyPageDao {
 	int getPayContinueList(SqlSessionTemplate sqlSession, String[] itemNo);
 
 	//입금요청 물품 리스트 조회
-	ArrayList<PayTable> selectPayContinueList(SqlSessionTemplate sqlSession, PageInfo pi, String mid, String[] itemNo);
+	ArrayList<PayTable> selectPayContinueList(SqlSessionTemplate sqlSession, PageInfo pi, String mid, String[] itemNo, String[] curList);
 
 	int getPayContinueList2(SqlSessionTemplate sqlSession, String mid);
 	//입금요청 아이템번호 없을시
 	ArrayList<PayTable> selectPayContinueList2(SqlSessionTemplate sqlSession, PageInfo pi, String mid);
+
+	//배송요청 페이징
+	int getDeliveryListCount(SqlSessionTemplate sqlSession, String mid);
+
+	//배송요청 목록 조회
+	ArrayList<PayTable> selectDelivery(SqlSessionTemplate sqlSession, String mid, PageInfo pi);
 	
 	
 	
