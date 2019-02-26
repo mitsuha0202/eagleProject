@@ -25,6 +25,7 @@ public class ItemDetail implements java.io.Serializable{
 	private int currentPrice;
 	private String wishListNo;
 	private String delStatus;
+	private int lucky;
 	
 	public ItemDetail() {}
 
@@ -36,13 +37,13 @@ public class ItemDetail implements java.io.Serializable{
 				+ ", deliveryPrice=" + deliveryPrice + ", itemCount=" + itemCount + ", mId=" + mId + ", rating="
 				+ rating + ", auctionName=" + auctionName + ", startDay=" + startDay + ", endDay=" + endDay
 				+ ", exitYN=" + exitYN + ", currentPrice=" + currentPrice + ", wishListNo=" + wishListNo
-				+ ", delStatus=" + delStatus + "]";
+				+ ", delStatus=" + delStatus + ", lucky=" + lucky + "]";
 	}
 
 	public ItemDetail(String itemNo, String itemName, int startPrice, int bidUnit, String deliveryPay, String origin,
 			String deleteYN, String categoryNo, String mNo, String auctionCode, String detail, String deliveryPrice,
 			String itemCount, String mId, String rating, String auctionName, String startDay, String endDay,
-			String exitYN, int currentPrice, String wishListNo, String delStatus) {
+			String exitYN, int currentPrice, String wishListNo, String delStatus, int lucky) {
 		super();
 		this.itemNo = itemNo;
 		this.itemName = itemName;
@@ -66,6 +67,7 @@ public class ItemDetail implements java.io.Serializable{
 		this.currentPrice = currentPrice;
 		this.wishListNo = wishListNo;
 		this.delStatus = delStatus;
+		this.lucky = lucky;
 	}
 
 	public String getItemNo() {
@@ -243,6 +245,15 @@ public class ItemDetail implements java.io.Serializable{
 	public void setDelStatus(String delStatus) {
 		this.delStatus = delStatus;
 	}
+
+	public int getLucky() {
+		return lucky;
+	}
+
+	public void setLucky(int lucky) {
+		this.lucky = lucky;
+	}
+
 
 	
 	

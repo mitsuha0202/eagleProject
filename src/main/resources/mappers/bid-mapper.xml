@@ -27,6 +27,7 @@
   		<result property="currentPrice" column="CURRENTPRICE" />
   		<result property="wishListNo" column="WISHLISTNO" />
   		<result property="delStatus" column="DELETESTATUS" />
+  		<result property="lucky" column="LUCKY" />
   	</resultMap>
   	
 	<resultMap type="Bidding" id="bidResultSet">
