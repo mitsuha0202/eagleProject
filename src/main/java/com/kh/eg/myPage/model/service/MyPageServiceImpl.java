@@ -337,6 +337,62 @@ public class MyPageServiceImpl implements MyPageService{
 		return md.selectDelivery(sqlSession, mid, pi);
 	}
 
+	//배송중 페이징 처리
+	@Override
+	public int getShippingListCount(String mid) {
+
+		return md.getShippingListCount(sqlSession, mid);
+	}
+
+	//배송중 목록 조회
+	@Override
+	public ArrayList<PayTable> selectShipping(String mid, PageInfo pi) {
+		
+		return md.selectShipping(sqlSession, mid, pi);
+	}
+
+	//구매결정대기 페이징 처리
+	@Override
+	public int getWaitingListCount(String mid) {
+
+		return md.getWaitingListCount(sqlSession, mid);
+	}
+
+	//구매결정대기 목록 조회
+	@Override
+	public ArrayList<PayTable> selectWaiting(String mid, PageInfo pi) {
+
+		return md.selectWaiting(sqlSession, mid, pi);
+	}
+
+	//수령이후 입금 페이징
+	@Override
+	public int getAfterSend(String mid) {
+
+		return md.getAfterSend(sqlSession, mid);
+	}
+
+	//수령이후 입금 목록 조회
+	@Override
+	public ArrayList<PayTable> selectAfterSend(String mid, PageInfo pi) {
+		
+		return md.selectAfterSend(sqlSession, mid, pi);
+	}
+
+	//구매거부 페이징 처리
+	@Override
+	public int getPurchaseOther(String mid, String itemNo, String currentPrice) {
+		
+		return md.getPurchaseOther(sqlSession, mid, itemNo, currentPrice);
+	}
+
+	//구매거부 목록 조회
+	@Override
+	public ArrayList<PayTable> selectPurChaseOther(PageInfo pi, String mid, String itemNo, String currentPrice) {
+
+		return md.selectPurChaseOther(sqlSession, pi, mid, itemNo, currentPrice);
+	}
+
 	
 	
 }

@@ -321,6 +321,7 @@ public class MyPageDaoImpl implements MyPageDao{
 		
 		searchList.put("mid", mid);
 		itemNo = (ArrayList)sqlSession.selectList("MyPage.selectWinBidListSearchItemNo", mid, rowBounds); 
+
 		for(int i=0; i<count; i++) {
 
 			searchList.put("itemNo", String.valueOf(itemNo.get(i).getItemNo()));
@@ -330,6 +331,7 @@ public class MyPageDaoImpl implements MyPageDao{
 			}else {
 				list = (ArrayList)sqlSession.selectList("MyPage.selectWinBidList", searchList, rowBounds);				
 				ArrayList<PayTable> temp = (ArrayList)sqlSession.selectList("MyPage.selectWinBidRank", searchList);
+
 				for(int j=0; j<temp.size(); j++) {
 					if(list.get(i).getBidNo() == temp.get(j).getBidNo()) {
 						list.get(i).setRowBid(temp.get(j).getRowBid());
@@ -567,6 +569,94 @@ public class MyPageDaoImpl implements MyPageDao{
 		
 		ArrayList<PayTable> list = (ArrayList)sqlSession.selectList("MyPage.selectDeliveryList", mid, rowBounds);
 		return list;
+	}
+
+	//배송중 페이징 처리
+	@Override
+	public int getShippingListCount(SqlSessionTemplate sqlSession, String mid) {
+
+		return sqlSession.selectOne("MyPage.getShippingListCount", mid);
+	}
+
+	//배송중 목록 조회
+	@Override
+	public ArrayList<PayTable> selectShipping(SqlSessionTemplate sqlSession, String mid, PageInfo pi) {
+		int offset = (pi.getCurrentPage()  - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		return (ArrayList)sqlSession.selectList("MyPage.selectShipping", mid, rowBounds);
+	}
+
+	//구매결정대기 페이징 처리
+	@Override
+	public int getWaitingListCount(SqlSessionTemplate sqlSession, String mid) {
+
+		return sqlSession.selectOne("MyPage.getWatingListCount", mid);
+	}
+
+	//구매결정대기 목록 조회
+	@Override
+	public ArrayList<PayTable> selectWaiting(SqlSessionTemplate sqlSession, String mid, PageInfo pi) {
+		int offset = (pi.getCurrentPage()  - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		return (ArrayList)sqlSession.selectList("MyPage.selectWaiting", mid, rowBounds);
+	}
+
+	//수령이후 입금예정 페이징
+	@Override
+	public int getAfterSend(SqlSessionTemplate sqlSession, String mid) {
+
+		return sqlSession.selectOne("MyPage.getAfterSend", mid);
+	}
+
+	//수령이후 입금 목록 조회
+	@Override
+	public ArrayList<PayTable> selectAfterSend(SqlSessionTemplate sqlSession, String mid, PageInfo pi) {
+		int offset = (pi.getCurrentPage()  - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		return (ArrayList)sqlSession.selectList("MyPage.selectAfterSend", mid, rowBounds);
+	}
+
+	//구매거부 페이징 처리
+	@Override
+	public int getPurchaseOther(SqlSessionTemplate sqlSession, String mid, String itemNo, String currentPrice) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("mid", mid);
+		map.put("itemNo", itemNo);
+		map.put("currentPrice", currentPrice);
+		map.put("saleMemberNo", (String)sqlSession.selectOne("MyPage.selectSaleMemberNo", map));
+		
+		int result1 = sqlSession.insert("MyPage.noPayInsert", map);
+		
+		int result2 = 0;
+		
+		if(result1 > 0) {
+			map.put("dealNo", (String)sqlSession.selectOne("MyPage.winBidSelect", map));
+		}
+		
+		if(map.get("dealNo") != null) {
+			result2 = sqlSession.insert("MyPage.noPayDetailInsert", map);
+		}
+		
+		int count = 0;
+		
+		if(result2 > 0) {
+			count = sqlSession.selectOne("MyPage.getPurchaseOther", map);
+		}
+		return count;
+	}
+
+	//구매거부 목록 조회
+	@Override
+	public ArrayList<PayTable> selectPurChaseOther(SqlSessionTemplate sqlSession, PageInfo pi, String mid, String itemNo, String currentPrice) {
+		int offset = (pi.getCurrentPage()  - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());	
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("mid", mid);
+		map.put("itemNo", itemNo);
+		map.put("currentPrice", currentPrice);
+		return (ArrayList)sqlSession.selectList("MyPage", map, rowBounds);
 	}
 
 }

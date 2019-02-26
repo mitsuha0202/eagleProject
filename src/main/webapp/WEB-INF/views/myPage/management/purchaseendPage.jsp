@@ -104,7 +104,7 @@
 		
 		 <h5>꼭 읽어주세요! </h5><br>
 	     <h5>현재 입찰하신 물품중 낙찰받은 물품 리스트입니다.</h5>
-	     <h5>취소하기 선택시 패널티가 부여되며 물품가격의 수수료를 제외한 나머지 금액을 돌려받게 됩니다.</h5>
+	     <h5>구매거부하기 선택시 패널티가 부여되며 물품가격의 수수료를 제외한 나머지 금액을 돌려받게 됩니다.</h5>
 	     <br>
 	     <h5>낙찰된 물품에 대해서 모두 ${ fn:length(list) }건이 검색되었습니다.</h5>
 	     
@@ -112,7 +112,7 @@
       
       <thead>
         <tr>
-          <td class="firstTd"><input type="checkbox" id="checkAll" onclick="check();"></td>
+     		<th class="firstTd">선택</th>	
 		  <th class="firstTd">물품번호</th>
           <th class="firstTd">물품명</th>     
           <th class="firstTd">낙찰가</th>
@@ -126,7 +126,7 @@
         <c:if test="${ !empty list }">
 	      <c:forEach var="b" items="${ list }">
 	            <tr>
-	               <td><input type="checkbox" class="checkChild"></td> 
+	               <td><input type="radio" class="checkChild" name="gender"></td> 
 	               <td>${ b.itemNo }</td>
 	               <td>${ b.itemName }</td>
 	               <td>${ b.currentPrice }</td>
@@ -145,7 +145,7 @@
      
     </table>
 	     <button onclick="itemNo();">거래하기</button>
-	     <button>구매거부</button>
+	     <button class="noPay">구매거부</button>
 	</div>
 	
 	<!-- 하단 div영역 -->
@@ -198,14 +198,6 @@
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script>
-		/* 체크박스 */
-		function check() {
-   			if( $("#checkAll").is(':checked') ){
-       			$(".checkChild").prop("checked", true);
-     		}else{
-       			$(".checkChild").prop("checked", false);
-     		}
-		}
 		
 		function itemNo() {
    			var sendArr = new Array();
@@ -223,7 +215,29 @@
    		 	}); 		 	
 		}
 		
-	</script>
-	
+		$(".noPay").click(function () {
+			var answer = confirm("구매거부하시겠습니까?");
+			if(answer == true){
+				noPay();
+			}
+		});
+		
+		function noPay() {
+			var sendArr = new Array();
+   			var sendCur = new Array();
+   			var checkbox = $(".checkChild:checked");
+   	        alert("구매거부가 신청되었습니다.");
+   		 	checkbox.each(function(i){
+   		 		var tr = checkbox.parent().parent().eq(i);
+   		 		var td = tr.children();
+   	            var docNum = td.eq(1).text();
+   	            var current = td.eq(3).text();
+   	            sendArr.push(docNum);
+   	            sendCur.push(current);
+ 				location.href="purchaseother.mp?itemNo=" + sendArr +"," + "&currentPrice=" + sendCur;
+   		 	}); 	
+		}
+		
+	</script>	
 </body>
 </html>

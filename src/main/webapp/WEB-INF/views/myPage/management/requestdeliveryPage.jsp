@@ -118,7 +118,6 @@
           <th class="firstTd">물품번호</th>
           <th class="firstTd">물품명</th>
           <th class="firstTd">구매가격</th>
-          <th class="firstTd">구매정보</th>
           <th class="firstTd">낙찰/구매일</th>
           <th class="firstTd">판매자</th>
         </tr>

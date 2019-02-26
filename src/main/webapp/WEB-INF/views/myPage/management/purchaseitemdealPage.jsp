@@ -113,7 +113,7 @@
       
       <thead>
         <tr>
-          <td class="firstTd" style="width: 70px;"><input type="checkbox" id="checkAll" onclick="check();"></td>	
+          <td class="firstTd">선택</td>	
           <th class="firstTd">구분</th>
           <th class="firstTd">물품번호</th>
           <th class="firstTd">물품명</th>
@@ -126,7 +126,7 @@
         <c:if test="${ !empty list }">
 	      <c:forEach var="b" items="${ list }">
 	            <tr>
-	            	<td><input type="checkbox" class="checkChild"></td>
+	            	<td><input type="radio" class="checkChild" name="gender"></td>
 	            	<td name="first">1</td>
 	               	<td name="choice">${ b.itemNo }</td>
 		            <td>${ b.itemName }</td>
@@ -211,7 +211,7 @@
 		//결제페이지로 넘기기
 		function payment() {
 			var sendArr = new Array();
-			var sendCurArr = new Array();ㄴ
+			var sendCurArr = new Array();
    			var checkbox = $(".checkChild:checked");
    	        alert("거래가 시작되었습니다.");
    		 	checkbox.each(function(i){

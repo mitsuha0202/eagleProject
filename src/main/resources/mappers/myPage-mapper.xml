@@ -397,7 +397,7 @@
 		JOIN AUCTIONITEM I ON(B.ITEMNO = I.ITEMNO)
 		JOIN MEMBER M ON(I.MEMBERNO = M.MEMBERNO)
 		JOIN AUCTIONDETAIL A ON(B.ITEMNO = A.ITEMNO)
-		WHERE B.MEMBERNO = 11
+		WHERE B.MEMBERNO = #{mid}
         AND I.ITEMNO = #{itemNo}
 		AND A.EXITYN = 'Y'
 		ORDER BY B.BIDNO ASC
@@ -521,17 +521,106 @@
 
 	<!-- 배송요청 목록 조회 -->
 	<select id="selectDeliveryList" resultMap="payTableResultSet" parameterType="java.lang.String">
-		SELECT W.ITEMNO, A.ITEMNAME, B.CURRENTPRICE, A.ITEMNAME, D.ENDDAY, M.MEMBERNAME
+		SELECT W.ITEMNO, A.ITEMNAME, W.PRICE AS CURRENTPRICE, A.ITEMNAME, D.ENDDAY, M.MEMBERNAME
 		FROM WINBID W 
+        JOIN WINBIDDETAIL T ON(W.DEALNO = T.DEALNO)
 		JOIN AUCTIONITEM A ON(W.ITEMNO = A.ITEMNO)
 		JOIN AUCTIONDETAIL D ON(A.ITEMNO = D.ITEMNO)
 		JOIN BID B ON(D.ITEMNO = B.ITEMNO)
 		JOIN MEMBER M ON(A.MEMBERNO = M.MEMBERNO)
 		WHERE D.EXITYN = 'Y'
 		AND B.MEMBERNO = #{mid}
-		AND W.ITEMNO = #{itemNo}
-		AND B.CURRENTPRICE = #{currentPrice}
+        AND T.ORDERM = '배송요청'
 	</select>
+	
+	<!-- 배송중 페이징 처리 -->
+	<select id="getShippingListCount" resultType="_int" parameterType="java.lang.String">
+		SELECT COUNT(*) 
+		FROM WINBID W
+		JOIN WINBIDDETAIL B ON(W.DEALNO = B.DEALNO)
+		WHERE W.MEMBERNO = #{mid} 
+		AND B.ORDERM = '배송중'
+	</select>
+	
+	<!-- 배송중 목록 조회 -->
+	<select id="selectShipping" resultMap="payTableResultSet" parameterType="java.lang.String">
+		SELECT W.ITEMNO, A.ITEMNAME, W.PRICE AS CURRENTPRICE, A.ITEMNAME, D.ENDDAY, M.MEMBERNAME
+		FROM WINBID W 
+        JOIN WINBIDDETAIL T ON(W.DEALNO = T.DEALNO)
+		JOIN AUCTIONITEM A ON(W.ITEMNO = A.ITEMNO)
+		JOIN AUCTIONDETAIL D ON(A.ITEMNO = D.ITEMNO)
+		JOIN BID B ON(D.ITEMNO = B.ITEMNO)
+		JOIN MEMBER M ON(A.MEMBERNO = M.MEMBERNO)
+		WHERE D.EXITYN = 'Y'
+		AND B.MEMBERNO = #{mid}
+        AND T.ORDERM = '배송중'
+	</select>
+	
+	<!-- 구매결정대기 페이징 처리 -->
+	<select id="getWatingListCount" resultType="_int" parameterType="java.lang.String">
+		SELECT COUNT(*) 
+		FROM WINBID W
+		JOIN WINBIDDETAIL B ON(W.DEALNO = B.DEALNO)
+		WHERE W.MEMBERNO = #{mid}
+		AND B.ORDERM = '배송완료'
+	</select>
+	
+	<!-- 구매결정대기 목록 조회 -->
+	<select id="selectWaiting" resultMap="payTableResultSet" parameterType="java.lang.String">
+		SELECT W.ITEMNO, A.ITEMNAME, W.PRICE AS CURRENTPRICE, A.ITEMNAME, D.ENDDAY, M.MEMBERNAME
+		FROM WINBID W 
+        JOIN WINBIDDETAIL T ON(W.DEALNO = T.DEALNO)
+		JOIN AUCTIONITEM A ON(W.ITEMNO = A.ITEMNO)
+		JOIN AUCTIONDETAIL D ON(A.ITEMNO = D.ITEMNO)
+		JOIN BID B ON(D.ITEMNO = B.ITEMNO)
+		JOIN MEMBER M ON(A.MEMBERNO = M.MEMBERNO)
+		WHERE D.EXITYN = 'Y'
+		AND B.MEMBERNO = #{mid}
+        AND T.ORDERM = '배송완료'
+	</select>
+	
+	<!-- 수령이후 송금예정 -->
+	<select id="getAfterSend" resultType="_int" parameterType="java.lang.String">
+		SELECT COUNT(*) 
+		FROM WINBID W
+		JOIN WINBIDDETAIL B ON(W.DEALNO = B.DEALNO)
+		WHERE W.MEMBERNO = #{mid}
+		AND B.ORDERM = '구매확정'
+	</select>
+	
+	<!-- 수령이후 입금 목록 조회 -->
+	<select id="selectAfterSend" resultMap="payTableResultSet" parameterType="java.lang.String">
+		SELECT W.ITEMNO, A.ITEMNAME, W.PRICE AS CURRENTPRICE, A.ITEMNAME, D.ENDDAY, M.MEMBERNAME
+		FROM WINBID W 
+        JOIN WINBIDDETAIL T ON(W.DEALNO = T.DEALNO)
+		JOIN AUCTIONITEM A ON(W.ITEMNO = A.ITEMNO)
+		JOIN AUCTIONDETAIL D ON(A.ITEMNO = D.ITEMNO)
+		JOIN BID B ON(D.ITEMNO = B.ITEMNO)
+		JOIN MEMBER M ON(A.MEMBERNO = M.MEMBERNO)
+		WHERE D.EXITYN = 'Y'
+		AND B.MEMBERNO = #{mid}
+        AND T.ORDERM = '구매확정'
+	</select>
+	
+	<!-- 구매거부 winbid insert -->
+	<insert id="noPayInsert" parameterType="java.lang.String">
+		INSERT INTO WINBID VALUES(#{mid}, #{itemNo}, TN_SEQ.NEXTVAL, #{currentPrice})
+	</insert>
+	
+	<!-- 구매거부 winbiddetail insert -->
+	<insert id="noPayDetailInsert" parameterType="java.lang.String">
+		INSERT INTO WINBIDDETAIL VALUES(#{dealNo}, '구매거부', '거래중', 'N', #{mid}, NULL, NULL, #{saleMemberNo}, NULL)
+	</insert>
+	
+	<!-- 구매거부 페이징 처리 -->
+	<select id="getPurchaseOther" resultType="_int" parameterType="java.lang.String">
+		SELECT COUNT(*) 
+		FROM WINBID W 
+		JOIN WINBIDDETAIL B ON(W.DEALNO = B.DEALNO)
+		WHERE W.MEMBERNO = #{mid}
+		AND B.ORDERM = '구매거부'
+	</select>
+	
 <!-- ============================================================================================= -->
 	<!--//답변페이지 게시판번호 물품번호조회  -->
 	 <select id="reanswerDetail" resultMap="answerBoardResultSet" parameterType="java.lang.String">
