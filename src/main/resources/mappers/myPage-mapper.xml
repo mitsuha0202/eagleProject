@@ -490,31 +490,49 @@
 		SELECT MEMBERNO FROM AUCTIONITEM WHERE ITEMNO = #{itemNo}
 	</select>
 	
-	<!-- 입금요청시 거래진행이므로 winbiddetail에 insert -->
-	<insert id="winBidDetailInsert" parameterType="java.lang.String">
-		INSERT INTO WINBIDDETAIL VALUES(TN_SEQ.NEXTVAL, '입금요청', '거래중', #{mid}, NULL, NULL, #{saleMemberNo}, NULL)
-	</insert>
-	
-	<delete id="deleteTemp" parameterType="java.lang.String">
-		DELETE FROM WINBIDDETAIL WHERE DEALNO = 23
-	</delete>
-	
 	<!-- winbid에 insert 하기위해 winbiddetail select -->
 	<select id="winBidSelect" resultType="WinBid" parameterType="java.lang.String">
-		SELECT W.DEALNO 
-		FROM WINBIDDETAIL W 
-		JOIN WINBID B ON(W.DEALNO = B.DEALNO) 
-		WHERE MEMBERNO = #{mid} 
+		SELECT DEALNO 
+		FROM WINBID
+		WHERE MEMBERNO = #{mid}
 		AND ITEMNO = #{itemNo}
 	</select>
 	
 	<!-- winbid에 insert -->
 	<insert id="winBidInsert" parameterType="java.lang.String">
-		INSERT INTO WINBID VALUES(#{mid}, #{itemNo}, #{dealNo})
+		INSERT INTO WINBID VALUES(#{mid}, #{itemNo}, TN_SEQ.NEXTVAL, #{price})
 	</insert>
 	
+	<!-- 입금요청시 거래진행이므로 winbiddetail에 insert -->
+	<insert id="winBidDetailInsert" parameterType="java.lang.String">
+		INSERT INTO WINBIDDETAIL VALUES(#{dealNo}, '입금요청', '거래중', 'N', #{mid}, NULL, NULL, #{saleMemberNo}, NULL)
+	</insert>
 <!-- ============================================================================================= -->
 
+	<!-- 배송요청 페이징 처리 -->
+	<select id="deliveryListCount" resultType="_int" parameterType="java.lang.String">
+		SELECT COUNT(*) 
+		FROM WINBID W 
+        JOIN WINBIDDETAIL B ON(W.DEALNO = B.DEALNO)
+		JOIN EMONEYC E ON(W.DEALNO = E.DEALNO) 
+		WHERE W.MEMBERNO = #{mid}
+        AND B.ORDERM = '배송요청'
+	</select>
+
+	<!-- 배송요청 목록 조회 -->
+	<select id="selectDeliveryList" resultMap="payTableResultSet" parameterType="java.lang.String">
+		SELECT W.ITEMNO, A.ITEMNAME, B.CURRENTPRICE, A.ITEMNAME, D.ENDDAY, M.MEMBERNAME
+		FROM WINBID W 
+		JOIN AUCTIONITEM A ON(W.ITEMNO = A.ITEMNO)
+		JOIN AUCTIONDETAIL D ON(A.ITEMNO = D.ITEMNO)
+		JOIN BID B ON(D.ITEMNO = B.ITEMNO)
+		JOIN MEMBER M ON(A.MEMBERNO = M.MEMBERNO)
+		WHERE D.EXITYN = 'Y'
+		AND B.MEMBERNO = #{mid}
+		AND W.ITEMNO = #{itemNo}
+		AND B.CURRENTPRICE = #{currentPrice}
+	</select>
+<!-- ============================================================================================= -->
 	<!--//답변페이지 게시판번호 물품번호조회  -->
 	 <select id="reanswerDetail" resultMap="answerBoardResultSet" parameterType="java.lang.String">
 		SELECT B.BOARDNO, B.ITEMNO , M.MEMBERNAME, B.TITLE FROM BOARD B JOIN MEMBER M ON(B.MEMBERNO = M.MEMBERNO) WHERE B.BOARDSTATUS = 'RECEIVEBOARD' AND B.BOARDNO = #{answerno}

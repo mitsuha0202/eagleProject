@@ -209,14 +209,17 @@
 		
 		function itemNo() {
    			var sendArr = new Array();
+   			var sendCur = new Array();
    			var checkbox = $(".checkChild:checked");
    	        alert("거래가 진행되었습니다.");
    		 	checkbox.each(function(i){
    		 		var tr = checkbox.parent().parent().eq(i);
    		 		var td = tr.children();
    	            var docNum = td.eq(1).text();
+   	            var current = td.eq(3).text();
    	            sendArr.push(docNum);
- 				location.href="purchaseitemdeal.mp?itemNo=" + sendArr +",";
+   	            sendCur.push(current);
+ 				location.href="purchaseitemdeal.mp?itemNo=" + sendArr +"," + "&currentPrice=" + sendCur;
    		 	}); 		 	
 		}
 		

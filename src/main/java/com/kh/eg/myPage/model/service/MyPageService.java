@@ -129,15 +129,22 @@ public interface MyPageService {
 	int getPayContinueList( String[] itemNo);
 
 	//입금요청 물품 리스트 조회
-	ArrayList<PayTable> selectPayContinueList(PageInfo pi, String mid, String[] itemNo);
+	ArrayList<PayTable> selectPayContinueList(PageInfo pi, String mid, String[] itemNo, String[] curList);
 
 	//입금요청 아이템번호 없을시
 	int getPayContinueList2(String mid);
 	//입금요청 아이템번호 없을시
 	ArrayList<PayTable> selectPayContinueList2(PageInfo pi, String mid);
 	
+
 	//마이페이지 - 회원등급확인
 	ArrayList<RatingMyPage> selectRating(String memberNo);
+
+	//배송요청 페이징 처리
+	int getDeliveryListCount(String mid);
+	
+	ArrayList<PayTable> selectDelivery(String mid, PageInfo pi);
+
 
 	
 	

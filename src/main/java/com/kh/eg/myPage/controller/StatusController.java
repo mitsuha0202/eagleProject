@@ -18,6 +18,7 @@ import com.kh.eg.myPage.common.Pagination;
 import com.kh.eg.myPage.model.service.MyPageService;
 import com.kh.eg.myPage.model.vo.PageInfo;
 import com.kh.eg.myPage.model.vo.PayTable;
+import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 import com.kh.eg.myPage.common.Three;
 
 @SessionAttributes("loginUser")
@@ -171,15 +172,16 @@ public class StatusController {
 //-------------------------------구매물품 거래진행중 페이지들------------------------------------------------------	
 	//구매현황상세페이지 - 구매 물품 거래 진행중 페이지 - 입금요청
 		@RequestMapping("purchaseitemdeal.mp")
-		public String purchaseitemdealPage(@RequestParam(defaultValue="1") int currentPage, @RequestParam(value="itemNo", required=false) String itemNoList, HttpSession session, Model model) {
+		public String purchaseitemdealPage(@RequestParam(defaultValue="1") int currentPage, @RequestParam(value="itemNo", required=false) String itemNoList, @RequestParam(value="currentPrice", required=false) String currentPrice, HttpSession session, Model model) {
 			
 			Member m = (Member)session.getAttribute("loginUser");
 			//아이템 번호 담기
-			if(itemNoList != null && !itemNoList.equals("")) {
+			if(itemNoList != null && !itemNoList.equals("") && currentPrice != null && !currentPrice.equals("")) {
 				String[] itemNo = itemNoList.split(",");
+				String[] curList = currentPrice.split(",");
 				int listCount = ms.getPayContinueList(itemNo);
 				PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-				ArrayList<PayTable> list = ms.selectPayContinueList(pi, m.getMid(), itemNo);
+				ArrayList<PayTable> list = ms.selectPayContinueList(pi, m.getMid(), itemNo, curList);
 				model.addAttribute("list", list);
 				model.addAttribute("pi", pi);
 			}else {
@@ -190,9 +192,9 @@ public class StatusController {
 				model.addAttribute("pi", pi);
 			}
 			return "myPage/management/purchaseitemdealPage";
-	}
+		}
 	
-	//구매현황상세페이지 - 구매 물품 거래 진행중 페이지 - 입금확인중
+	/*//구매현황상세페이지 - 구매 물품 거래 진행중 페이지 - 
 		@RequestMapping("paymentconfirm.mp")
 		public String paymentconfirmPage(@RequestParam(value="itemNo", required=false) String itemNo, @RequestParam(value="currentPrice", required=false) String currentPrice, Model model) {
 			String[] itemNoList = null;
@@ -205,11 +207,26 @@ public class StatusController {
 				return "myPage/management/paymentconfirmPage";
 			}			
 			return "myPage/management/paymentconfirmPage";
-		}
+		}*/
 		
 	//구매현황상세페이지 - 구매 물품 거래 진행중 페이지 - 배송요청
 		@RequestMapping("requestdelivery.mp")
-		public String requestdeliveryPage() {
+		public String requestdeliveryPage(@RequestParam(defaultValue="1") int currentPage, HttpSession session, Model model, Member m) {
+			
+				m = (Member)session.getAttribute("loginUser");
+				int listCount = ms.getDeliveryListCount(m.getMid());
+				PageInfo pi = Pagination.getPageInfo(currentPage, listCount);	
+				
+				ArrayList<PayTable> list = ms.selectDelivery(m.getMid(), pi);
+				
+				for(PayTable p : list) {
+					System.out.println(p);
+				}
+				if(list != null) {
+					model.addAttribute("list", list);
+					model.addAttribute("pi", pi);
+				}
+			
 			return "myPage/management/requestdeliveryPage";
 		}
 	//구매현황상세페이지 - 구매 물품 거래 진행중 페이지 - 배송중

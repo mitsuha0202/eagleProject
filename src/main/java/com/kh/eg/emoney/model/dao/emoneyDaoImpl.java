@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.eg.emoney.model.vo.PageInfo;
 import com.kh.eg.emoney.model.vo.emoney;
 import com.kh.eg.member.model.vo.Member;
+import com.kh.eg.myPage.model.vo.WinBid;
 
 
 @Repository
@@ -50,19 +51,19 @@ public class emoneyDaoImpl implements emoneyDao{
 		return result;
 	}
 	
-	@Override
+	/*@Override
 	public int updateRefundEmoney(SqlSessionTemplate sqlSession, Member m, emoney e) {
 		System.out.println("환급test");
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		map.put("mid", Integer.parseInt(m.getMid()));
-		/*map.put("emoney", String.valueOf(m.getEmoney()));*/
+		map.put("emoney", String.valueOf(m.getEmoney()));
 		map.put("emoney", m.getEmoney());
-		/*String money = String.valueOf(m.getEmoney());*/
+		String money = String.valueOf(m.getEmoney());
 		int result = sqlSession.update("Member.updateRefundEmoney", map);
 		System.out.println("환급업데이트잘되는지확인 : " + result);		
 		
 		return result;
-	}
+	}*/
 	
 	//페이징처리하면서 리스트뽑기
 	@Override
@@ -140,8 +141,33 @@ public class emoneyDaoImpl implements emoneyDao{
 
 	@Override
 	public int refundEmoneyeInsert(SqlSessionTemplate sqlSession, emoney e) {
-
 		int result = sqlSession.insert("emoney.refundEmoneyeInsert", e);
+		System.out.println("인설트 잘되나? : " + result);
+		return result;
+	}
+
+	@Override
+	public int paymentMember(SqlSessionTemplate sqlSession, Member m, emoney e) {
+		System.out.println("test");
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("mid", Integer.parseInt(m.getMid()));
+		map.put("emoney", m.getEmoney());
+		int result = sqlSession.update("Member.paymentMember", map);
+		System.out.println("멤버이머니업데이트되나?? " + result);
+		
+		return result;
+	}
+
+	@Override
+	public int paymentInsert(SqlSessionTemplate sqlSession, emoney e, WinBid w) {
+		System.out.println("테스트좀찍혀라");
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("eDealNo", e.getDealNo());
+		map.put("dealNo", w.getDealNo());
+		int result = sqlSession.insert("emoney.paymentInsert", map);
+		System.out.println("물품결제한거인설트잘되나? : " + result);		
+		
+		
 		return result;
 	}
 

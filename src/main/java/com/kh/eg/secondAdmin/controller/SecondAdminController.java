@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.kh.eg.admin.model.service.AdMemberService;
@@ -44,15 +45,23 @@ public class SecondAdminController {
 	}
 	
 	
-	@RequestMapping("categoryDays")
+	/*@RequestMapping("categoryDays")
 	public ArrayList<HashMap<String, String>> categoryDays(){
 		
 		ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
-		/*HashMap<String, String> cName = sas.categoryName();
-		HashMap<String, String> cCount = sas.categoryCount();*/
+		HashMap<String, String> cName = sas.categoryName();
+		HashMap<String, String> cCount = sas.categoryCount();
 		
 		return list;
 		
+	}*/
+	@RequestMapping("categoryDays")
+	public @ResponseBody ArrayList<SecondAdmin> categoryDays() {
+		HashMap<String, ArrayList<SecondAdmin>> hmap = new HashMap<String, ArrayList<SecondAdmin>>();
+		ArrayList<SecondAdmin> list = sas.categoryName();
+		
+		
+		return list;
 	}
 	
 	

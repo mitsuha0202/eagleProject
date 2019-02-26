@@ -3,108 +3,85 @@ package com.kh.eg.secondAdmin.model.vo;
 import java.math.BigDecimal;
 
 public class SecondAdmin implements java.io.Serializable{	
-	private String memberName;
-	private String memberId;
-	private String memberPwd;
-	private String accountn;
-	private String phone;
-	private String rating;
-	private String address;
-	private String eMail;
-	private java.math.BigDecimal eMoney;
-	private String wdStatus;
+	private String MemberId;
+	private String MemberPwd;
+	private String categoryName;
+	private int categoryCount;
+	private String categoryNo;
+	private String upperCNO;
 	
-	public void SecondAdmin() {}
+	public SecondAdmin() {}
 
-	public String getMemberName() {
-		return memberName;
-	}
-
-	public void setMemberName(String memberName) {
-		this.memberName = memberName;
+	public SecondAdmin(String memberId, String memberPwd, String categoryName, int categoryCount, String categoryNo,
+			String upperCNO) {
+		super();
+		this.MemberId = memberId;
+		this.MemberPwd = memberPwd;
+		this.categoryName = categoryName;
+		this.categoryCount = categoryCount;
+		this.categoryNo = categoryNo;
+		this.upperCNO = upperCNO;
 	}
 
 	public String getMemberId() {
-		return memberId;
+		return MemberId;
 	}
 
 	public void setMemberId(String memberId) {
-		this.memberId = memberId;
+		MemberId = memberId;
 	}
 
 	public String getMemberPwd() {
-		return memberPwd;
+		return MemberPwd;
 	}
 
 	public void setMemberPwd(String memberPwd) {
-		this.memberPwd = memberPwd;
+		MemberPwd = memberPwd;
 	}
 
-	public String getAccountn() {
-		return accountn;
+	public String getCategoryName() {
+		return categoryName;
 	}
 
-	public void setAccountn(String accountn) {
-		this.accountn = accountn;
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 
-	public String getPhone() {
-		return phone;
+	public int getCategoryCount() {
+		return categoryCount;
 	}
 
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setCategoryCount(int categoryCount) {
+		this.categoryCount = categoryCount;
 	}
 
-	public String getRating() {
-		return rating;
+	public String getCategoryNo() {
+		return categoryNo;
 	}
 
-	public void setRating(String rating) {
-		this.rating = rating;
+	public void setCategoryNo(String categoryNo) {
+		this.categoryNo = categoryNo;
 	}
 
-	public String getAddress() {
-		return address;
+	public String getUpperCNO() {
+		return upperCNO;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public String geteMail() {
-		return eMail;
-	}
-
-	public void seteMail(String eMail) {
-		this.eMail = eMail;
-	}
-
-	public java.math.BigDecimal geteMoney() {
-		return eMoney;
-	}
-
-	public void seteMoney(java.math.BigDecimal eMoney) {
-		this.eMoney = eMoney;
-	}
-
-	public String getWdStatus() {
-		return wdStatus;
-	}
-
-	public void setWdStatus(String wdStatus) {
-		this.wdStatus = wdStatus;
+	public void setUpperCNO(String upperCNO) {
+		this.upperCNO = upperCNO;
 	}
 
 	@Override
 	public String toString() {
-		return "SecondAdmin [memberName=" + memberName + ", memberId=" + memberId + ", memberPwd=" + memberPwd
-				+ ", accountn=" + accountn + ", phone=" + phone + ", rating=" + rating + ", address=" + address
-				+ ", eMail=" + eMail + ", eMoney=" + eMoney + ", wdStatus=" + wdStatus + "]";
+		return "SecondAdmin [MemberId=" + MemberId + ", MemberPwd=" + MemberPwd + ", categoryName=" + categoryName
+				+ ", categoryCount=" + categoryCount + ", categoryNo=" + categoryNo + ", upperCNO=" + upperCNO + "]";
 	}
+	
+	
 
 	
+
 	
-	
+
 	
 }
