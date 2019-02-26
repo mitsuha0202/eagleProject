@@ -11,6 +11,7 @@ import com.kh.eg.emoney.model.dao.emoneyDao;
 import com.kh.eg.emoney.model.vo.PageInfo;
 import com.kh.eg.emoney.model.vo.emoney;
 import com.kh.eg.member.model.vo.Member;
+import com.kh.eg.myPage.model.vo.WinBid;
 
 @Service
 public class emoneyServiceImpl implements emoneyService {
@@ -83,14 +84,14 @@ public class emoneyServiceImpl implements emoneyService {
 	}
 
 
-	@Override
+	/*@Override
 	public int updateRefundEmoney(Member m, emoney e) {
 		int result = ed.updateRefundEmoney(sqlSession, m, e);
 		
 		System.out.println("환급시 업데이트잘되나? : "+ result);
 		
 		return result;
-	}
+	}*/
 
 
 	@Override
@@ -105,6 +106,24 @@ public class emoneyServiceImpl implements emoneyService {
 	public int refundEmoneyeInsert(emoney e) {
 		int result = ed.refundEmoneyeInsert(sqlSession, e);
 		System.out.println("인설트 잘 되는지 확인중 : " + result);
+		return result;
+	}
+
+
+	@Override
+	public int paymentMember(Member m, emoney e) {
+		int result = ed.paymentMember(sqlSession,m, e);
+		
+		System.out.println("result1 : " + result);
+		
+		return result;
+	}
+
+
+	@Override
+	public int paymentInsert(emoney e, WinBid w) {
+		int result = ed.paymentInsert(sqlSession, e, w);
+		System.out.println("result2 : " + result);
 		return result;
 	}
 

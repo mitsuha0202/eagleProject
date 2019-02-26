@@ -28,6 +28,7 @@ import com.kh.eg.emoney.model.service.emoneyServiceImpl;
 import com.kh.eg.emoney.model.vo.PageInfo;
 import com.kh.eg.emoney.model.vo.emoney;
 import com.kh.eg.member.model.vo.Member;
+import com.kh.eg.myPage.model.vo.WinBid;
 import com.kh.eg.emoney.model.vo.Pagination;
 import com.kh.eg.member.model.service.*;
 
@@ -99,14 +100,14 @@ private emoneyService es;
 		
 		e.getMemberNo().equals(buyer_code);
 		/*e.setMemberNo(buyer_code);*/
-		e.setAmount(amount);
+		/*e.setAmount(amount);*/
 		e.setMoney(amount);
 		m.setEmoney(amount);
 		System.out.println("buyer_code : " + buyer_code);
 		System.out.println("amount : " + amount);
 		
 		
-		int resultA = es.insertEmoney(e);
+		/*int resultA = es.insertEmoney(e);*/
 		int resultB = es.insertMemberEmoney(e);
 		
 		/*int result1 = resultA + resultB;*/
@@ -114,7 +115,8 @@ private emoneyService es;
 		
 		int resultC = es.updateEmoney(m,e);
 		
-		int result = resultA + resultB + resultC;
+		/*int result = resultA + resultB + resultC;*/
+		int result = resultB + resultC;
 		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("utf-8");
@@ -140,11 +142,43 @@ private emoneyService es;
 		System.out.println("리펀드머니찍히나? : " + refundEmoney);
 		m.setEmoney(refundEmoney);
 		int result1 = es.refundMemberEmoney(e);
-		int result2 = es.updateRefundEmoney(m, e);
-		int result3 = es.selectEmoneyeSq(e);
 		int result4 = es.refundEmoneyeInsert(e);
+		/*int result3 = es.selectEmoneyeSq(e);*/
+		/*int result2 = es.updateRefundEmoney(m, e);*/
 		
-		int result = result1 + result2 + result3 + result4;
+		/*int result = result1 + result2 + result3 + result4;*/
+		/*int result = result1 + result4 + result3;*/
+		int result = result1 + result4;
+		
+		response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");
+		response.getWriter().println(result + "");
+		
+	}
+	
+	@RequestMapping("paymentA.em")
+	public void paymentA( @RequestParam(value="docNum", required=false) String docNum, @RequestParam(value="curPrice", required=false) int curPrice,
+			@RequestParam(value="memberNo", required=false)String memberNo, HttpSession session, emoney e, WinBid w, HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		Member m = new Member();
+		m = (Member)session.getAttribute("loginUser");
+		/*m.setMid(memberNo);*/
+		e.setMemberNo(m.getMid());
+		/*e.setAmount(m.getEmoney());*/
+		e.getMemberNo().equals(memberNo);
+		System.out.println("멤버넘버확인 : " + e.getMemberNo());
+		System.out.println("이머니 확인 : " + e.getMoney());
+		e.setItemNo(docNum);
+		System.out.println("아이템넘 : " + e.getItemNo());
+		e.setDealNo(w.getDealNo());
+		System.out.println("dealNo 찍히나 ? : " + e.getDealNo());
+		e.setAmount(curPrice);
+		System.out.println("가져온물품가격 : " + curPrice);
+		m.setEmoney(curPrice);
+		int result1 = es.paymentMember(m,e);
+		int result2 = es.paymentInsert(e,w);
+		
+		int result = result1 + result2;
 		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("utf-8");

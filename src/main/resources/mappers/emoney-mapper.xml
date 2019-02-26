@@ -18,6 +18,7 @@
 		<result property="cardNo" column="CARDNO"/>
 		<result property="payStatus" column="PAYSTATUS"/>
 		<result property="refundNo" column="REFUNDNO"/>
+		<result property="dealNo" column="DEALNO"/>
 		
 		
 	</resultMap>
@@ -29,10 +30,10 @@
 		SELECT MCN_SEQ.NEXTVAL FROM DUAL
 	</select>
 	
-	<insert id="insertEmoney" parameterType="emoney">
+	<insert id="paymentInsert" parameterType="emoneyResultSet">
 		INSERT 
-		INTO EMONEYC 
-		VALUES(MCN_SEQ.NEXTVAL, #{amount}, SYSDATE,  ' ', #{memberNo}, 'payment', NULL)
+		INTO EMONEYC
+		VALUES(MCN_SEQ.NEXTVAL, #{amount}, SYSDATE,  ' ', #{memberNo}, 'payment', NULL, #{dealNo})
 		
 	</insert>
 	
