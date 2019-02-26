@@ -11,6 +11,7 @@ import com.kh.eg.myPage.model.vo.Maccount;
 import com.kh.eg.myPage.model.vo.MyPageBoard;
 import com.kh.eg.myPage.model.vo.PageInfo;
 import com.kh.eg.myPage.model.vo.PayTable;
+import com.kh.eg.myPage.model.vo.RatingMyPage;
 import com.kh.eg.myPage.model.vo.SearchCondition;
 import com.kh.eg.myPage.model.vo.WishList;
 
@@ -133,6 +134,10 @@ public interface MyPageDao {
 	int getPayContinueList2(SqlSessionTemplate sqlSession, String mid);
 	//입금요청 아이템번호 없을시
 	ArrayList<PayTable> selectPayContinueList2(SqlSessionTemplate sqlSession, PageInfo pi, String mid);
+	
+	//마이페이지 - 회원등급확인
+	ArrayList<RatingMyPage> selectRating(SqlSessionTemplate sqlSession, String memberNo);
+	
 	
 	
 	

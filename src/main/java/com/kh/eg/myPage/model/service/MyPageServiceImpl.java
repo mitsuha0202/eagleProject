@@ -15,6 +15,7 @@ import com.kh.eg.myPage.model.vo.Maccount;
 import com.kh.eg.myPage.model.vo.MyPageBoard;
 import com.kh.eg.myPage.model.vo.PageInfo;
 import com.kh.eg.myPage.model.vo.PayTable;
+import com.kh.eg.myPage.model.vo.RatingMyPage;
 import com.kh.eg.myPage.model.vo.SearchCondition;
 import com.kh.eg.myPage.model.vo.WishList;
 
@@ -311,6 +312,15 @@ public class MyPageServiceImpl implements MyPageService{
 		
 		return md.selectPayContinueList2(sqlSession, pi, mid);
 	}
+	
+	//마이페이지 - 회원등급확인
+	@Override
+	public ArrayList<RatingMyPage> selectRating(String memberNo) {
+		// TODO Auto-generated method stub
+		return md.selectRating(sqlSession,memberNo);
+	}
+	
+	
 	
 	
 }

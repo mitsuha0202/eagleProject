@@ -60,6 +60,8 @@
 		<result property="email" column="EMAIL"/>
 	</resultMap>
 	
+	
+	
 	<!-- 낙찰조회 -->
 	<resultMap type="com.kh.eg.myPage.model.vo.WinBid" id="winBidResultSet">
 		<id property="dealNo" column="DEALNO"/>
@@ -79,6 +81,13 @@
 		<result property="saleMemberName" column="MEMBERNAME"/>
 		<result property="endDay" column="ENDDAY"/>
 		<result property="endYn" column="EXITYN"/>
+  	</resultMap>
+  	
+  	<!-- 회원등급 페이지 -->
+  	<resultMap type="com.kh.eg.myPage.model.vo.RatingMyPage" id="ratingTableResultSet">
+  		<id property="count" column="COUNT"></id>
+  		<result property="amount" column="AMOUNT"></result>
+  	
   	</resultMap>
 	
 	<!-- 구매관리 입찰중 물품 차순위 조회 -->
@@ -554,5 +563,25 @@
 		ORDER BY WRITEDAY DESC
 	</select>
 
+<!-- 마이페이지 등급조회 -->
+	<select id="selectRating" resultMap="ratingTableResultSet" parameterType="java.lang.String">
+	SELECT COUNT(D.ENDDEALSTATUS) AS COUNT, SUM(C.AMOUNT) AS AMOUNT  FROM MEMBER M JOIN WINBID W ON(M.MEMBERNO = W.MEMBERNO) JOIN WINBIDDETAIL D ON(W.DEALNO = D.DEALNO) JOIN EMONEYC C ON(C.DEALNO=W.DEALNO) WHERE M.MEMBERNO = #{memberNo} AND D.ENDDEALSTATUS = 'Y'
+	</select>
+	
+<!-- 마이페이지 등급 VIP -->
+	<update id="selectMemberRatingVip" parameterType="java.lang.String">
+		UPDATE MEMBER SET RATING = 'VIP' WHERE MEMBERNO = #{memberNo}
+	</update>
+		
+<!-- 마이페이지 등급 GOLD -->
+	<update id="selectMemberRatingGold" parameterType="java.lang.String">
+		UPDATE MEMBER SET RATING = 'GOLD' WHERE MEMBERNO = #{memberNo}
+	</update>
 
+<!-- 마이페이지 등급 일반 -->	
+	<update id="selectMemberRatingNormal" parameterType="java.lang.String">
+		UPDATE MEMBER SET RATING = '일반' WHERE MEMBERNO = #{memberNo}
+	</update>
+	
+	
 </mapper>
