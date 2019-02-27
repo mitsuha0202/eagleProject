@@ -269,19 +269,14 @@ h4 {
 										console.log(i);
 										var $div1 = $("<div class='may' style='width:300px;'>");
 										var $img = $("<img style='width:300px;height:200px;' src='resources/uploadFiles/"+data[i].atta.changeName+"'>");
-										/* console.log(data[i].atta.changeName); */
 										var $table = $("<table class='ui basic table' style='width:250px;'>");
 										var $tbody = $("<tbody>");
 										var $tr1 = $("<tr>");
 										var $tr2 = $("<tr class='tr'>");
 										var $td1 = $("<td colspan='2'>");
-										$td1.text("입찰                            "
-														+ data[i].bidCount
-														+ " 건");
+										$td1.text("입찰    "+ data[i].bidCount+ " 건");
 										var $td2 = $("<td>");
-										$td2.text("조회                            "
-														+ data[i].itemcount
-														+ "회");
+										$td2.text("조회   "+ data[i].itemcount+ "회");
 										var $tr3 = $("<tr class='tr'>");
 										var $td3 = $("<td colspan='2'>");
 										$td3.text("판매자 아이디");
