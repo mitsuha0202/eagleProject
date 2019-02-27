@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>   
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -104,6 +105,7 @@
 		
 		 <h5>꼭 읽어주세요! </h5><br>
 	     <h5>현재 입찰하신 물품중 진행중인 물품 리스트입니다.</h5>
+	      <h5>현재 입찰하신 물품에 대해서 모두 ${ fn:length(list) }건이 검색되었습니다.</h5>
 	     <br>
 	     <h5 id="countMainPayList"></h5>
 	     
@@ -153,7 +155,42 @@
     </table>
 	     
 	</div>
+
 	
+	<div id="pagingArea" align="center">
+			<c:if test="${ pi.currentPage <= 1 }">
+				[이전] &nbsp;
+			</c:if>
+			<c:if test="${ pi.currentPage > 1 }">
+				<c:url var="blistBack" value="purchasestatus.mp">
+					<c:param name="currentPage" value="${ pi.currentPage - 1 }"/>
+				</c:url>
+				<a href="${ blistBack }">[이전]</a> &nbsp;
+			</c:if>
+			
+			<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+				<c:if test="${ p eq pi.currentPage }">
+					<font color="red" size="4"><b>[${ p }]</b></font>
+				</c:if>
+				<c:if test="${ p ne pi.currentPage }">
+					<c:url var="blistCheck" value="purchasestatus.mp">
+						<c:param name="currentPage" value="${ p }"/>
+					</c:url>
+					<a href="${ blistCheck }">${ p }</a>
+				</c:if>
+			</c:forEach>
+			
+			<c:if test="${ pi.currentPage >= pi.maxPage }">
+				&nbsp; [다음]
+			</c:if>
+			<c:if test="${ pi.currentPage < pi.maxPage }">
+				<c:url var="blistEnd" value="purchasestatus.mp">
+					<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
+				</c:url>
+				<a href="${ blistEnd }">&nbsp;[다음]</a>
+			</c:if>
+		</div>
+
 	<!-- 하단 div영역 -->
 	<div class="tutorialDiv">
 		<br>
@@ -168,57 +205,9 @@
 		<h4 class="tutorialIcon2">자주묻는 질문</h4>		
 	</div>
 	
-	<div id="pagingArea" align="center">
-			<c:if test="${ pi.currentPage <= 1 }">
-				[이전] &nbsp;
-			</c:if>
-			<c:if test="${ pi.currentPage > 1 }">
-				<c:url var="blistBack" value="highstbiditem.mp">
-					<c:param name="currentPage" value="${ pi.currentPage - 1 }"/>
-				</c:url>
-				<a href="${ blistBack }">[이전]</a> &nbsp;
-			</c:if>
-			
-			<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-				<c:if test="${ p eq pi.currentPage }">
-					<font color="red" size="4"><b>[${ p }]</b></font>
-				</c:if>
-				<c:if test="${ p ne pi.currentPage }">
-					<c:url var="blistCheck" value="highstbiditem.mp">
-						<c:param name="currentPage" value="${ p }"/>
-					</c:url>
-					<a href="${ blistCheck }">${ p }</a>
-				</c:if>
-			</c:forEach>
-			
-			<c:if test="${ pi.currentPage >= pi.maxPage }">
-				&nbsp; [다음]
-			</c:if>
-			<c:if test="${ pi.currentPage < pi.maxPage }">
-				<c:url var="blistEnd" value="highstbiditem.mp">
-					<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
-				</c:url>
-				<a href="${ blistEnd }">&nbsp;[다음]</a>
-			</c:if>
-		</div>
-	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script>
-		$(function() {
-			var mid = '${sessionScope.loginUser.mid}';
-			$.ajax({
-				url:"countPayListMain.mp",
-				type:"get",
-				data:{userId:mid},
-				success:function(data){
-					$("#countMainPayList").text("진행중인 최고 입찰 물품에 대해서 모두 " + data + "건이 검색되었습니다.");
-				},
-				/* status는 에러의 상태를 나타냄 */
-				error:function(status){
-					$("#countMainPayList").text("쪽지 0건");
-				}
-			});
-		});
+	
 	</script>
 </body>
 </html>

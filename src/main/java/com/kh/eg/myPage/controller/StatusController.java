@@ -1,7 +1,6 @@
 package com.kh.eg.myPage.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,11 +14,10 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.kh.eg.member.model.vo.Member;
 import com.kh.eg.myPage.common.Pagination;
+import com.kh.eg.myPage.common.Three;
 import com.kh.eg.myPage.model.service.MyPageService;
 import com.kh.eg.myPage.model.vo.PageInfo;
 import com.kh.eg.myPage.model.vo.PayTable;
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
-import com.kh.eg.myPage.common.Three;
 
 @SessionAttributes("loginUser")
 
@@ -266,7 +264,11 @@ public class StatusController {
 		
 	//구매현황상세페이지 - 구매 물품 거래 진행중 페이지 - 거래완료 물품
 		@RequestMapping("transactioncomplete.mp")
-		public String transactioncompletePage() {
+		public String transactioncompletePage(@RequestParam(defaultValue="1") int currentPage, HttpSession session, Model model, Member m) {
+			m = (Member)session.getAttribute("loginUser");
+			int listCount = ms.getTransactionComplete(m.getMid());
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			ArrayList<PayTable> list = ms.selectTransactionComplete(m.getMid(), pi);
 			return "myPage/management/transactioncompletePage";
 		}
 	
@@ -275,36 +277,99 @@ public class StatusController {
 	//구매거부/반품/미입금/판매거부/미수령신고 - 구매거부
 	@RequestMapping("purchaseother.mp")
 	public String purchaseotherPage(@RequestParam(value="itemNo", required=false) String itemNo, @RequestParam(value="currentPrice", required=false) String currentPrice, @RequestParam(defaultValue="1") int currentPage, HttpSession session, Model model, Member m) {
+		ArrayList<PayTable> list = null;
+		PageInfo pi = null;
+		m = (Member)session.getAttribute("loginUser");
+		
 		if(itemNo != null && !itemNo.equals("") && currentPrice != null && !currentPrice.equals("")) {
-			m = (Member)session.getAttribute("loginUser");
 			int listCount = ms.getPurchaseOther(m.getMid(), itemNo, currentPrice);
-			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-			ArrayList<PayTable> list = ms.selectPurChaseOther(pi, m.getMid(), itemNo, currentPrice);
+			pi = Pagination.getPageInfo(currentPage, listCount);			
+		}else {			
+			int listCount = ms.getPurchaseOtherNoparam(m.getMid());
+			pi = Pagination.getPageInfo(currentPage, listCount);
 		}
+		
+		list = ms.selectPurChaseNoParam(pi, m.getMid());
+		model.addAttribute("list", list);
+		model.addAttribute("pi", pi);
 		return "myPage/management/purchaseotherPage";
 	}
 	
 	//구매거부/반품/미입금/판매거부/미수령신고 - 반품
-		@RequestMapping("return.mp")
-		public String returnPage() {
-			return "myPage/management/returnPage";
-		}
-	//구매거부/반품/미입금/판매거부/미수령신고 - 미입금
-		@RequestMapping("payment.mp")
-		public String paymentPage() {
-			return "myPage/management/paymentPage";
+	@RequestMapping("return.mp")
+	public String returnPage(@RequestParam(value="itemNo", required=false) String itemNo, @RequestParam(value="currentPrice", required=false) String currentPrice, @RequestParam(defaultValue="1") int currentPage, HttpSession session, Model model, Member m) {
+		m = (Member)session.getAttribute("loginUser");
+		ArrayList<PayTable> list = null;
+		PageInfo pi = null;
 			
+		if(itemNo != null && !itemNo.equals("") && currentPrice != null && !currentPrice.equals("")) {
+			int listCount = ms.getReturn(m.getMid(), itemNo, currentPrice);
+			pi = Pagination.getPageInfo(currentPage, listCount);			
+		}else {
+			int listCount = ms.getReturnNoparam(m.getMid());
+			pi = Pagination.getPageInfo(currentPage, listCount);
 		}
+		list = ms.selectReturnList(pi, m.getMid());
+		model.addAttribute("list", list);
+		model.addAttribute("pi", pi);
+		return "myPage/management/returnPage";
+	
+	}
+	//구매거부/반품/미입금/판매거부/미수령신고 - 미입금
+	@RequestMapping("payment.mp")
+	public String paymentPage(@RequestParam(value="itemNo", required=false) String itemNo, @RequestParam(value="currentPrice", required=false) String currentPrice, @RequestParam(defaultValue="1") int currentPage, HttpSession session, Model model, Member m) {
+		m = (Member)session.getAttribute("loginUser");
+		ArrayList<PayTable> list = null;
+		PageInfo pi = null;
+			
+		if(itemNo != null && !itemNo.equals("") && currentPrice != null && !currentPrice.equals("")) {
+			int listCount = ms.getNoPayment(m.getMid(), itemNo, currentPrice);
+			pi = Pagination.getPageInfo(currentPage, listCount);			
+		}else {
+			int listCount = ms.getNoPaymentNoparam(m.getMid());
+			pi = Pagination.getPageInfo(currentPage, listCount);
+		}
+			
+		list = ms.selectNoPaymentList(pi, m.getMid());
+		model.addAttribute("list", list);
+		model.addAttribute("pi", pi);
+			
+		return "myPage/management/paymentPage";		
+	}
+		
 	//구매거부/반품/미입금/판매거부/미수령신고 - 판매거부
-		@RequestMapping("refusetosell.mp")
-		public String refusetosellPage() {
-			return "myPage/management/refusetosellPage";
-		}
+	@RequestMapping("refusetosell.mp")
+	public String refusetosellPage(@RequestParam(defaultValue="1") int currentPage, HttpSession session, Model model, Member m) {
+		m = (Member)session.getAttribute("loginUser");
+			
+		int listCount = ms.getRefuseSell(m.getMid());
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		ArrayList<PayTable> list = ms.selectRefuseSellList(pi, m.getMid());
+		model.addAttribute("list", list);
+		model.addAttribute("pi", pi);
+						
+		return "myPage/management/refusetosellPage";
+	}
 		
 	//구매거부/반품/미입금/판매거부/미수령신고 - 미수령신고
-		@RequestMapping("notreceving.mp")
-		public String notrecevingPage() {
-			return "myPage/management/notrecevingPage";
+	@RequestMapping("notreceving.mp")
+	public String notrecevingPage(@RequestParam(value="itemNo", required=false) String itemNo, @RequestParam(value="currentPrice", required=false) String currentPrice, @RequestParam(defaultValue="1") int currentPage, HttpSession session, Model model, Member m) {
+		m = (Member)session.getAttribute("loginUser");
+		ArrayList<PayTable> list = null;
+		PageInfo pi = null;
 			
-		}		
+		if(itemNo != null && !itemNo.equals("") && currentPrice != null && !currentPrice.equals("")) {
+			int listCount = ms.getNotReceiving(m.getMid(), itemNo, currentPrice);
+			pi = Pagination.getPageInfo(currentPage, listCount);			
+		}else {
+			int listCount = ms.getNotReceivingNoparam(m.getMid());
+			pi = Pagination.getPageInfo(currentPage, listCount);
+		}
+			
+		list = ms.selectNotReceivingList(pi, m.getMid());
+		model.addAttribute("list", list);
+		model.addAttribute("pi", pi);
+		
+		return "myPage/management/notrecevingPage";
+	}		
 }

@@ -386,13 +386,115 @@ public class MyPageServiceImpl implements MyPageService{
 		return md.getPurchaseOther(sqlSession, mid, itemNo, currentPrice);
 	}
 
-	//구매거부 목록 조회
+	//구매거부 매개변수 없을때 페이징
 	@Override
-	public ArrayList<PayTable> selectPurChaseOther(PageInfo pi, String mid, String itemNo, String currentPrice) {
+	public int getPurchaseOtherNoparam(String mid) {
 
-		return md.selectPurChaseOther(sqlSession, pi, mid, itemNo, currentPrice);
+		return md.getPurchaseOtherNoParam(sqlSession, mid);
 	}
 
+	//구매거부 목록
+	@Override
+	public ArrayList<PayTable> selectPurChaseNoParam(PageInfo pi, String mid) {
+		
+		return md.selectPurChaseNoParam(sqlSession, pi, mid);
+	}
+
+	//반품 페이징
+	@Override
+	public int getReturn(String mid, String itemNo, String currentPrice) {
+
+		return md.getReturn(sqlSession, mid, itemNo, currentPrice);
+	}
+
+	//반품 목록 조회
+	@Override
+	public ArrayList<PayTable> selectReturnList(PageInfo pi, String mid) {
+
+		return md.selectReturnList(sqlSession, pi, mid);
+	}
+
+	//반품 매개변수 없는 페이징 
+	@Override
+	public int getReturnNoparam(String mid) {
+
+		return md.getReturnNoParam(sqlSession, mid);
+	}
+
+	//미입금 페이징
+	@Override
+	public int getNoPayment(String mid, String itemNo, String currentPrice) {
+
+		return md.getNoPayment(sqlSession, mid, itemNo, currentPrice);
+	}
+
+	//미입금 매개변수 없는 페이징
+	@Override
+	public int getNoPaymentNoparam(String mid) {
+
+		return md.getNoPaymentNoParam(sqlSession, mid);
+	}
 	
+	//미입금 목록 조회
+	@Override
+	public ArrayList<PayTable> selectNoPaymentList(PageInfo pi, String mid) {
 	
+		return md.selectNoPaymentList(sqlSession, pi, mid);
+	}
+
+	//판매거부 페이징
+	@Override
+	public int getRefuseSell(String mid) {
+
+		return md.getRefuseSell(sqlSession, mid);
+	}
+
+	//판매거부 목록 조회
+	@Override
+	public ArrayList<PayTable> selectRefuseSellList(PageInfo pi, String mid) {
+		
+		return md.selectRefuseSellList(sqlSession, pi, mid);
+	}
+
+	//미수령 신고 페이징
+	@Override
+	public int getNotReceiving(String mid, String itemNo, String currentPrice) {
+
+		return md.getNotReceiving(sqlSession, mid, itemNo, currentPrice);
+	}
+
+	//미수령 신고 매개변수 없는 페이징
+	@Override
+	public int getNotReceivingNoparam(String mid) {
+
+		return md.getNotReceivingNoParam(sqlSession, mid);
+	}
+
+	//미수령 신고 목록 조회
+	@Override
+	public ArrayList<PayTable> selectNotReceivingList(PageInfo pi, String mid) {
+
+		return md.selectNotReceivingList(sqlSession, pi, mid);
+	}
+
+	//거래완료 페이징
+	@Override
+	public int getTransactionComplete(String mid) {
+
+		return md.getTransactionComplete(sqlSession, mid);
+	}
+
+	//거래완료 목록 조회
+	@Override
+	public ArrayList<PayTable> selectTransactionComplete(String mid, PageInfo pi) {
+		
+		return md.selectTransactionComplete(sqlSession, mid, pi);
+	}
+
+	//판매관리 메인페이지 페이징
+	@Override
+	public int getSaleStatus(String mid) {
+		
+		return md.getSaleStatus(sqlSession, mid);
+	}
 }

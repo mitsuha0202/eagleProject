@@ -192,7 +192,19 @@
 	
 	<script>
 		function noDelivery() {
-			
+			var sendArr = new Array();
+   			var sendCur = new Array();
+   			var checkbox = $(".checkChild:checked");
+   	        alert("미수령신고가 신청되었습니다.");
+   		 	checkbox.each(function(i){
+   		 		var tr = checkbox.parent().parent().eq(i);
+   		 		var td = tr.children();
+   	            var docNum = td.eq(1).text();
+   	            var current = td.eq(3).text();
+   	            sendArr.push(docNum);
+   	            sendCur.push(current);
+ 				location.href="notreceving.mp?itemNo=" + sendArr +"," + "&currentPrice=" + sendCur;
+   		 	}); 	
 		}
 	</script>
 </body>

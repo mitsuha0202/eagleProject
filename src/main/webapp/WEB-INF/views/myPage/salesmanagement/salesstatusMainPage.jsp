@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>        
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -103,38 +105,39 @@
 		 <h5>꼭 읽어주세요! </h5><br>
 	     <h5>현재 진행중인 물품으로 경매현황을 파악 하실 수 있습니다.</h5>
 	     <br>
-	     <h5>진행중인 전체 물품에 대해서 모두</h5><h5>개가 검색되었습니다.</h5>
+	     <h5>진행중인 전체 물품에 대해서 모두 ${ fn:length(list) }개가 검색되었습니다.</h5>
 	     
 	     <table class="buyStatusTable">
       
       <thead>
         <tr>
           <th class="firstTd">물품번호</th>
-          <th class="firstTd">이미지</th>
-          <th class="firstTd">제목</th>
+          <th class="firstTd">물품명</th>
           <th class="firstTd">현재가</th>
-          <th class="firstTd">입찰</th>
-          <th class="firstTd">조회</th>
+          <th class="firstTd">입찰수</th>
           <th class="firstTd">시작일</th>
           <th class="firstTd">마감일</th>
-          <th class="firstTd">관리</th>
+          <th class="firstTd">마감상태</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>1</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          
-        </tr>
-       
-        
+       <c:if test="${ !empty list }">
+	      <c:forEach var="b" items="${ list }">
+	            <tr>
+	               <td><input type="radio" class="checkChild" name="gender"></td> 
+	               <td>${ b.itemNo }</td>
+	               <td>${ b.itemName }</td>
+	               <td>${ b.currentPrice }</td>
+				   <td>${ b.endDay }</td>
+	               <td>${ b.saleMemberName }</td>                            
+	            </tr>
+	         </c:forEach>
+        </c:if>
+        <c:if test="${ empty list }">
+        	 <tr>
+	          <td colspan="8"><h5>검색된 내용이 없습니다.</h5></td>	      
+        	</tr>
+        </c:if>
       </tbody>
      
     </table>
