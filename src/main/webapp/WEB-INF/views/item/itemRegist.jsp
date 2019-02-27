@@ -302,7 +302,6 @@
 	$(".cateName").click(function(){
 		var cateCode = $(this).children().val();
 		$("#spath").text($(this).text());
-		//$("#categoryNo").val(cateCode);
 		console.log(cateCode);
 		var cateNo= cateCode;
 		 
@@ -319,37 +318,24 @@
 					var $table =$("<table class='middleCate'>")
 					var $tr1 =$("<tr>")
 					var $td1 =$("<td class='middleTd'>");
-					var $input = $("<input type='hidden' name='categoryNo' value='"+ data[key].categoryNo +"'>");
-				
-					
+					var $input = $("<input type='hidden' name='categoryNo' value='"+ data[key].categoryNo +"'>");					
 					 if(cateNo==data[key].upperCategoryNo) {
 					 	$td1.text(data[key].categoryName);
 					 	$td1.append($input);
-						/* $("#spath").text($(this).text());  */
-						$tr1.append($td1);
-					
+						$tr1.append($td1);				
 						$table.append($tr1);
 						$div.append($table);
-						
-						
 						$(".cateName").click(function() {
 							$("#spath2").html('');
-						});
-						
-						
-					 }
-					
-					
+						});		
+					 }		
 				}
 				$(".middleTd").click(function(){
-					
 					var middle=$("#spath2").text($(this).text());
-					
 				 	var cateCode2=$(this).children().val();
 				 	console.log(cateCode2);
-				 	
 				 	var cateNo2=cateCode2
-					 console.log(cateNo2); 
+					console.log(cateNo2); 
 					
 				});
 				

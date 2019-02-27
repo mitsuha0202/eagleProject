@@ -26,6 +26,7 @@ public class Item implements java.io.Serializable {
 	private Attachment atta; 
 	private Member memberName;
 	private Category categoryInfo;
+	private int lucky;
 	
 	
 	public Item() {}
@@ -201,19 +202,29 @@ public class Item implements java.io.Serializable {
 	}
 
 
+	public int getLucky() {
+		return lucky;
+	}
+
+
+	public void setLucky(int lucky) {
+		this.lucky = lucky;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Item [itemNo=" + itemNo + ", itemName=" + itemName + ", startPrice=" + startPrice + ", bidUnit="
 				+ bidUnit + ", deliveryPay=" + deliveryPay + ", origin=" + origin + ", deleteYN=" + deleteYN
 				+ ", categoryNo=" + categoryNo + ", mid=" + mid + ", auctionCode=" + auctionCode + ", detail=" + detail
 				+ ", deliveryPrice=" + deliveryPrice + ", itemcount=" + itemcount + ", bidCount=" + bidCount + ", atta="
-				+ atta + ", memberName=" + memberName + ", categoryInfo=" + categoryInfo + "]";
+				+ atta + ", memberName=" + memberName + ", categoryInfo=" + categoryInfo + ", lucky=" + lucky + "]";
 	}
 
 
 	public Item(int itemNo, String itemName, String startPrice, String bidUnit, String deliveryPay, String origin,
 			String deleteYN, String categoryNo, String mid, String auctionCode, String detail, String deliveryPrice,
-			String itemcount, int bidCount, Attachment atta, Member memberName, Category categoryInfo) {
+			String itemcount, int bidCount, Attachment atta, Member memberName, Category categoryInfo, int lucky) {
 		super();
 		this.itemNo = itemNo;
 		this.itemName = itemName;
@@ -232,10 +243,10 @@ public class Item implements java.io.Serializable {
 		this.atta = atta;
 		this.memberName = memberName;
 		this.categoryInfo = categoryInfo;
+		this.lucky = lucky;
 	}
 
 
-	
 
 
 	
