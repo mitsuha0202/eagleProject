@@ -534,13 +534,17 @@ public class MyPageDaoImpl implements MyPageDao{
 		
 		ArrayList<RatingMyPage> list = (ArrayList)sqlSession.selectList("MyPage.selectRating", memberNo);
 		int result = 0;
-			if(Integer.parseInt(list.get(0).getAmount())>=1000000 && list.get(0).getCount()>=6) {
+		if(list != null) {
+			if(list.get(0).getAmount()>=1000000 && list.get(0).getCount()>=6) {
 				result = sqlSession.update("MyPage.selectMemberRatingVip",memberNo);
-			}else if(Integer.parseInt(list.get(0).getAmount())<1000000 && list.get(0).getCount()<6 && Integer.parseInt(list.get(0).getAmount())>=500000 && list.get(0).getCount()>=2) {
+			}else if(list.get(0).getAmount()<1000000 && list.get(0).getCount()<6 && list.get(0).getAmount()>=500000 && list.get(0).getCount()>=2) {
 				result = sqlSession.update("MyPage.selectMemberRatingGold",memberNo);
 			}else {
 				result = sqlSession.update("MyPage.selectMemberRatingNormal",memberNo);
 			}
+		}else {
+			System.out.println("list 왔는지 : " + list.size());
+		}
 		return list;
 		
 		

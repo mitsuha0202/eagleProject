@@ -2,13 +2,13 @@ package com.kh.eg.myPage.model.vo;
 
 public class RatingMyPage implements java.io.Serializable{
 	private int count;
-	private String amount;
+	private int amount;
 	
 	public RatingMyPage() {
 	
 	}
 	
-	public RatingMyPage(int count, String amount) {
+	public RatingMyPage(int count, int amount) {
 		super();
 		this.count = count;
 		this.amount = amount;
@@ -22,11 +22,11 @@ public class RatingMyPage implements java.io.Serializable{
 		this.count = count;
 	}
 
-	public String getAmount() {
+	public int getAmount() {
 		return amount;
 	}
 
-	public void setAmount(String amount) {
+	public void setAmount(int amount) {
 		this.amount = amount;
 	}
 
