@@ -2,6 +2,13 @@
 
 <%@ include file="../admin/include/common.jsp" %>
 
+<style>
+
+.login{
+	cursor: pointer;
+}
+</style>
+
 
 <title>Eagle 관리자페이지</title>
 </head>
@@ -14,7 +21,7 @@
 		<div class="loginBox">				
 			<p class="mt50"><span>아이디</span> <label for="member_id">아이디</label><input name="memberId" id="memberId" type="text" placeholder="아이디를 입력하세요" /></p>
 			<p class="mt5"><span>패스워드</span> <label for="member_pass">패스워드</label><input name="memberPwd" id="memberPwd" type="password"  placeholder="비밀번호를 입력하세요"/></p>
-			<div><a class="flo_right btn" onclick="adminLogin();">로그인</a></div>
+			<div class="login"><a class="flo_right btn" onclick="adminLogin();">로그인</a></div>
 		</div>
 	</div>
 </div><!--// loginWrap E-->
