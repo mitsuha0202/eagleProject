@@ -101,7 +101,7 @@ input:-ms-input-placeholder {
 			<div class="ui inverted menu">
 				<a class="active item"> 현재시간 </a>
 				<div style="width: 100px"></div>
-				<a class="item"> 로그인을 하시면 다양한 정보를 보실 수 있습니다 </a>
+				<a class="item" style="font-size: larger; font-weight: 700px;"> ${sessionScope.loginUser.userName }님 환영합니다. </a>
 				<div class="right" style="width: 800px"></div>
 
 				<a class="item" href="logout.me"> 로그아웃 </a> <a class="item"

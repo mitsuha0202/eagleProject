@@ -35,10 +35,10 @@ private BCryptPasswordEncoder passwordEncoder;
 private JavaMailSender mailSender;
 
 
-	@RequestMapping("goMain.me")
+	/*@RequestMapping("goMain.me")
 	public String goMain() {
 		return "main/main";
-	}
+	}*/
 	@RequestMapping("insert.me")
 	public String insertMember(Member m, Model model) {
 		
@@ -50,7 +50,7 @@ private JavaMailSender mailSender;
 		int result = ms.insertMember(m);
 		
 		if(result>0) {
-			return "redirect:goMain.me";
+			return "redirect:mainPage.au";
 		}else {
 			model.addAttribute("msg","회원가입 실패!");
 			return "common/errorPage";
@@ -77,7 +77,7 @@ private JavaMailSender mailSender;
 		if(loginUser != null) {
 		model.addAttribute("loginUser",loginUser);
 		
-		return "redirect:goMain.me";
+		return "redirect:mainPage.au";
 		}else {
 			model.addAttribute("msg","로그인 실패!");
 			
@@ -91,7 +91,7 @@ private JavaMailSender mailSender;
 		
 		status.setComplete();
 		
-		return "redirect:goMain.me";
+		return "redirect:mainPage.au";
 	}
 	
 	@RequestMapping("duplicationCheck.me")
@@ -229,7 +229,7 @@ private JavaMailSender mailSender;
 		
 		if(loginUser != null) {
 			model.addAttribute("loginUser",loginUser);
-			return "redirect:goMain.me";
+			return "redirect:mainPage.au";
 		}else {
 			model.addAttribute("msg","SNS로그인 실패!");
 			return "common/errorPage";
