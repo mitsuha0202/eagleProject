@@ -60,6 +60,14 @@
 		<result property="reply" column="REPLYSTATUS" />
 		<result property="title" column="TITLE" />
 	</resultMap>
+	
+	<resultMap type="com.kh.eg.admin.model.vo.Return" id="returnResultSet">
+      <result property="memberId" column="MEMBERID" />
+      <result property="phone" column="PHONE" />
+      <result property="orderm" column="ORDERM" />
+      <result property="address" column="ADDRESS" />
+      <result property="itemName" column="ITEMNAME" />
+   </resultMap>
 
 	<!-- <select id="loginCheck" resultMap="memberResultSet" parameterType="Member"> 
 		SELECT * FROM MEMBER WHERE MEMBERID = #{userId} AND MEMBERPWD = #{userPwd} 
@@ -303,6 +311,17 @@
 		WHERE BOARDSTATUS = 'ONEBYONE' AND REPLYSTATUS = 'Y' AND DELETESTATUS = 'N'
 	</select>
 	
+	   <!-- 반품 카운트 -->
+   <select id="returnListCount" resultType="_int">
+      SELECT COUNT(*) FROM MEMBER M JOIN WINBID W ON (M.MEMBERNO = W.MEMBERNO) 
+      JOIN WINBIDDETAIL D ON(W.DEALNO = D.DEALNO)JOIN AUCTIONITEM A ON (A.ITEMNO = W.ITEMNO)
+   </select>
+   
+   <!-- 반품 리스트 -->
+   <select id="selectReturnList" resultMap="returnResultSet">
+      SELECT M.MEMBERID, M.PHONE, D.ORDERM, M.ADDRESS, A.ITEMNAME FROM MEMBER M JOIN WINBID W ON (M.MEMBERNO = W.MEMBERNO) 
+      JOIN WINBIDDETAIL D ON(W.DEALNO = D.DEALNO)JOIN AUCTIONITEM A ON (A.ITEMNO = W.ITEMNO)
+   </select>
 	
 	
 	

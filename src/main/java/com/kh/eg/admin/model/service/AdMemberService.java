@@ -10,6 +10,7 @@ import com.kh.eg.admin.model.vo.Notice;
 import com.kh.eg.admin.model.vo.PageInfo;
 import com.kh.eg.admin.model.vo.Post;
 import com.kh.eg.admin.model.vo.Report;
+import com.kh.eg.admin.model.vo.Return;
 import com.kh.eg.admin.model.vo.SearchCondition;
 import com.kh.eg.admin.model.vo.SearchReport;
 
@@ -62,6 +63,10 @@ public interface AdMemberService {
 	int postListCount() throws AdMemberselectException;
 
 	ArrayList<Post> selectPostList(PageInfo pi) throws AdMemberselectException;
+
+	int returnListCount() throws AdMemberselectException;
+
+	ArrayList<Return> selectReturnList(PageInfo pi) throws AdMemberselectException;
 
 
 

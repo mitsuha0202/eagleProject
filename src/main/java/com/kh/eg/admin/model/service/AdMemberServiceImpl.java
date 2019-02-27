@@ -15,6 +15,7 @@ import com.kh.eg.admin.model.vo.Notice;
 import com.kh.eg.admin.model.vo.PageInfo;
 import com.kh.eg.admin.model.vo.Post;
 import com.kh.eg.admin.model.vo.Report;
+import com.kh.eg.admin.model.vo.Return;
 import com.kh.eg.admin.model.vo.SearchCondition;
 import com.kh.eg.admin.model.vo.SearchReport;
 
@@ -202,6 +203,19 @@ public class AdMemberServiceImpl implements AdMemberService{
 	@Override
 	public ArrayList<Post> selectPostList(PageInfo pi) throws AdMemberselectException {
 		ArrayList<Post> list = amd.selectPostList(sqlSession, pi);
+		
+		return list;
+	}
+
+	@Override
+	public int returnListCount() throws AdMemberselectException {
+		int listCount = amd.returnListCount(sqlSession);
+		return listCount;
+	}
+
+	@Override
+	public ArrayList<Return> selectReturnList(PageInfo pi) throws AdMemberselectException {
+		ArrayList<Return> list = amd.selectReturnList(sqlSession, pi);
 		
 		return list;
 	}

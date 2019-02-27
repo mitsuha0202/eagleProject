@@ -20,6 +20,7 @@ import com.kh.eg.admin.model.vo.Notice;
 import com.kh.eg.admin.model.vo.PageInfo;
 import com.kh.eg.admin.model.vo.Post;
 import com.kh.eg.admin.model.vo.Report;
+import com.kh.eg.admin.model.vo.Return;
 import com.kh.eg.admin.model.vo.SearchCondition;
 import com.kh.eg.admin.model.vo.SearchReport;
 import com.kh.eg.board.model.vo.Board;
@@ -519,8 +520,30 @@ public class AdminController {
 	}
 	
 	@RequestMapping("returnList.ad")
-	public String returnListview(){
-		return "admin/returnList";
+	public String returnListview(Model model, HttpServletRequest request){
+		int currentPage = 1;
+	      
+	      if(request.getParameter("currentPage") != null) {
+	         currentPage = Integer.parseInt(request.getParameter("currentPage"));
+	      }
+	      
+	      int listCount;
+	      
+	      try {
+	    	  listCount = ams.returnListCount();
+	    	  PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+	    	  
+	    	  ArrayList<Return> list = ams.selectReturnList(pi);
+	         
+	         model.addAttribute("list", list);
+	         model.addAttribute("pi", pi);
+	         return "admin/returnList";
+	      } catch (AdMemberselectException e) {
+	         e.printStackTrace();
+	         model.addAttribute("msg","반품 조회 실패!");
+	         return "common/errorPage";
+	         
+	      }
 	}
 	@RequestMapping("statList1.ad")
 	public String statList1view(){
