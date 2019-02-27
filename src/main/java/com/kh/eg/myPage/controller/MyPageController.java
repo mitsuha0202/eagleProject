@@ -46,7 +46,7 @@ import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 		@RequestMapping("myPageMain.mp")
 		public String myPageMainPage(Model model, Member m, HttpSession session, HttpServletRequest request) {
 			
-		/*	//유저번호 받기위해 
+			//유저번호 받기위해 
 		    m = (Member)session.getAttribute("loginUser");
 		    String memberNo= m.getMid();
 		    System.out.println("아이디 : " + memberNo);
@@ -54,9 +54,9 @@ import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 		    
 		    
 		    String rating;
-		    System.out.println(list.size());
+		    System.out.println("list가 왔느냐 : " + list.size());
 		    if(list != null) {
-			    if(Integer.parseInt(list.get(0).getAmount())>=1000000 && list.get(0).getCount()>=6) {
+			    if(list.get(0).getAmount()>=1000000 && list.get(0).getCount()>=6) {
 			    	
 			    	rating = "VIP";
 			    	
@@ -66,7 +66,7 @@ import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 						return "myPage/myPageMain";
 					
 			    }
-			    else if(Integer.parseInt(list.get(0).getAmount())<1000000 && list.get(0).getCount()<6 && Integer.parseInt(list.get(0).getAmount())>=500000 && list.get(0).getCount()>=2) {
+			    else if(list.get(0).getAmount()<1000000 && list.get(0).getCount()<6 && list.get(0).getAmount()>=500000 && list.get(0).getCount()>=2) {
 			    	rating = "GOLD";
 			    	
 			    	
@@ -85,10 +85,10 @@ import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 					
 			    }
 		    }else {
-				model.addAttribute("msg","위시리스트 조회 실패");
-				return "common/errorPage";
-			}*/
-		    return "myPage/myPageMain";
+		    	rating = "일반";
+		    	return "myPage/myPageMain";
+			}
+		    
 		  
 		   }
 			
