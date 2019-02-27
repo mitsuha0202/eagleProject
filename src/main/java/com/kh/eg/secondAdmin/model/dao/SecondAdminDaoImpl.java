@@ -55,4 +55,34 @@ public class SecondAdminDaoImpl implements SecondAdminDao{
 	}*/
 return null;
 }
+
+	@Override
+	public ArrayList<SecondAdmin> categoryWeeks(SqlSessionTemplate sqlSession) {
+		ArrayList<SecondAdmin> list = (ArrayList)sqlSession.selectList("SecondAdmin.categoryName");
+		for(int i=0; i<list.size();i++) {
+			int result = sqlSession.selectOne("SecondAdmin.categoryWeeks",i+1);
+			list.get(i).setCategoryCount(result);
+		}
+		return list;
+	}
+
+	@Override
+	public ArrayList<SecondAdmin> categoryMonth(SqlSessionTemplate sqlSession) {
+		ArrayList<SecondAdmin> list = (ArrayList)sqlSession.selectList("SecondAdmin.categoryName");
+		for(int i=0; i<list.size();i++) {
+			int result = sqlSession.selectOne("SecondAdmin.categoryMonth",i+1);
+			list.get(i).setCategoryCount(result);
+		}
+		return list;
+	}
+
+	@Override
+	public ArrayList<SecondAdmin> categoryYear(SqlSessionTemplate sqlSession) {
+		ArrayList<SecondAdmin> list = (ArrayList)sqlSession.selectList("SecondAdmin.categoryName");
+		for(int i=0; i<list.size();i++) {
+			int result = sqlSession.selectOne("SecondAdmin.categoryYear",i+1);
+			list.get(i).setCategoryCount(result);
+		}
+		return list;
+	}
 }

@@ -29,8 +29,8 @@
 
 		<div class="contBox mt30"><!-- contBox S -->			
 			<p><h3>조회기간</h3>
-			    <input type="text" id="datepicker1" style="height: 30px;"> ~
-			    <input type="text" id="datepicker2" style="height: 30px;">
+			    <input type="text" id="datepicker1" style="height: 40px;"> ~
+			    <input type="text" id="datepicker2" style="height: 40px;">
 			    
 			    <button class="ui button" onclick="dateSearch();">
 				  	조회하기
@@ -48,9 +48,9 @@
 			<div id=chartArea align="center" style="margin-top: 40px;">
 			<div id="chart" class="chart" style="width:500px;height:324px; margin-right: 30px;"></div>
 			
-			<!-- <div id="chart1" class="chart" style="width:500px;height:324px;"></div>
-			<div id="chart2" class="chart" style="width:500px;height:324px; margin-right: 30px; margin-top: 50px;"></div>
-			<div id="chart3" class="chart" style="width:500px;height:324px; margin-top: 50px;"></div> -->
+			<div id="chart1" class="chart" style="width:500px;height:324px;"></div>
+			 <div id="chart2" class="chart" style="width:500px;height:324px; margin-right: 30px; margin-top: 50px;"></div>
+			<div id="chart3" class="chart" style="width:500px;height:324px; margin-top: 50px;"></div> 
 			</div>
 		</div><!--// contBox E-->
 
@@ -63,7 +63,7 @@
 
 <script type="text/javascript" src="../eg/js/jquery-2.1.0.min.js"></script>
 <script type="text/javascript" src="../eg/js/jquery.jqplot.js"></script>
-<script type="text/javascript" src="../eg/js/jquery.excanvas.js"></script>
+<script type="text/javascript" src="../eg/js/excanvas.js"></script>
 <script type="text/javascript" src="../eg/js/plugins/jqplot.barRenderer.js"></script>
 <script type="text/javascript" src="../eg/js/plugins/jqplot.categoryAxisRenderer.js"></script>
  <script src="../eg/js/jquery-ui.min.js"></script>
@@ -96,7 +96,7 @@ jQuery(document).ready(function () {
 				x.push(data[i].categoryName);
 			}
 		    jQuery("#chart").jqplot([y], {
-		          title:"일일"
+		          title:"Days"
 		        , seriesDefaults:{
 		              renderer:jQuery.jqplot.BarRenderer
 		            , rendererOptions:{
@@ -115,90 +115,146 @@ jQuery(document).ready(function () {
 			alert("에러");
 		}
 	}); 
-});
-  /*   var line = [6, 5, 2, 4, 6, 6, 4];
-    jQuery("#chart").jqplot([line], {
-          title:"일일"
-        , seriesDefaults:{
-              renderer:jQuery.jqplot.BarRenderer
-            , rendererOptions:{
-                varyBarColor:true
-            }
-        }
-        , axes:{
-            xaxis:{
-                  renderer:jQuery.jqplot.CategoryAxisRenderer
 
-                , ticks:['미술', '음악앨범', '의류', '생활가전', '비디오게임','피규어','레고']
+  
+ $.ajax({
+	url:"categoryWeeks.sad",
+	type:"get",
+	dataType:"text",
+	contentType : "application/json",
+	success:function(data){
+		var data = JSON.parse(data);
+		console.log(data);
+		var nameArr = new Array();
+		var count = 0;
+		var cateName = '';
+		var cName = data.categoryName;
+		var cCount = data.categoryCount
+		
+		
+		var y = [];
+		var x = [];
+		
+		for(var i=0; i<data.length; i++){
+			y.push(data[i].categoryCount);
+			x.push(data[i].categoryName);
+		}
+	    jQuery("#chart1").jqplot([y], {
+	          title:"Week"
+	        , seriesDefaults:{
+	              renderer:jQuery.jqplot.BarRenderer
+	            , rendererOptions:{
+	                varyBarColor:true
+	            }
+	        }
+	        , axes:{
+	            xaxis:{
+	                  renderer:jQuery.jqplot.CategoryAxisRenderer     
+		                , ticks:x 
+	            }
+	        }
+	    });
+	},
+	error:function(data){
+		alert("에러");
+	}
+});  
 
-            }
-        }
-    });
-}); */
+	
+ $.ajax({
+		url:"categoryMonth.sad",
+		type:"get",
+		dataType:"text",
+		contentType : "application/json",
+		success:function(data){
+			var data = JSON.parse(data);
+			console.log(data);
+			var nameArr = new Array();
+			var count = 0;
+			var cateName = '';
+			var cName = data.categoryName;
+			var cCount = data.categoryCount
+			
+			
+			var y = [];
+			var x = [];
+			
+			for(var i=0; i<data.length; i++){
+				y.push(data[i].categoryCount);
+				x.push(data[i].categoryName);
+			}
+		    jQuery("#chart2").jqplot([y], {
+		          title:"Month"
+		        , seriesDefaults:{
+		              renderer:jQuery.jqplot.BarRenderer
+		            , rendererOptions:{
+		                varyBarColor:true,
+		            }
+		        }
+		        , axes:{
+		            xaxis:{
+		                  renderer:jQuery.jqplot.CategoryAxisRenderer     
+			                , ticks:x 
+		            }
+		        }
+		    });
+		},
+		error:function(data){
+			alert("에러");
+		}
+	});  
 
-/* jQuery(document).ready(function () {
-    var line = [6, 5, 2, 4, 6, 6, 4];
-    jQuery("#chart1").jqplot([line], {
-          title:"주간"
-        , seriesDefaults:{
-              renderer:jQuery.jqplot.BarRenderer
-            , rendererOptions:{
-                varyBarColor:true
-            }
-        }
-        , axes:{
-            xaxis:{
-                  renderer:jQuery.jqplot.CategoryAxisRenderer
+ $.ajax({
+		url:"categoryYear.sad",
+		type:"get",
+		dataType:"text",
+		contentType : "application/json",
+		success:function(data){
+			var data = JSON.parse(data);
+			console.log(data);
+			var nameArr = new Array();
+			var count = 0;
+			var cateName = '';
+			var cName = data.categoryName;
+			var cCount = data.categoryCount
+			
+			
+			var y = [];
+			var x = [];
+			
+			for(var i=0; i<data.length; i++){
+				y.push(data[i].categoryCount);
+				x.push(data[i].categoryName);
+			}
+		    jQuery("#chart3").jqplot([y], {
+		          title:"Year"
+		        , seriesDefaults:{
+		              renderer:jQuery.jqplot.BarRenderer
+		            , rendererOptions:{
+		                varyBarColor:true
+		            }
+		        }
+		        , axes:{
+		            xaxis:{
+		                  renderer:jQuery.jqplot.CategoryAxisRenderer     
+			                , ticks:x 
+		            }
+		        }
+		    });
+		},
+		error:function(data){
+			alert("에러");
+		}
+	});  
 
-                , ticks:['미술', '음악앨범', '의류', '생활가전', '비디오게임','피규어','레고']
-
-            }
-        }
-    });
-});
-
-jQuery(document).ready(function () {
-    var line = [6, 5, 2, 4, 6, 6, 4];
-    jQuery("#chart2").jqplot([line], {
-          title:"월간"
-        , seriesDefaults:{
-              renderer:jQuery.jqplot.BarRenderer
-            , rendererOptions:{
-                varyBarColor:true
-            }
-        }
-        , axes:{
-            xaxis:{
-                  renderer:jQuery.jqplot.CategoryAxisRenderer
-
-                , ticks:['미술', '음악앨범', '의류', '생활가전', '비디오게임','피규어','레고']
-
-            }
-        }
-    });
-});
-
-jQuery(document).ready(function () {
-    var line = [6, 5, 2, 4, 6, 6, 4];
-    jQuery("#chart3").jqplot([line], {
-          title:"연별"
-        , seriesDefaults:{
-              renderer:jQuery.jqplot.BarRenderer
-            , rendererOptions:{
-                varyBarColor:true
-            }
-        }
-        , axes:{
-            xaxis:{
-                  renderer:jQuery.jqplot.CategoryAxisRenderer
-
-                , ticks:['미술', '음악앨범', '의류', '생활가전', '비디오게임','피규어','레고']
-
-            }
-        }
-    });
-}); */
-
+ 
+});	
+	
+	
+	
+	
+	
+	
 	function dateSearch() {
 		var datepicker1 = $("#datepicker1").val();
 		var datepicker2 = $("#datepicker2").val();

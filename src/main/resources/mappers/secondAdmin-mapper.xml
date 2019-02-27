@@ -13,10 +13,26 @@
 	</select>
 	
 	<select id="categoryCount" parameterType="java.lang.Integer"   resultType="_int" >
-		SELECT COUNT(*) FROM AUCTIONITEM A JOIN CATEGORY C ON(A.CATEGORYNO = C.CATEGORYNO) WHERE C.UPPERCATEGORYNO = #{i}
+		SELECT COUNT(*) FROM AUCTIONITEM A JOIN CATEGORY C ON(A.CATEGORYNO = C.CATEGORYNO) 
+		JOIN AUCTIONDETAIL D ON (A.ITEMNO = D.ITEMNO)
+		WHERE C.UPPERCATEGORYNO =#{i} AND D.STARTDAY = SYSDATE
 	</select>
 	
-	<!-- <select id="searchCategoryCount" parameterType="java.lang.String" resultType="_int">
-			
-	</select> -->
+	<select id="categoryWeeks" parameterType="java.lang.Integer"   resultType="_int" >
+		SELECT COUNT(*) FROM AUCTIONITEM A JOIN CATEGORY C ON(A.CATEGORYNO = C.CATEGORYNO) 
+		JOIN AUCTIONDETAIL D ON (A.ITEMNO = D.ITEMNO)
+		WHERE C.UPPERCATEGORYNO =#{i} AND D.STARTDAY BETWEEN SYSDATE-7 AND SYSDATE
+	</select>
+	
+	<select id="categoryMonth" parameterType="java.lang.Integer"   resultType="_int" >
+		SELECT COUNT(*) FROM AUCTIONITEM A JOIN CATEGORY C ON(A.CATEGORYNO = C.CATEGORYNO) 
+		JOIN AUCTIONDETAIL D ON (A.ITEMNO = D.ITEMNO)
+		WHERE C.UPPERCATEGORYNO =#{i} AND D.STARTDAY BETWEEN SYSDATE-30 AND SYSDATE
+	</select>
+	
+	<select id="categoryYear" parameterType="java.lang.Integer"   resultType="_int" >
+		SELECT COUNT(*) FROM AUCTIONITEM A JOIN CATEGORY C ON(A.CATEGORYNO = C.CATEGORYNO) 
+		JOIN AUCTIONDETAIL D ON (A.ITEMNO = D.ITEMNO)
+		WHERE C.UPPERCATEGORYNO =#{i} AND D.STARTDAY BETWEEN SYSDATE-365 AND SYSDATE
+	</select>
 </mapper>
