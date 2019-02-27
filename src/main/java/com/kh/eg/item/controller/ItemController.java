@@ -163,7 +163,7 @@ public class ItemController {
 			int result = is.insertItem(hmap);
 			//int result=is.insertItem(it);
 			System.out.println(result);
-			return "redirect:goMain.it";
+			return "redirect:mainPage.au";
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
