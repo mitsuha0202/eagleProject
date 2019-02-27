@@ -57,6 +57,7 @@ public class SecondAdminController {
 		return list;
 		
 	}*/
+	//카테고리 일단위
 	@RequestMapping("categoryDays.sad")
 	public @ResponseBody ArrayList<SecondAdmin> categoryDays() {
 		HashMap<String, ArrayList<SecondAdmin>> hmap = new HashMap<String, ArrayList<SecondAdmin>>();
@@ -65,6 +66,39 @@ public class SecondAdminController {
 		
 		return list;
 	}
+	
+	
+	//카테고리 주단위
+	@RequestMapping("categoryWeeks.sad")
+	public @ResponseBody ArrayList<SecondAdmin> categoryWeeks(){
+		
+		ArrayList<SecondAdmin> list = sas.categoryWeeks();
+		
+		return list;
+	}
+	
+	//카테고리 월단위
+	@RequestMapping("categoryMonth.sad")
+	public @ResponseBody ArrayList<SecondAdmin> categoryMonth(){
+		
+		ArrayList<SecondAdmin> list = sas.categoryMonth();
+		
+		return list;
+	}
+	
+	//카테고리 연단위
+	@RequestMapping("categoryYear.sad")
+	public @ResponseBody ArrayList<SecondAdmin> categoryYear(){
+		
+		ArrayList<SecondAdmin> list = sas.categoryYear();
+		
+		return list;
+	}
+
+	
+	
+	
+	
 	
 	@RequestMapping("categoryDaySearch.sad")
 	public @ResponseBody ArrayList<SecondAdmin> categorySearch(@RequestParam(value="datepicker1") String datepicker1, @RequestParam(value="datepicker2") String datepicker2){

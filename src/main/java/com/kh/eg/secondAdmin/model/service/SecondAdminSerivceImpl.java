@@ -42,6 +42,24 @@ public class SecondAdminSerivceImpl implements SecondAdminService{
 		ArrayList<SecondAdmin> list = sad.searchCategory(sqlSession, hmap);
 		return list;
 	}
+
+	@Override
+	public ArrayList<SecondAdmin> categoryWeeks() {
+		ArrayList<SecondAdmin> list = sad.categoryWeeks(sqlSession);
+		return list;
+	}
+
+	@Override
+	public ArrayList<SecondAdmin> categoryMonth() {
+		ArrayList<SecondAdmin> list =sad.categoryMonth(sqlSession);
+		return list;
+	}
+
+	@Override
+	public ArrayList<SecondAdmin> categoryYear() {
+		ArrayList<SecondAdmin> list =sad.categoryYear(sqlSession);
+		return list;
+	}
 	
 	
 }

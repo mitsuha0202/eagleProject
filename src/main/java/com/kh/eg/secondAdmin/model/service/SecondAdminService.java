@@ -15,4 +15,10 @@ public interface SecondAdminService {
 
 	ArrayList<SecondAdmin> searchCategory(HashMap<String, String> hmap);
 
+	ArrayList<SecondAdmin> categoryWeeks();
+
+	ArrayList<SecondAdmin> categoryMonth();
+
+	ArrayList<SecondAdmin> categoryYear();
+
 }

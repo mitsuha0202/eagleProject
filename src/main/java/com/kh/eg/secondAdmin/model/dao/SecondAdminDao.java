@@ -16,5 +16,11 @@ public interface SecondAdminDao {
 	ArrayList<SecondAdmin> categoryName(SqlSessionTemplate sqlSession);
 
 	ArrayList<SecondAdmin> searchCategory(SqlSessionTemplate sqlSession, HashMap<String, String> hmap);
+
+	ArrayList<SecondAdmin> categoryWeeks(SqlSessionTemplate sqlSession);
+
+	ArrayList<SecondAdmin> categoryMonth(SqlSessionTemplate sqlSession);
+
+	ArrayList<SecondAdmin> categoryYear(SqlSessionTemplate sqlSession);
 	
 }
