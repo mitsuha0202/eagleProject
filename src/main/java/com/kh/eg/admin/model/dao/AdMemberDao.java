@@ -12,6 +12,7 @@ import com.kh.eg.admin.model.vo.Notice;
 import com.kh.eg.admin.model.vo.PageInfo;
 import com.kh.eg.admin.model.vo.Post;
 import com.kh.eg.admin.model.vo.Report;
+import com.kh.eg.admin.model.vo.Return;
 import com.kh.eg.admin.model.vo.SearchCondition;
 import com.kh.eg.admin.model.vo.SearchReport;
 
@@ -63,6 +64,10 @@ public interface AdMemberDao {
 	int postListCount(SqlSessionTemplate sqlSession) throws AdMemberselectException;
 
 	ArrayList<Post> selectPostList(SqlSessionTemplate sqlSession, PageInfo pi) throws AdMemberselectException;
+
+	int returnListCount(SqlSessionTemplate sqlSession) throws AdMemberselectException;
+
+	ArrayList<Return> selectReturnList(SqlSessionTemplate sqlSession, PageInfo pi) throws AdMemberselectException;
 
 	
 

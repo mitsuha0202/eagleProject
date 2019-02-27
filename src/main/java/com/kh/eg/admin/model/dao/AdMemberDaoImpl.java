@@ -14,6 +14,7 @@ import com.kh.eg.admin.model.vo.Notice;
 import com.kh.eg.admin.model.vo.PageInfo;
 import com.kh.eg.admin.model.vo.Post;
 import com.kh.eg.admin.model.vo.Report;
+import com.kh.eg.admin.model.vo.Return;
 import com.kh.eg.admin.model.vo.SearchCondition;
 import com.kh.eg.admin.model.vo.SearchReport;
 import com.kh.eg.board.model.vo.Reply;
@@ -321,6 +322,34 @@ public class AdMemberDaoImpl implements AdMemberDao{
 		}
 		
 		return list;	
+	}
+
+	@Override
+	public int returnListCount(SqlSessionTemplate session) throws AdMemberselectException {
+		int result = session.selectOne("AdminVo.returnListCount");
+		
+		if(result <= 0) {
+			throw new AdMemberselectException("반품 페이징 실패!");
+		}
+		
+		return result;
+	}
+
+	@Override
+	public ArrayList<Return> selectReturnList(SqlSessionTemplate session, PageInfo pi) throws AdMemberselectException {
+		ArrayList<Return> list = null;
+		
+		int offset = (pi.getCurrentPage() -1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList)session.selectList("AdminVo.selectReturnList", null, rowBounds);
+		
+		if(list == null) {
+			throw new AdMemberselectException("반품 조회 실패!");
+		}
+		
+		return list;
 	}
 
 	
