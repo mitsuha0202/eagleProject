@@ -148,20 +148,7 @@
 	     <button class="noPay">구매거부</button>
 	</div>
 	
-	<!-- 하단 div영역 -->
-	<div class="tutorialDiv">
-		<br>
-		<h4 class="tutorialText1">고객센터 상담전화</h4>
-		<br><br>
-		<h4 class="tutorialText2">02-000-0000</h4>
-		<h4 class="tutorialText3">평일 09:00~18:00</h4>&nbsp;<h4 class="tutorialText3">점심 12:00~13:00</h4>
-		<h4 class="tutorialText4">토 일 공휴일 휴무</h4>
-		<i class="clipboard icon" id="auctionInfo" onclick="location.href='egAuctionInfo.mp'"></i>
-		<h4 class="tutorialIcon1" onclick="egAuctionInfo.mp">사이트이용안내</h4>
-		<i class="dollar sign icon" id="accountInfo"></i>
-		<h4 class="tutorialIcon2">자주묻는 질문</h4>		
-	</div>
-	
+		
 	<div id="pagingArea" align="center">
 			<c:if test="${ pi.currentPage <= 1 }">
 				[이전] &nbsp;
@@ -195,6 +182,20 @@
 				<a href="${ blistEnd }">&nbsp;[다음]</a>
 			</c:if>
 		</div>
+	
+	<!-- 하단 div영역 -->
+	<div class="tutorialDiv">
+		<br>
+		<h4 class="tutorialText1">고객센터 상담전화</h4>
+		<br><br>
+		<h4 class="tutorialText2">02-000-0000</h4>
+		<h4 class="tutorialText3">평일 09:00~18:00</h4>&nbsp;<h4 class="tutorialText3">점심 12:00~13:00</h4>
+		<h4 class="tutorialText4">토 일 공휴일 휴무</h4>
+		<i class="clipboard icon" id="auctionInfo" onclick="location.href='egAuctionInfo.mp'"></i>
+		<h4 class="tutorialIcon1" onclick="egAuctionInfo.mp">사이트이용안내</h4>
+		<i class="dollar sign icon" id="accountInfo"></i>
+		<h4 class="tutorialIcon2">자주묻는 질문</h4>		
+	</div>
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script>

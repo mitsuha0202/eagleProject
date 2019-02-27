@@ -1,15 +1,33 @@
 package com.kh.eg.myPage.controller;
 
+import java.util.ArrayList;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
+
+import com.kh.eg.member.model.vo.Member;
+import com.kh.eg.myPage.model.service.MyPageService;
+import com.kh.eg.myPage.model.vo.PayTable;
+
+@SessionAttributes("loginUser")
 
 @Controller
 public class SalesStatusController {
 	
+	@Autowired
+	private MyPageService ms;
 		
 	//판매현황+ 메인페이지
 		@RequestMapping("salesstatus.mp")
-		public String salesstatusPage() {
+		public String salesstatusPage(@RequestParam(defaultValue="1") int currentPage, HttpSession session, Model model, Member m) {
+			m = (Member)session.getAttribute("loginUser");
+			int listCount = ms.getSaleStatus(m.getMid());
 			return "myPage/salesmanagement/salesstatusMainPage";
 		}
 

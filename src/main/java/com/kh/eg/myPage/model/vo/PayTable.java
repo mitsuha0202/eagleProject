@@ -14,13 +14,14 @@ public class PayTable {
 	private int rowBid;
 	private String endDay;
 	private String endYn;
+	private String orderM;
 	
 	public PayTable() {
 	
 	}
 
 	public PayTable(int itemNo, int bidNo, String itemName, String memberNo, String currentPrice, int bidCount,
-			int saleMemberNo, String saleMemberName, int rowBid, String endDay, String endYn) {
+			int saleMemberNo, String saleMemberName, int rowBid, String endDay, String endYn, String orderM) {
 		super();
 		this.itemNo = itemNo;
 		this.bidNo = bidNo;
@@ -33,6 +34,7 @@ public class PayTable {
 		this.rowBid = rowBid;
 		this.endDay = endDay;
 		this.endYn = endYn;
+		this.orderM = orderM;
 	}
 
 	public int getItemNo() {
@@ -123,11 +125,19 @@ public class PayTable {
 		this.endYn = endYn;
 	}
 
+	public String getOrderM() {
+		return orderM;
+	}
+
+	public void setOrderM(String orderM) {
+		this.orderM = orderM;
+	}
+
 	@Override
 	public String toString() {
 		return "PayTable [itemNo=" + itemNo + ", bidNo=" + bidNo + ", itemName=" + itemName + ", memberNo=" + memberNo
 				+ ", currentPrice=" + currentPrice + ", bidCount=" + bidCount + ", saleMemberNo=" + saleMemberNo
 				+ ", saleMemberName=" + saleMemberName + ", rowBid=" + rowBid + ", endDay=" + endDay + ", endYn="
-				+ endYn + "]";
+				+ endYn + ", orderM=" + orderM + "]";
 	}
 }

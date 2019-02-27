@@ -83,6 +83,7 @@
 		width: 150px;
 		height: 40px;
 	    font-size: 16px;
+	    cursor: pointer;
 	}
 	/* 사이버머니 div 버튼 */
 	.mpMoneyDivSendBtn{
@@ -248,6 +249,7 @@
 		position: absolute;
 		top: 121px;
 		left: 760px;
+		cursor: pointer;
 	}
 	/* 문의게시판 글씨 */
 	.tutorialIcon3{	
@@ -260,6 +262,7 @@
 		position: absolute;
 		top: 121px;
 		left: 920px;
+		cursor: pointer;
 	}
 	/* 문의받은게시판 글씨 */
 	.tutorialIcon4{
@@ -283,9 +286,8 @@
 	<div class="mpUserDiv">
 		<br>
 		<h5 style="color: white"><c:out value="${ sessionScope.loginUser.userName }님"/></h5>
-		<h5 style="color: white">회원등급 <c:out value="${ rating }입니다"/></h5><br>
-		
-		
+		<h5 style="color: white">회원등급 <c:out value="${ rating }"/></h5>
+		<h5 style="color: white">사이버머니 <c:out value="${ sessionScope.loginUser.emoney }원"/></h5>
 		<button class="mpUserDivBtn" onclick="location.href='userGradeInfo.mp'">회원등급 혜택안내</button>
 	</div>
 	<div class="mpMessageDiv">

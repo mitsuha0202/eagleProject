@@ -167,8 +167,54 @@ public interface MyPageService {
 	//구매거부 페이징 처리
 	int getPurchaseOther(String mid, String itemNo, String currentPrice);
 
+	//구매거부 매개변수 없을때 페이징
+	int getPurchaseOtherNoparam(String mid);
+
 	//구매거부 목록 조회
-	ArrayList<PayTable> selectPurChaseOther(PageInfo pi, String mid, String itemNo, String currentPrice);
+	ArrayList<PayTable> selectPurChaseNoParam(PageInfo pi, String mid);
+
+	//반품 페이징 처리
+	int getReturn(String mid, String itemNo, String currentPrice);
+
+	//반품 페이징 처리
+	int getReturnNoparam(String mid);
+
+	//반품 매개변수 없는 목록 조회
+	ArrayList<PayTable> selectReturnList(PageInfo pi, String mid);
+
+	//미입금 페이징 처리
+	int getNoPayment(String mid, String itemNo, String currentPrice);
+
+	//미입금 매개변수 없는 페이징 처리
+	int getNoPaymentNoparam(String mid);
+	
+	//미입금 목록 조회
+	ArrayList<PayTable> selectNoPaymentList(PageInfo pi, String mid);
+
+	//판매거부 페이징
+	int getRefuseSell(String mid);
+
+	//판매거부 목록 조회
+	ArrayList<PayTable> selectRefuseSellList(PageInfo pi, String mid);
+
+	//미수령 신고 페이징
+	int getNotReceiving(String mid, String itemNo, String currentPrice);
+
+	//미수령 신고 매개변수 없는 페이징
+	int getNotReceivingNoparam(String mid);
+
+	//미수령 신고 목록 조회
+	ArrayList<PayTable> selectNotReceivingList(PageInfo pi, String mid);
+
+	//거래완료 페이징
+	int getTransactionComplete(String mid);
+
+	//거래완료 목록 조회
+	ArrayList<PayTable> selectTransactionComplete(String mid, PageInfo pi);
+
+	//판매관리 메인 페이지 페이징
+	int getSaleStatus(String mid);
+
 
 
 	

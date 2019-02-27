@@ -651,16 +651,197 @@ public class MyPageDaoImpl implements MyPageDao{
 		return count;
 	}
 
+	//구매거부 매개변수 없을때 페이징
+	@Override
+	public int getPurchaseOtherNoParam(SqlSessionTemplate sqlSession, String mid) {
+		
+		return sqlSession.selectOne("MyPage.getPurchaseOther", mid);
+	}
+
 	//구매거부 목록 조회
 	@Override
-	public ArrayList<PayTable> selectPurChaseOther(SqlSessionTemplate sqlSession, PageInfo pi, String mid, String itemNo, String currentPrice) {
+	public ArrayList<PayTable> selectPurChaseNoParam(SqlSessionTemplate sqlSession, PageInfo pi, String mid) {
 		int offset = (pi.getCurrentPage()  - 1) * pi.getLimit();
-		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());	
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		return (ArrayList)sqlSession.selectList("MyPage.selectPurChaseOther", mid, rowBounds);
+	}
+
+	//반품 페이징 
+	@Override
+	public int getReturn(SqlSessionTemplate sqlSession, String mid, String itemNo, String currentPrice) {
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("mid", mid);
 		map.put("itemNo", itemNo);
 		map.put("currentPrice", currentPrice);
-		return (ArrayList)sqlSession.selectList("MyPage", map, rowBounds);
+		map.put("saleMemberNo", (String)sqlSession.selectOne("MyPage.selectSaleMemberNo", map));
+		
+		int result1 = sqlSession.insert("MyPage.returnInsert", map);
+		
+		int result2 = 0;
+		
+		if(result1 > 0) {
+			map.put("dealNo", (String)sqlSession.selectOne("MyPage.winBidSelect", map));
+		}
+		
+		if(map.get("dealNo") != null) {
+			result2 = sqlSession.insert("MyPage.returnDetailInsert", map);
+		}
+		
+		int count = 0;
+		
+		if(result2 > 0) {
+			count = sqlSession.selectOne("MyPage.getReturn", map);
+		}
+		return count;
+	}
+
+	//반품 매개변수 없는 페이징
+	@Override
+	public int getReturnNoParam(SqlSessionTemplate sqlSession, String mid) {
+		
+		return sqlSession.selectOne("MyPage.getReturn", mid);
+	}
+
+	//반품 목록 조회
+		@Override
+		public ArrayList<PayTable> selectReturnList(SqlSessionTemplate sqlSession, PageInfo pi, String mid) {
+			int offset = (pi.getCurrentPage()  - 1) * pi.getLimit();
+			RowBounds rowBounds = new RowBounds(offset, pi.getLimit());	
+			
+			return (ArrayList)sqlSession.selectList("MyPage.selectReturnList", mid, rowBounds);
+		}
+	
+	//미입금 페이징 
+	@Override
+	public int getNoPayment(SqlSessionTemplate sqlSession, String mid, String itemNo, String currentPrice) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("mid", mid);
+		map.put("itemNo", itemNo);
+		map.put("currentPrice", currentPrice);
+		map.put("saleMemberNo", (String)sqlSession.selectOne("MyPage.selectSaleMemberNo", map));
+		
+		int result1 = sqlSession.insert("MyPage.noPaymentInsert", map);
+		
+		int result2 = 0;
+		
+		if(result1 > 0) {
+			map.put("dealNo", (String)sqlSession.selectOne("MyPage.winBidSelect", map));
+		}
+		
+		if(map.get("dealNo") != null) {
+			result2 = sqlSession.insert("MyPage.noPaymentDetailInsert", map);
+		}
+		
+		int count = 0;
+		
+		if(result2 > 0) {
+			count = sqlSession.selectOne("MyPage.getNoPayment", map);
+		}
+		
+		return count;
+	}
+
+	//미입금 매개변수 없는 페이징
+	@Override
+	public int getNoPaymentNoParam(SqlSessionTemplate sqlSession, String mid) {
+		
+		return sqlSession.selectOne("MyPage.getNoPayment", mid);
+	}
+
+	//미입금 목록 조회
+	@Override
+	public ArrayList<PayTable> selectNoPaymentList(SqlSessionTemplate sqlSession, PageInfo pi, String mid) {
+		int offset = (pi.getCurrentPage()  - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());	
+		return (ArrayList)sqlSession.selectList("MyPage.selectNoPaymentList", mid, rowBounds);
+	}
+
+	//판매거부 페이징
+	@Override
+	public int getRefuseSell(SqlSessionTemplate sqlSession, String mid) {
+
+		return sqlSession.selectOne("MyPage.getRefuseSell", mid);
+	}
+
+	//판매거부 목록 조회
+	@Override
+	public ArrayList<PayTable> selectRefuseSellList(SqlSessionTemplate sqlSession, PageInfo pi, String mid) {
+		int offset = (pi.getCurrentPage()  - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());	
+		return (ArrayList)sqlSession.selectList("MyPage.selectRefuseSellList", mid, rowBounds);
+	}
+
+	//미수령 신고 페이징
+	@Override
+	public int getNotReceiving(SqlSessionTemplate sqlSession, String mid, String itemNo, String currentPrice) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("mid", mid);
+		map.put("itemNo", itemNo);
+		map.put("currentPrice", currentPrice);
+		map.put("saleMemberNo", (String)sqlSession.selectOne("MyPage.selectSaleMemberNo", map));
+		
+		int result1 = sqlSession.insert("MyPage.notReceivingInsert", map);
+		
+		int result2 = 0;
+		
+		if(result1 > 0) {
+			map.put("dealNo", (String)sqlSession.selectOne("MyPage.winBidSelect", map));
+		}
+		
+		if(map.get("dealNo") != null) {
+			result2 = sqlSession.insert("MyPage.notReceivingDetailInsert", map);
+		}
+		
+		int count = 0;
+		
+		if(result2 > 0) {
+			count = sqlSession.selectOne("MyPage.getNotReceiving", map);
+		}
+		
+		return count;
+	}
+
+	//미수령 매개변수 없는 페이징
+	@Override
+	public int getNotReceivingNoParam(SqlSessionTemplate sqlSession, String mid) {
+
+		return sqlSession.selectOne("MyPage.getNotReceiving", mid);
+	}
+
+	//미수령 신고 목록 조회
+	@Override
+	public ArrayList<PayTable> selectNotReceivingList(SqlSessionTemplate sqlSession, PageInfo pi, String mid) {
+		int offset = (pi.getCurrentPage()  - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());	
+		
+		return (ArrayList)sqlSession.selectList("MyPage.selectNotReceivingList", mid, rowBounds);
+	}
+
+	//거래완료 페이징
+	@Override
+	public int getTransactionComplete(SqlSessionTemplate sqlSession, String mid) {
+		
+		return sqlSession.selectOne("MyPage.getTransactionComplete", mid);
+	}
+
+	//거래완료 목록 조회
+	@Override
+	public ArrayList<PayTable> selectTransactionComplete(SqlSessionTemplate sqlSession, String mid, PageInfo pi) {
+		int offset = (pi.getCurrentPage()  - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		return (ArrayList)sqlSession.selectList("MyPage.selectTransactionCompleteList", mid, rowBounds);
+	}
+
+	//판매관리 메인페이지 페이징
+	@Override
+	public int getSaleStatus(SqlSessionTemplate sqlSession, String mid) {
+		
+		/*SELECT COUNT(A.ITEMNO) 
+		FROM AUCTIONITEM A
+		JOIN BID B ON(A.ITEMNO = B.ITEMNO)
+		WHERE A.MEMBERNO = 2;*/
+		return sqlSession.selectOne("MyPage.saleStatus", mid);
 	}
 
 }

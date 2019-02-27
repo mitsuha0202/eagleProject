@@ -165,9 +165,53 @@ public interface MyPageDao {
 	//구매거부 페이징 처리
 	int getPurchaseOther(SqlSessionTemplate sqlSession, String mid, String itemNo, String currentPrice);
 
+	//구매거부 매개변수 없을때 페이징
+	int getPurchaseOtherNoParam(SqlSessionTemplate sqlSession, String mid);
+
 	//구매거부 목록 조회
-	ArrayList<PayTable> selectPurChaseOther(SqlSessionTemplate sqlSession, PageInfo pi, String mid, String itemNo,
-			String currentPrice);
+	ArrayList<PayTable> selectPurChaseNoParam(SqlSessionTemplate sqlSession, PageInfo pi, String mid);
+
+	//반품 페이징
+	int getReturn(SqlSessionTemplate sqlSession, String mid, String itemNo, String currentPrice);	
+
+	//반품 매개변수 없는 페이징
+	int getReturnNoParam(SqlSessionTemplate sqlSession, String mid);
+	
+	//반품 목록 조회
+	ArrayList<PayTable> selectReturnList(SqlSessionTemplate sqlSession, PageInfo pi, String mid);
+
+	//미입금 페이징
+	int getNoPayment(SqlSessionTemplate sqlSession, String mid, String itemNo, String currentPrice);
+
+	//미입금 매개변수 없는 페이징
+	int getNoPaymentNoParam(SqlSessionTemplate sqlSession, String mid);
+
+	//미입금 목록 조회
+	ArrayList<PayTable> selectNoPaymentList(SqlSessionTemplate sqlSession, PageInfo pi, String mid);
+
+	//판매거부 페이징
+	int getRefuseSell(SqlSessionTemplate sqlSession, String mid);
+
+	//판매거부 목록 조회
+	ArrayList<PayTable> selectRefuseSellList(SqlSessionTemplate sqlSession, PageInfo pi, String mid);
+
+	//미수령 신고 페이징
+	int getNotReceiving(SqlSessionTemplate sqlSession, String mid, String itemNo, String currentPrice);
+
+	//미수령 신고 매개변수 없는 페이징
+	int getNotReceivingNoParam(SqlSessionTemplate sqlSession, String mid);
+
+	//미수령 신고 목록 조회
+	ArrayList<PayTable> selectNotReceivingList(SqlSessionTemplate sqlSession, PageInfo pi, String mid);
+
+	//거래완료 페이징
+	int getTransactionComplete(SqlSessionTemplate sqlSession, String mid);
+
+	//거래완료 목록 조회
+	ArrayList<PayTable> selectTransactionComplete(SqlSessionTemplate sqlSession, String mid, PageInfo pi);
+
+	//판매관리 메인 페이지 페이징
+	int getSaleStatus(SqlSessionTemplate sqlSession, String mid);
 	
 	
 	
