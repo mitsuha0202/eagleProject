@@ -79,6 +79,7 @@
 		<result property="currentPrice" column="CURRENTPRICE"/>
 		<result property="rowBid" column="RANKING"/>
 		<result property="saleMemberName" column="MEMBERNAME"/>
+		<result property="startDay" column="STARTDAY"/>
 		<result property="endDay" column="ENDDAY"/>
 		<result property="endYn" column="EXITYN"/>
 		<result property="orderM" column="ORDERM"/> 
@@ -783,6 +784,45 @@
         AND T.ORDERM = '미수령'
 	</select>
 <!-- ============================================================================================= -->
+	
+	<!-- 판매관리 메인페이지 페이징 -->
+	<select id="saleStatus" resultType="_int" parameterType="java.lang.String">	
+		SELECT COUNT(A.ITEMNO) 
+		FROM AUCTIONITEM A
+		JOIN BID B ON(A.ITEMNO = B.ITEMNO)
+		WHERE A.MEMBERNO = #{mid}
+	</select>
+			
+	<!-- 판매관리 목록 조회 -->
+	<select id="selectSaleStatusList" resultMap="payTableResultSet" parameterType="java.lang.String">
+		SELECT DISTINCT A.ITEMNO, A.ITEMNAME, D.STARTDAY, D.ENDDAY, D.EXITYN
+		FROM AUCTIONITEM A 
+		JOIN AUCTIONDETAIL D ON(A.ITEMNO = D.ITEMNO)
+		JOIN BID B ON(D.ITEMNO = B.ITEMNO)
+		WHERE A.MEMBERNO = #{mid}
+	</select>	
+	
+	<!-- 판매관리 경매종료 페이징 -->
+	<select id="getEndOfSale" resultType="_int" parameterType="java.lang.String">
+		SELECT COUNT(A.ITEMNO)
+		FROM AUCTIONITEM A 
+		JOIN AUCTIONDETAIL D ON(A.ITEMNO = D.ITEMNO)
+		WHERE A.MEMBERNO = #{mid}
+		AND D.EXITYN = 'Y'
+	</select>
+	
+	<!-- 판매관리 경매종료 목록 조회 -->
+	<select id="selectEndOfSaleList" resultMap="payTableResultSet" parameterType="java.lang.String">
+		SELECT DISTINCT A.ITEMNO, A.ITEMNAME, D.STARTDAY, D.ENDDAY, D.EXITYN
+		FROM AUCTIONITEM A 
+		JOIN AUCTIONDETAIL D ON(A.ITEMNO = D.ITEMNO)
+		JOIN BID B ON(D.ITEMNO = B.ITEMNO)
+		WHERE A.MEMBERNO = #{mid}
+		AND D.EXITYN = 'Y'
+	</select>
+	
+<!-- ============================================================================================= -->
+		
 	<!--//답변페이지 게시판번호 물품번호조회  -->
 	 <select id="reanswerDetail" resultMap="answerBoardResultSet" parameterType="java.lang.String">
 		SELECT B.BOARDNO, B.ITEMNO , M.MEMBERNAME, B.TITLE FROM BOARD B JOIN MEMBER M ON(B.MEMBERNO = M.MEMBERNO) WHERE B.BOARDSTATUS = 'RECEIVEBOARD' AND B.BOARDNO = #{answerno}

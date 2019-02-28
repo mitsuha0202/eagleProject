@@ -215,11 +215,13 @@ public interface MyPageService {
 	//판매관리 메인 페이지 페이징
 	int getSaleStatus(String mid);
 
+	//판매관리 메인 페이지 목록 조회
+	ArrayList<PayTable> selectSaleStatusList(PageInfo pi, String mid);
 
+	//판매관리 경매종료 페이징
+	int getEndOfSale(String mid);
 
-	
-	
-	
-	
-	
+	//판매관리 경매종료 목록 조회
+	ArrayList<PayTable> selectEndOfSaleList(PageInfo pi, String mid);
+
 }

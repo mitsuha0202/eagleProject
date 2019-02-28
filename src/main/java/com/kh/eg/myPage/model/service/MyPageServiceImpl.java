@@ -497,4 +497,26 @@ public class MyPageServiceImpl implements MyPageService{
 		
 		return md.getSaleStatus(sqlSession, mid);
 	}
+
+	//판매관리 메인페이지 목록 조회
+	@Override
+	public ArrayList<PayTable> selectSaleStatusList(PageInfo pi, String mid) {
+
+		return md.selectSaleStatusList(sqlSession, pi, mid);
+	}
+
+	//판매관리 경매종료 페이징
+	@Override
+	public int getEndOfSale(String mid) {
+
+		return md.getEndOfSale(sqlSession, mid);
+	}
+
+	//판매관리 경매종료 목록 조회
+	@Override
+	public ArrayList<PayTable> selectEndOfSaleList(PageInfo pi, String mid) {
+		
+		return md.selectEndOfSaleList(sqlSession, pi, mid);
+	}
+	
 }

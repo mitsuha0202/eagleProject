@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.kh.eg.member.model.vo.Member;
+import com.kh.eg.myPage.common.Pagination;
 import com.kh.eg.myPage.model.service.MyPageService;
+import com.kh.eg.myPage.model.vo.PageInfo;
 import com.kh.eg.myPage.model.vo.PayTable;
 
 @SessionAttributes("loginUser")
@@ -28,28 +30,24 @@ public class SalesStatusController {
 		public String salesstatusPage(@RequestParam(defaultValue="1") int currentPage, HttpSession session, Model model, Member m) {
 			m = (Member)session.getAttribute("loginUser");
 			int listCount = ms.getSaleStatus(m.getMid());
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			ArrayList<PayTable> list = ms.selectSaleStatusList(pi, m.getMid());
+			model.addAttribute("list", list);
+			model.addAttribute("pi", pi);
 			return "myPage/salesmanagement/salesstatusMainPage";
-		}
-
-//------------------------------판매진행중 페이지들------------------------------------------
-		
-	//판매진행중 - 경매입찰자가 있는 물품 
-		@RequestMapping("bidderitem.mp")
-		public String bidderitemPage() {
-			return "myPage/salesmanagement/bidderitemPage";
-		}
-	
-	//판매진행중 - 경매입찰자가 없는 물품
-		@RequestMapping("nobidderitem.mp")
-		public String nobidderitemPage() {
-			return "myPage/salesmanagement/nobidderitemPage";
 		}
 		
 //----------------------------------------판매 종료 페이지들------------------------------------------
 		
 	//판매 종료 - 경매낙찰물품
 		@RequestMapping("endofsale.mp")
-		public String endofsalePage() {
+		public String endofsalePage(@RequestParam(defaultValue="1") int currentPage, HttpSession session, Model model, Member m) {
+			m = (Member)session.getAttribute("loginUser");
+			int listCount = ms.getEndOfSale(m.getMid());
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			ArrayList<PayTable> list = ms.selectEndOfSaleList(pi, m.getMid());
+			model.addAttribute("list", list);
+			model.addAttribute("pi", pi);
 			return "myPage/salesmanagement/endofsalePage";
 		}
 

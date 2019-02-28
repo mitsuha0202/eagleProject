@@ -837,11 +837,45 @@ public class MyPageDaoImpl implements MyPageDao{
 	@Override
 	public int getSaleStatus(SqlSessionTemplate sqlSession, String mid) {
 		
-		/*SELECT COUNT(A.ITEMNO) 
-		FROM AUCTIONITEM A
-		JOIN BID B ON(A.ITEMNO = B.ITEMNO)
-		WHERE A.MEMBERNO = 2;*/
 		return sqlSession.selectOne("MyPage.saleStatus", mid);
+	}
+
+	//판매관리 메인 페이지 목록 조회
+	@Override
+	public ArrayList<PayTable> selectSaleStatusList(SqlSessionTemplate sqlSession, PageInfo pi, String mid) {
+		int offset = (pi.getCurrentPage()  - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		HashMap<String, String> map = new HashMap<String, String>();
+		ArrayList<PayTable> list = (ArrayList)sqlSession.selectList("MyPage.selectSaleStatusList", mid, rowBounds);
+		
+		map.put("mid", mid);
+		for(int i=0; i<list.size(); i++) {
+			map.put("itemNo", String.valueOf(list.get(i).getItemNo()));
+			list.get(i).setBidCount((Integer)sqlSession.selectOne("MyPage.bidCount", map));
+			ArrayList<PayTable> temp = (ArrayList)sqlSession.selectList("MyPage.searchBidRank", map);
+			
+			for(int j=0; j<temp.size(); j++) {
+				if(list.get(i).getBidNo() == temp.get(j).getBidNo()) {
+					list.get(i).setCurrentPrice(temp.get(j).getCurrentPrice());
+				}
+			}
+		}
+		return list;
+	}
+
+	//판매관리 경매종료 페이징
+	@Override
+	public int getEndOfSale(SqlSessionTemplate sqlSession, String mid) {
+
+		return sqlSession.selectOne("MyPage.getEndOfSale", mid);
+	}
+
+	//판매관리 경매종료 목록 조회
+	@Override
+	public ArrayList<PayTable> selectEndOfSaleList(SqlSessionTemplate sqlSession, PageInfo pi, String mid) {
+		int offset = (pi.getCurrentPage()  - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		return (ArrayList)sqlSession.selectList("MyPage.selectEndOfSaleList", mid, rowBounds);
 	}
 
 }
