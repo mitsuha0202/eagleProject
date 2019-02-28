@@ -88,17 +88,7 @@
 				<td class="firstTd" onclick="location.href='endofsale.mp'">판매 종료</td>
 				<td class="firstTd" onclick="location.href='salesitemprogress.mp'">판매 물품 거래 진행중</td>
 				<td class="firstTd" onclick="location.href='salesother.mp'">구매거부/반품/미입금/판매거부/미수령신고</td>
-			</tr>			
-			<tr>
-				<td><h5>판매진행물품</h5></td>
-				<!-- td태그 오른쪽 선 안보이게 하기  -->
-				<td style="border-right: hidden;" onclick="location.href='salesstatus.mp'"><h5>진행중인 전체 물품</h5></td>
-				<td style="border-right: hidden;" onclick="location.href='bidderitem.mp'"><h5>경매입찰자가 있는 물품</h5></td>
-				<td onclick="location.href='nobidderitem.mp'"><h5>경매입찰자가 없는 물품</h5></td>
-				
-			</tr>
-			
-			
+			</tr>				
 			
 		</table>
 		
@@ -135,7 +125,7 @@
         </c:if>
         <c:if test="${ empty list }">
         	 <tr>
-	          <td colspan="8"><h5>검색된 내용이 없습니다.</h5></td>	      
+	          <td colspan="7"><h5>검색된 내용이 없습니다.</h5></td>	      
         	</tr>
         </c:if>
       </tbody>
@@ -143,6 +133,40 @@
     </table>
 	     
 	</div>
+	
+	<div id="pagingArea" align="center">
+			<c:if test="${ pi.currentPage <= 1 }">
+				[이전] &nbsp;
+			</c:if>
+			<c:if test="${ pi.currentPage > 1 }">
+				<c:url var="blistBack" value="salesstatus.mp">
+					<c:param name="currentPage" value="${ pi.currentPage - 1 }"/>
+				</c:url>
+				<a href="${ blistBack }">[이전]</a> &nbsp;
+			</c:if>
+			
+			<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+				<c:if test="${ p eq pi.currentPage }">
+					<font color="red" size="4"><b>[${ p }]</b></font>
+				</c:if>
+				<c:if test="${ p ne pi.currentPage }">
+					<c:url var="blistCheck" value="salesstatus.mp">
+						<c:param name="currentPage" value="${ p }"/>
+					</c:url>
+					<a href="${ blistCheck }">${ p }</a>
+				</c:if>
+			</c:forEach>
+			
+			<c:if test="${ pi.currentPage >= pi.maxPage }">
+				&nbsp; [다음]
+			</c:if>
+			<c:if test="${ pi.currentPage < pi.maxPage }">
+				<c:url var="blistEnd" value="salesstatus.mp">
+					<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
+				</c:url>
+				<a href="${ blistEnd }">&nbsp;[다음]</a>
+			</c:if>
+		</div>
 	
 	<!-- 하단 div영역 -->
 	<div class="tutorialDiv">

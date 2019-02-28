@@ -212,10 +212,13 @@ public interface MyPageDao {
 
 	//판매관리 메인 페이지 페이징
 	int getSaleStatus(SqlSessionTemplate sqlSession, String mid);
-	
-	
-	
-	
-	
-	
+
+	//판매관리 메인 페이지 목록 조회
+	ArrayList<PayTable> selectSaleStatusList(SqlSessionTemplate sqlSession, PageInfo pi, String mid);
+
+	//판매관리 경매종료 페이징
+	int getEndOfSale(SqlSessionTemplate sqlSession, String mid);
+
+	//판매관리 경매종료 목록 조회
+	ArrayList<PayTable> selectEndOfSaleList(SqlSessionTemplate sqlSession, PageInfo pi, String mid);
 }
