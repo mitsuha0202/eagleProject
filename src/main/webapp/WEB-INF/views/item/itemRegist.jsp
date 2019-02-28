@@ -50,6 +50,9 @@
 	margin-left: auto;
 	margin-right:auto;
 }
+ .layer {
+display :none;
+ }
 </style>
 
 </head>
@@ -106,7 +109,7 @@
 				</c:forEach>
 				
 				</table>
-				<input type="hidden" name="categoryNo" id="categoryNo">
+				 <input type="hidden" name="categoryNo" id="categoryNo"> 
 				
 				
 				
@@ -185,22 +188,37 @@
 					<td>경매 방법 선택</td>
 					<td>
 						
-  							<select name="auctionCode">	
+  							<select name="auctionCode" id="selectBox">	
     						<option value="선택">선택해주세요</option>
     						<option value="AC003">다운경매</option>
     						<option value="AC001">최고가밀봉경매</option>
     						<option value="AC002">행운경매</option>
   								</select>
+  								
 					
 					</td>
 				</tr>
 				<tr>
-					<td>시작가</td>
-					<td><input type="text" name="startPrice"></td>
+					<td >
+					<span class="layer2">시작가</span> 
+					<span class="layer">행운경매 시작가</span> 
+					</td>
+					
+					<td>
+					<input type="text" name="startPrice" class="layer2">
+					<input type="text" name="luckyPrice" class="layer">
+					</td>
+				
 				</tr>
 				<tr>
-					<td>입찰단위</td>
-					<td><input type="text" name="bidUnit"></td>
+					<td>
+					<span class="layer2">입찰단위</span>
+					<span class="layer">행운경매 범위</span>
+					</td>
+					<td>
+					<input type="text" name="bidUnit" class="layer2">
+					<input type="text" name="luckyPrice" class="layer">
+					</td>
 				</tr>
 				<tr>
 					<td>경매 시작날짜</td>
@@ -252,6 +270,23 @@
 	<script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script type="text/javascript">
+	
+	$("#selectBox").change(function() {
+		
+		var state=$("#selectBox option:selected").val();
+		if( state== 'AC002') {
+			$('.layer').show();
+			$('.layer2').hide();
+		}else {
+			$('.layer').hide();
+			$('.layer2').show();
+		}
+	});
+	
+	
+	
+	
+	
 
     function readURL(input) {
 
@@ -278,7 +313,7 @@
 
     });
 
-/* 
+ /* 
 	$("input:radio[name=deliveryPay]").change(function(){
 		
 		if($("#pre:checked").val()=="Y") {
@@ -294,7 +329,7 @@
 			
 		}
 		
-	}); */
+	});  */
 	
 
 	
