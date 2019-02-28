@@ -1,6 +1,8 @@
 package com.kh.eg.admin.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -17,9 +19,6 @@ import com.kh.eg.admin.model.vo.Report;
 import com.kh.eg.admin.model.vo.Return;
 import com.kh.eg.admin.model.vo.SearchCondition;
 import com.kh.eg.admin.model.vo.SearchReport;
-import com.kh.eg.board.model.vo.Reply;
-
-import oracle.net.aso.e;
 
 @Repository
 public class AdMemberDaoImpl implements AdMemberDao{
@@ -263,10 +262,6 @@ public class AdMemberDaoImpl implements AdMemberDao{
 	public int payBackListCount(SqlSessionTemplate session) throws AdMemberselectException {
 		int result = session.selectOne("AdminVo.payBackListCount");
 		
-		if(result <= 0) {
-			throw new AdMemberselectException("게시글 수 조회 실패!");
-		}
-		
 		return result;
 	}
 
@@ -275,10 +270,6 @@ public class AdMemberDaoImpl implements AdMemberDao{
 		ArrayList<Exchange> list = null;
 		
 		list = (ArrayList)session.selectList("AdminVo.selectPayBackList", null);
-		
-		if(list == null) {
-			throw new AdMemberselectException("환전 조회 실패!");
-		}
 		
 		return list;
 	}
@@ -328,10 +319,6 @@ public class AdMemberDaoImpl implements AdMemberDao{
 	public int returnListCount(SqlSessionTemplate session) throws AdMemberselectException {
 		int result = session.selectOne("AdminVo.returnListCount");
 		
-		if(result <= 0) {
-			throw new AdMemberselectException("반품 페이징 실패!");
-		}
-		
 		return result;
 	}
 
@@ -350,6 +337,39 @@ public class AdMemberDaoImpl implements AdMemberDao{
 		}
 		
 		return list;
+	}
+
+	@Override
+	public int payBackY(SqlSessionTemplate session, String check) {
+		
+		
+		int result = 0;
+		
+		String memberId=check.split("!")[0];
+		String eMoney=check.split("!")[1];
+		
+		Map<String, Object> map= new HashMap<String, Object>();
+		
+		map.put("memberId", memberId);
+		map.put("eMoney", Integer.parseInt(eMoney));
+		int result1 = session.update("AdminVo.payBackY", memberId);
+		int result2 = session.update("AdminVo.payBackUp", map);
+		
+		if(result1 > 0 && result2 >0) {
+			result = 1;
+		}
+		
+		return result;
+	}
+
+	@Override
+	public int payBackX(SqlSessionTemplate session, String check) {
+		String memberId=check.split("!")[0];
+		
+		Map<String, Object> map= new HashMap<String, Object>();
+		map.put("memberId", memberId);
+		int result = session.update("AdminVo.payBackX", memberId);
+		return result;
 	}
 
 	

@@ -173,51 +173,81 @@ public class AdMemberServiceImpl implements AdMemberService{
 		int result = amd.delcategory(sqlSession, cg);
 		return result;
 	}
-
+	
+	//환전 리스트 카운트
 	@Override
 	public int payBackListCount() throws AdMemberselectException {
 		int listCount = amd.payBackListCount(sqlSession);
 		return listCount;
 	}
-
+	
+	//환전 리스트
 	@Override
 	public ArrayList<Exchange> selectPayBackList(PageInfo pi) throws AdMemberselectException {
 		ArrayList<Exchange> list = amd.selectPayBackList(sqlSession, pi);
 		
 		return list;
 	}
-
+	
+	//공지사항 리스트
 	@Override
 	public ArrayList<Notice> selectNoticeList() throws AdMemberselectException {
 		ArrayList<Notice> list = amd.selectNoticeList(sqlSession);
 		
 		return list;
 	}
-
+	
+	//문의 리스트 카운트
 	@Override
 	public int postListCount() throws AdMemberselectException {
 		int listCount = amd.postListCount(sqlSession);
 		return listCount;
 	}
-
+	
+	//문의 리스트
 	@Override
 	public ArrayList<Post> selectPostList(PageInfo pi) throws AdMemberselectException {
 		ArrayList<Post> list = amd.selectPostList(sqlSession, pi);
 		
 		return list;
 	}
-
+	
+	//반품 카운트
 	@Override
 	public int returnListCount() throws AdMemberselectException {
 		int listCount = amd.returnListCount(sqlSession);
 		return listCount;
 	}
-
+	
+	//반품리스트
 	@Override
 	public ArrayList<Return> selectReturnList(PageInfo pi) throws AdMemberselectException {
 		ArrayList<Return> list = amd.selectReturnList(sqlSession, pi);
 		
 		return list;
+	}
+	
+	//환전 승인
+	@Override
+	public int payBackY(String[] check) throws AdMemberselectException {
+		int result = 0;
+		for(int i = 0; i <check.length; i++) {
+			result += amd.payBackY(sqlSession, check[i]);
+		}
+		
+		return result;
+	}
+	
+	
+	//환전거절
+	@Override
+	public int payBackX(String[] check) throws AdMemberselectException {
+		int result = 0;
+		for(int i = 0; i <check.length; i++) {
+			result += amd.payBackX(sqlSession, check[i]);
+		}
+		
+		return result;
 	}
 
 	
