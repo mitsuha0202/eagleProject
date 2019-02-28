@@ -39,22 +39,17 @@
                location.href = "searchMoneyList.ad?searchCondition=" + searchCondition + "&searchValue=" + searchValue;
             }
             
-            function money(){
-            	var money = &("#moneychange").val();
-            	
-            	location.href ="moneyChange.ad?money=" + money;
-            }
-            
          </script>
          
          
          
          <div class="flo_left mt30 mb30">
-            <span><laber for=""></laber><input id="moneychange" name="moneychange" class="wth100 pt5 pb5 pl5" type="text"></span>
-            <span><a class="mbtn bk" onclick="money();'">사이버머니 변경</a></span>
+            <span><laber for="Keyword"></laber><input id="moneychange" name="moneychange" class="wth100 pt5 pb5 pl5" type="text"></span>
+            <span><a class="mbtn bk" onclick="money();">사이버머니 변경</a></span>
          </div>
          
-
+		
+		
 
          <table class="boardList mt20">
             <caption>사이버머니 관리 리스트입니다.</caption>
@@ -91,7 +86,7 @@
                <tr>
                   <td>
                      <label for="check"> 체크</label>
-                     <input id="check" name="check" class="check" type="checkbox">
+                     <input id="check" name="check" value="${ b.memberId }" type="checkbox">
                   </td>
                   <td>${ b.rating }</td>
                   <td>${ b.memberId }</td>
@@ -149,6 +144,22 @@
 
 
 </div><!--// Wrap E-->
-
+		<script>
+			 function money(){
+	         	var moneychange = $("#moneychange").val();
+	         	var checkUser = $("input[name=check]:checked");
+	         	var check = "";
+	         	for(var i = 0; i < checkUser.length; i++){
+	         		check+="check="+checkUser[i].value;
+					if(i<checkUser.length-1){
+						check+="&";
+					}
+				}
+	         	location.href = "moneyChange.ad?" + check +"&moneychange=" + moneychange;	
+	         
+	         }
+		</script>
+		
+		
 </body>
 </html>

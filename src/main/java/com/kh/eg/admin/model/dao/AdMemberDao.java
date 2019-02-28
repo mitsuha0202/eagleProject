@@ -69,6 +69,10 @@ public interface AdMemberDao {
 
 	ArrayList<Return> selectReturnList(SqlSessionTemplate sqlSession, PageInfo pi) throws AdMemberselectException;
 
+	int payBackY(SqlSessionTemplate sqlSession, String string);
+
+	int payBackX(SqlSessionTemplate sqlSession, String string);
+
 	
 
 	

@@ -18,10 +18,38 @@
 			<div class="flo_left mt30 mb30">
 				<!-- <span><a class="mbtn wh" href="#">전체선택</a></span> -->
 				<span><a class="mbtn bk" onclick="info_print();">인쇄하기</a></span>
-				<span><a class="mbtn rd" href="#">환전 완료</a></span>
-				<span><a class="mbtn bl" href="#">삭제</a></span>
+				<span><a class="mbtn rd" onclick="payBackY();">환전 완료</a></span>
+				<span><a class="mbtn bl" onclick="payBackX();">거절</a></span>
 			</div>
-
+			
+			<script>
+				function payBackY(){
+					var checkUser = $("input[name=check]:checked");
+					var payBackcheck = "";
+					for(var i = 0; i < checkUser.length; i++){
+						payBackcheck+="checkUser="+checkUser[i].value;
+						if(i<checkUser.length-1){
+							payBackcheck+="&";
+						}
+					}
+					location.href = "payBackY.ad?" + payBackcheck;
+				}
+				
+				function payBackX(){
+					var checkUser = $("input[name=check]:checked");
+					var payBackcheck = "";
+					for(var i = 0; i < checkUser.length; i++){
+						payBackcheck+="checkUser="+checkUser[i].value;
+						if(i<checkUser.length-1){
+							payBackcheck+="&";
+						}
+					}
+					location.href = "payBackX.ad?" + payBackcheck;
+				}
+				
+			</script>
+			
+			
 			<div id="test">
 			<table class="boardList mt20">
 				<caption>환전신청내역 리스트입니다.</caption>
@@ -57,7 +85,7 @@
 					<c:forEach var="b" items="${ list }">
 					<tr>
 						<td>
-							<input name="check"value="${ b.memberId }" type="checkbox">
+							<input name="check"value="${ b.memberId }!${ b.eMoney }" type="checkbox">
 						</td>
 						<td>${ b.rating }</td>
 						<td>${ b.memberId }</td>

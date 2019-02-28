@@ -68,6 +68,10 @@ public interface AdMemberService {
 
 	ArrayList<Return> selectReturnList(PageInfo pi) throws AdMemberselectException;
 
+	int payBackY(String[] check) throws AdMemberselectException;
+
+	int payBackX(String[] check) throws AdMemberselectException;
+
 
 
 
