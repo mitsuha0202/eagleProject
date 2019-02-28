@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -90,8 +92,7 @@
 				<td><h5>판매진행물품</h5></td>
 				<!-- td태그 오른쪽 선 안보이게 하기  -->
 				<td style="border-right: hidden;" onclick="location.href='endofsale.mp'"><h5>경매낙찰물품</h5></td>
-				<td style="border-right: hidden;"></td>
-				<td ></td>
+					<td style="border-right: hidden;" onclick="location.href='bidderitem.mp'"><h5>거래신청 있는 물품</h5></td>
 			</tr>
 			
 			
@@ -101,38 +102,37 @@
 		 <h5>꼭 읽어주세요! </h5><br>
 	     <h5>현재 진행중인 물품으로 경매현황을 파악 하실 수 있습니다.</h5>
 	     <br>
-	     <h5>경매낙찰 물품에 대해서 모두</h5><h5>개가 검색되었습니다.</h5>
+	     <h5>경매낙찰 물품에 대해서 모두 ${ fn:length(list) }개가 검색되었습니다.</h5>
 	     
 	     <table class="buyStatusTable">
       
       <thead>
         <tr>
-          <th class="firstTd">물품번호</th>
-          <th class="firstTd">이미지</th>
-          <th class="firstTd">제목</th>
+            <th class="firstTd">물품번호</th>
+          <th class="firstTd">물품명</th>
           <th class="firstTd">현재가</th>
-          <th class="firstTd">입찰</th>
-          <th class="firstTd">조회</th>
-          <th class="firstTd">시작일</th>
+          <th class="firstTd">낙찰자</th>
           <th class="firstTd">마감일</th>
           
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>1</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          
-          
-        </tr>
-       
-        
+         <c:if test="${ !empty list }">
+	      <c:forEach var="b" items="${ list }">
+	            <tr>
+	               <td>${ b.itemNo }</td>
+	               <td>${ b.itemName }</td>
+	               <td>${ b.currentPrice }</td>
+	               <td>${ b.memberName }</td>
+				   <td>${ b.endDay }</td>	                                  
+	            </tr>
+	         </c:forEach>
+        </c:if>
+        <c:if test="${ empty list }">
+        	 <tr>
+	          <td colspan="5"><h5>검색된 내용이 없습니다.</h5></td>	      
+        	</tr>
+        </c:if>
       </tbody>
      
     </table>

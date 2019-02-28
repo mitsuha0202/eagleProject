@@ -104,6 +104,8 @@
 		
 		 <h5>꼭 읽어주세요! </h5><br>
 	     <h5>현재 입찰하신 물품중 낙찰받은 물품 리스트입니다.</h5>
+	     <h5>거래하기 선택시 해당 판매자에게 신청되며 판매자가 거래하기 선택시 거래가 진행됩니다.</h5>
+	     <h5>판매자가 거래거부시 판매자에게 패널티가 부여되며 거래가 종료됩니다.</h5>
 	     <h5>구매거부하기 선택시 패널티가 부여되며 물품가격의 수수료를 제외한 나머지 금액을 돌려받게 됩니다.</h5>
 	     <br>
 	     <h5>낙찰된 물품에 대해서 모두 ${ fn:length(list) }건이 검색되었습니다.</h5>
@@ -204,7 +206,7 @@
    			var sendArr = new Array();
    			var sendCur = new Array();
    			var checkbox = $(".checkChild:checked");
-   	        alert("거래가 진행되었습니다.");
+   	        alert("거래가 신청되었습니다.");
    		 	checkbox.each(function(i){
    		 		var tr = checkbox.parent().parent().eq(i);
    		 		var td = tr.children();
