@@ -94,4 +94,22 @@ public class BiddingDaoImpl implements BiddingDao{
 
 		return (ArrayList)sqlSession.selectList("ItemDetails.selectQa", itemNo);
 	}
+
+	@Override
+	public int insertLuckyBid(SqlSessionTemplate sqlSession, Bidding b) {
+
+		return sqlSession.insert("ItemDetails.insertLuckyBid", b);
+	}
+
+	@Override
+	public int updateLuckyBid(SqlSessionTemplate sqlSession, Bidding b) {
+
+		return sqlSession.update("ItemDetails.updateLuckyBid", b);
+	}
+
+	@Override
+	public Bidding selectLuckyMno(SqlSessionTemplate sqlSession, Bidding b) {
+
+		return sqlSession.selectOne("ItemDetails.selectLuckyMno", b);
+	}
 }

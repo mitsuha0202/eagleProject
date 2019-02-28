@@ -147,4 +147,20 @@
   		JOIN MEMBER M ON(B.MEMBERNO = M.MEMBERNO)
   		WHERE BOARDSTATUS = 'QUESTIONBOARD' AND DELETESTATUS = 'N' AND ITEMNO = #{itemNo}
   	</select>
+  	
+  	<select id="insertLuckyBid" parameterType="Bidding">
+  		INSERT INTO BID VALUES(BID_SEQ.NEXTVAL , #{itemNo} , #{memberNo} , #{currentPrice} , SYSDATE)
+  	</select>
+  	
+  	<select id="updateLuckyBid" parameterType="Bidding">
+  		UPDATE BID
+  		SET CURRENTPRICE = #{currentPrice} , BIDDATE = SYSDATE
+  		WHERE ITEMNO = #{itemNo} AND MEMBERNO = #{memberNo}
+  	</select>
+  	
+  	<select id="selectLuckyMno" resultMap="bidResultSet" parameterType="Bidding">
+  		SELECT *
+  		FROM BID
+  		WHERE ITEMNO = #{itemNo} AND MEMBERNO = #{memberNo}
+  	</select>
   </mapper>

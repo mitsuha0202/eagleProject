@@ -37,6 +37,12 @@ public interface BiddingDao {
 
 	ArrayList<Board> selectQa(SqlSessionTemplate sqlSession, String itemNo);
 
+	int insertLuckyBid(SqlSessionTemplate sqlSession, Bidding b);
+
+	int updateLuckyBid(SqlSessionTemplate sqlSession, Bidding b);
+
+	Bidding selectLuckyMno(SqlSessionTemplate sqlSession,Bidding b);
+
 
 
 

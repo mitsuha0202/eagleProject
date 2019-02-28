@@ -244,4 +244,60 @@ private BiddingService bs;
 			return null;
 		}
 	}
+	
+	@RequestMapping("insertLuckyBid.bi")
+	public @ResponseBody int insertLuckyBid(@RequestParam(value="itemNo", required=false) String itemNo, @RequestParam(value="mNo", required=false) String mNo,
+											@RequestParam(value="price", required=false) String price, HttpServletRequest request, HttpServletResponse response) {
+		Bidding b = new Bidding();
+		int currentPrice = Integer.parseInt(price);
+		b.setItemNo(itemNo);
+		b.setMemberNo(mNo);
+		b.setCurrentPrice(currentPrice);
+		
+		int result = bs.insertLuckyBid(b);
+		
+		if(result > 0) {
+			return result;
+		}
+		else {
+			return 0;
+		}
+	}
+	
+	@RequestMapping("compareLuckyMno.bi")
+	public @ResponseBody Bidding selectLuckyMno(@RequestParam(value="itemNo", required=false) String itemNo, @RequestParam(value="mNo", required=false) String mNo,
+													HttpServletRequest request, HttpServletResponse response) {
+		Bidding b = new Bidding();
+		Bidding bdd = null;
+		b.setItemNo(itemNo);
+		b.setMemberNo(mNo);
+		
+		bdd = bs.selectLuckyMno(b);
+		
+		if(bdd != null) {
+			return bdd;
+		}
+		else {
+			return null;
+		}
+	}
+	
+	@RequestMapping("updateLuckyBid.bi")
+	public @ResponseBody int updateLuckyBid(@RequestParam(value="itemNo", required=false) String itemNo, @RequestParam(value="mNo", required=false) String mNo,
+											@RequestParam(value="price", required=false) String price, HttpServletRequest request, HttpServletResponse response) {
+		Bidding b = new Bidding();
+		int currentPrice = Integer.parseInt(price);
+		b.setItemNo(itemNo);
+		b.setMemberNo(mNo);
+		b.setCurrentPrice(currentPrice);
+		
+		int result = bs.updateLuckyBid(b);
+		
+		if(result > 0) {
+			return result;
+		}
+		else {
+			return 0;
+		}
+	}
 }
