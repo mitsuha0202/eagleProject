@@ -36,5 +36,11 @@ public interface BiddingService {
 
 	ArrayList<Board> selectQa(String itemNo);
 
+	int insertLuckyBid(Bidding b);
+
+	int updateLuckyBid(Bidding b);
+
+	Bidding selectLuckyMno(Bidding b);
+
 
 }

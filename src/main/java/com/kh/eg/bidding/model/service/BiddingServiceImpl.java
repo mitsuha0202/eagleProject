@@ -130,4 +130,28 @@ private SqlSessionTemplate sqlSession;
 		
 		return list;
 	}
+
+	@Override
+	public int insertLuckyBid(Bidding b) {
+		int result = bd.insertLuckyBid(sqlSession, b);
+		
+		return result;
+	}
+
+	@Override
+	public int updateLuckyBid(Bidding b) {
+		int result = bd.updateLuckyBid(sqlSession, b);
+		
+		return result;
+	}
+
+	@Override
+	public Bidding selectLuckyMno(Bidding b) {
+		Bidding bdd = null;
+		
+		bdd = bd.selectLuckyMno(sqlSession, b);
+		
+		return bdd;
+	}
+	
 }
