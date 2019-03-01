@@ -103,7 +103,7 @@ display :none;
 					<tr>
 						<td class="cateName">
 							${c.categoryName}
-							<input type="hidden" name="categoryNo" value="${c.categoryNo}">
+							<input type="hidden"  value="${c.categoryNo}">
 						</td>
 					</tr>
 				</c:forEach>
@@ -140,7 +140,7 @@ display :none;
 				</tr> --%>
 				
 				</table>
-				<input type="hidden" name="categoryNo" id="middleCategoryNo">
+				<input type="hidden" name="categoryNo2" id="middleCategoryNo">
 				</div>
 			
 			<hr>
@@ -337,7 +337,8 @@ display :none;
 	$(".cateName").click(function(){
 		var cateCode = $(this).children().val();
 		$("#spath").text($(this).text());
-		console.log(cateCode);
+		var abc=$("#categoryNo").val(cateCode);
+	console.log(cateCode);
 		var cateNo= cateCode;
 		 
 	 	  $.ajax({
@@ -353,7 +354,7 @@ display :none;
 					var $table =$("<table class='middleCate'>")
 					var $tr1 =$("<tr>")
 					var $td1 =$("<td class='middleTd'>");
-					var $input = $("<input type='hidden' name='categoryNo' value='"+ data[key].categoryNo +"'>");					
+					var $input = $("<input type='hidden'  value='"+ data[key].categoryNo +"'>");					
 					 if(cateNo==data[key].upperCategoryNo) {
 					 	$td1.text(data[key].categoryName);
 					 	$td1.append($input);
