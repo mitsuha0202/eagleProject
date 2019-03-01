@@ -114,12 +114,18 @@
        <c:if test="${ !empty list }">
 	      <c:forEach var="b" items="${ list }">
 	            <tr>
-	               <td><input type="radio" class="checkChild" name="gender"></td> 
 	               <td>${ b.itemNo }</td>
 	               <td>${ b.itemName }</td>
 	               <td>${ b.currentPrice }</td>
+	               <td>${ b.bidCount }</td>
+	               <td>$ {b.startDay }</td>
 				   <td>${ b.endDay }</td>
-	               <td>${ b.saleMemberName }</td>                            
+	               <c:if test="${ b.endYn eq 'Y'}">
+                  <td><h5>경매종료</h5></td>
+               </c:if>
+               <c:if test="${ b.endYn eq 'N' }">
+                  <td><h5>경매중</h5></td>
+               </c:if>                                               
 	            </tr>
 	         </c:forEach>
         </c:if>

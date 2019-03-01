@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>        
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -78,6 +80,36 @@
 	<!-- 헤더바 밑 선 -->
 	<hr class="firstLine">
 	<h1>판매관리(판매 물품 거래 진행중)</h1>
+	
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" 
+   aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog"><!--  큰창:<div class="modal-dialog modal-lg"> 작은창 :<div class="modal-dialog modal-sm">  -->
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" 
+               aria-hidden="true">×
+            </button>
+            <h4 class="modal-title" id="myModalLabel">
+              제목
+            </h4>
+         </div>
+         <div class="modal-body">
+            내용.
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">
+               닫기
+            </button>
+            <button type="button" class="btn btn-primary" id="myButtons1">
+               저장
+            </button>
+         </div>
+      </div> 
+   </div> 
+</div>
+	<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+
+
     <div class="buyStatus">
 		<table class="buyStatusTable">
 			<tr>
@@ -90,54 +122,91 @@
 				<td><h5>거래상태</h5></td>
 				<!-- td태그 오른쪽 선 안보이게 하기  -->
 				<td style="border-right: hidden;" onclick="location.href='salesitemprogress.mp'"><h5>입금요청</h5></td>
-				<td style="border-right: hidden;" onclick="location.href='paymentconfirm2.mp'"><h5>입금확인중</h5></td>
 				<td style="border-right: hidden;" onclick="location.href='requestdelivery2.mp'"><h5>배송요청</h5></td>
 				<td style="border-right: hidden;" onclick="location.href='shipping2.mp'"><h5>배송중</h5></td>
 				<td style="border-right: hidden;" onclick="location.href='purchasedecisionwaiting2.mp'"><h5>구매결정대기</h5></td>
 				<td style="border-right: hidden;" onclick="location.href='afterreceipt2.mp'"><h5>수령이후/송금예정</h5></td>
 				<td onclick="location.href='transactioncomplete2.mp'"><h5>거래완료 물품</h5></td>
 			</tr>
-			
-			
-			
+		
 		</table>
 		
 		 <h5>꼭 읽어주세요! </h5><br>
 	     <h5>현재 진행중인 물품으로 경매현황을 파악 하실 수 있습니다.</h5>
 	     <br>
-	     <h5>배송요청 물품에 대해서 모두</h5><h5>개가 검색되었습니다.</h5>
+	     <h5>배송요청 물품에 대해서 모두 ${ fn:length(list) }개가 검색되었습니다.</h5>
 	     
 	     <table class="buyStatusTable">
       
       <thead>
         <tr>
-          <th class="firstTd">물품번호</th>
-          <th class="firstTd">이미지</th>
-          <th class="firstTd">제목</th>
-          <th class="firstTd">금액정보</th>
-          <th class="firstTd">낙찰일</th>
+             <th class="firstTd">물품번호</th>
+          <th class="firstTd">물품명</th>
+          <th class="firstTd">현재가</th>
+          <th class="firstTd">낙찰자</th>
+          <th class="firstTd">마감일</th>
           
           
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>1</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        
-          
-          
-        </tr>
-       
-        
+        <c:if test="${ !empty list }">
+	      <c:forEach var="b" items="${ list }">
+	            <tr> 
+	               <td>${ b.itemNo }</td>
+	               <td>${ b.itemName }</td>
+	               <td>${ b.currentPrice }</td>
+	               <td>${ b.memberName }</td>
+				   <td>${ b.endDay }</td>	                                  
+	            </tr>
+	         </c:forEach>
+        </c:if>
+        <c:if test="${ empty list }">
+        	 <tr>
+	          <td colspan="5"><h5>검색된 내용이 없습니다.</h5></td>	      
+        	</tr>
+        </c:if>
       </tbody>
      
     </table>
-	     
+	     <button onclick="delivery();">배송하기</button>
 	</div>
+	
+	<div id="pagingArea" align="center">
+			<c:if test="${ pi.currentPage <= 1 }">
+				[이전] &nbsp;
+			</c:if>
+			<c:if test="${ pi.currentPage > 1 }">
+				<c:url var="blistBack" value="requestdelivery2.mp">
+					<c:param name="currentPage" value="${ pi.currentPage - 1 }"/>
+				</c:url>
+				<a href="${ blistBack }">[이전]</a> &nbsp;
+			</c:if>
+			
+			<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+				<c:if test="${ p eq pi.currentPage }">
+					<font color="red" size="4"><b>[${ p }]</b></font>
+				</c:if>
+				<c:if test="${ p ne pi.currentPage }">
+					<c:url var="blistCheck" value="requestdelivery2.mp">
+						<c:param name="currentPage" value="${ p }"/>
+					</c:url>
+					<a href="${ blistCheck }">${ p }</a>
+				</c:if>
+			</c:forEach>
+			
+			<c:if test="${ pi.currentPage >= pi.maxPage }">
+				&nbsp; [다음]
+			</c:if>
+			<c:if test="${ pi.currentPage < pi.maxPage }">
+				<c:url var="blistEnd" value="requestdelivery2.mp">
+					<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
+				</c:url>
+				<a href="${ blistEnd }">&nbsp;[다음]</a>
+			</c:if>
+		</div>
+	
+	
 	
 	<!-- 하단 div영역 -->
 	<div class="tutorialDiv">
@@ -152,5 +221,24 @@
 		<i class="dollar sign icon" id="accountInfo"></i>
 		<h4 class="tutorialIcon2">자주묻는 질문</h4>		
 	</div>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script>
+		function delivery() {
+			var sendArr = new Array();
+   			var sendCur = new Array();
+   			var checkbox = $(".checkChild:checked");
+   	        alert("배송이 시작되었습니다.");
+   		 	checkbox.each(function(i){
+   		 		var tr = checkbox.parent().parent().eq(i);
+   		 		var td = tr.children();
+   	            var docNum = td.eq(1).text();
+   	            var current = td.eq(3).text();
+   	            sendArr.push(docNum);
+   	            sendCur.push(current);
+ 				location.href="shipping2.mp?itemNo=" + sendArr +"," + "&currentPrice=" + sendCur;
+   		 	}); 		
+		}
+	</script>
 </body>
 </html>

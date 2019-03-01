@@ -221,4 +221,25 @@ public interface MyPageDao {
 
 	//판매관리 경매종료 목록 조회
 	ArrayList<PayTable> selectEndOfSaleList(SqlSessionTemplate sqlSession, PageInfo pi, String mid);
+	
+	//판매관리 거래신청 페이징
+	int getBidderItem(SqlSessionTemplate sqlSession, String mid);
+
+	//판매관리 거래신청 목록 조회
+	ArrayList<PayTable> selectBidderItemList(SqlSessionTemplate sqlSession, PageInfo pi, String mid);
+
+	//판매관리 입금신청 페이징
+	int getSalesItemProgress(SqlSessionTemplate sqlSession, String mid, String itemNo, String currentPrice);
+
+	//판매관리 입금요청 매개변수 없는 페이징
+	int getSalesItemProgressNoParam(SqlSessionTemplate sqlSession, String mid);
+
+	//판매관리 입금신청 목록 조회
+	ArrayList<PayTable> selectSalesItemProgressList(SqlSessionTemplate sqlSession, PageInfo pi, String mid);
+
+	//판매관리 배송요청 페이징
+	int getRequestDeliverySale(SqlSessionTemplate sqlSession, String mid);
+
+	//판매관리 배송요청 목록 조회
+	ArrayList<PayTable> selectRequestDeliverySaleList(SqlSessionTemplate sqlSession, PageInfo pi, String mid);
 }

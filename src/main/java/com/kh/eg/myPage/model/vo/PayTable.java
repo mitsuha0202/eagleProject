@@ -1,12 +1,11 @@
 package com.kh.eg.myPage.model.vo;
 
-import java.sql.Date;
-
 public class PayTable {
 	private int itemNo;
 	private int bidNo;
 	private String itemName;
 	private String memberNo;
+	private String memberName;
 	private String currentPrice;
 	private int bidCount;
 	private int saleMemberNo;
@@ -15,20 +14,23 @@ public class PayTable {
 	private String startDay;
 	private String endDay;
 	private String endYn;
+	private String auctioncode;
+	private String deliveryPay;
 	private String orderM;
 	
 	public PayTable() {
 	
 	}
 
-	public PayTable(int itemNo, int bidNo, String itemName, String memberNo, String currentPrice, int bidCount,
-			int saleMemberNo, String saleMemberName, int rowBid, String startDay, String endDay, String endYn,
-			String orderM) {
+	public PayTable(int itemNo, int bidNo, String itemName, String memberNo, String memberName, String currentPrice,
+			int bidCount, int saleMemberNo, String saleMemberName, int rowBid, String startDay, String endDay,
+			String endYn, String auctioncode, String deliveryPay, String orderM) {
 		super();
 		this.itemNo = itemNo;
 		this.bidNo = bidNo;
 		this.itemName = itemName;
 		this.memberNo = memberNo;
+		this.memberName = memberName;
 		this.currentPrice = currentPrice;
 		this.bidCount = bidCount;
 		this.saleMemberNo = saleMemberNo;
@@ -37,6 +39,8 @@ public class PayTable {
 		this.startDay = startDay;
 		this.endDay = endDay;
 		this.endYn = endYn;
+		this.auctioncode = auctioncode;
+		this.deliveryPay = deliveryPay;
 		this.orderM = orderM;
 	}
 
@@ -70,6 +74,14 @@ public class PayTable {
 
 	public void setMemberNo(String memberNo) {
 		this.memberNo = memberNo;
+	}
+
+	public String getMemberName() {
+		return memberName;
+	}
+
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
 	}
 
 	public String getCurrentPrice() {
@@ -136,6 +148,22 @@ public class PayTable {
 		this.endYn = endYn;
 	}
 
+	public String getAuctioncode() {
+		return auctioncode;
+	}
+
+	public void setAuctioncode(String auctioncode) {
+		this.auctioncode = auctioncode;
+	}
+
+	public String getDeliveryPay() {
+		return deliveryPay;
+	}
+
+	public void setDeliveryPay(String deliveryPay) {
+		this.deliveryPay = deliveryPay;
+	}
+
 	public String getOrderM() {
 		return orderM;
 	}
@@ -147,9 +175,10 @@ public class PayTable {
 	@Override
 	public String toString() {
 		return "PayTable [itemNo=" + itemNo + ", bidNo=" + bidNo + ", itemName=" + itemName + ", memberNo=" + memberNo
-				+ ", currentPrice=" + currentPrice + ", bidCount=" + bidCount + ", saleMemberNo=" + saleMemberNo
-				+ ", saleMemberName=" + saleMemberName + ", rowBid=" + rowBid + ", startDay=" + startDay + ", endDay="
-				+ endDay + ", endYn=" + endYn + ", orderM=" + orderM + "]";
+				+ ", memberName=" + memberName + ", currentPrice=" + currentPrice + ", bidCount=" + bidCount
+				+ ", saleMemberNo=" + saleMemberNo + ", saleMemberName=" + saleMemberName + ", rowBid=" + rowBid
+				+ ", startDay=" + startDay + ", endDay=" + endDay + ", endYn=" + endYn + ", auctioncode=" + auctioncode
+				+ ", deliveryPay=" + deliveryPay + ", orderM=" + orderM + "]";
 	}
 	
 }

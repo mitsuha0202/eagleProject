@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>경매입찰자가 있는 물품</title>
+<title>거래신청된 낙찰물품</title>
 </head>
 <style>
       /* 구매현황 테이블 div */
@@ -91,9 +91,8 @@
 			<tr>
 				<td><h5>판매진행물품</h5></td>
 				<!-- td태그 오른쪽 선 안보이게 하기  -->
-				<td style="border-right: hidden;" onclick="location.href='salesstatus.mp'"><h5>진행중인 전체 물품</h5></td>
-				<td style="border-right: hidden;" onclick="location.href='bidderitem.mp'"><h5>경매입찰자가 있는 물품</h5></td>
-				<td onclick="location.href='nobidderitem.mp'"><h5>경매입찰자가 없는 물품</h5></td>
+				<td style="border-right: hidden;" onclick="location.href='endofsale.mp'"><h5>경매종료된 물품</h5></td>
+				<td style="border-right: hidden;" onclick="location.href='bidderitem.mp'"><h5>거래신청 있는 물품</h5></td>
 				
 			</tr>
 			
@@ -104,19 +103,18 @@
 		 <h5>꼭 읽어주세요! </h5><br>
 	     <h5>현재 진행중인 물품으로 경매현황을 파악 하실 수 있습니다.</h5>
 	     <br>
-	     <h5>경매입찰자가 있는 물품에 대해서 모두 ${ fn:length(list) }개가 검색되었습니다.</h5>
+	     <h5>거래신청자가 있는 물품에 대해서 모두 ${ fn:length(list) }개가 검색되었습니다.</h5>
 	     
 	     <table class="buyStatusTable">
       
       <thead>
         <tr>
+        	<th class="firstTd">선택</th>	
             <th class="firstTd">물품번호</th>
           <th class="firstTd">물품명</th>
           <th class="firstTd">현재가</th>
-          <th class="firstTd">입찰수</th>
-          <th class="firstTd">시작일</th>
+          <th class="firstTd">낙찰자</th>
           <th class="firstTd">마감일</th>
-          <th class="firstTd">마감상태</th>
         </tr>
       </thead>
       <tbody>
@@ -127,20 +125,21 @@
 	               <td>${ b.itemNo }</td>
 	               <td>${ b.itemName }</td>
 	               <td>${ b.currentPrice }</td>
-				   <td>${ b.endDay }</td>
-	               <td>${ b.saleMemberName }</td>                            
+	               <td>${ b.memberName }</td>
+				   <td>${ b.endDay }</td>	                                  
 	            </tr>
 	         </c:forEach>
         </c:if>
         <c:if test="${ empty list }">
         	 <tr>
-	          <td colspan="7"><h5>검색된 내용이 없습니다.</h5></td>	      
+	          <td colspan="6"><h5>검색된 내용이 없습니다.</h5></td>	      
         	</tr>
         </c:if>
       </tbody>
      
     </table>
-	     
+	     <button onclick="dealNo();">거래하기</button>
+	     <button class="noSale">판매거부</button>
 	</div>
 	
 	<div id="pagingArea" align="center">
@@ -190,5 +189,46 @@
 		<i class="dollar sign icon" id="accountInfo"></i>
 		<h4 class="tutorialIcon2">자주묻는 질문</h4>		
 	</div>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script>
+		function dealNo() {
+			var sendArr = new Array();
+   			var sendCur = new Array();
+   			var checkbox = $(".checkChild:checked");
+   	        alert("거래가 진행되었습니다.");
+   		 	checkbox.each(function(i){
+   		 		var tr = checkbox.parent().parent().eq(i);
+   		 		var td = tr.children();
+   	            var docNum = td.eq(1).text();
+   	            var current = td.eq(3).text();
+   	            sendArr.push(docNum);
+   	            sendCur.push(current);
+ 				location.href="salesitemprogress.mp?itemNo=" + sendArr +"," + "&currentPrice=" + sendCur;
+   		 	}); 		 	
+		}
+		$(".noSale").click(function () {
+			var answer = confirm("구매거부하시겠습니까?");
+			if(answer == true){
+				noSale();
+			}
+		});
+		
+		function noSale() {
+			var sendArr = new Array();
+   			var sendCur = new Array();
+   			var checkbox = $(".checkChild:checked");
+   	        alert("판매거부가 신청되었습니다.");
+   		 	checkbox.each(function(i){
+   		 		var tr = checkbox.parent().parent().eq(i);
+   		 		var td = tr.children();
+   	            var docNum = td.eq(1).text();
+   	            var current = td.eq(3).text();
+   	            sendArr.push(docNum);
+   	            sendCur.push(current);
+ 				location.href="refusetosell2.mp?itemNo=" + sendArr +"," + "&currentPrice=" + sendCur;
+   		 	}); 		 	
+		}
+	</script>
 </body>
 </html>

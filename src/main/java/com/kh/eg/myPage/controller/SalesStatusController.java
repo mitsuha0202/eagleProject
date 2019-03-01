@@ -50,44 +50,89 @@ public class SalesStatusController {
 			model.addAttribute("pi", pi);
 			return "myPage/salesmanagement/endofsalePage";
 		}
-
+		
+		@RequestMapping("bidderitem.mp")
+		public String bidderItemPage(@RequestParam(defaultValue="1") int currentPage, HttpSession session, Model model, Member m) {
+			m = (Member)session.getAttribute("loginUser");
+			int listCount = ms.getBidderItem(m.getMid());
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			ArrayList<PayTable> list = ms.selectBidderItemList(pi, m.getMid());
+			model.addAttribute("list", list);
+			model.addAttribute("pi", pi);
+			return "myPage/salesmanagement/bidderitemPage";
+		}
 
 //---------------------------------------------판매 물품 거래 진행중 페이지들-------------------------------------------------
 		
 		//구매현황상세페이지 - 판매 물품 거래 진행중 페이지 - 입금요청
 				@RequestMapping("salesitemprogress.mp")
-				public String purchaseitemdealPage2() {
+				public String purchaseitemdealPage2(@RequestParam(defaultValue="1") int currentPage, @RequestParam(value="itemNo", required=false) String itemNo, @RequestParam(value="currentPrice", required=false) String currentPrice, HttpSession session, Model model, Member m) {
+					ArrayList<PayTable> list = null;
+					PageInfo pi = null;
+					m = (Member)session.getAttribute("loginUser");
+					
+					if(itemNo != null && !itemNo.equals("") && currentPrice != null && !currentPrice.equals("")) {
+						int listCount = ms.getSalesItemProgress(m.getMid(), itemNo, currentPrice);
+						pi = Pagination.getPageInfo(currentPage, listCount);			
+					}else {			
+						int listCount = ms.getSalesItemProgressNoParam(m.getMid());
+						pi = Pagination.getPageInfo(currentPage, listCount);
+					}
+					
+					list = ms.selectSalesItemProgressList(pi, m.getMid());
+					model.addAttribute("list", list);
+					model.addAttribute("pi", pi);
 					return "myPage/salesmanagement/purchaseitemdealPage2";
 				}
 			
-			
-			//구매현황상세페이지 - 판매 물품 거래 진행중 페이지 - 입금확인중
-				@RequestMapping("paymentconfirm2.mp")
-				public String paymentconfirmPage2() {
-					return "myPage/salesmanagement/paymentconfirmPage2";
-				}
 				
 			//구매현황상세페이지 - 판매 물품 거래 진행중 페이지 - 배송요청
 				@RequestMapping("requestdelivery2.mp")
-				public String requestdeliveryPage2() {
+				public String requestdeliveryPage2(@RequestParam(defaultValue="1") int currentPage, HttpSession session, Model model, Member m) {
+					ArrayList<PayTable> list = null;
+					m = (Member)session.getAttribute("loginUser");
+					int listCount = ms.getRequestDeliverySale(m.getMid());
+					PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+					list = ms.selectRequestDeliverySaleList(pi, m.getMid());
+
+					model.addAttribute("list", list);
+					model.addAttribute("pi", pi);
 					return "myPage/salesmanagement/requestdeliveryPage2";
 				}
+				
 			//구매현황상세페이지 - 판매 물품 거래 진행중 페이지 - 배송중
 				@RequestMapping("shipping2.mp")
-				public String shippingPage2() {
+				public String shippingPage2(@RequestParam(defaultValue="1") int currentPage, @RequestParam(value="itemNo", required=false) String itemNo, @RequestParam(value="currentPrice", required=false) String currentPrice, HttpSession session, Model model, Member m) {
+					ArrayList<PayTable> list = null;
+					PageInfo pi = null;
+					m = (Member)session.getAttribute("loginUser");
+					
+					if(itemNo != null && !itemNo.equals("") && currentPrice != null && !currentPrice.equals("")) {
+						int listCount = ms.getSalesItemProgress(m.getMid(), itemNo, currentPrice);
+						pi = Pagination.getPageInfo(currentPage, listCount);			
+					}else {			
+						int listCount = ms.getSalesItemProgressNoParam(m.getMid());
+						pi = Pagination.getPageInfo(currentPage, listCount);
+					}
+					
+					list = ms.selectSalesItemProgressList(pi, m.getMid());
+					model.addAttribute("list", list);
+					model.addAttribute("pi", pi);
 					return "myPage/salesmanagement/shippingPage2";
 				}
+				
 			//구매현황상세페이지 - 판매 물품 거래 진행중 페이지 - 구매결정대기
 				@RequestMapping("purchasedecisionwaiting2.mp")
 				public String purchasedecisionwaitingPage2() {
 					return "myPage/salesmanagement/purchasedecisionwaitingPage2";
 				}
+				
 			//구매현황상세페이지 - 판매 물품 거래 진행중 페이지 - 수령이후/송금예정
 				@RequestMapping("afterreceipt2.mp")
 				public String afterreceiptPage2() {
 					return "myPage/salesmanagement/afterreceiptPage2";
-					
 				}
+				
 			//구매현황상세페이지 - 판매 물품 거래 진행중 페이지 - 거래완료 물품
 				@RequestMapping("transactioncomplete2.mp")
 				public String transactioncompletePage2() {
@@ -100,21 +145,25 @@ public class SalesStatusController {
 				public String salesotherPage() {
 					return "myPage/salesmanagement/salesotherPage";
 				}
+				
 				//반품
 				@RequestMapping("return2.mp")
 				public String return2Page() {
 					return "myPage/salesmanagement/return2Page";
 				}
+				
 				//미입금
 				@RequestMapping("payment2.mp")
 				public String payment2Page() {
 					return "myPage/salesmanagement/payment2Page";
 				}
+				
 				//판매거부
 				@RequestMapping("refusetosell2.mp")
 				public String refusetosell2Page() {
 					return "myPage/salesmanagement/refusetosell2Page";
 				}
+				
 				//미수령신고
 				@RequestMapping("notreceving2.mp")
 				public String notrecevingPage() {
