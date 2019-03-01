@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.tools.ant.types.CommandlineJava.SysProperties;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,7 +67,8 @@ public class ItemController {
 	
 	
 	@RequestMapping("insertItem.it")
-	public String insertItem(Item it,Model model,HttpServletRequest request,@RequestParam(value="photo",required=false)MultipartFile photo) {
+	public @ResponseBody String insertItem(Item it,Model model,HttpServletRequest request,HttpServletResponse response, @RequestParam(value="photo",required=false)MultipartFile photo,
+			@RequestParam(value="categoryNo") String cateNo) {
 		
 		
 		System.out.println("item : " +it );
@@ -79,12 +81,12 @@ public class ItemController {
 		String date=request.getParameter("startDay");
 		
 		String date1=request.getParameter("endDay");
-		String categoryNo=request.getParameter("categoryNo");
+		//String categoryNo=request.getParameter("categoryNo");
 		
 		Category category=new Category();
-		category.setCategoryNo(categoryNo);
-		it.setCategoryNo(categoryNo);
-		
+		category.setCategoryNo(cateNo);
+		it.setCategoryNo(cateNo);
+		System.out.println("cateNo1!!!!! : "+cateNo);
 		
 		java.sql.Date day=null;
 		java.sql.Date day2=null;
@@ -164,6 +166,7 @@ public class ItemController {
 			//int result=is.insertItem(it);
 			System.out.println(result);
 			return "redirect:mainPage.au";
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
