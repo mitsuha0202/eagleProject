@@ -163,4 +163,10 @@
   		FROM BID
   		WHERE ITEMNO = #{itemNo} AND MEMBERNO = #{memberNo}
   	</select>
+  	
+  	<select id="selectLuckyPrice" resultMap="bidResultSet" parameterType="Bidding">
+  		SELECT *
+  		FROM BID
+  		WHERE ITEMNO = #{itemNo} AND CURRENTPRICE = #{currentPrice}
+  	</select>
   </mapper>

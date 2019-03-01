@@ -43,6 +43,8 @@ public interface BiddingDao {
 
 	Bidding selectLuckyMno(SqlSessionTemplate sqlSession,Bidding b);
 
+	Bidding selectLuckyPrice(SqlSessionTemplate sqlSession, Bidding b);
+
 
 
 

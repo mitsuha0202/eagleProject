@@ -300,4 +300,23 @@ private BiddingService bs;
 			return 0;
 		}
 	}
+	
+	@RequestMapping("compareLuckyPrice.bi")
+	public @ResponseBody Bidding selectLuckyPrice(@RequestParam(value="itemNo", required=false) String itemNo, @RequestParam(value="price", required=false) String price,
+													HttpServletRequest request, HttpServletResponse response) {
+		Bidding b = new Bidding();
+		Bidding bdd = null;
+		int currentPrice = Integer.parseInt(price);
+		b.setItemNo(itemNo);
+		b.setCurrentPrice(currentPrice);
+		
+		bdd = bs.selectLuckyPrice(b);
+		
+		if(bdd != null) {
+			return bdd;
+		}
+		else {
+			return null;
+		}
+	}
 }

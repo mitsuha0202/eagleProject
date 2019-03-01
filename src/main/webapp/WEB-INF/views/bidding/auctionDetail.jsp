@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -132,7 +135,7 @@
 				      <td class="tableHeader">
 				      	물품번호<br>
 				      	경매방식<br>
-				      	경매기간<br>
+				      	<a id="auctionStime">경매기간</a><br>
 				      	<a id="minPrice">시작가</a><br>
 				      	<a id="maxPrice">입찰단위</a><br>
 				      	
@@ -141,7 +144,7 @@
 				      	<a id="itemNo"></a><br>
 				      	<a id="auctionName"></a><br>
 				     	<!-- 2019.02.12 11:00 ~ 2019.02.15 11:00 -->
-				     	<a id="startDay"></a> ~ <a id="endDay"></a>
+				     	<a id="auctionStartTime"><a id="startDay"></a> ~ <a id="endDay"></a><a>
 				     	<br>
 				      	<a id="startPrice"></a>원<br>
 				      	<a id="upPrice"></a>원</td>
@@ -362,6 +365,10 @@
         <div class = "two wide column"></div>
    	</div>
    	
+   	<c:if test="${(sessionScope.loginUser.mid ne '') and !(empty sessionScope.loginUser.mid)}">
+	   	<input id="chat_id" type="hidden" value='${sessionScope.loginUser.userId }'>
+   	</c:if>
+   	
    	<!-- footer -->
 </body>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -376,7 +383,7 @@
 			var currentPrice = 0;
 			var bidUnit = 0;
 			var mid = '${sessionScope.loginUser.mid}';
-			var aCode = 'AC002';
+			var aCode = 'AC003';
 			var itemNo;
 			var minPrice;
 			var maxPrice;
@@ -386,7 +393,7 @@
 				url:"auctionDetails.bi",
 				type:"get",
 				async:false,
-				data:{itemNo : "15"},
+				data:{itemNo : "1"},
 				success:function(data){
 					$("#itemNo").text(data.itemNo);
 					$("#startPrice").text(numComma(data.startPrice));
@@ -407,6 +414,10 @@
 					if(aCode == 'AC002'){
 						$("#minPrice").text("최저가 범위");
 						$("#maxPrice").text("최고가 범위");
+					}
+					if(aCode == 'AC003'){
+						$("#auctionStime").text("경매 시작시간");
+						$("#cPrice").text(numComma(data.startPrice));
 					}
 					
 					
@@ -454,9 +465,14 @@
 						type:"get",
 						data:{itemNo : itemNo},
 						success:function(data){
-						 
-							$("#startDay").text(data.startDay);
-							$("#endDay").text(data.endDay);
+						 	if(aCode == 'AC003'){
+						 		$("#auctionStartTime").text(data.endDay);
+						 	}
+						 	else{
+								$("#startDay").text(data.startDay);
+								$("#endDay").text(data.endDay);
+						 	}
+							
 							console.log("날짜 조회 성공");
 						},
 						error:function(){
@@ -546,6 +562,12 @@
 						}
 					});
 					
+					
+					
+					
+					
+					
+					
 					if(time > 0){
 						$("#bidBtn").hover($("#bidBtn").css('cursor','pointer'),$("#bidBtn").css('cursor','cursor'));
 						
@@ -618,18 +640,37 @@
 												var message = confirm("입찰정보가 있습니다. 다시 입력하시겠습니까?");
 												if(message == true){
 													var price = prompt(msg,"");
-													/* 행운경매 입찰 업데이트 */
 													if(price >= minPrice && price <= maxPrice){
+														/* 행운경매 같은 가격 유무 비교 */
 														$.ajax({
-															url:"updateLuckyBid.bi",
+															url:"compareLuckyPrice.bi",
 															type:"get",
-															data:{itemNo : itemNo , mNo : mid , price : price},
+															data:{itemNo : itemNo , price : price},
 															success:function(data){
-																alert("입찰가 수정이 완료되었습니다.");
-																console.log("행운경매 입찰수정 성공");
+																console.log("가격 비교 성공");
+																
+																if(price == data.currentPrice){
+																	alert("이미 등록된 입찰가 입니다.");
+																}
+																else{
+																	/* 행운경매 입찰 업데이트 */
+																	$.ajax({
+																		url:"updateLuckyBid.bi",
+																		type:"get",
+																		data:{itemNo : itemNo , mNo : mid , price : price},
+																		success:function(data){
+																			alert("입찰가 수정이 완료되었습니다.");
+																			console.log("행운경매 입찰수정 성공");
+																		},
+																		error:function(){
+																			alert("입찰가 수정에 실패하셨습니다.");
+																			console.log("행운경매 입찰수정 실패");
+																		}
+																	});
+																}
 															},
 															error:function(){
-																console.log("행운경매 입찰수정 실패");
+																console.log("가격 비교 실패");
 															}
 														});
 													}
@@ -643,19 +684,36 @@
 												console.log(price);
 												
 												if(price >= minPrice && price <= maxPrice){
-													/* 행운경매 입찰 */
+													/* 행운경매 같은 가격 유무 비교 */
 													$.ajax({
-														url:"insertLuckyBid.bi",
+														url:"compareLuckyPrice.bi",
 														type:"get",
-														data:{itemNo : itemNo , mNo : mid , price : price},
+														data:{itemNo : itemNo , price : price},
 														success:function(data){
-															alert("입찰에 성공하셨습니다.");
-															console.log("행운경매 입찰에 성공하셨습니다.");
+															console.log("가격 비교 성공");
+															
+															if(price == data.currentPrice){
+																alert("이미 등록된 입찰가 입니다.");
+															}else{
+																/* 행운경매 입찰 */
+																$.ajax({
+																	url:"insertLuckyBid.bi",
+																	type:"get",
+																	data:{itemNo : itemNo , mNo : mid , price : price},
+																	success:function(data){
+																		alert("입찰에 성공하셨습니다.");
+																		console.log("행운경매 입찰에 성공하셨습니다.");
+																	},
+																	error:function(){
+																		console.log("행운경매 입찰에 실패하셨습니다.");
+																	}
+																});	
+															}
 														},
 														error:function(){
-															console.log("행운경매 입찰에 실패하셨습니다.");
+															console.log("가격 비교 실패");
 														}
-													});									
+													});
 													
 												}else{
 													alert("입찰 범위에 맞는 가격을 입력해주세요.");
@@ -716,14 +774,66 @@
 						} */
 					}
 					else{
-						$("#bidBtn").css('background','gray');
-						$("#wishBtn").css('background','gray');
-						$("#qaBtn").css('background','gray');
-						$("#reTime").css('background','gray');
-						$("#bidBtn").hover($("#bidBtn").css('cursor','cursor'),$("#bidBtn").css('cursor','cursor'));
-						$("#wishBtn").hover($("#wishBtn").css('cursor','cursor'),$("#wishBtn").css('cursor','cursor'));
-						$("#qaBtn").hover($("#qaBtn").css('cursor','cursor'),$("#qaBtn").css('cursor','cursor'));
+						if(aCode != 'AC003'){
+							$("#bidBtn").css('background','gray');
+							$("#wishBtn").css('background','gray');
+							$("#qaBtn").css('background','gray');
+							$("#reTime").css('background','gray');
+							$("#bidBtn").hover($("#bidBtn").css('cursor','cursor'),$("#bidBtn").css('cursor','cursor'));
+							$("#wishBtn").hover($("#wishBtn").css('cursor','cursor'),$("#wishBtn").css('cursor','cursor'));
+							$("#qaBtn").hover($("#qaBtn").css('cursor','cursor'),$("#qaBtn").css('cursor','cursor'));
+						}
+						
+						/* 실시간 경매  입찰 */
+						else if(aCode == 'AC003'){
+							var webSocket = new WebSocket('ws://localhost:8001/eg/broadcasting');
+							var inputPrice = "";
+							var msg = "입찰할 금액을 입력하세요.";
+							
+							webSocket.onerror = function(event) {
+						        onError(event)
+						    };
+						    webSocket.onopen = function(event) {
+						        onOpen(event)
+						    };
+						    webSocket.onmessage = function(event) {
+						        onMessage(event)
+						    };	
+							function onMessage(event){
+								var message = event.data.split("|");
+								var sender = message[0];
+								var content = message[1];
+								console.log(message);
+								if(content == ""){
+									
+								} else{
+									$("#cPrice").html(sender + " : " + content);
+								}
+							}
+							function onOpen(event){
+								console.log($("#chat_id").val());
+							}
+							function onError(event){
+								alert(event.data);
+							}
+							$("#bidBtn").click(function(){
+								inputPrice = prompt(msg,"");
+								
+								if(inputPrice == ""){
+									
+								} else {
+									$("#cPrice").html($("#chat_id").val() + " : " + numComma(inputPrice));
+								}
+								webSocket.send($("#chat_id").val() + "|" + numComma(inputPrice));
+								inputPrice = "";
+							});
+								
+						}
 					}
+					
+				
+					
+					
 					console.log("리스트 조회 성공");
 				},
 				error:function(){
@@ -732,52 +842,82 @@
 			});
 			
 			
-			/* 남은시간 스레드 */
-			$(function(){
-				function printTime(){
-					time = time - 1000;								
-					var ms = time / 1000;
-					var day = Math.floor(ms / 86400);
-					var hour = Math.floor((ms % 86400) / 3600);
-					var min = Math.floor((ms % 3600) / 60);
-					var sec = ms % 60;
+			if(aCode != 'AC003'){
+				/* 남은시간 스레드 */
+				$(function(){
+					function printTime(){
+						time = time - 1000;								
+						var ms = time / 1000;
+						var day = Math.floor(ms / 86400);
+						var hour = Math.floor((ms % 86400) / 3600);
+						var min = Math.floor((ms % 3600) / 60);
+						var sec = ms % 60;
+						
+						$("#remainTime").text("남은시간 " + day + "일 " + hour + "시간 " + min + "분 " + sec + "초");
+					}
 					
-					$("#remainTime").text("남은시간 " + day + "일 " + hour + "시간 " + min + "분 " + sec + "초");
-				}
-				
-				var timeId;
-				var itemNo = $("#itemNo").text();
-					timeId = setInterval(function(){
-						if(time > 0){
-							printTime();
-						}
-						else{
-							clearInterval(timeId);
-							$("#remainTime").text("종료");
-							$("#bidBtn").css('background','gray');
-							$("#wishBtn").css('background','gray');
-							$("#qaBtn").css('background','gray');
-							$("#reTime").css('background','gray');
-							$("#bidBtn").hover($("#bidBtn").css('cursor','cursor'),$("#bidBtn").css('cursor','cursor'));
-							$("#wishBtn").hover($("#wishBtn").css('cursor','cursor'),$("#wishBtn").css('cursor','cursor'));
-							$("#qaBtn").hover($("#qaBtn").css('cursor','cursor'),$("#qaBtn").css('cursor','cursor'));
-							
-							
-							/* 입찰종료 */
-							$.ajax({
-								url:"auctionFinish.bi",
-								type:"get",
-								data:{itemNo : itemNo},
-								success:function(data){
-									console.log("마감종료 성공");
-								},
-								error:function(){
-									console.log("마감종료 실패");
-								}
-							});
-						}
-					},1000);
-			});
+					var timeId;
+					var itemNo = $("#itemNo").text();
+						timeId = setInterval(function(){
+							if(time > 0){
+								printTime();
+							}
+							else{
+								clearInterval(timeId);
+								$("#remainTime").text("종료");
+								$("#bidBtn").css('background','gray');
+								$("#wishBtn").css('background','gray');
+								$("#qaBtn").css('background','gray');
+								$("#reTime").css('background','gray');
+								$("#bidBtn").hover($("#bidBtn").css('cursor','cursor'),$("#bidBtn").css('cursor','cursor'));
+								$("#wishBtn").hover($("#wishBtn").css('cursor','cursor'),$("#wishBtn").css('cursor','cursor'));
+								$("#qaBtn").hover($("#qaBtn").css('cursor','cursor'),$("#qaBtn").css('cursor','cursor'));
+								
+								
+								/* 입찰종료 */
+								$.ajax({
+									url:"auctionFinish.bi",
+									type:"get",
+									data:{itemNo : itemNo},
+									success:function(data){
+										console.log("마감종료 성공");
+									},
+									error:function(){
+										console.log("마감종료 실패");
+									}
+								});
+							}
+						},1000);
+				});
+			}
+			else{
+				/* 남은시간 스레드 */
+				$(function(){
+					function printTime(){
+						time = time - 1000;								
+						var ms = time / 1000;
+						var day = Math.floor(ms / 86400);
+						var hour = Math.floor((ms % 86400) / 3600);
+						var min = Math.floor((ms % 3600) / 60);
+						var sec = ms % 60;
+						
+						$("#remainTime").text("경매시작 " + day + "일 " + hour + "시간 " + min + "분 " + sec + "초 전");
+					}
+					
+					var timeId;
+					var itemNo = $("#itemNo").text();
+						timeId = setInterval(function(){
+							if(time > 0){
+								printTime();
+							}
+							else{
+								clearInterval(timeId);
+								$("#remainTime").text("경매 시작");
+								console.log(time);
+							}
+						},1000);
+				});	
+			}
 		});
 		
 		
