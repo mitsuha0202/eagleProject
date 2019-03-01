@@ -126,17 +126,11 @@ public interface MyPageService {
 	ArrayList<PayTable> selectFalseBidList(PageInfo pi, String mid);
 
 	//입금요청 물품 리스트 페이징
-	int getPayContinueList( String[] itemNo);
+	int getPayContinueList( String string);
 
 	//입금요청 물품 리스트 조회
-	ArrayList<PayTable> selectPayContinueList(PageInfo pi, String mid, String[] itemNo, String[] curList);
-
-	//입금요청 아이템번호 없을시
-	int getPayContinueList2(String mid);
-	//입금요청 아이템번호 없을시
-	ArrayList<PayTable> selectPayContinueList2(PageInfo pi, String mid);
+	ArrayList<PayTable> selectPayContinueList(PageInfo pi, String mid);
 	
-
 	//마이페이지 - 회원등급확인
 	ArrayList<RatingMyPage> selectRating(String memberNo);
 
@@ -244,5 +238,59 @@ public interface MyPageService {
 
 	//판매관리 배송요청 목록 조회
 	ArrayList<PayTable> selectRequestDeliverySaleList(PageInfo pi, String mid);
+
+	//구매자 거래신청 winbid에 insert
+	int insertDeal(String mid, String[] itemNo, String[] curList);
+
+	//판매관리 구매결정대기 페이징
+	int getSaleWaiting(String mid);
+
+	//판매관리 구매결정대기 목록 조회
+	ArrayList<PayTable> selectSaleWaitingList(PageInfo pi, String mid);
+
+	//판매관리 수령이후 송금 페이징
+	int getAfterReceipt2(String mid);
+
+	//판매관리 수령이후 송금 목록 조회
+	ArrayList<PayTable> selectAfterReceipt2List(PageInfo pi, String mid);
+
+	//판매관리 거래완료 페이징
+	int getTransactionSale(String mid);
+
+	//판매관리 거래완료 목록 조회
+	ArrayList<PayTable> selectTransactionSaleList(PageInfo pi, String mid);
+
+	//판매관리 구매거부 페이징
+	int getSaleOther(String mid);
+
+	//판매관리 구매거부 목록 조회
+	ArrayList<PayTable> selectSaleOtherList(PageInfo pi, String mid);
+
+	//판매관리 반품 페이징
+	int getReturnSale(String mid);
+
+	//판매관리 반품 목록 조회
+	ArrayList<PayTable> selectReturnSaleList(PageInfo pi, String mid);
+
+	//판매관리 미입금 페이징
+	int getPaymentSale(String mid);
+
+	//판매관리 미입금 목록 조회
+	ArrayList<PayTable> selectPaymentSaleList(PageInfo pi, String mid);
+
+	//판매관리 판매거부 insert 페이징
+	int getRefuseToSell2(String mid, String itemNo, String currentPrice);
+
+	//판매관리 판매거부 페이징
+	int getRefuseToSell2NoParam(String mid);
+
+	//판매관리 판매거부 목록 조회
+	ArrayList<PayTable> selectRefuseToSell2List(PageInfo pi, String mid);
+
+	//판매관리 미수령 신고 페이징
+	int getNotReceving2(String mid);
+
+	//판매관리 미수령 신고 목록 조회
+	ArrayList<PayTable> selectNotReceiving2List(PageInfo pi, String mid);
 
 }

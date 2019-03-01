@@ -288,31 +288,17 @@ public class MyPageServiceImpl implements MyPageService{
 
 	//입금요청 물품 목록 페이징 
 	@Override
-	public int getPayContinueList(String[] itemNo) {
+	public int getPayContinueList(String mid) {
 		
-		return md.getPayContinueList(sqlSession, itemNo);
+		return md.getPayContinueList(sqlSession, mid);
 	}
 
 	//입금요청 물품 리스트 조회
 	@Override
-	public ArrayList<PayTable> selectPayContinueList(PageInfo pi, String mid, String[] itemNo, String[] curList) {
+	public ArrayList<PayTable> selectPayContinueList(PageInfo pi, String mid) {
 		
-		return md.selectPayContinueList(sqlSession, pi, mid, itemNo, curList);
+		return md.selectPayContinueList(sqlSession, pi, mid);
 	}
-
-	@Override
-	public int getPayContinueList2(String mid) {
-	
-		return md.getPayContinueList2(sqlSession, mid);
-	}
-
-	//입금요청 아이템번호 없을시
-	@Override
-	public ArrayList<PayTable> selectPayContinueList2(PageInfo pi, String mid) {
-		
-		return md.selectPayContinueList2(sqlSession, pi, mid);
-	}
-	
 
 	//마이페이지 - 회원등급확인
 	@Override
@@ -566,6 +552,132 @@ public class MyPageServiceImpl implements MyPageService{
 	public ArrayList<PayTable> selectRequestDeliverySaleList(PageInfo pi, String mid) {
 
 		return md.selectRequestDeliverySaleList(sqlSession, pi, mid);
+	}
+
+	//구매자가 winbid에 거래신청 insert
+	@Override
+	public int insertDeal(String mid, String[] itemNo, String[] curList) {
+
+		return md.insertDeal(sqlSession, mid, itemNo, curList);
+	}
+
+	//판매관리 구매결정대기 페이징
+	@Override
+	public int getSaleWaiting(String mid) {
+
+		return md.getSaleWaiting(sqlSession, mid);
+	}
+
+	//판매관리 구매결정대기 목록 조회
+	@Override
+	public ArrayList<PayTable> selectSaleWaitingList(PageInfo pi, String mid) {
+
+		return md.selectSaleWaitingList(sqlSession, pi, mid);
+	}
+
+	//판매관리 수령이후 송금 페이징
+	@Override
+	public int getAfterReceipt2(String mid) {
+
+		return md.getAfterReceipt2(sqlSession, mid);
+	}
+
+	//판매관리 수령이후 송금 목록 조회
+	@Override
+	public ArrayList<PayTable> selectAfterReceipt2List(PageInfo pi, String mid) {
+
+		return md.selectAfterReceipt2List(sqlSession, pi, mid);
+	}
+
+	//판매관리 거래완료 페이징
+	@Override
+	public int getTransactionSale(String mid) {
+
+		return md.getTransactionSale(sqlSession, mid);
+	}
+
+	//판매관리 거래완료 목록 조회
+	@Override
+	public ArrayList<PayTable> selectTransactionSaleList(PageInfo pi, String mid) {
+
+		return md.selectTransactionSaleList(sqlSession, pi, mid);
+	}
+
+	//판매관리 구매거부 페이징
+	@Override
+	public int getSaleOther(String mid) {
+
+		return md.getSaleOther(sqlSession, mid);
+	}
+
+	//판매관리 구매거부 목록 조회
+	@Override
+	public ArrayList<PayTable> selectSaleOtherList(PageInfo pi, String mid) {
+
+		return md.selectSaleOtherList(sqlSession, pi, mid);
+	}
+
+	//판매관리 반품 페이징
+	@Override
+	public int getReturnSale(String mid) {
+
+		return md.getReturnSale(sqlSession, mid);
+	}
+
+	//판매관리 반품 목록 조회
+	@Override
+	public ArrayList<PayTable> selectReturnSaleList(PageInfo pi, String mid) {
+
+		return md.selectReturnSaleList(sqlSession, pi, mid);
+	}
+
+	//판매관리 미입금 페이징
+	@Override
+	public int getPaymentSale(String mid) {
+
+		return md.getPaymentSale(sqlSession, mid);
+	}
+
+	//판매관리 미입금 목록 조회
+	@Override
+	public ArrayList<PayTable> selectPaymentSaleList(PageInfo pi, String mid) {
+
+		return md.selectPaymentSaleList(sqlSession, pi, mid);
+	}
+
+	//판매관리 판매거부 insert 페이징
+	@Override
+	public int getRefuseToSell2(String mid, String itemNo, String currentPrice) {
+
+		return md.getRefuseToSell2(sqlSession, mid, itemNo, currentPrice);
+	}
+
+	//판매관리 판매거부 페이징
+	@Override
+	public int getRefuseToSell2NoParam(String mid) {
+
+		return md.getRefuseToSell2NoParam(sqlSession, mid);
+	}
+
+	//판매관리 판매거부 목록 조회
+	@Override
+	public ArrayList<PayTable> selectRefuseToSell2List(PageInfo pi, String mid) {
+
+		return md.selectRefuseToSell2List(sqlSession, pi, mid);
+	}
+
+	//판매관리 미수령 신고 페이징
+	@Override
+	public int getNotReceving2(String mid) {
+
+		return md.getNotReceiving2(sqlSession, mid);
+	}
+
+	//판매관리 미수령 신고 목록 조회
+	@Override
+	public ArrayList<PayTable> selectNotReceiving2List(PageInfo pi, String mid) {
+
+		return md.selectNotReceiving2List(sqlSession, pi, mid);
 	}
 	
 }

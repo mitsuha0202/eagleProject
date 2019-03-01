@@ -214,7 +214,7 @@
    	            var current = td.eq(3).text();
    	            sendArr.push(docNum);
    	            sendCur.push(current);
- 				location.href="purchaseitemdeal.mp?itemNo=" + sendArr +"," + "&currentPrice=" + sendCur;
+ 				location.href="insertDeal.mp?itemNo=" + sendArr +"," + "&currentPrice=" + sendCur;
    		 	}); 		 	
 		}
 		

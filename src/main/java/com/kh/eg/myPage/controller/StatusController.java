@@ -39,8 +39,8 @@ public class StatusController {
 		ArrayList<PayTable> list = ms.selectPayList(pi, m.getMid());
 		
 		for(int i=0; i<list.size(); i++) {
-			Three three = new Three();			
-			list.get(i).setCurrentPrice((three.toNumFormat(Integer.parseInt(list.get(i).getCurrentPrice()))));
+			/*Three three = new Three();			
+			list.get(i).setCurrentPrice((three.toNumFormat(Integer.parseInt(list.get(i).getCurrentPrice()))));*/
 		}
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
@@ -81,8 +81,8 @@ public class StatusController {
 			
 		}
 		for(int i=0; i<list.size(); i++) {
-			Three three = new Three();			
-			list.get(i).setCurrentPrice((three.toNumFormat(Integer.parseInt(list.get(i).getCurrentPrice()))));
+			/*Three three = new Three();			
+			list.get(i).setCurrentPrice((three.toNumFormat(Integer.parseInt(list.get(i).getCurrentPrice()))));*/
 		}
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
@@ -105,9 +105,12 @@ public class StatusController {
 				list.add(topList.get(i));
 			}
 		}
-		for(int i=0; i<list.size(); i++) {
-			Three three = new Three();			
-			list.get(i).setCurrentPrice((three.toNumFormat(Integer.parseInt(list.get(i).getCurrentPrice()))));
+		for(int i=0; i<list.size(); i++) {			
+			/*Three three = new Three();			
+			list.get(i).setCurrentPrice((three.toNumFormat(Integer.parseInt(list.get(i).getCurrentPrice()))));*/
+			if(list.get(i).getRowBid()==0) {
+				list.remove(i);
+			}
 		}
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
@@ -131,8 +134,8 @@ public class StatusController {
 		if(winBidList != null) {
 			for(int i=0; i<winBidList.size(); i++) {
 				if(winBidList.get(i).getCurrentPrice() != null) {
-					Three three = new Three();			
-					winBidList.get(i).setCurrentPrice((three.toNumFormat(Integer.parseInt(winBidList.get(i).getCurrentPrice()))));
+					/*Three three = new Three();			
+					winBidList.get(i).setCurrentPrice((three.toNumFormat(Integer.parseInt(winBidList.get(i).getCurrentPrice()))));*/
 				}
 				if(winBidList.get(i).getRowBid() == 1) {
 					list.add(winBidList.get(i));
@@ -154,10 +157,11 @@ public class StatusController {
 		int listCount = ms.getFalseBidListCount(m.getMid());
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		ArrayList<PayTable> list = ms.selectFalseBidList(pi, m.getMid());
-		
+
 		for(int i=0; i<list.size(); i++) {
 			if(list.get(i).getMemberNo() == null) {
 				list.remove(i);
+				i -= 1;
 			}
 		}
 		model.addAttribute("list", list);
@@ -166,45 +170,31 @@ public class StatusController {
 	}
 	
 	
-//-------------------------------구매물품 거래진행중 페이지들------------------------------------------------------	
+//-------------------------------구매물품 거래진행중 페이지들------------------------------------------------------
+	
+	//거래신청 삽입
+	@RequestMapping("insertDeal.mp")
+		public String insertDealPage(@RequestParam(value="itemNo", required=false) String itemNoList, @RequestParam(value="currentPrice", required=false) String currentPrice, HttpSession session, Member m) {
+		m = (Member)session.getAttribute("loginUser");
+		String[] itemNo = itemNoList.split(",");
+		String[] curList = currentPrice.split(",");
+		int result = ms.insertDeal(m.getMid(), itemNo, curList);
+		return "redirect:purchaseend.mp";
+	}
+	
 	//구매현황상세페이지 - 구매 물품 거래 진행중 페이지 - 입금요청
 		@RequestMapping("purchaseitemdeal.mp")
 		public String purchaseitemdealPage(@RequestParam(defaultValue="1") int currentPage, @RequestParam(value="itemNo", required=false) String itemNoList, @RequestParam(value="currentPrice", required=false) String currentPrice, HttpSession session, Model model) {
 			
 			Member m = (Member)session.getAttribute("loginUser");
-			//아이템 번호 담기
-			if(itemNoList != null && !itemNoList.equals("") && currentPrice != null && !currentPrice.equals("")) {
-				String[] itemNo = itemNoList.split(",");
-				String[] curList = currentPrice.split(",");
-				int listCount = ms.getPayContinueList(itemNo);
-				PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-				ArrayList<PayTable> list = ms.selectPayContinueList(pi, m.getMid(), itemNo, curList);
-				model.addAttribute("list", list);
-				model.addAttribute("pi", pi);
-			}else {
-				int listCount = ms.getPayContinueList2(m.getMid());
-				PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-				ArrayList<PayTable> list = ms.selectPayContinueList2(pi, m.getMid());
-				model.addAttribute("list", list);
-				model.addAttribute("pi", pi);
-			}
+			int listCount = ms.getPayContinueList(m.getMid());
+			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			ArrayList<PayTable> list = ms.selectPayContinueList(pi, m.getMid());
+			model.addAttribute("list", list);				
+			model.addAttribute("pi", pi);
+			
 			return "myPage/management/purchaseitemdealPage";
 		}
-	
-	/*//구매현황상세페이지 - 구매 물품 거래 진행중 페이지 - 
-		@RequestMapping("paymentconfirm.mp")
-		public String paymentconfirmPage(@RequestParam(value="itemNo", required=false) String itemNo, @RequestParam(value="currentPrice", required=false) String currentPrice, Model model) {
-			String[] itemNoList = null;
-			String[] currentPriceList = null;
-			if(itemNo != null && currentPrice != null) {
-				itemNoList = itemNo.split(",");
-				currentPriceList = currentPrice.split(",");
-				
-			}else {
-				return "myPage/management/paymentconfirmPage";
-			}			
-			return "myPage/management/paymentconfirmPage";
-		}*/
 		
 	//구매현황상세페이지 - 구매 물품 거래 진행중 페이지 - 배송요청
 		@RequestMapping("requestdelivery.mp")
