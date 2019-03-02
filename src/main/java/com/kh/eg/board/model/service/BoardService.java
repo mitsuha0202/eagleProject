@@ -34,4 +34,8 @@ public interface BoardService {
 
 	ArrayList<Board> selectNotice();
 
+	int insertNotice(Board b);
+
+	int deleteNotice(String[] deleteNum);
+
 }

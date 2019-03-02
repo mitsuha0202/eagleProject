@@ -69,7 +69,7 @@
 	     			<br>
 	     			<div class="btnArea" align="center"">
 	     				<button class="ui black basic button"  type="submit" style="width:100px; height:50px;" >등록하기</button>
-						<button class="ui black basic button" type="button" style="width:100px; height:50px;" onclick="return reset();">취소하기</button>
+						<button class="ui black basic button" type="button" style="width:100px; height:50px;" onclick="return set();">취소하기</button>
 					</div>
 	     		</form>
 	     	</div>
@@ -88,9 +88,16 @@
    	
    	<!-- footer -->
    	<script>
-   		/* function insertBoard() {
-			location.href="insertBoard.bo";
-		} */
+   		 function set() {
+   			if(window.confirm("목록으로 돌아가시겠습니까?")){
+   				location.href="goBoard.bo";
+   				return false;
+   			}else{
+   				return false;
+   			}
+			
+			
+		} 
    	</script>
 </body>
 </html>

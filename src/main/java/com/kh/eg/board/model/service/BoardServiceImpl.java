@@ -100,4 +100,16 @@ private DataSourceTransactionManager transactionManager;
 		return list;
 	}
 
+	@Override
+	public int insertNotice(Board b) {
+		int result = bd.inserNotice(sqlSession, b);
+		return result;
+	}
+
+	@Override
+	public int deleteNotice(String[] deleteNum) {
+		int result = bd.deleteNotice(sqlSession, deleteNum);
+		return result;
+	}
+
 }

@@ -35,4 +35,8 @@ public interface BoardDao {
 
 	ArrayList<Board> selectNotice(SqlSessionTemplate sqlSession);
 
+	int inserNotice(SqlSessionTemplate sqlSession, Board b);
+
+	int deleteNotice(SqlSessionTemplate sqlSession, String[] deleteNum);
+
 }

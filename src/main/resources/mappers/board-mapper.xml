@@ -82,7 +82,11 @@
 		INSERT INTO BOARD VALUES(BN_SEQ.NEXTVAL, #{bTitle}, #{bContent}, #{bMid}, 
 			SYSDATE, 'N', 'FREEBOARD', 'N',0,NULL,NULL )
 	</insert>
-	
+	<!-- 공지사항 등록 -->
+	<insert id="insertNotice" parameterType="Board">
+		INSERT INTO BOARD VALUES(BN_SEQ.NEXTVAL, #{bTitle}, #{bContent}, #{bMid}, 
+			SYSDATE, 'N', 'NOTICE', 'N',0,NULL,NULL )
+	</insert>
 	<!-- 조회수 증가용 -->
 	<update id="updateBoardCount" parameterType="java.lang.String">
 		UPDATE BOARD
@@ -137,6 +141,10 @@
 	
 	<update id="deleteBoard" parameterType="java.lang.String">
 		UPDATE BOARD SET DELETESTATUS = 'Y' WHERE BOARDNO = #{bid}
+	</update>
+	
+	<update id="deleteNotice" parameterType="java.lang.String">
+		UPDATE BOARD SET DELETESTATUS = 'Y' WHERE BOARDNO = #{deleteNum}
 	</update>
 	
 	<select id="replyCount" resultType="_int">

@@ -194,4 +194,34 @@ private BoardService bs;
 		}
 		
 	}
+	
+	@RequestMapping("insertNoticeView.bo")
+	public String insertNoticeView() {
+		
+		return "admin/insertNotice";
+	}
+	
+	@RequestMapping("insertNotice.bo")
+	public String insertNotice(Board b, Model model, HttpSession session) {
+		
+		Member m = new Member();
+		
+		m = (Member) session.getAttribute("loginAdmin");
+		b.setUserName(m.getUserName());
+		b.setbMid(m.getMid());
+		
+		int result = bs.insertNotice(b);
+
+		return "redirect:noticeList.ad";
+	}
+	
+	@RequestMapping("deleteNotice.bo")
+	public String deleteNotice(@RequestParam(value="bidArr") String bidArr) {
+		String [] deleteNum = bidArr.split(",");
+		System.out.println("bidArr: "+bidArr);
+		
+		int result = bs.deleteNotice(deleteNum);
+		
+		return "redirect:noticeList.ad";
+	}
 }
