@@ -20,7 +20,7 @@
 		<div class="title"><h1>사이버머니</h1></div>
 		<br><br><br>
 		<tr>
-			<td>보유 금액 : <c:out value="${ sessionScope.loginUser.emoney } 원"/></td>
+			<td><h3><b>보유 금액 : <c:out value="${ sessionScope.loginUser.emoney } 원"/><b></h3></td>
 		</tr>
 		<br><br>
 		<tr>
@@ -36,7 +36,7 @@
 						<th style="width: 20% background-color:#eeeeee; text-align: center;">환급번호</th>
 						<th style="width: 5% background-color:#eeeeee; text-align: center;">환급날짜</th>
 						<th style="width: 5% background-color:#eeeeee; text-align: center;">금액</th>
-						<th style="width: 3% background-color:#eeeeee; text-align: center;">사용구분</th>
+						<!-- <th style="width: 3% background-color:#eeeeee; text-align: center;">사용구분</th> -->
 					</tr>
 				</thead>
 				<tbody>
@@ -45,7 +45,7 @@
 						<td>${e.payNo }</td>
 						<td>${e.useDay}</td>
 						<td>${e.money}</td>
-						<td>${e.useStatus}</td>
+						<%-- <td>${e.useStatus}</td> --%>
 					</tr>
 					</c:forEach>
 				</tbody>
@@ -58,7 +58,7 @@
 						<th style="width: 20% background-color:#eeeeee; text-align: center;">환급번호</th>
 						<th style="width: 5% background-color:#eeeeee; text-align: center;">환급날짜</th>
 						<th style="width: 5% background-color:#eeeeee; text-align: center;">금액</th>
-						<th style="width: 3% background-color:#eeeeee; text-align: center;">사용구분</th>
+						<!-- <th style="width: 3% background-color:#eeeeee; text-align: center;">사용구분</th> -->
 					</tr>
 				</thead>
 				<tbody>
