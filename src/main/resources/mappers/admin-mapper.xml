@@ -338,7 +338,10 @@
 		UPDATE EMONEYR SET USESTATUS = 'X' WHERE MEMBERNO = (SELECT MEMBERNO FROM MEMBER WHERE MEMBERID =  #{memberId}) AND USESTATUS = 'R'
 	</select>
 	
-	
+	<!-- 사이버머니 변경 -->
+	<!-- <select id="memberMoneyList" resultMap="adminResultSet">
+		UPDATE MEMBER SET EMONEY = #{eMoney} WHERE MEMBERID = #{memberId}
+	</select> -->
 	
 	
 </mapper>

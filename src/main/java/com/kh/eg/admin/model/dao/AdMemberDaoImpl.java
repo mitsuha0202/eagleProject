@@ -332,13 +332,9 @@ public class AdMemberDaoImpl implements AdMemberDao{
 		
 		list = (ArrayList)session.selectList("AdminVo.selectReturnList", null, rowBounds);
 		
-		if(list == null) {
-			throw new AdMemberselectException("반품 조회 실패!");
-		}
-		
 		return list;
 	}
-
+	
 	@Override
 	public int payBackY(SqlSessionTemplate session, String check) {
 		
@@ -371,6 +367,18 @@ public class AdMemberDaoImpl implements AdMemberDao{
 		int result = session.update("AdminVo.payBackX", memberId);
 		return result;
 	}
+
+	/*@Override
+	public int moneyChange(SqlSessionTemplate session, String memberId, String money) {
+		
+		Map<String, Object> map= new HashMap<String, Object>();
+		
+		map.put("memberId", memberId);
+		
+		int result = session.update("AdminVo.delcategory",memberId, money);
+		
+		return result;
+	}*/
 
 	
 
