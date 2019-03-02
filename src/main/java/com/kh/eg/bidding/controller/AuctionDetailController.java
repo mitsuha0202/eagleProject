@@ -319,4 +319,65 @@ private BiddingService bs;
 			return null;
 		}
 	}
+	
+	@RequestMapping("realTimeBid.bi")
+	public @ResponseBody int insertRealBid(@RequestParam(value="itemNo", required=false) String itemNo, @RequestParam(value="mNo", required=false) String mNo,
+											@RequestParam(value="price", required=false) String price, HttpServletRequest request, HttpServletResponse response) {
+		Bidding b = new Bidding();
+		int currentPrice = Integer.parseInt(price);
+		b.setItemNo(itemNo);
+		b.setMemberNo(mNo);
+		b.setCurrentPrice(currentPrice);
+		
+		int result = bs.insertRealBid(b);
+		
+		if(result > 0) {
+			return result;
+		}
+		else {
+			return 0;
+		}
+	}
+	
+	@RequestMapping("selectRealTime.bi")
+	public @ResponseBody ItemDetail selectRealTime(@RequestParam(value="itemNo", required=false) String itemNo, HttpServletRequest request, HttpServletResponse response) {
+		ItemDetail i = null;
+		
+		i = bs.selectRealTime(itemNo);
+		
+		
+		if(i != null) {
+			System.out.println(i.getStartDay());
+			System.out.println(i.getEndDay());
+			
+			String nowDay = i.getStartDay();
+			String endDay = i.getEndDay();
+			
+			SimpleDateFormat sft = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			
+			try {
+				Date nd = sft.parse(nowDay);
+				Date ed = sft.parse(endDay);
+				
+				long ndM = nd.getTime();
+				long edM = ed.getTime();
+				
+				System.out.println(ndM);
+				System.out.println(edM);
+				
+				long time = ndM - edM;
+				String remainTime = String.valueOf(time);
+				
+				System.out.println(remainTime);
+				
+				i.setStartDay(remainTime);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			return i;
+		}
+		else {
+			return null;
+		}
+	}
 }

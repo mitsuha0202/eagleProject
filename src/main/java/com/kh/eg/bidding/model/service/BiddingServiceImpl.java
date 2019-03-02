@@ -162,5 +162,21 @@ private SqlSessionTemplate sqlSession;
 		
 		return bdd;
 	}
+
+	@Override
+	public int insertRealBid(Bidding b) {
+		int result = bd.insertRealBid(sqlSession, b);
+		
+		return result;
+	}
+
+	@Override
+	public ItemDetail selectRealTime(String itemNo) {
+		ItemDetail i = null;
+		
+		i = bd.selectRealTime(sqlSession, itemNo);
+		
+		return i;
+	}
 	
 }

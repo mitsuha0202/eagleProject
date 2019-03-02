@@ -8,22 +8,24 @@ public class Bidding implements java.io.Serializable{
 	private String memberNo;
 	private int currentPrice;
 	private Date bidDate;
+	private String memberId;
 	
 	public Bidding() {}
 
 	@Override
 	public String toString() {
 		return "Bidding [bidNo=" + bidNo + ", itemNo=" + itemNo + ", memberNo=" + memberNo + ", currentPrice="
-				+ currentPrice + ", bidDate=" + bidDate + "]";
+				+ currentPrice + ", bidDate=" + bidDate + ", memberId=" + memberId + "]";
 	}
 
-	public Bidding(String bidNo, String itemNo, String memberNo, int currentPrice, Date bidDate) {
+	public Bidding(String bidNo, String itemNo, String memberNo, int currentPrice, Date bidDate, String memberId) {
 		super();
 		this.bidNo = bidNo;
 		this.itemNo = itemNo;
 		this.memberNo = memberNo;
 		this.currentPrice = currentPrice;
 		this.bidDate = bidDate;
+		this.memberId = memberId;
 	}
 
 	public String getBidNo() {
@@ -65,6 +67,15 @@ public class Bidding implements java.io.Serializable{
 	public void setBidDate(Date bidDate) {
 		this.bidDate = bidDate;
 	}
+
+	public String getMemberId() {
+		return memberId;
+	}
+
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
+	}
+
 	
 	
 }

@@ -45,6 +45,10 @@ public interface BiddingDao {
 
 	Bidding selectLuckyPrice(SqlSessionTemplate sqlSession, Bidding b);
 
+	int insertRealBid(SqlSessionTemplate sqlSession, Bidding b);
+
+	ItemDetail selectRealTime(SqlSessionTemplate sqlSession, String itemNo);
+
 
 
 

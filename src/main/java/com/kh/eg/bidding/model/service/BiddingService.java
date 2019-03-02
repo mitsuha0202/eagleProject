@@ -44,5 +44,9 @@ public interface BiddingService {
 
 	Bidding selectLuckyPrice(Bidding b);
 
+	int insertRealBid(Bidding b);
+
+	ItemDetail selectRealTime(String itemNo);
+
 
 }
