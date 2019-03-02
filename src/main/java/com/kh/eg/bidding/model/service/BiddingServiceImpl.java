@@ -153,5 +153,14 @@ private SqlSessionTemplate sqlSession;
 		
 		return bdd;
 	}
+
+	@Override
+	public Bidding selectLuckyPrice(Bidding b) {
+		Bidding bdd = null;
+		
+		bdd = bd.selectLuckyPrice(sqlSession, b);
+		
+		return bdd;
+	}
 	
 }

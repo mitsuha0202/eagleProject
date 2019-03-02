@@ -42,5 +42,7 @@ public interface BiddingService {
 
 	Bidding selectLuckyMno(Bidding b);
 
+	Bidding selectLuckyPrice(Bidding b);
+
 
 }

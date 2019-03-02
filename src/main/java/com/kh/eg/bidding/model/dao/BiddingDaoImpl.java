@@ -112,4 +112,10 @@ public class BiddingDaoImpl implements BiddingDao{
 
 		return sqlSession.selectOne("ItemDetails.selectLuckyMno", b);
 	}
+
+	@Override
+	public Bidding selectLuckyPrice(SqlSessionTemplate sqlSession, Bidding b) {
+
+		return sqlSession.selectOne("ItemDetails.selectLuckyPrice", b);
+	}
 }
