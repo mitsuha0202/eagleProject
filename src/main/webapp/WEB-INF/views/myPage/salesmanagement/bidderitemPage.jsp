@@ -208,7 +208,7 @@
    		 	}); 		 	
 		}
 		$(".noSale").click(function () {
-			var answer = confirm("구매거부하시겠습니까?");
+			var answer = confirm("판매거부하시겠습니까?");
 			if(answer == true){
 				noSale();
 			}

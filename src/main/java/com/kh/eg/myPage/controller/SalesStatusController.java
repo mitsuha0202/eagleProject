@@ -123,50 +123,121 @@ public class SalesStatusController {
 				
 			//구매현황상세페이지 - 판매 물품 거래 진행중 페이지 - 구매결정대기
 				@RequestMapping("purchasedecisionwaiting2.mp")
-				public String purchasedecisionwaitingPage2() {
+				public String purchasedecisionwaitingPage2(@RequestParam(defaultValue="1") int currentPage, HttpSession session, Model model, Member m) {
+					m = (Member)session.getAttribute("loginUser");
+					int listCount = ms.getSaleWaiting(m.getMid());
+					PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+					ArrayList<PayTable> list = ms.selectSaleWaitingList(pi, m.getMid());
+					
+					model.addAttribute("list", list);
+					model.addAttribute("pi", pi);
+					
 					return "myPage/salesmanagement/purchasedecisionwaitingPage2";
 				}
 				
 			//구매현황상세페이지 - 판매 물품 거래 진행중 페이지 - 수령이후/송금예정
 				@RequestMapping("afterreceipt2.mp")
-				public String afterreceiptPage2() {
+				public String afterreceiptPage2(@RequestParam(defaultValue="1") int currentPage, HttpSession session, Model model, Member m) {
+					m = (Member)session.getAttribute("loginUser");
+					int listCount = ms.getAfterReceipt2(m.getMid());
+					PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+					ArrayList<PayTable> list = ms.selectAfterReceipt2List(pi, m.getMid());
+					
+					model.addAttribute("list", list);
+					model.addAttribute("pi", pi);
+					
 					return "myPage/salesmanagement/afterreceiptPage2";
 				}
 				
 			//구매현황상세페이지 - 판매 물품 거래 진행중 페이지 - 거래완료 물품
 				@RequestMapping("transactioncomplete2.mp")
-				public String transactioncompletePage2() {
+				public String transactioncompletePage2(@RequestParam(defaultValue="1") int currentPage, HttpSession session, Model model, Member m) {
+					m = (Member)session.getAttribute("loginUser");
+					int listCount = ms.getTransactionSale(m.getMid());
+					PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+					ArrayList<PayTable> list = ms.selectTransactionSaleList(pi, m.getMid());
+					
+					model.addAttribute("list", list);
+					model.addAttribute("pi", pi);
+					
 					return "myPage/salesmanagement/transactioncompletePage2";
 				}	
 
 //-------------------------------------------구매거부/반품/미입금/판매거부/미수령신고 페이지----------------------------
 				//구매거부
 				@RequestMapping("salesother.mp")
-				public String salesotherPage() {
+				public String salesotherPage(@RequestParam(defaultValue="1") int currentPage, HttpSession session, Model model, Member m) {
+					m = (Member)session.getAttribute("loginUser");
+					int listCount = ms.getSaleOther(m.getMid());
+					PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+					ArrayList<PayTable> list = ms.selectSaleOtherList(pi, m.getMid());
+					
+					model.addAttribute("list", list);
+					model.addAttribute("pi", pi);
+					
 					return "myPage/salesmanagement/salesotherPage";
 				}
 				
 				//반품
 				@RequestMapping("return2.mp")
-				public String return2Page() {
+				public String return2Page(@RequestParam(defaultValue="1") int currentPage, HttpSession session, Model model, Member m) {
+					m = (Member)session.getAttribute("loginUser");
+					int listCount = ms.getReturnSale(m.getMid());
+					PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+					ArrayList<PayTable> list = ms.selectReturnSaleList(pi, m.getMid());
+					
+					model.addAttribute("list", list);
+					model.addAttribute("pi", pi);
 					return "myPage/salesmanagement/return2Page";
 				}
 				
 				//미입금
 				@RequestMapping("payment2.mp")
-				public String payment2Page() {
+				public String payment2Page(@RequestParam(defaultValue="1") int currentPage, HttpSession session, Model model, Member m) {
+					m = (Member)session.getAttribute("loginUser");
+					int listCount = ms.getPaymentSale(m.getMid());
+					PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+					ArrayList<PayTable> list = ms.selectPaymentSaleList(pi, m.getMid());
+					
+					model.addAttribute("list", list);
+					model.addAttribute("pi", pi);
+					
 					return "myPage/salesmanagement/payment2Page";
 				}
 				
 				//판매거부
 				@RequestMapping("refusetosell2.mp")
-				public String refusetosell2Page() {
+				public String refusetosell2Page(@RequestParam(defaultValue="1") int currentPage, @RequestParam(value="itemNo", required=false) String itemNo, @RequestParam(value="currentPrice", required=false) String currentPrice, HttpSession session, Model model, Member m) {
+					ArrayList<PayTable> list = null;
+					PageInfo pi = null;
+					m = (Member)session.getAttribute("loginUser");
+					
+					if(itemNo != null && !itemNo.equals("") && currentPrice != null && !currentPrice.equals("")) {
+						int listCount = ms.getRefuseToSell2(m.getMid(), itemNo, currentPrice);
+						pi = Pagination.getPageInfo(currentPage, listCount);			
+					}else {			
+						int listCount = ms.getRefuseToSell2NoParam(m.getMid());
+						pi = Pagination.getPageInfo(currentPage, listCount);
+					}
+					
+					list = ms.selectRefuseToSell2List(pi, m.getMid());
+					model.addAttribute("list", list);
+					model.addAttribute("pi", pi);
+					
 					return "myPage/salesmanagement/refusetosell2Page";
 				}
 				
 				//미수령신고
 				@RequestMapping("notreceving2.mp")
-				public String notrecevingPage() {
+				public String notrecevingPage(@RequestParam(defaultValue="1") int currentPage, HttpSession session, Model model, Member m) {
+					m = (Member)session.getAttribute("loginUser");
+					int listCount = ms.getNotReceving2(m.getMid());
+					PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+					ArrayList<PayTable> list = ms.selectNotReceiving2List(pi, m.getMid());
+					
+					model.addAttribute("list", list);
+					model.addAttribute("pi", pi);
+					
 					return "myPage/salesmanagement/notrecevingPage";
 				}
 				

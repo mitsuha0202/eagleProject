@@ -126,14 +126,10 @@ public interface MyPageDao {
 	ArrayList<PayTable> selectFalseBidList(SqlSessionTemplate sqlSession, PageInfo pi, String mid);
 
 	//입금요청 물품 목록 페이징
-	int getPayContinueList(SqlSessionTemplate sqlSession, String[] itemNo);
+	int getPayContinueList(SqlSessionTemplate sqlSession, String mid);
 
 	//입금요청 물품 리스트 조회
-	ArrayList<PayTable> selectPayContinueList(SqlSessionTemplate sqlSession, PageInfo pi, String mid, String[] itemNo, String[] curList);
-
-	int getPayContinueList2(SqlSessionTemplate sqlSession, String mid);
-	//입금요청 아이템번호 없을시
-	ArrayList<PayTable> selectPayContinueList2(SqlSessionTemplate sqlSession, PageInfo pi, String mid);
+	ArrayList<PayTable> selectPayContinueList(SqlSessionTemplate sqlSession, PageInfo pi, String mid);
 
 	//배송요청 페이징
 	int getDeliveryListCount(SqlSessionTemplate sqlSession, String mid);
@@ -242,4 +238,58 @@ public interface MyPageDao {
 
 	//판매관리 배송요청 목록 조회
 	ArrayList<PayTable> selectRequestDeliverySaleList(SqlSessionTemplate sqlSession, PageInfo pi, String mid);
+
+	//구매자가 winbid에 거래신청 insert
+	int insertDeal(SqlSessionTemplate sqlSession, String mid, String[] itemNo, String[] curList);
+
+	//판매관리 구매결정대기 페이징
+	int getSaleWaiting(SqlSessionTemplate sqlSession, String mid);
+
+	//판매관리 구매결정대기 목록 조회
+	ArrayList<PayTable> selectSaleWaitingList(SqlSessionTemplate sqlSession, PageInfo pi, String mid);
+
+	//판매관리 수령이후 송금 페이징
+	int getAfterReceipt2(SqlSessionTemplate sqlSession, String mid);
+
+	//판매관리 수령이후 송금 목록 조회
+	ArrayList<PayTable> selectAfterReceipt2List(SqlSessionTemplate sqlSession, PageInfo pi, String mid);
+
+	//판매관리 거래완료 페이징
+	int getTransactionSale(SqlSessionTemplate sqlSession, String mid);
+
+	//판매관리 거래완료 목록 조회
+	ArrayList<PayTable> selectTransactionSaleList(SqlSessionTemplate sqlSession, PageInfo pi, String mid);
+
+	//판매관리 구매거부 페이징
+	int getSaleOther(SqlSessionTemplate sqlSession, String mid);
+
+	//판매관리 구매거부 목록 조회
+	ArrayList<PayTable> selectSaleOtherList(SqlSessionTemplate sqlSession, PageInfo pi, String mid);
+
+	//판매관리 반품 페이징
+	int getReturnSale(SqlSessionTemplate sqlSession, String mid);
+
+	//판매관리 반품 목록 조회
+	ArrayList<PayTable> selectReturnSaleList(SqlSessionTemplate sqlSession, PageInfo pi, String mid);
+
+	//판매관리 미입금 페이징
+	int getPaymentSale(SqlSessionTemplate sqlSession, String mid);
+
+	//판매관리 미입금 목록 조회
+	ArrayList<PayTable> selectPaymentSaleList(SqlSessionTemplate sqlSession, PageInfo pi, String mid);
+
+	//판매관리 판매거부 insert 페이징
+	int getRefuseToSell2(SqlSessionTemplate sqlSession, String mid, String itemNo, String currentPrice);
+
+	//판매관리 판매거부 페이징
+	int getRefuseToSell2NoParam(SqlSessionTemplate sqlSession, String mid);
+
+	//판매관리 판매거부 목록 조회
+	ArrayList<PayTable> selectRefuseToSell2List(SqlSessionTemplate sqlSession, PageInfo pi, String mid);
+
+	//판매관리 미수령 신고 페이징
+	int getNotReceiving2(SqlSessionTemplate sqlSession, String mid);
+
+	//판매관리 미수령 신고 목록 조회
+	ArrayList<PayTable> selectNotReceiving2List(SqlSessionTemplate sqlSession, PageInfo pi, String mid);
 }
