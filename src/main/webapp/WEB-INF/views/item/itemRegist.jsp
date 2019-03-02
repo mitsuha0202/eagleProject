@@ -103,7 +103,7 @@ display :none;
 					<tr>
 						<td class="cateName">
 							${c.categoryName}
-							<input type="hidden"  value="${c.categoryNo}">
+							<input type="hidden" value="${c.categoryNo}">
 						</td>
 					</tr>
 				</c:forEach>
@@ -111,36 +111,23 @@ display :none;
 				</table>
 				 <input type="hidden" name="categoryNo" id="categoryNo"> 
 				
-				
-				
 			</div>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<div id="subCate" class="scroll">
 				-선택하세요- 
-				 <!-- 해당 카테고리 레벨 0 을 찍으면 -- 해당 카테고리에 레벨1 목록을 보여줌 -->
-				<!--  카테고리 no->1은  8,9
-				upper 카테고리 no->2는 10,11
-				upper 카테고리 no->3는 12,13,14
-				upper카테고리 no->4는 15,16
-				upper 카테고리 no->5는 17,18,19
-				upper 카테고리 no->6은 20,21,22
-			    upper 카테고리 no->7은 23,24 -->
+			    
 				<table class="middleCate">
-		<!-- 	<input type="hidden" name="middleCode" value=""> 
-              <input type="hidden" name="middleName" value=""> -->
-              <%-- <c:forEach var="c" items="${category}">  
-					<tr>
-						<td class="middleCateName">${c.categoryName}<input type="hidden" value="${c.categoryNo}"></td>
-					</tr>
-				</c:forEach> --%>
-				<%-- <tr>
-					<td class="middleTd">
-						<input type="hidden" name="categoryNo" value="${c.categoryNo}">
-					</td>
-				</tr> --%>
 				
+				
+ 				<%-- 	<c:forEach var="c" items="${category}">  
+					<tr>
+						<td class="middleTd">
+						<input type="hidden" value="${c.categoryNo}" >
+						</td>
+					</tr>
+					</c:forEach> --%>
 				</table>
-				<input type="hidden" name="categoryNo2" id="middleCategoryNo">
+				 <input type="hidden" name="categoryNo2" id="categoryNo2">
 				</div>
 			
 			<hr>
@@ -201,23 +188,23 @@ display :none;
 				<tr>
 					<td >
 					<span class="layer2">시작가</span> 
-					<span class="layer">행운경매 시작가</span> 
+					<span class="layer">시작가 범위</span> 
 					</td>
 					
 					<td>
 					<input type="text" name="startPrice" class="layer2">
-					<input type="text" name="luckyPrice" class="layer">
+					<input type="text" name="luckyPrice1" class="layer">
 					</td>
 				
 				</tr>
 				<tr>
 					<td>
 					<span class="layer2">입찰단위</span>
-					<span class="layer">행운경매 범위</span>
+					<span class="layer">최고가 범위</span>
 					</td>
 					<td>
 					<input type="text" name="bidUnit" class="layer2">
-					<input type="text" name="luckyPrice" class="layer">
+					<input type="text" name="luckyPrice2" class="layer">
 					</td>
 				</tr>
 				<tr>
@@ -270,6 +257,8 @@ display :none;
 	<script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script type="text/javascript">
+	
+	
 	
 	$("#selectBox").change(function() {
 		
@@ -338,7 +327,7 @@ display :none;
 		var cateCode = $(this).children().val();
 		$("#spath").text($(this).text());
 		var abc=$("#categoryNo").val(cateCode);
-	console.log(cateCode);
+		console.log(cateCode);
 		var cateNo= cateCode;
 		 
 	 	  $.ajax({
@@ -352,27 +341,41 @@ display :none;
 					
 					var $div=$("#subCate");
 					var $table =$("<table class='middleCate'>")
-					var $tr1 =$("<tr>")
+					var $tr1 =$("<tr>");
 					var $td1 =$("<td class='middleTd'>");
-					var $input = $("<input type='hidden'  value='"+ data[key].categoryNo +"'>");					
+					var $input = $("<input type='hidden' name='categoryNo2' value='"+ data[key].categoryNo +"'>");
+				
 					 if(cateNo==data[key].upperCategoryNo) {
 					 	$td1.text(data[key].categoryName);
 					 	$td1.append($input);
-						$tr1.append($td1);				
+					 	
+						$tr1.append($td1);
+						
 						$table.append($tr1);
+						
 						$div.append($table);
 						$(".cateName").click(function() {
 							$("#spath2").html('');
+							
 						});		
 					 }		
 				}
 				$(".middleTd").click(function(){
 					var middle=$("#spath2").text($(this).text());
 				 	var cateCode2=$(this).children().val();
-				 	console.log(cateCode2);
-				 	var cateNo2=cateCode2
-					console.log(cateNo2); 
-					
+				 	var cateNo2=cateCode2;
+				 	/* var abc=$("input[name='categoryNo2']").val(cateNo2);
+				 	console.log("ddd"+abc); */
+					console.log(cateNo2);
+				 	var aaa=$('input[name=categoryNo2]').attr('value',cateNo2);
+				 	console.log(aaa);
+				 	var mcc = aaa.split(',');
+				 	var n = mcc[0];
+				 	console.log(n);
+				 /* 	$("#categoryNo2").val()=cateNo2; */
+				 
+				 	/* location.href="insertItem.it?categoryNo2=" + cateNo2; */
+				 	
 				});
 				
 				
@@ -384,40 +387,7 @@ display :none;
 
 	});
 	
-	
 
-	
-	/*  $(function(){ 
-		$(".bigCate").click(function(){ 
-			var $middleCate = $("#middleCate"); 
-			$middleCate.html(''); 
-			var bigCode = $(".bigCode").val();
-			var size = $(this).children("input[name=middleName]").length; 
-			for(var i = 0; i < size; i++){ 
-				var $tr = $("<tr>"); 
-				var $td = $("<td>"); 
-				var $span = $("<span class='middleCate'>"); 
-				var middleName = $(this).children("input[name=middleName]").eq(i).attr("value"); 
-				var middleCode = $(this).children("input[name=middleCode]").eq(i).attr("value"); 
-				var $input = $("<input type='hidden' name='code' value='" + middleCode + "'>"); 
-				var $br = $("<br>"); 
-				$span.text(middleName); 
-				$td.append($span); 
-				$td.append($input); 
-				$tr.append($td);
-				$tr.append($br); 
-				$middleCate.append($tr); 
-			} 
-			$(".middleCate").click(function(){ 
-				$(".middleCate").css({"background":"white"});
-				$(this).css({"background":"lightgray"}); 
-				cateCode1 = $(this).siblings("input[name='code']").val(); 
-				$("input[name='categoryCode']").val(cateCode1); 
-			   		}); 
-				    	}); 
-				   }); 
-				
-				 */
 				
 				
 				 

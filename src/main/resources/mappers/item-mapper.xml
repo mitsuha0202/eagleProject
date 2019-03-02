@@ -85,7 +85,7 @@
 	<insert id="insertItem" >
 	INSERT INTO AuctionItem
 	VALUES(#{item.itemNo},#{item.itemName},#{item.startPrice},#{item.bidUnit},
-	#{item.deliveryPay},#{item.origin}, 'N' ,#{item.categoryNo},#{item.mid}, #{item.auctionCode} ,#{item.detail},#{item.deliveryPrice},'0',null)
+	#{item.deliveryPay},#{item.origin}, 'N' ,#{item.categoryNo},#{item.mid}, #{item.auctionCode} ,#{item.detail},#{item.deliveryPrice},'0',#{item.lucky})
 	</insert>
 	<insert id="insertAttachment">
 	INSERT INTO ATTACHMENT VALUES(AN_SEQ.NEXTVAL, #{attachment.originName},#{attachment.changeName},

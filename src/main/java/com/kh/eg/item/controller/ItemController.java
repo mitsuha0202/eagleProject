@@ -68,7 +68,7 @@ public class ItemController {
 	
 	@RequestMapping("insertItem.it")
 	public @ResponseBody String insertItem(Item it,Model model,HttpServletRequest request,HttpServletResponse response, @RequestParam(value="photo",required=false)MultipartFile photo,
-			@RequestParam(value="categoryNo") String cateNo) {
+			@RequestParam(value="categoryNo" ,required=false) String cateNo,@RequestParam(value="categoryNo2") String cateNo2) {
 		
 		
 		System.out.println("item : " +it );
@@ -84,8 +84,13 @@ public class ItemController {
 		//String categoryNo=request.getParameter("categoryNo");
 		
 		Category category=new Category();
-		category.setCategoryNo(cateNo);
-		it.setCategoryNo(cateNo);
+	
+		String[] ccc = cateNo2.split(",");
+		System.out.println(ccc[0]);
+		category.setCategoryNo(ccc[0]);
+		it.setCategoryNo(ccc[0]);
+		category.setUpperCategoryNo(cateNo);
+		System.out.println("cateNo2231213123123:"+cateNo2);
 		System.out.println("cateNo1!!!!! : "+cateNo);
 		
 		java.sql.Date day=null;
@@ -146,7 +151,28 @@ public class ItemController {
 		
 		
 		Item item=new Item();
-		item.setAuctionCode(request.getParameter("auctionCode"));
+		it.setAuctionCode(request.getParameter("auctionCode"));
+		String luckyPrice1=(request.getParameter("luckyPrice1"));
+		String luckyPrice2=(request.getParameter("luckyPrice2"));
+		
+		System.out.println("luckyPrice1:asdfasdfasdf  "+luckyPrice1);
+		System.out.println("luckyPrice2:asdfasdf" +luckyPrice2);
+		
+		if(it.getAuctionCode().equals("AC002")) {
+			
+			it.setBidUnit(luckyPrice2);
+			it.setStartPrice(luckyPrice1);
+			
+			int bidUnit1 = Integer.parseInt(it.getBidUnit());
+			int startPrice1=Integer.parseInt(it.getStartPrice());
+			int random=(int)(Math.random()*(bidUnit1-startPrice1+1)+startPrice1);
+			it.setLucky(random);
+			
+		}else {
+			it.setLucky(0);
+		}
+		
+		
 		System.out.println(item.getAuctionCode());
 		
 		
@@ -157,7 +183,6 @@ public class ItemController {
 		hmap.put("auctionDetail",auctionD);
 		hmap.put("category",category);
 		System.out.println(auctionD);
-		
 		
 		try {
 			photo.transferTo(new File(filePath+"\\" +changeName+ext));
