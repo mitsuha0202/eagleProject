@@ -15,6 +15,7 @@ import com.kh.eg.member.model.vo.Member;
 import com.kh.eg.myPage.common.Ascending;
 import com.kh.eg.myPage.model.vo.AnswerBoard;
 import com.kh.eg.myPage.model.vo.Maccount;
+import com.kh.eg.myPage.model.vo.MainList;
 import com.kh.eg.myPage.model.vo.MyPageBoard;
 import com.kh.eg.myPage.model.vo.PageInfo;
 import com.kh.eg.myPage.model.vo.PayTable;
@@ -472,11 +473,15 @@ public class MyPageDaoImpl implements MyPageDao{
 			PayTable payTable = (PayTable)sqlSession.selectOne("MyPage.selectSaleMemberNo", map);
 			map.put("saleMemberNo", payTable.getMemberNo());
 			map.put("price", curList[i]);
-			
-			result1 = sqlSession.insert("MyPage.winBidInsert", map);
-			WinBid winBid = sqlSession.selectOne("MyPage.winBidSelect", map);
-			map.put("dealNo", winBid.getDealNo());
-			result2 = sqlSession.insert("MyPage.winBidDetailInsert", map);
+			int temp = sqlSession.selectOne("MyPage.selectWinBid", map);
+			if(temp > 0) {
+				continue;
+			}else {
+				result1 = sqlSession.insert("MyPage.winBidInsert", map);
+				WinBid winBid = sqlSession.selectOne("MyPage.winBidSelect", map);
+				map.put("dealNo", winBid.getDealNo());
+				result2 = sqlSession.insert("MyPage.winBidDetailInsert", map);
+			}
 		}
 		
 		if(result1 > 0 && result2 > 0) {
@@ -1091,6 +1096,18 @@ public class MyPageDaoImpl implements MyPageDao{
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 		
 		return (ArrayList)sqlSession.selectList("MyPage.selectNotReceiving2List", mid, rowBounds);
+	}
+
+	//마이페이지 메인 리스트 
+	@Override
+	public ArrayList<MainList> getList(SqlSessionTemplate sqlSession, String mid) {
+		ArrayList<MainList> list = (ArrayList)sqlSession.selectList("MyPage.geSaletList", mid);
+		if(!list.isEmpty()) {
+			return list;
+		}else {
+			list = (ArrayList)sqlSession.selectList("MyPage.PayGetList", mid);
+			return list;
+		}
 	}
 
 }

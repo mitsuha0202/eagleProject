@@ -12,6 +12,7 @@ import com.kh.eg.member.model.vo.Member;
 import com.kh.eg.myPage.model.dao.MyPageDao;
 import com.kh.eg.myPage.model.vo.AnswerBoard;
 import com.kh.eg.myPage.model.vo.Maccount;
+import com.kh.eg.myPage.model.vo.MainList;
 import com.kh.eg.myPage.model.vo.MyPageBoard;
 import com.kh.eg.myPage.model.vo.PageInfo;
 import com.kh.eg.myPage.model.vo.PayTable;
@@ -678,6 +679,13 @@ public class MyPageServiceImpl implements MyPageService{
 	public ArrayList<PayTable> selectNotReceiving2List(PageInfo pi, String mid) {
 
 		return md.selectNotReceiving2List(sqlSession, pi, mid);
+	}
+
+	//마이페이지 메인에 띄울 리스트
+	@Override
+	public ArrayList<MainList> getList(String mid) {
+
+		return md.getList(sqlSession, mid);
 	}
 	
 }

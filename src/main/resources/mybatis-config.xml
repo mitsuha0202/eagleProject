@@ -6,12 +6,17 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.kh.eg.member.model.vo.Member" alias="Member"/>
+		
+		<!-- myPage -->
 		<typeAlias type="com.kh.eg.myPage.model.vo.MyPageBoard" alias="MyPageBoard"/>
 		<typeAlias type="com.kh.eg.myPage.model.vo.RatingMyPage" alias="RatingMyPage"/>
 		<typeAlias type="com.kh.eg.myPage.model.vo.WishList" alias="WishList"/>
 		<typeAlias type="com.kh.eg.myPage.model.vo.Maccount" alias="Maccount"/>
 		<typeAlias type="com.kh.eg.myPage.model.vo.PayTable" alias="PayTable"/>
 		<typeAlias type="com.kh.eg.myPage.model.vo.WinBid" alias="WinBid"/>
+		<typeAlias type="com.kh.eg.myPage.model.vo.MainList" alias="MainList"/>
+		<!-- myPage -->
+		
 		<typeAlias type="com.kh.eg.item.model.vo.Item" alias="Item"/>
 		<typeAlias type="com.kh.eg.myPage.model.vo.AnswerBoard" alias="AnswerBoard"/>
 		<typeAlias type="com.kh.eg.attachment.model.vo.Attachment" alias="Attachment"/>

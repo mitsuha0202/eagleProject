@@ -146,6 +146,8 @@ public class StatusController {
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
 		
+		System.out.println("list: " + list);
+		
 		return "myPage/management/purchaseendPage";
 	}
 	
