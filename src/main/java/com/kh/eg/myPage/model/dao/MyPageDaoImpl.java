@@ -1110,4 +1110,81 @@ public class MyPageDaoImpl implements MyPageDao{
 		}
 	}
 
+	//판매관리 배송중 페이징
+	@Override
+	public int getShippingSale(SqlSessionTemplate sqlSession, String mid, String itemNo, String currentPrice) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		
+		map.put("mid", mid);
+		map.put("itemNo", itemNo);
+		map.put("price", currentPrice);
+		
+		WinBid winBid = sqlSession.selectOne("MyPage.searchDealNo", map);
+		map.put("dealNo", winBid.getDealNo());
+		
+		int result = sqlSession.update("MyPage.shippingUpdate", map);
+		
+		int count = 0;
+		
+		if(result > 0) {
+			count = sqlSession.selectOne("MyPage.getShippingSale", map);
+		}
+		
+		return count;
+	}
+
+	//판매관리 배송중 페이징
+	@Override
+	public int getShippingSaleNoParam(SqlSessionTemplate sqlSession, String mid) {
+
+		return sqlSession.selectOne("MyPage.getShippingSale", mid);
+	}
+
+	//판매관리 배송중 목록 조회
+	@Override
+	public ArrayList<PayTable> selectShippingSaleList(SqlSessionTemplate sqlSession, PageInfo pi, String mid) {
+		int offset = (pi.getCurrentPage()  - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		return (ArrayList)sqlSession.selectList("MyPage.selectShippingSaleList", mid, rowBounds);
+	}
+
+	//구매관리 구매확정 페이징
+	@Override
+	public int getAfterReceipt(SqlSessionTemplate sqlSession, String mid, String itemNo) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		
+		map.put("mid", mid);
+		map.put("itemNo", itemNo);
+		
+		WinBid winBid = sqlSession.selectOne("MyPage.searchDealNo", map);
+		map.put("dealNo", winBid.getDealNo());
+		
+		int result = sqlSession.update("MyPage.afterReceiptUpdate", map);
+		
+		int count = 0;
+		
+		if(result > 0) {
+			count = sqlSession.selectOne("MyPage.getAfterReceipt", map);
+		}
+		
+		return count;
+	}
+
+	//구매관리 구매확정 페이징
+	@Override
+	public int getAfterReceiptNoParam(SqlSessionTemplate sqlSession, String mid) {
+
+		return sqlSession.selectOne("MyPage.getAfterReceipt", mid);
+	}
+
+	//구매관리 구매확정 목록 조회
+	@Override
+	public ArrayList<PayTable> selectAfterReceiptList(SqlSessionTemplate sqlSession, PageInfo pi, String mid) {
+		int offset = (pi.getCurrentPage()  - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		return (ArrayList)sqlSession.selectList("MyPage.selectAfterReceiptList", mid, rowBounds);
+	}
+
 }

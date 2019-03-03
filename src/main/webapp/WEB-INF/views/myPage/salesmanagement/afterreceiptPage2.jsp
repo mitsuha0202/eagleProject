@@ -126,7 +126,6 @@
         <c:if test="${ !empty list }">
 	      <c:forEach var="b" items="${ list }">
 	            <tr>
-	               <td><input type="radio" class="checkChild" name="gender"></td> 
 	               <td>${ b.itemNo }</td>
 	               <td>${ b.itemName }</td>
 	               <td>${ b.currentPrice }</td>

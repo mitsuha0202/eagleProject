@@ -32,6 +32,7 @@ public class SalesStatusController {
 			int listCount = ms.getSaleStatus(m.getMid());
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 			ArrayList<PayTable> list = ms.selectSaleStatusList(pi, m.getMid());
+
 			model.addAttribute("list", list);
 			model.addAttribute("pi", pi);
 			return "myPage/salesmanagement/salesstatusMainPage";
@@ -46,6 +47,7 @@ public class SalesStatusController {
 			int listCount = ms.getEndOfSale(m.getMid());
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 			ArrayList<PayTable> list = ms.selectEndOfSaleList(pi, m.getMid());
+
 			model.addAttribute("list", list);
 			model.addAttribute("pi", pi);
 			return "myPage/salesmanagement/endofsalePage";
@@ -57,6 +59,7 @@ public class SalesStatusController {
 			int listCount = ms.getBidderItem(m.getMid());
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 			ArrayList<PayTable> list = ms.selectBidderItemList(pi, m.getMid());
+
 			model.addAttribute("list", list);
 			model.addAttribute("pi", pi);
 			return "myPage/salesmanagement/bidderitemPage";
@@ -72,6 +75,7 @@ public class SalesStatusController {
 					m = (Member)session.getAttribute("loginUser");
 					
 					if(itemNo != null && !itemNo.equals("") && currentPrice != null && !currentPrice.equals("")) {
+						itemNo = itemNo.substring(0, itemNo.length()-1);
 						int listCount = ms.getSalesItemProgress(m.getMid(), itemNo, currentPrice);
 						pi = Pagination.getPageInfo(currentPage, listCount);			
 					}else {			
@@ -108,14 +112,15 @@ public class SalesStatusController {
 					m = (Member)session.getAttribute("loginUser");
 					
 					if(itemNo != null && !itemNo.equals("") && currentPrice != null && !currentPrice.equals("")) {
-						int listCount = ms.getSalesItemProgress(m.getMid(), itemNo, currentPrice);
+						itemNo = itemNo.substring(0, itemNo.length()-1);
+						int listCount = ms.getShippingSale(m.getMid(), itemNo, currentPrice);
 						pi = Pagination.getPageInfo(currentPage, listCount);			
 					}else {			
-						int listCount = ms.getSalesItemProgressNoParam(m.getMid());
+						int listCount = ms.getShippingSaleNoParam(m.getMid());
 						pi = Pagination.getPageInfo(currentPage, listCount);
 					}
 					
-					list = ms.selectSalesItemProgressList(pi, m.getMid());
+					list = ms.selectShippingSaleList(pi, m.getMid());
 					model.addAttribute("list", list);
 					model.addAttribute("pi", pi);
 					return "myPage/salesmanagement/shippingPage2";

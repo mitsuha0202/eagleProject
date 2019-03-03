@@ -296,4 +296,22 @@ public interface MyPageDao {
 
 	//마이페이지 메인 리스트 
 	ArrayList<MainList> getList(SqlSessionTemplate sqlSession, String mid);
+
+	//판매관리 배송중 페이징
+	int getShippingSale(SqlSessionTemplate sqlSession, String mid, String itemNo, String currentPrice);
+
+	//판매관리 배송중 페이징
+	int getShippingSaleNoParam(SqlSessionTemplate sqlSession, String mid);
+
+	//판매관리 배송중 목록 조회
+	ArrayList<PayTable> selectShippingSaleList(SqlSessionTemplate sqlSession, PageInfo pi, String mid);
+
+	//구매관리 구매확정 페이징
+	int getAfterReceipt(SqlSessionTemplate sqlSession, String mid, String itemNo);
+
+	//구매관리 구매확정 페이징
+	int getAfterReceiptNoParam(SqlSessionTemplate sqlSession, String mid);
+
+	//구매관리 구매확정 목록 조회
+	ArrayList<PayTable> selectAfterReceiptList(SqlSessionTemplate sqlSession, PageInfo pi, String mid);
 }

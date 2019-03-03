@@ -687,5 +687,47 @@ public class MyPageServiceImpl implements MyPageService{
 
 		return md.getList(sqlSession, mid);
 	}
+
+	//판매관리 배송중 페이징
+	@Override
+	public int getShippingSale(String mid, String itemNo, String currentPrice) {
+
+		return md.getShippingSale(sqlSession, mid, itemNo, currentPrice);
+	}
+
+	//판매관리 배송중 페이징
+	@Override
+	public int getShippingSaleNoParam(String mid) {
+
+		return md.getShippingSaleNoParam(sqlSession, mid);
+	}
+
+	//판매관리 배송중 목록 조회
+	@Override
+	public ArrayList<PayTable> selectShippingSaleList(PageInfo pi, String mid) {
+
+		return md.selectShippingSaleList(sqlSession, pi, mid);
+	}
+
+	//구매관리 구매확정 페이징
+	@Override
+	public int getAfterReceipt(String mid, String itemNo) {
+
+		return md.getAfterReceipt(sqlSession, mid, itemNo);
+	}
+
+	//구매관리 구매확정 페이징
+	@Override
+	public int getAfterReceiptNoParam(String mid) {
+
+		return md.getAfterReceiptNoParam(sqlSession, mid);
+	}
+
+	//구매관리 구매확정 목록 조회
+	@Override
+	public ArrayList<PayTable> selectAfterReceiptList(PageInfo pi, String mid) {
+
+		return md.selectAfterReceiptList(sqlSession, pi, mid);
+	}
 	
 }

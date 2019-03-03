@@ -118,7 +118,7 @@
 	               <td>${ b.itemName }</td>
 	               <td>${ b.currentPrice }</td>
 	               <td>${ b.bidCount }</td>
-	               <td>$ {b.startDay }</td>
+	               <td>${ b.startDay }</td>
 				   <td>${ b.endDay }</td>
 	               <c:if test="${ b.endYn eq 'Y'}">
                   <td><h5>경매종료</h5></td>

@@ -139,7 +139,7 @@
         </c:if>
         <c:if test="${ empty list }">
         	 <tr>
-	          <td colspan="8"><h5>검색된 내용이 없습니다.</h5></td>	      
+	          <td colspan="6"><h5>검색된 내용이 없습니다.</h5></td>	      
         	</tr>
         </c:if>        
         
@@ -223,6 +223,7 @@
    	            var docNum = td.eq(1).text();
    	            sendArr.push(docNum);
  				location.href="purchaseitemdeal.mp?itemNo=" + sendArr +",";
+   		 });
 		}
 	</script>
 </body>

@@ -405,7 +405,7 @@
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script>
-		$(function() {
+		$(function() {			
 			var userId = $("#userMid").val();
 			$.ajax({
 				url:"countMessage.mp",
@@ -428,8 +428,9 @@
 				type:"get",
 				data:{userId:userId},
 				success:function(data){
-					console.log(data);
+
 					for(var i in data){
+						console.log(i);
 						if(userId == i.payNo){
 							if(i.orderM == "입금요청"){
 								$(".moneyOrder").text("1");
@@ -447,28 +448,28 @@
 								$(".noReceiveItem").text("1");
 							}else if(i.orderM == "미입금"){
 								$(".noReceiveMoney").text("1");
-							}else if(i.orderM == "미입금"){
+							}else if(i.orderM == "판매거부"){
 								$(".saleNo").text("1");
 							}
 						}else {
 							if(i.orderM == "입금요청"){
-								$(".moneyOrder").text("1");
+								$(".moneyOrder2").text("1");
 							}else if(i.orderM == "배송요청"){
-								$(".deliveryOrder").text("1");
+								$(".deliveryOrder2").text("1");
 							}else if(i.orderM == "배송중"){
-								$(".delivery").text("1");
+								$(".delivery2").text("1");
 							}else if(i.orderM == "구매결정대기"){
-								$(".payStand").text("1");
+								$(".payStand2").text("1");
 							}else if(i.orderM == "구매거부"){
-								$(".payNo").text("1");
+								$(".payNo2").text("1");
 							}else if(i.orderM == "반품"){
-								$(".returnItem").text("1");
+								$(".returnItem2").text("1");
 							}else if(i.orderM == "미수령"){
-								$(".noReceiveItem").text("1");
+								$(".noReceiveItem2").text("1");
 							}else if(i.orderM == "미입금"){
-								$(".noReceiveMoney").text("1");
-							}else if(i.orderM == "미입금"){
-								$(".saleNo").text("1");
+								$(".noReceiveMoney2").text("1");
+							}else if(i.orderM == "판매거부"){
+								$(".saleNo2").text("1");
 							}
 						}
 					}

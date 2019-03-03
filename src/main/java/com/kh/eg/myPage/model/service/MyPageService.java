@@ -297,4 +297,22 @@ public interface MyPageService {
 	//마이페이지 메인에 부를 리스트
 	ArrayList<MainList> getList(String mid);
 
+	//판매관리 배송중 페이징
+	int getShippingSale(String mid, String itemNo, String currentPrice);
+
+	//판매관리 배송중 페이징 
+	int getShippingSaleNoParam(String mid);
+
+	//판매관리 배송중 목록 조회
+	ArrayList<PayTable> selectShippingSaleList(PageInfo pi, String mid);
+
+	//구매관리 구매확정 페이징
+	int getAfterReceipt(String mid, String itemNo);
+
+	//구매관리 구매확정 페이징
+	int getAfterReceiptNoParam(String mid);
+
+	//구매관리 구매확정 목록 조회
+	ArrayList<PayTable> selectAfterReceiptList(PageInfo pi, String mid);
+
 }
