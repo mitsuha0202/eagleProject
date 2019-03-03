@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,8 +25,10 @@ import com.kh.eg.myPage.common.Pagination;
 import com.kh.eg.myPage.model.service.MyPageService;
 import com.kh.eg.myPage.model.vo.AnswerBoard;
 import com.kh.eg.myPage.model.vo.Maccount;
+import com.kh.eg.myPage.model.vo.MainList;
 import com.kh.eg.myPage.model.vo.MyPageBoard;
 import com.kh.eg.myPage.model.vo.PageInfo;
+import com.kh.eg.myPage.model.vo.PayTable;
 import com.kh.eg.myPage.model.vo.RatingMyPage;
 import com.kh.eg.myPage.model.vo.SearchCondition;
 import com.kh.eg.myPage.model.vo.WishList;
@@ -559,6 +562,13 @@ import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 				model.addAttribute("msg","검색결과 조회 실패!");
 				return "common/errorPage";
 			}
+		}
+		
+		@RequestMapping("getList.mp")
+		public @ResponseBody ArrayList<MainList> getList(@RequestParam(value="userId") String mid) {
+			ArrayList<MainList> list = ms.getList(mid);
+			
+			return list;
 		}
 		
 	}

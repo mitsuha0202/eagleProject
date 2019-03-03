@@ -119,7 +119,12 @@
           <th class="firstTd">물품명</th>     
           <th class="firstTd">낙찰가</th>
           <th class="firstTd">마감일</th>
-          <th class="firstTd">판매자</th>
+          <th class="firstTd">판매자</th>    
+          <c:forEach var="b" items="${ list }">
+          <c:if test="${ '거래신청' eq b.orderM }">
+          	<th class="firstTd">거래신청유무</th>
+          </c:if>
+          </c:forEach>
           
         </tr>
       </thead>
@@ -133,7 +138,10 @@
 	               <td>${ b.itemName }</td>
 	               <td>${ b.currentPrice }</td>
 				   <td>${ b.endDay }</td>
-	               <td>${ b.saleMemberName }</td>                            
+	               <td>${ b.saleMemberName }</td>      
+	               <c:if test="${  b.orderM eq '거래신청' }">
+	               	<td>Y</td>
+	               </c:if>                      
 	            </tr>
 	         </c:forEach>
         </c:if>
@@ -197,11 +205,10 @@
 		<h4 class="tutorialIcon1" onclick="egAuctionInfo.mp">사이트이용안내</h4>
 		<i class="dollar sign icon" id="accountInfo"></i>
 		<h4 class="tutorialIcon2">자주묻는 질문</h4>		
-	</div>
+	</div> 
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script>
-		
 		function itemNo() {
    			var sendArr = new Array();
    			var sendCur = new Array();

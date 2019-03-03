@@ -6,6 +6,7 @@ import java.util.HashMap;
 import com.kh.eg.member.model.vo.Member;
 import com.kh.eg.myPage.model.vo.AnswerBoard;
 import com.kh.eg.myPage.model.vo.Maccount;
+import com.kh.eg.myPage.model.vo.MainList;
 import com.kh.eg.myPage.model.vo.MyPageBoard;
 import com.kh.eg.myPage.model.vo.PageInfo;
 import com.kh.eg.myPage.model.vo.PayTable;
@@ -292,5 +293,8 @@ public interface MyPageService {
 
 	//판매관리 미수령 신고 목록 조회
 	ArrayList<PayTable> selectNotReceiving2List(PageInfo pi, String mid);
+
+	//마이페이지 메인에 부를 리스트
+	ArrayList<MainList> getList(String mid);
 
 }

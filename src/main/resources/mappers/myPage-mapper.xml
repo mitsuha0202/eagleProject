@@ -79,13 +79,21 @@
 		<result property="memberName" column="MEMBERNAME"/>
 		<result property="currentPrice" column="CURRENTPRICE"/>
 		<result property="rowBid" column="RANKING"/>
-		<result property="saleMemberName" column="MEMBERNAME"/>
+		<result property="saleMemberName" column="SMEMBERNAME"/>
 		<result property="startDay" column="STARTDAY"/>
 		<result property="endDay" column="ENDDAY"/>
 		<result property="deliveryPay" column="DELIVERYPAY"/>
 		<result property="auctioncode" column="AUCTIONCODE"/>
 		<result property="endYn" column="EXITYN"/>
 		<result property="orderM" column="ORDERM"/> 
+  	</resultMap>
+  	
+  	<!-- 마이페이지 메인에 뿌릴 리스트 -->
+  	<resultMap type="com.kh.eg.myPage.model.vo.MainList" id="mainListResultSet">
+  		<id property="dealNo" column="DEALNO"/>
+  		<result property="payNo" column="PAYNO"/>
+  		<result property="saleNo" column="SALENO"/>
+  		<result property="orderM" column="ORDERM"/>
   	</resultMap>
   	
   	<!-- 회원등급 페이지 -->
@@ -398,13 +406,14 @@
 	</select>
 	
 	<select id="selectWinBidList" resultMap="payTableResultSet" parameterType="java.lang.String">
-		SELECT I.ITEMNO, I.ITEMNAME, B.BIDNO, B.CURRENTPRICE, TO_CHAR(A.ENDDAY,'YYYY/MM/DD HH24:MI:SS') AS ENDDAY, I.AUCTIONCODE, M.MEMBERNAME, I.DELIVERYPAY, A.EXITYN
+		SELECT I.ITEMNO, I.ITEMNAME, B.BIDNO, B.CURRENTPRICE, TO_CHAR(A.ENDDAY,'YYYY/MM/DD HH24:MI:SS') AS ENDDAY, I.AUCTIONCODE, M.MEMBERNAME AS SMEMBERNAME, I.DELIVERYPAY, A.EXITYN, D.ORDERM
 		FROM BID B
 		JOIN AUCTIONITEM I ON(B.ITEMNO = I.ITEMNO)
 		JOIN MEMBER M ON(I.MEMBERNO = M.MEMBERNO)
 		JOIN AUCTIONDETAIL A ON(B.ITEMNO = A.ITEMNO)
+        JOIN WINBID W ON(I.ITEMNO = W.ITEMNO)
+        JOIN WINBIDDETAIL D ON(W.DEALNO = D.DEALNO)
 		WHERE B.MEMBERNO = #{mid}
-        AND I.ITEMNO = #{itemNo}
 		AND A.EXITYN = 'Y'
 		ORDER BY B.BIDNO ASC
 	</select>
@@ -439,7 +448,7 @@
 	
 	<!-- 낙찰받지 못한 물품 나머지 조회 -->
 	<select id="countFalseBid" resultMap="payTableResultSet" parameterType="java.lang.String">
-		SELECT B.ITEMNO, I.ITEMNAME, B.BIDNO, B.CURRENTPRICE, TO_CHAR(A.ENDDAY,'YYYY/MM/DD HH24:MI:SS') AS ENDDAY, B.MEMBERNO, M.MEMBERNAME
+		SELECT B.ITEMNO, I.ITEMNAME, B.BIDNO, B.CURRENTPRICE, TO_CHAR(A.ENDDAY,'YYYY/MM/DD HH24:MI:SS') AS ENDDAY, B.MEMBERNO, M.MEMBERNAME AS SMEMBERNAME
 		FROM BID B 
 		JOIN AUCTIONITEM I ON(B.ITEMNO = I.ITEMNO) 
 		JOIN AUCTIONDETAIL A ON(B.ITEMNO = A.ITEMNO) 
@@ -478,7 +487,7 @@
 	
 	<!-- 입금요청 물품 목록 리스트 -->
 	<select id="selectPayContinueList" resultMap="payTableResultSet" parameterType="java.lang.String">
-		SELECT W.ITEMNO, A.ITEMNAME, TO_CHAR(D.ENDDAY,'YYYY/MM/DD HH24:MI:SS') AS ENDDAY, M.MEMBERNO, M.MEMBERNAME
+		SELECT W.ITEMNO, A.ITEMNAME, TO_CHAR(D.ENDDAY,'YYYY/MM/DD HH24:MI:SS') AS ENDDAY, M.MEMBERNO, M.MEMBERNAME AS SMEMBERNAME
 		FROM WINBID W
 		JOIN AUCTIONITEM A ON(W.ITEMNO = A.ITEMNO)
 		JOIN AUCTIONDETAIL D ON(W.ITEMNO = D.ITEMNO)
@@ -521,6 +530,14 @@
 		AND ITEMNO = #{itemNo}
 	</select>
 	
+	<!-- insert 되있는게 있는지 확인 -->
+	<select id="selectWinBid" resultType="_int" parameterType="java.lang.String">
+		SELECT COUNT(*) 
+		FROM WINBID
+		WHERE MEMBERNO = #{mid}
+		AND ITEMNO = #{itemNo} 
+	</select>
+	
 	<!-- winbid에 insert -->
 	<insert id="winBidInsert" parameterType="java.lang.String">
 		INSERT INTO WINBID VALUES(#{mid}, #{itemNo}, TN_SEQ.NEXTVAL, #{price})
@@ -543,7 +560,7 @@
 
 	<!-- 배송요청 목록 조회 -->
 	<select id="selectDeliveryList" resultMap="payTableResultSet" parameterType="java.lang.String">
-		SELECT W.ITEMNO, A.ITEMNAME, W.PRICE AS CURRENTPRICE, A.ITEMNAME, D.ENDDAY, M.MEMBERNAME
+		SELECT W.ITEMNO, A.ITEMNAME, W.PRICE AS CURRENTPRICE, A.ITEMNAME, D.ENDDAY, M.MEMBERNAME AS SMEMBERNAME
 		FROM WINBID W 
         JOIN WINBIDDETAIL T ON(W.DEALNO = T.DEALNO)
 		JOIN AUCTIONITEM A ON(W.ITEMNO = A.ITEMNO)
@@ -566,7 +583,7 @@
 	
 	<!-- 배송중 목록 조회 -->
 	<select id="selectShipping" resultMap="payTableResultSet" parameterType="java.lang.String">
-		SELECT W.ITEMNO, A.ITEMNAME, W.PRICE AS CURRENTPRICE, A.ITEMNAME, D.ENDDAY, M.MEMBERNAME
+		SELECT W.ITEMNO, A.ITEMNAME, W.PRICE AS CURRENTPRICE, A.ITEMNAME, D.ENDDAY, M.MEMBERNAME AS SMEMBERNAME
 		FROM WINBID W 
         JOIN WINBIDDETAIL T ON(W.DEALNO = T.DEALNO)
 		JOIN AUCTIONITEM A ON(W.ITEMNO = A.ITEMNO)
@@ -589,7 +606,7 @@
 	
 	<!-- 구매결정대기 목록 조회 -->
 	<select id="selectWaiting" resultMap="payTableResultSet" parameterType="java.lang.String">
-		SELECT W.ITEMNO, A.ITEMNAME, W.PRICE AS CURRENTPRICE, A.ITEMNAME, D.ENDDAY, M.MEMBERNAME
+		SELECT W.ITEMNO, A.ITEMNAME, W.PRICE AS CURRENTPRICE, A.ITEMNAME, D.ENDDAY, M.MEMBERNAME AS SMEMBERNAME
 		FROM WINBID W 
         JOIN WINBIDDETAIL T ON(W.DEALNO = T.DEALNO)
 		JOIN AUCTIONITEM A ON(W.ITEMNO = A.ITEMNO)
@@ -612,7 +629,7 @@
 	
 	<!-- 수령이후 입금 목록 조회 -->
 	<select id="selectAfterSend" resultMap="payTableResultSet" parameterType="java.lang.String">
-		SELECT W.ITEMNO, A.ITEMNAME, W.PRICE AS CURRENTPRICE, A.ITEMNAME, D.ENDDAY, M.MEMBERNAME
+		SELECT W.ITEMNO, A.ITEMNAME, W.PRICE AS CURRENTPRICE, A.ITEMNAME, D.ENDDAY, M.MEMBERNAME AS SMEMBERNAME
 		FROM WINBID W 
         JOIN WINBIDDETAIL T ON(W.DEALNO = T.DEALNO)
 		JOIN AUCTIONITEM A ON(W.ITEMNO = A.ITEMNO)
@@ -635,7 +652,7 @@
 
 	<!-- 거래완료 목록 조회 -->
 	<select id="selectTransactionCompleteList" resultMap="payTableResultSet" parameterType="java.lang.String">
-		SELECT W.ITEMNO, A.ITEMNAME, W.PRICE AS CURRENTPRICE, A.ITEMNAME, D.ENDDAY, M.MEMBERNAME
+		SELECT W.ITEMNO, A.ITEMNAME, W.PRICE AS CURRENTPRICE, A.ITEMNAME, D.ENDDAY, M.MEMBERNAME AS SMEMBERNAME
 		FROM WINBID W 
         JOIN WINBIDDETAIL T ON(W.DEALNO = T.DEALNO)
 		JOIN AUCTIONITEM A ON(W.ITEMNO = A.ITEMNO)
@@ -834,7 +851,7 @@
 	
 	<!-- 판매관리 경매종료 목록 조회 -->
 	<select id="selectEndOfSaleList" resultMap="payTableResultSet" parameterType="java.lang.String">
-		SELECT DISTINCT A.ITEMNO, A.ITEMNAME, D.STARTDAY, M.MEMBERNAME, D.ENDDAY, D.EXITYN
+		SELECT DISTINCT A.ITEMNO, A.ITEMNAME, D.STARTDAY, M.MEMBERNAME AS SMEMBERNAME, D.ENDDAY, D.EXITYN
 		FROM AUCTIONITEM A 
 		JOIN AUCTIONDETAIL D ON(A.ITEMNO = D.ITEMNO)
 		JOIN BID B ON(D.ITEMNO = B.ITEMNO)
@@ -853,7 +870,7 @@
 	
 	<!-- 판매관리 거래신청 목록 조회 -->
 	<select id="selectBidderItemList" resultMap="payTableResultSet" parameterType="java.lang.String">
-		SELECT A.ITEMNO, A.ITEMNAME, W.PRICE, M.MEMBERNAME, T.ENDDAY 
+		SELECT A.ITEMNO, A.ITEMNAME, W.PRICE, M.MEMBERNAME  AS SMEMBERNAME, T.ENDDAY 
 		FROM WINBID W
 		JOIN WINBIDDETAIL D ON(W.DEALNO = D.DEALNO)
 		JOIN AUCTIONITEM A ON(W.ITEMNO = A.ITEMNO)
@@ -889,7 +906,7 @@
 	
 	<!-- 판매관리 입금신청 목록 조회 -->
 	<select id="selectSalesItemProgressList" resultMap="payTableResultSet" parameterType="java.lang.String">
-		SELECT A.ITEMNO, A.ITEMNAME, W.PRICE, M.MEMBERNAME, T.ENDDAY 
+		SELECT A.ITEMNO, A.ITEMNAME, W.PRICE, M.MEMBERNAME AS SMEMBERNAME, T.ENDDAY 
 		FROM WINBID W
 		JOIN WINBIDDETAIL D ON(W.DEALNO = D.DEALNO)
 		JOIN AUCTIONITEM A ON(W.ITEMNO = A.ITEMNO)
@@ -909,7 +926,7 @@
 	
 	<!-- 판매관리 배송요청 목록 조회 -->
 	<select id="selectRequestDeliverySaleList" resultMap="payTableResultSet" parameterType="java.lang.String">
-		SELECT A.ITEMNO, A.ITEMNAME, W.PRICE, M.MEMBERNAME, T.ENDDAY 
+		SELECT A.ITEMNO, A.ITEMNAME, W.PRICE, M.MEMBERNAME AS SMEMBERNAME, T.ENDDAY 
 		FROM WINBID W
 		JOIN WINBIDDETAIL D ON(W.DEALNO = D.DEALNO)
 		JOIN AUCTIONITEM A ON(W.ITEMNO = A.ITEMNO)
@@ -929,7 +946,7 @@
 	
 	<!-- 판매관리 구매결정대기 목록 조회 -->
 	<select id="selectSaleWaitingList" resultMap="payTableResultSet" parameterType="java.lang.String">
-		SELECT A.ITEMNO, A.ITEMNAME, W.PRICE, M.MEMBERNAME, T.ENDDAY 
+		SELECT A.ITEMNO, A.ITEMNAME, W.PRICE, M.MEMBERNAME AS SMEMBERNAME, T.ENDDAY 
 		FROM WINBID W
 		JOIN WINBIDDETAIL D ON(W.DEALNO = D.DEALNO)
 		JOIN AUCTIONITEM A ON(W.ITEMNO = A.ITEMNO)
@@ -949,7 +966,7 @@
 	
 	<!-- 판매관리 수령이후 송금 목록 조회 -->
 	<select id="selectAfterReceipt2" resultMap="payTableResultSet" parameterType="java.lang.String">
-		SELECT A.ITEMNO, A.ITEMNAME, W.PRICE, M.MEMBERNAME, T.ENDDAY 
+		SELECT A.ITEMNO, A.ITEMNAME, W.PRICE, M.MEMBERNAME AS SMEMBERNAME, T.ENDDAY 
 		FROM WINBID W
 		JOIN WINBIDDETAIL D ON(W.DEALNO = D.DEALNO)
 		JOIN AUCTIONITEM A ON(W.ITEMNO = A.ITEMNO)
@@ -970,7 +987,7 @@
 	
 	<!-- 판매관리 거래완료 목록 조회 -->
 	<select id="selectTransactionSaleList" resultMap="payTableResultSet" parameterType="java.lang.String">
-		SELECT A.ITEMNO, A.ITEMNAME, W.PRICE, M.MEMBERNAME, T.ENDDAY 
+		SELECT A.ITEMNO, A.ITEMNAME, W.PRICE, M.MEMBERNAME AS SMEMBERNAME, T.ENDDAY 
 		FROM WINBID W
 		JOIN WINBIDDETAIL D ON(W.DEALNO = D.DEALNO)
 		JOIN AUCTIONITEM A ON(W.ITEMNO = A.ITEMNO)
@@ -992,7 +1009,7 @@
 	
 	<!-- 판매관리 구매거부 목록 조회 -->
 	<select id="selectSaleOtherList" resultMap="payTableResultSet" parameterType="java.lang.String">
-		SELECT A.ITEMNO, A.ITEMNAME, W.PRICE, M.MEMBERNAME, T.ENDDAY 
+		SELECT A.ITEMNO, A.ITEMNAME, W.PRICE, M.MEMBERNAME AS SMEMBERNAME, T.ENDDAY 
 		FROM WINBID W
 		JOIN WINBIDDETAIL D ON(W.DEALNO = D.DEALNO)
 		JOIN AUCTIONITEM A ON(W.ITEMNO = A.ITEMNO)
@@ -1012,7 +1029,7 @@
 	
 	<!-- 판매관리 반품 목록 조회 -->
 	<select id="selectReturnSaleList" resultMap="payTableResultSet" parameterType="java.lang.String">
-		SELECT A.ITEMNO, A.ITEMNAME, W.PRICE, M.MEMBERNAME, T.ENDDAY 
+		SELECT A.ITEMNO, A.ITEMNAME, W.PRICE, M.MEMBERNAME AS SMEMBERNAME, T.ENDDAY 
 		FROM WINBID W
 		JOIN WINBIDDETAIL D ON(W.DEALNO = D.DEALNO)
 		JOIN AUCTIONITEM A ON(W.ITEMNO = A.ITEMNO)
@@ -1032,7 +1049,7 @@
 	
 	<!-- 판매관리 미입금 목록 조회 -->
 	<select id="selectPaymentSaleList" resultMap="payTableResultSet" parameterType="java.lang.String">
-		SELECT A.ITEMNO, A.ITEMNAME, W.PRICE, M.MEMBERNAME, T.ENDDAY 
+		SELECT A.ITEMNO, A.ITEMNAME, W.PRICE, M.MEMBERNAME AS SMEMBERNAME, T.ENDDAY 
 		FROM WINBID W
 		JOIN WINBIDDETAIL D ON(W.DEALNO = D.DEALNO)
 		JOIN AUCTIONITEM A ON(W.ITEMNO = A.ITEMNO)
@@ -1068,7 +1085,7 @@
 
 	<!-- 판매관리 판매거부 목록 조회 -->
 	<select id="selectRefuseToSell2List" resultMap="payTableResultSet" parameterType="java.lang.String">
-		SELECT A.ITEMNO, A.ITEMNAME, W.PRICE, M.MEMBERNAME, T.ENDDAY 
+		SELECT A.ITEMNO, A.ITEMNAME, W.PRICE, M.MEMBERNAME AS SMEMBERNAME, T.ENDDAY 
 		FROM WINBID W
 		JOIN WINBIDDETAIL D ON(W.DEALNO = D.DEALNO)
 		JOIN AUCTIONITEM A ON(W.ITEMNO = A.ITEMNO)
@@ -1088,7 +1105,7 @@
  	
  	<!-- 판매관리 미수령 신고 목록 조회 -->
  	<select id="selectNotReceiving2List" resultMap="payTableResultSet" parameterType="java.lang.String">
- 		SELECT A.ITEMNO, A.ITEMNAME, W.PRICE, M.MEMBERNAME, T.ENDDAY 
+ 		SELECT A.ITEMNO, A.ITEMNAME, W.PRICE, M.MEMBERNAME AS SMEMBERNAME, T.ENDDAY 
 		FROM WINBID W
 		JOIN WINBIDDETAIL D ON(W.DEALNO = D.DEALNO)
 		JOIN AUCTIONITEM A ON(W.ITEMNO = A.ITEMNO)
@@ -1166,5 +1183,13 @@
 		UPDATE MEMBER SET RATING = '일반' WHERE MEMBERNO = #{memberNo}
 	</update>
 	
+	<!-- 마이페이지 메인에 판매자 리스트 -->
+	<select id="geSaletList" resultMap="mainListResultSet" parameterType="java.lang.String">
+		SELECT * FROM WINBIDDETAIL WHERE SALENO = #{mid}
+	</select>
 	
+	<!-- 마이페이지 메인에 구매자 리스트 -->
+	<select id="PayGetList" resultMap="mainListResultSet" parameterType="java.lang.String">
+		SELECT * FROM WINBIDDETAIL WHERE PAYNO = #{mid}
+	</select>
 </mapper>

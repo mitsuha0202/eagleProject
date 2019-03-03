@@ -324,8 +324,7 @@
 			</tr>			
 			<tr>
 				<td><h5>입금요청</h5></td>
-				<td><h5>입금확인중</h5></td>
-				<td><h5>결제완료</h5><h5>배송준비중</h5></td>
+				<td><h5>배송요청</h5></td>
 				<td><h5>배송중</h5></td>
 				<td><h5>구매결정대기</h5></td>
 				<td><h5>구매거부</h5></td>
@@ -335,16 +334,15 @@
 				<td><h5>판매거부</h5></td>
 			</tr>
 			<tr>
-				<td><h5>0</h5></td>
-				<td><h5>0</h5></td>
-				<td><h5>0</h5></td>
-				<td><h5>0</h5></td>
-				<td><h5>0</h5></td>
-				<td><h5>0</h5></td>
-				<td><h5>0</h5></td>
-				<td><h5>0</h5></td>
-				<td><h5>0</h5></td>
-				<td><h5>0</h5></td>
+				<td><h5 class="moneyOrder"></h5></td>
+				<td><h5 class="deliveryOrder"></h5></td>
+				<td><h5 class="delivery"></h5></td>
+				<td><h5 class="payStand"></h5></td>
+				<td><h5 class="payNo"></h5></td>
+				<td><h5 class="returnItem"></h5></td>
+				<td><h5 class="noReceiveItem"></h5></td>
+				<td><h5 class="noReceiveMoney"></h5></td>
+				<td><h5 class="saleNo"></h5></td>
 			</tr>
 		</table>
 	</div>
@@ -362,8 +360,7 @@
 			</tr>			
 			<tr>
 				<td><h5>입금요청</h5></td>
-				<td><h5>입금확인중</h5></td>
-				<td><h5>결제완료</h5><h5>배송준비중</h5></td>
+				<td><h5>배송요청</h5></td>
 				<td><h5>배송중</h5></td>
 				<td><h5>구매결정대기</h5></td>
 				<td><h5>구매거부</h5></td>
@@ -373,16 +370,15 @@
 				<td><h5>판매거부</h5></td>
 			</tr>
 			<tr>
-				<td><h5>0</h5></td>
-				<td><h5>0</h5></td>
-				<td><h5>0</h5></td>
-				<td><h5>0</h5></td>
-				<td><h5>0</h5></td>
-				<td><h5>0</h5></td>
-				<td><h5>0</h5></td>
-				<td><h5>0</h5></td>
-				<td><h5>0</h5></td>
-				<td><h5>0</h5></td>
+				<td><h5 class="moneyOrder2"></h5></td>
+				<td><h5 class="deliveryOrder2"></h5></td>
+				<td><h5 class="delivery2"></h5></td>
+				<td><h5 class="payStand2"></h5></td>
+				<td><h5 class="payNo2"></h5></td>
+				<td><h5 class="returnItem2"></h5></td>
+				<td><h5 class="noReceiveItem2"></h5></td>
+				<td><h5 class="noReceiveMoney2"></h5></td>
+				<td><h5 class="saleNo2"></h5></td>
 			</tr>
 		</table>
 	</div>
@@ -421,6 +417,65 @@
 				/* status는 에러의 상태를 나타냄 */
 				error:function(status){
 					$("#messageCount").text("쪽지 0건");
+				}
+			});
+		});
+		
+		$(function() {
+			var userId = $("#userMid").val();
+			$.ajax({
+				url:"getList.mp",
+				type:"get",
+				data:{userId:userId},
+				success:function(data){
+					console.log(data);
+					for(var i in data){
+						if(userId == i.payNo){
+							if(i.orderM == "입금요청"){
+								$(".moneyOrder").text("1");
+							}else if(i.orderM == "배송요청"){
+								$(".deliveryOrder").text("1");
+							}else if(i.orderM == "배송중"){
+								$(".delivery").text("1");
+							}else if(i.orderM == "구매결정대기"){
+								$(".payStand").text("1");
+							}else if(i.orderM == "구매거부"){
+								$(".payNo").text("1");
+							}else if(i.orderM == "반품"){
+								$(".returnItem").text("1");
+							}else if(i.orderM == "미수령"){
+								$(".noReceiveItem").text("1");
+							}else if(i.orderM == "미입금"){
+								$(".noReceiveMoney").text("1");
+							}else if(i.orderM == "미입금"){
+								$(".saleNo").text("1");
+							}
+						}else {
+							if(i.orderM == "입금요청"){
+								$(".moneyOrder").text("1");
+							}else if(i.orderM == "배송요청"){
+								$(".deliveryOrder").text("1");
+							}else if(i.orderM == "배송중"){
+								$(".delivery").text("1");
+							}else if(i.orderM == "구매결정대기"){
+								$(".payStand").text("1");
+							}else if(i.orderM == "구매거부"){
+								$(".payNo").text("1");
+							}else if(i.orderM == "반품"){
+								$(".returnItem").text("1");
+							}else if(i.orderM == "미수령"){
+								$(".noReceiveItem").text("1");
+							}else if(i.orderM == "미입금"){
+								$(".noReceiveMoney").text("1");
+							}else if(i.orderM == "미입금"){
+								$(".saleNo").text("1");
+							}
+						}
+					}
+				},
+				/* status는 에러의 상태를 나타냄 */
+				error:function(status){
+					alert("fu");
 				}
 			});
 		});
