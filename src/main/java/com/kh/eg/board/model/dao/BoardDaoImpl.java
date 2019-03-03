@@ -155,4 +155,19 @@ public class BoardDaoImpl implements BoardDao{
 		return list;
 	}
 
+	@Override
+	public int inserNotice(SqlSessionTemplate sqlSession, Board b) {
+		int result = sqlSession.insert("Board.insertNotice",b);
+		return result;
+	}
+
+	@Override
+	public int deleteNotice(SqlSessionTemplate sqlSession, String[] deleteNum) {
+		int result = 0;
+		for(int i=0; i<deleteNum.length;i++) {
+			result = sqlSession.update("Board.deleteNotice",deleteNum[i]);
+		}
+		return result;
+	}
+
 }

@@ -21,8 +21,8 @@
 			</div>			
 			
 			<div class="flo_left mt30 mb30">
-				<span><a class="mbtn bk" href="insertBoardView.bo">작성하기</a></span>
-				<span><a class="mbtn rd" href="#">삭제</a></span>
+				<span><a class="mbtn bk" href="insertNoticeView.bo">작성하기</a></span>
+				<span><a class="mbtn rd" onclick="deleteNotice();">삭제</a></span>
 			</div>
 
 
@@ -50,7 +50,7 @@
 					<c:forEach var="b" items="${ list }">
 					<tr>
 						<td>
-							<input name="check"value="${ b.memberId }" type="checkbox">
+							<input name="check" value="${ b.bid }" type="checkbox">
 						</td>
 						<td>${ b.writeDay }</td>
 						<td>${ b.memberId }</td>
@@ -69,6 +69,26 @@
 
 
 </div><!--// Wrap E-->
-
+<script>
+	function deleteNotice() {
+		var bidArr = [];
+		$("input[name=check]:checked").each(function(){
+			bidArr.push($(this).val());
+		});
+		if(bidArr.length == 0){
+			alert("삭제할 목록을 선택해주세요.")
+		}else{
+			if(window.confirm("선택한 목록을 삭제하시겠습니까?")){
+				location.href="deleteNotice.bo?bidArr="+bidArr;
+			}else{
+				
+			}
+		}
+		
+		
+		
+		
+	}
+</script>
 </body>
 </html>

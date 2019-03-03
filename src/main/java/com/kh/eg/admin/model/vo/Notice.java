@@ -7,15 +7,17 @@ public class Notice {
 	private String memberId;
 	private String title;
 	private String content;
+	private String bid;
 	
 	public Notice() {}
 
-	public Notice(Date writeDay, String memberId, String title, String content) {
+	public Notice(Date writeDay, String memberId, String title, String content, String bid) {
 		super();
 		this.writeDay = writeDay;
 		this.memberId = memberId;
 		this.title = title;
 		this.content = content;
+		this.bid = bid;
 	}
 
 	public Date getWriteDay() {
@@ -50,10 +52,20 @@ public class Notice {
 		this.content = content;
 	}
 
+	public String getBid() {
+		return bid;
+	}
+
+	public void setBid(String bid) {
+		this.bid = bid;
+	}
+
 	@Override
 	public String toString() {
 		return "Notice [writeDay=" + writeDay + ", memberId=" + memberId + ", title=" + title + ", content=" + content
-				+ "]";
+				+ ", bid=" + bid + "]";
 	}
+
+	
 
 }
