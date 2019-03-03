@@ -177,6 +177,7 @@ h4 {
 
 							var categoryLevel = $(this).children().val();
 							console.log(categoryLevel);
+							
 							$
 									.ajax({
 										url : "searchCate.au",
@@ -185,58 +186,59 @@ h4 {
 											categoryLevel : categoryLevel
 										},
 										success : function(data) {
-											alert("성공");
-											console.log(data);
-											$("#addDiv").html("");
-
-											for (key in data) {
-												var $div1 = $("<div class='may' style='width:300px;height:200px';>");
-												var $img = $("<img style='width:300px;height:200px'; src='resources/uploadFiles/"+data[key].atta.changeName+"'>");
-												console
-														.log(data[key].atta.changeName);
+											$("#firstColumn").html("");
+											for (var i = 0; i < data.length; i++) {
+												console.log(i);
+												var $div1 = $("<div class='may' style='width:300px;'>");
+												var $img = $("<img style='width:300px;height:200px;' src='resources/uploadFiles/"+data[i].atta.changeName+"'>");
 												var $table = $("<table class='ui basic table' style='width:250px;'>");
+												var $tbody = $("<tbody>");
 												var $tr1 = $("<tr>");
 												var $tr2 = $("<tr class='tr'>");
 												var $td1 = $("<td colspan='2'>");
-												$td1
-														.text("입찰                            "
-																+ data[key].bidCount
-																+ " 건");
+												$td1.text("입찰    "+ data[i].bidCount+ " 건");
 												var $td2 = $("<td>");
-												$td2
-														.text("조회                            "
-																+ data[key].itemcount
-																+ "회");
+												$td2.text("조회   "+ data[i].itemcount+ "회");
 												var $tr3 = $("<tr class='tr'>");
 												var $td3 = $("<td colspan='2'>");
 												$td3.text("판매자 아이디");
 												var $td4 = $("<td>");
-												$td4
-														.text(data[key].memberName.userId);
+												$td4.text(data[i].memberName.userId);
 												var $tr4 = $("<tr class='tr'>");
 												var $td5 = $("<td colspan='2'>");
 												$td5.text("남은 시간");
 												var $td6 = $("<td>");
 												$td6.text("00");
-												var $addDiv = $("#addDiv");
+												var $div=$("<div>");
+												var $addDiv = $("<div id='addDiv' class='four wide column' style='display:inline-block;'>");
 												$tr2.append($td1);
 												$tr2.append($td2);
 												$tr3.append($td3);
 												$tr3.append($td4);
 												$tr4.append($td5);
 												$tr4.append($td6);
-												$table.append($tr1);
-												$table.append($tr2);
-												$table.append($tr3);
-												$table.append($tr4);
+												$tbody.append($tr1);
+												$tbody.append($tr2);
+												$tbody.append($tr3);
+												$tbody.append($tr4);
+												$table.append($tbody);
 												$div1.append($img);
-												$addDiv.append($div1);
-												$addDiv.append($table);
+												$div.append($div1);
+												$div.append($table);
+												$addDiv.append($div);
+											
+												var $firstcolumn = $("#firstColumn");
+												$firstcolumn.append($addDiv);
+												//$("#addDiv").html(""); 			
 
+												/* 	 var $grid=$("#grid");
+													$grid.append($addDiv); */
 												// $add.append($div1);
 												//$add.append($table); 
 												//$addDiv.append($add);   
 											}
+
+											
 										},
 										error : function(data) {
 											alert("error:" + error);
@@ -253,7 +255,7 @@ h4 {
 						function() {
 							alignName = $(this).children().val();
 							console.log(alignName);
-							$("#firstColumn").html("");
+							
 
 							$.ajax({
 								url : "selectAlign.au",
@@ -264,7 +266,7 @@ h4 {
 								success : function(data) {
 
 									console.log(data);
-
+									$("#firstColumn").html("");
 									for (var i = 0; i < data.length; i++) {
 										console.log(i);
 										var $div1 = $("<div class='may' style='width:300px;'>");

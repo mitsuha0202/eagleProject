@@ -160,8 +160,13 @@ display :none;
 						<td>이미지를 넣어주세요<div>
 						<div class="imgs_wrap"> </div>        			
 							<img id="foo"src="#" style=width:500px; />
-						</div><input  multiple="multiple" type="file"  id="imgInp" name="photo" placeholder="내용을 입력해주세요"></td>
-								
+							
+						</div><div class="fileDiv"><input  multiple="multiple" type="file"  id="imgInp" name="photo" placeholder="내용을 입력해주세요">
+						<a href="this" id="delete" name="delete">삭제</a>
+						<br>
+						<a href="#this"  id="addFile">파일 추가</a>
+						</td>
+								</div>
 						
 					</tr>
 				</tbody>
@@ -257,6 +262,33 @@ display :none;
 	<script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script type="text/javascript">
+	
+	
+	
+	$("#addFile").on("click", function(e){ //파일 추가 버튼
+        e.preventDefault();
+        fn_addFile();
+    });
+
+	 function fn_addFile(){
+         var str = "<p><input type='file' name='photo'><a href='#this' class='btn' name='delete'>삭제</a></p>";
+         $(".fileDiv").append(str);
+         $("a[name='delete']").on("click", function(e){ //삭제 버튼
+             e.preventDefault();
+             fn_deleteFile($(this));
+         });
+     }
+	 $("a[name='delete']").on("click", function(e){ //삭제 버튼
+         e.preventDefault();
+         fn_deleteFile($(this));
+     });
+
+	 function fn_deleteFile(obj){
+         obj.parent().remove();
+     }
+
+
+
 	
 	
 	

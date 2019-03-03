@@ -52,6 +52,9 @@ public class ItemController {
 	
 			return "item/itemRegist";
 		}
+	
+	
+	
 	@RequestMapping("middleCategory.it")
 	public @ResponseBody ArrayList<Category> middleCategory(Model model,@RequestParam(value="cateNo") String cateNo) {
 		
@@ -68,7 +71,9 @@ public class ItemController {
 	
 	@RequestMapping("insertItem.it")
 	public @ResponseBody String insertItem(Item it,Model model,HttpServletRequest request,HttpServletResponse response, @RequestParam(value="photo",required=false)MultipartFile photo,
-			@RequestParam(value="categoryNo" ,required=false) String cateNo,@RequestParam(value="categoryNo2") String cateNo2) {
+			@RequestParam(value="categoryNo" ,required=false) String cateNo,
+			@RequestParam(value="categoryNo2") String cateNo2,
+			MultipartHttpServletRequest mtf) {
 		
 		
 		System.out.println("item : " +it );
@@ -86,13 +91,11 @@ public class ItemController {
 		Category category=new Category();
 	
 		String[] ccc = cateNo2.split(",");
-		System.out.println(ccc[0]);
+		
 		category.setCategoryNo(ccc[0]);
 		it.setCategoryNo(ccc[0]);
 		category.setUpperCategoryNo(cateNo);
-		System.out.println("cateNo2231213123123:"+cateNo2);
-		System.out.println("cateNo1!!!!! : "+cateNo);
-		
+	
 		java.sql.Date day=null;
 		java.sql.Date day2=null;
 		
@@ -127,36 +130,20 @@ public class ItemController {
 		}else {
 			day2 = new java.sql.Date(new GregorianCalendar().getTimeInMillis());
 		}
-		System.out.println(day);
-		System.out.println(day2);
+		
 		auctionD.setStartDay(day);
 		auctionD.setEndDay(day2);
 		
 		
 		
 		//m.setUserId("eagle01");
-		String filePath=root+"\\uploadFiles";
-		
-		System.out.println("item+ " +it.getMid());
-		
-			
-		
-		String originFileName=photo.getOriginalFilename();
-		String ext=originFileName.substring(originFileName.lastIndexOf("."));
-		String changeName=CommonUtils.getRandomString();
-		
-		att.setOriginName(originFileName);
-		att.setChangeName(changeName+ext);
-		att.setRoot(filePath);
-		
 		
 		Item item=new Item();
 		it.setAuctionCode(request.getParameter("auctionCode"));
 		String luckyPrice1=(request.getParameter("luckyPrice1"));
 		String luckyPrice2=(request.getParameter("luckyPrice2"));
 		
-		System.out.println("luckyPrice1:asdfasdfasdf  "+luckyPrice1);
-		System.out.println("luckyPrice2:asdfasdf" +luckyPrice2);
+		
 		
 		if(it.getAuctionCode().equals("AC002")) {
 			
@@ -172,10 +159,6 @@ public class ItemController {
 			it.setLucky(0);
 		}
 		
-		
-		System.out.println(item.getAuctionCode());
-		
-		
 		HashMap<String,Object> hmap=new HashMap<String, Object>();
 		hmap.put("m", m);
 		hmap.put("attachment", att);
@@ -184,37 +167,50 @@ public class ItemController {
 		hmap.put("category",category);
 		System.out.println(auctionD);
 		
-		try {
-			photo.transferTo(new File(filePath+"\\" +changeName+ext));
-			System.out.println("contr");
-			int result = is.insertItem(hmap);
-			//int result=is.insertItem(it);
-			System.out.println(result);
-			return "redirect:mainPage.au";
+		
+		List<MultipartFile> fileList=mtf.getFiles("photo");
+		
+		for(MultipartFile mf:fileList) {
+			String originFileName=mf.getOriginalFilename();
+			String ext=originFileName.substring(originFileName.lastIndexOf("."));
+			String changeName=CommonUtils.getRandomString();
+			String filePath=root+"\\uploadFiles";
 			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			new File(filePath+"\\" + changeName+ ext).delete();
-			model.addAttribute("msg","파일 등록 실패!");
-			return "common/errorPage";
-		} 
+			
+			
+			att.setFileLevel(0);
+			
+			att.setOriginName(originFileName);
+			att.setChangeName(changeName+ext);
+			att.setRoot(filePath);
+			
+			try {
+				mf.transferTo(new File(filePath+"\\"+changeName+ext));
+				is.insertItem(hmap);
+				
+			} catch (IllegalStateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+				new File(filePath+"\\" + changeName+ ext).delete();
+				model.addAttribute("msg","파일 등록 실패!");
+				return "common/errorPage";
+			}
+			
+		}
+		
+		
+		return "redirect:mainPage.au";
+	}
+		
 		
 		
 		
 		
 	}
 	
-/*	public Date calDate(int year, int month, int day) {
-	      GregorianCalendar gc = new GregorianCalendar(year,month-1,day);
-	      Date date = new Date(gc.getTimeInMillis());
-	      System.out.println(date);
-	      return date;   
-	   }*/
-	
-	
-	
 	
 
-}
+
 
