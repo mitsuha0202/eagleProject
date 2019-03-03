@@ -21,4 +21,12 @@ public interface SecondAdminService {
 
 	ArrayList<SecondAdmin> categoryYear();
 
+	ArrayList<SecondAdmin> categoryPriceDays();
+
+	ArrayList<SecondAdmin> categoryPriceWeek();
+
+	ArrayList<SecondAdmin> categoryPriceMonth();
+
+	ArrayList<SecondAdmin> categoryPriceYear();
+
 }

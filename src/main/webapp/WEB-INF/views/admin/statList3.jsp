@@ -39,9 +39,9 @@
 			
 			<div class="tabBigBox btab_2ea mt40">
 				<ul>
-					<li class="on" style="width:33%"><a href="statList1.ad">카테고리별 통계</a></li>
+					<li style="width:33%"><a href="statList1.ad">카테고리별 통계</a></li>
 					<li style="width:33%"><a href="statList2.ad">경매금액별 통계</a></li>
-					<li style="width:33%"><a href="statList3.sad">카테고리별 금액통계</a></li>
+					<li class="on" style="width:33%"><a href="statList3.sad">카테고리별 금액통계</a></li>
 					
 				</ul>
 			</div>
