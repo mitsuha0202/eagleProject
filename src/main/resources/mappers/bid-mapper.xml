@@ -35,7 +35,8 @@
 		<result property="itemNo" column="ITEMNO" />
 		<result property="memberNo" column="MEMBERNO" />
 		<result property="currentPrice" column="CURRENTPRICE" />
-		<result property="bidDate" column="BIDDATE" /> 
+		<result property="bidDate" column="BIDDATE" />
+		<result property="memberId" column="MEMBERID" /> 
 	</resultMap>  	
 
 	<resultMap type="AttachmentVo" id="attResultSet">
@@ -91,8 +92,9 @@
   	</select>
   	
   	<select id="selectMid" resultMap="bidResultSet" parameterType="java.lang.String">
-  		SELECT MEMBERNO
-  		FROM BID
+  		SELECT B.MEMBERNO , M.MEMBERID
+  		FROM BID B
+  		JOIN MEMBER M ON(B.MEMBERNO = M.MEMBERNO)
 		WHERE ITEMNO = #{itemNo}
 		AND CURRENTPRICE = (SELECT MAX(CURRENTPRICE)
 							FROM BID
@@ -168,5 +170,15 @@
   		SELECT *
   		FROM BID
   		WHERE ITEMNO = #{itemNo} AND CURRENTPRICE = #{currentPrice}
+  	</select>
+  	
+  	<select id="insertRealBid" parameterType="Bidding">
+  		INSERT INTO BID VALUES(BID_SEQ.NEXTVAL , #{itemNo} , #{memberNo} , #{currentPrice} , SYSDATE)
+  	</select>
+  	
+  	<select id="selectRealTime" resultMap="itemDetailResultSet" parameterType="java.lang.String">
+  		SELECT TO_CHAR(STARTDAY, 'YYYY/MM/DD HH24:MI:SS') AS STARTDAY, TO_CHAR(SYSDATE, 'YYYY/MM/DD HH24:MI:SS') AS ENDDAY
+		FROM AUCTIONDETAIL
+		WHERE ITEMNO = #{itemNo} AND EXITYN = 'N'
   	</select>
   </mapper>

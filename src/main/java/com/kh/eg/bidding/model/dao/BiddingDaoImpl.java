@@ -118,4 +118,17 @@ public class BiddingDaoImpl implements BiddingDao{
 
 		return sqlSession.selectOne("ItemDetails.selectLuckyPrice", b);
 	}
+
+	@Override
+	public int insertRealBid(SqlSessionTemplate sqlSession, Bidding b) {
+
+		return sqlSession.insert("ItemDetails.insertRealBid", b);
+	}
+
+	@Override
+	public ItemDetail selectRealTime(SqlSessionTemplate sqlSession, String itemNo) {
+		ItemDetail id = new ItemDetail();
+		id = sqlSession.selectOne("ItemDetails.selectRealTime",itemNo);
+		return id;
+	}
 }
