@@ -28,9 +28,9 @@
 
 		<div>
 			<td><h5>보유 금액 : <c:out value="${ sessionScope.loginUser.emoney } 원"/></h5></td>
-			
 		</div>
 		<br>
+					<td style = "color : gray; "><h5>결제금액의 90%가 이머니로 충전됩니다.</h5></td>
 		<div class="payChargeArea">
 			<table class="chargeTable">
 					<tr>
@@ -79,21 +79,11 @@
 							var num = Number($("#r5").text());
 							$("#r5").text(num);
 						}
-						
-					
-					
-					
 					</script>
-					<br>					
-					<td>충전금액  </td>
-					<td id="tdChargeCashMoney"><label id="amount">0</label>원</td>														
-					<tr>
-						<br>						
-						<td>결제</td>
-							<button class="btn btn-warning"  id="chargeAPI" type="button" >카카오페이</button>
-					</tr>
-					
-
+					<br><br><br>					
+					<td><h5><b>충전금액  </b></h5></td>
+					<td id="tdChargeCashMoney"><label id="amount"><h5><b>0</label>원</b></h5></td>		
+					<tr><td><button class="btn btn-warning"  id="chargeAPI" type="button" >카카오페이</button></td></tr>
 			</table>
 		</div>
 	</div>
@@ -105,7 +95,7 @@
 			
 			$("input[type = radio]").click(function(){
 				$("#amount").text($(this).val());				
-				chargeMoney = $(this).val();
+				chargeMoney = $(this).val()*(0.9);
 				 
 			});
 			
