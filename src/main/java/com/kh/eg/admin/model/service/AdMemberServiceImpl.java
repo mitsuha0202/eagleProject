@@ -249,6 +249,16 @@ public class AdMemberServiceImpl implements AdMemberService{
 		
 		return result;
 	}
+
+	@Override
+	public int returnRefuse(String[] check) throws AdMemberselectException {
+		int result = 0;
+		for(int i = 0; i <check.length; i++) {
+			result += amd.returnRefuse(sqlSession, check[i]);
+		}
+		
+		return result;
+	}
 	
 /*	//사이버머니 변경
 	@Override

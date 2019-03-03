@@ -73,6 +73,8 @@ public interface AdMemberDao {
 
 	int payBackX(SqlSessionTemplate sqlSession, String string);
 
+	int returnRefuse(SqlSessionTemplate sqlSession, String string);
+
 /*	int moneyChange(SqlSessionTemplate sqlSession, String string, String money);*/
 
 	

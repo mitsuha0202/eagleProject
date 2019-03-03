@@ -184,10 +184,6 @@ public class AdMemberDaoImpl implements AdMemberDao{
 	public int reportCount(SqlSessionTemplate session) throws AdMemberselectException {
 		int result = session.selectOne("AdminVo.reportCount");
 		
-		if(result <= 0) {
-			throw new AdMemberselectException("게시글 수 조회 실패!");
-		}
-		
 		return result;
 	}
 
@@ -239,10 +235,6 @@ public class AdMemberDaoImpl implements AdMemberDao{
 		
 		list = (ArrayList)session.selectList("AdminVo.categoryList", null);
 		
-		if(list == null) {
-			throw new AdMemberselectException("카테고리 조회 실패!");
-		}
-		
 		return list;
 	}
 
@@ -280,20 +272,12 @@ public class AdMemberDaoImpl implements AdMemberDao{
 		
 		list = (ArrayList)session.selectList("AdminVo.selectNoticeList", null);
 		
-		if(list == null) {
-			throw new AdMemberselectException("공지사항 조회 실패!");
-		}
-		
 		return list;
 	}
 
 	@Override
 	public int postListCount(SqlSessionTemplate session) throws AdMemberselectException {
 		int result = session.selectOne("AdminVo.postListCount");
-		
-		if(result <= 0) {
-			throw new AdMemberselectException("게시글 수 조회 실패!");
-		}
 		
 		return result;
 	}
@@ -307,10 +291,6 @@ public class AdMemberDaoImpl implements AdMemberDao{
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 		
 		list = (ArrayList)session.selectList("AdminVo.selectPostList", null, rowBounds);
-		
-		if(list == null) {
-			throw new AdMemberselectException("회원 조회 실패!");
-		}
 		
 		return list;	
 	}
@@ -365,6 +345,13 @@ public class AdMemberDaoImpl implements AdMemberDao{
 		Map<String, Object> map= new HashMap<String, Object>();
 		map.put("memberId", memberId);
 		int result = session.update("AdminVo.payBackX", memberId);
+		return result;
+	}
+
+	@Override
+	public int returnRefuse(SqlSessionTemplate session, String payNoCheck) {
+		int result = session.update("AdminVo.returnRefuse", payNoCheck);
+		
 		return result;
 	}
 

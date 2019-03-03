@@ -1,7 +1,7 @@
 package com.kh.eg.admin.model.vo;
 
 public class Return {
-	
+	private String payNo;
 	private String memberId;
 	private String phone;
 	private String orderm;
@@ -10,13 +10,22 @@ public class Return {
 	
 	public Return () {}
 
-	public Return(String memberId, String phone, String orderm, String address, String itemName) {
+	public Return(String payNo, String memberId, String phone, String orderm, String address, String itemName) {
 		super();
+		this.payNo = payNo;
 		this.memberId = memberId;
 		this.phone = phone;
 		this.orderm = orderm;
 		this.address = address;
 		this.itemName = itemName;
+	}
+
+	public String getPayNo() {
+		return payNo;
+	}
+
+	public void setPayNo(String payNo) {
+		this.payNo = payNo;
 	}
 
 	public String getMemberId() {
@@ -61,9 +70,9 @@ public class Return {
 
 	@Override
 	public String toString() {
-		return "Return [memberId=" + memberId + ", phone=" + phone + ", orderm=" + orderm + ", address=" + address
-				+ ", itemName=" + itemName + "]";
-	};
-	
+		return "Return [payNo=" + payNo + ", memberId=" + memberId + ", phone=" + phone + ", orderm=" + orderm
+				+ ", address=" + address + ", itemName=" + itemName + "]";
+	}
+
 	
 }
