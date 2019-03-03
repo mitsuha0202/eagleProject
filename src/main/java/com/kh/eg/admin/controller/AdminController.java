@@ -392,13 +392,17 @@ public class AdminController {
 	//사이버머니 변경
 	@RequestMapping("moneyChange.ad")
 	public String moneyChangeview(Model model, HttpServletRequest request){
-		String money = request.getParameter("moneychange");
+		String Money = request.getParameter("moneychange");
 		String[] check = request.getParameterValues("check");
-		
-		System.out.println(money);
-		System.out.println(check);
 
-		return "admin/moneyList";
+		for(int i = 0; i< check.length; i++) {
+			System.out.println(check[i]);
+		}
+	
+		int result;
+		
+		return "admin:moneyList.ad";
+		
 	}
 
 

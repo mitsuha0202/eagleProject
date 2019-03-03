@@ -72,6 +72,8 @@ public interface AdMemberService {
 
 	int payBackX(String[] check) throws AdMemberselectException;
 
+/*	int moneyChange(String[] check, String money) throws AdMemberselectException;*/
+
 
 
 

@@ -249,7 +249,18 @@ public class AdMemberServiceImpl implements AdMemberService{
 		
 		return result;
 	}
-
+	
+/*	//사이버머니 변경
+	@Override
+	public int moneyChange(String[] check, String money) throws AdMemberselectException {
+		int result = 0;
+		for(int i = 0; i <check.length; i++) {
+			result += amd.moneyChange(sqlSession, check[i], money);
+		}
+		
+		return result;
+	}
+*/
 	
 
 	
