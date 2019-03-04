@@ -23,7 +23,7 @@
 		border: 1px solid black;
 		top: 340px;
 		left: 70px;
-		width: 30%;
+		width: 20%;
 		height: 150px;
 		cursor: pointer;
 	}
@@ -55,7 +55,7 @@
 	.gradeExplan{
 		position: absolute;
 		left: 70px;
-		top: 85%;
+		top: 80%;
 		width: 50%;
 	}
 	/* 등급에 대한 설명p태그 */	
@@ -67,14 +67,14 @@
 		position: absolute;
 		left: 70px;
 		border: 1px solid #205181;
-		top: 104%;
+		top: 94%;
 		width: 90%;
 	}
 	/* 닫기버튼 */
 	.closeBtn{
 		position: absolute;
 		left: 45%;
-		top: 1050px;
+		top: 950px;
 		text-align: center;
 		background-color: #205181;
 		border: 1px solid white;
