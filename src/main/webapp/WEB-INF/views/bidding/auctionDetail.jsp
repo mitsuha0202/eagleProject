@@ -899,40 +899,45 @@
 						/* 실시간 경매  입찰 */
 						else if(aCode == 'AC003'){
 							$("#wishBtn").hover($("#wishBtn").css('cursor','pointer'),$("#wishBtn").css('cursor','cursor'));
-							
+							$("#remainTime").text("경매 시작");
 							/* 위시리스트 등록 */
 							$("#wishBtn").click(function(){
 								var itemNo = $("#itemNo").text();
 								var mid = '${sessionScope.loginUser.mid}';
 								
-								$.ajax({
-									url:"compareWish.bi",
-									type:"get",
-									data:{itemNo : itemNo , mNo : mid},
-									success:function(data){
-										console.log("위시리스트 비교 성공");
-										if(data.mNo == "0"){
-											$.ajax({
-												url:"insertWishList.bi",
-												type:"get",
-												data:{itemNo : itemNo , mNo : mid},
-												success:function(data){
-													alert("위시리스트에 등록되었습니다.");
-													console.log("위시리스트 등록성공");
-												},
-												error:function(){
-													console.log("위시르스트 등록실패");
-												}
-											});
+								if(mid == ''){
+									alert("로그인 후 이용해주세요.");
+								}
+								else{
+									$.ajax({
+										url:"compareWish.bi",
+										type:"get",
+										data:{itemNo : itemNo , mNo : mid},
+										success:function(data){
+											console.log("위시리스트 비교 성공");
+											if(data.mNo == "0"){
+												$.ajax({
+													url:"insertWishList.bi",
+													type:"get",
+													data:{itemNo : itemNo , mNo : mid},
+													success:function(data){
+														alert("위시리스트에 등록되었습니다.");
+														console.log("위시리스트 등록성공");
+													},
+													error:function(){
+														console.log("위시르스트 등록실패");
+													}
+												});
+											}
+											else{
+												alert("이미 위시리스트에 등록된 경매물품 입니다.");
+											}
+										},
+										error:function(){
+											console.log("위시리스트 비교 실패");
 										}
-										else{
-											alert("이미 위시리스트에 등록된 경매물품 입니다.");
-										}
-									},
-									error:function(){
-										console.log("위시리스트 비교 실패");
-									}
-								});
+									});
+								}
 							});
 							
 							
@@ -1104,25 +1109,27 @@
 						$("#remainTime").text("경매시작 " + day + "일 " + hour + "시간 " + min + "분 " + sec + "초 전");
 					}
 					
-					var timeId;
+					var timeId = null;
 					var itemNo = $("#itemNo").text();
-						timeId = setInterval(function(){
-							if(time > 0){
-								printTime();
-							}
-							else{
-								$("#remainTime").text("경매 시작");
-								$("#bidBtn").css('background','#1b5ac2');
-								$("#wishBtn").css('background','#8f784b');
-								$("#qaBtn").css('background','#86899d');
-								$("#bidBtn").hover($("#bidBtn").css('cursor','pointer'),$("#bidBtn").css('cursor','cursor'));
-								$("#wishBtn").hover($("#wishBtn").css('cursor','pointer'),$("#wishBtn").css('cursor','cursor'));
-								$("#qaBtn").hover($("#qaBtn").css('cursor','pointer'),$("#qaBtn").css('cursor','cursor'));
-								console.log(time);
-								clearInterval(timeId);
-								
-							}
-						},1000);
+							timeId = setInterval(function(){
+								if(time > 0){
+									printTime();
+								}
+								else if(time == 0){
+									
+									clearInterval(timeId);
+									timeId = null;
+									location.reload();
+									$("#bidBtn").css('background','#1b5ac2');
+									$("#wishBtn").css('background','#8f784b');
+									$("#qaBtn").css('background','#86899d');
+									$("#bidBtn").hover($("#bidBtn").css('cursor','pointer'),$("#bidBtn").css('cursor','cursor'));
+									$("#wishBtn").hover($("#wishBtn").css('cursor','pointer'),$("#wishBtn").css('cursor','cursor'));
+									$("#qaBtn").hover($("#qaBtn").css('cursor','pointer'),$("#qaBtn").css('cursor','cursor'));
+									console.log(time);
+								}
+							},1000);
+						
 				});	
 			}
 		});
