@@ -356,13 +356,21 @@ public class AdMemberDaoImpl implements AdMemberDao{
 	}
 
 	@Override
-	public int returnOk(SqlSessionTemplate session, String payNoCheck) {
+	public int returnOk(SqlSessionTemplate session, String check) {
+		
+		String payNo=check.split("!")[0];
+		String price=check.split("!")[1];
+		
+		Map<String, Object> map= new HashMap<String, Object>();
+		
+		map.put("price", price);
+		map.put("payNo", payNo);
 		
 		int result = 0;
 		
-		int result1 = session.update("AdminVo.returnOk", payNoCheck); 
-		int result2 = session.update("AdminVo.buyer", payNoCheck); 
-		int result3 = session.update("AdminVo.seller", payNoCheck); 
+		int result1 = session.update("AdminVo.returnOk", map); 
+		int result2 = session.update("AdminVo.buyer", map); 
+		int result3 = session.update("AdminVo.seller", map); 
 		
 		if(result1 > 0 && result2 > 0 && result3 > 0) {
 			result = 1;
@@ -370,19 +378,22 @@ public class AdMemberDaoImpl implements AdMemberDao{
 		
 		return result;
 	}
-
-	/*@Override
+	
+	
+	@Override
 	public int moneyChange(SqlSessionTemplate session, String memberId, String money) {
 		
 		Map<String, Object> map= new HashMap<String, Object>();
 		
-		map.put("money", money);
+		map.put("eMoney", money);
 		map.put("memberId", memberId);
 		
-		int result = session.update("AdminVo.delcategory",memberId);
+		int result = session.update("AdminVo.moneyChange", map);
+		
+		System.out.println(result);
 		
 		return result;
-	}*/
+	}
 
 	
 

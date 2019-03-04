@@ -18,23 +18,18 @@
 		<div class="contBox mt30"><!-- contBox S -->
 				
 			<div class="topsearch mt30 mb30"><!-- topsearch S -->
-				<span class="font20 bold">날짜 검색</span>
-				<span>
-					<label for="Keyword"></label><input id="Keyword" name="Keyword" class="wth240" type="text">
-					<a class="sch" href="#"><img src="resources/images/icoSearch.png" alt="검색" title="검색"></a> 
-				</span>
+				
 			</div>			
 			
 			<div class="flo_left mt30 mb30">
-				<span><a class="mbtn rd" href="#">선택 삭제</a></span>
+				
 			</div>
 
 			<table class="boardList mt20">
 				<caption>문의내역 리스트입니다.</caption>
 				<colgroup>
-					<col style="width:7%;"><!-- No -->
-					<col style="width:12%;"><!--  -->
-					<col style="width:12%;"><!--  -->
+					<col style="width:12%;"><!-- No -->
+					<col style="width:24%;"><!--  -->
 					<col style="width:12%;"><!--  -->
 					<col style="width:10%;"><!--  -->
 					<col style="width:%;"><!--  -->
@@ -42,11 +37,10 @@
 				</colgroup>
 				<thead>
 					<tr>
-						<th scope="col">선택</th>
 						<th scope="col">회원 아이디</th>
 						<th scope="col">날짜</th>
 						<th scope="col">연락처</th>
-						<th scope="col">상태</th>
+						<th scope="col">답변상태</th>
 						<th scope="col">제목</th>
 						<th scope="col">상세보기</th>
 					</tr>
@@ -58,9 +52,6 @@
 					<tr>
 							<c:forEach var="b" items="${ list }">
 					<tr>
-						<td>
-							<input name="check"value="${ b.writeDay }" type="checkbox">
-						</td>
 						<td>${ b.memberId }</td>
 						<td>${ b.writeDay }</td>
 						<td>${ b.phone }</td>

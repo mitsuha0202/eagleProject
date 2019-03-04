@@ -77,7 +77,7 @@ public interface AdMemberDao {
 
 	int returnOk(SqlSessionTemplate sqlSession, String string);
 
-/*	int moneyChange(SqlSessionTemplate sqlSession, String string, String money);*/
+	int moneyChange(SqlSessionTemplate sqlSession, String string, String money);
 
 	
 
