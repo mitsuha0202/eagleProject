@@ -70,7 +70,7 @@ display :none;
 			
 			<h1>온라인 물품 등록</h1>
 			<hr>
-			<form action="insertItem.it" method="post" encType="multipart/form-data">
+			<form action="insertItem.it" method="post" encType="multipart/form-data" id="abcd">
 			<input type="hidden" name="mid" value="${ sessionScope.loginUser.mid}">
 			
 			<h2>카테고리 선택</h2>
@@ -246,9 +246,9 @@ display :none;
 		</table>
 		
 		<div class="confirm" align="center">
-		<button type="submit"class="ui primary button" onclick="alert('등록되었습니다')">
+		<div class="ui primary button" onclick="return create(); alert('등록되었습니다')">
  			 확인
-		</button>
+		</div>
 		<button class="ui button">
   		취소
 		</button>
@@ -262,7 +262,10 @@ display :none;
 	<script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script type="text/javascript">
-	
+	function create(){
+		$("#abcd").submit();
+		
+	}
 	
 	
 	$("#addFile").on("click", function(e){ //파일 추가 버튼
