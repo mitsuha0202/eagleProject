@@ -314,4 +314,11 @@ public interface MyPageDao {
 
 	//구매관리 구매확정 목록 조회
 	ArrayList<PayTable> selectAfterReceiptList(SqlSessionTemplate sqlSession, PageInfo pi, String mid);
+
+	//구매관리 배송완료 페이징
+	int getDeliveryCheck(SqlSessionTemplate sqlSession, String mid, String itemNo);
+
+	//판매관리 반품 완료 업데이트
+	int returnFinish(SqlSessionTemplate sqlSession, String itemNo, String mid);
+
 }

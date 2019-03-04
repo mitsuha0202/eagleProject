@@ -133,16 +133,12 @@ public class StatusController {
 		
 		if(winBidList != null) {
 			for(int i=0; i<winBidList.size(); i++) {
-				if(winBidList.get(i).getCurrentPrice() != null) {
-					/*Three three = new Three();			
-					winBidList.get(i).setCurrentPrice((three.toNumFormat(Integer.parseInt(winBidList.get(i).getCurrentPrice()))));*/
-				}
-				if(winBidList.get(i).getRowBid() == 1) {
+				if(winBidList.get(i).getRowBid() == 1 || winBidList.get(i).getRowBid() == 0) {
 					list.add(winBidList.get(i));
 				}
 			}
 		}
-		
+		System.out.println("낙찰: " + list);
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
 		
@@ -157,13 +153,21 @@ public class StatusController {
 		int listCount = ms.getFalseBidListCount(m.getMid());
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		ArrayList<PayTable> list = ms.selectFalseBidList(pi, m.getMid());
-
+		System.out.println(list);
 		for(int i=0; i<list.size(); i++) {
 			if(list.get(i).getMemberNo() == null) {
 				list.remove(i);
 				i -= 1;
 			}
 		}
+		System.out.println(list);
+		for(int i=0; i<list.size(); i++) {
+			if(list.get(i).getAuctioncode().equals("AC002")) {
+				list.remove(i);
+				break;
+			}
+		}
+		System.out.println(list);
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
 		return "myPage/management/unsuccessbidPage";
@@ -374,4 +378,14 @@ public class StatusController {
 		
 		return "myPage/management/notrecevingPage";
 	}		
+	
+	//구매관리 배송완료 처리
+	@RequestMapping("deliveryCheck.mp")
+	public String deliveryCheck(@RequestParam(value="itemNo", required=false) String itemNo, @RequestParam(defaultValue="1") int currentPage, HttpSession session, Model model, Member m) {
+		m = (Member)session.getAttribute("loginUser");
+		itemNo = itemNo.substring(0, itemNo.length()-1);
+		int count = ms.getDeliveryCheck(m.getMid(), itemNo);	
+			
+		return "redirect:purchasedecisionwaiting.mp";
+	}
 }

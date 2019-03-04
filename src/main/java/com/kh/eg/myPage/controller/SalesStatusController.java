@@ -47,7 +47,7 @@ public class SalesStatusController {
 			int listCount = ms.getEndOfSale(m.getMid());
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 			ArrayList<PayTable> list = ms.selectEndOfSaleList(pi, m.getMid());
-
+			
 			model.addAttribute("list", list);
 			model.addAttribute("pi", pi);
 			return "myPage/salesmanagement/endofsalePage";
@@ -59,7 +59,7 @@ public class SalesStatusController {
 			int listCount = ms.getBidderItem(m.getMid());
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 			ArrayList<PayTable> list = ms.selectBidderItemList(pi, m.getMid());
-
+			
 			model.addAttribute("list", list);
 			model.addAttribute("pi", pi);
 			return "myPage/salesmanagement/bidderitemPage";
@@ -246,4 +246,11 @@ public class SalesStatusController {
 					return "myPage/salesmanagement/notrecevingPage";
 				}
 				
+				@RequestMapping("returnFinish.mp")
+				public String returnFinish(@RequestParam("itemNo") String itemNo, HttpSession session, Member m) {
+					m = (Member)session.getAttribute("loginUser");
+					int result = ms.returnFinish(itemNo, m.getMid());
+					
+					return "redirect:return2.mp";
+				}
 }
