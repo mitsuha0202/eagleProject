@@ -15,6 +15,7 @@
 	.chart{
 		display: inline-block;
 	}
+	#modal {display:none;background-color:#FFFFFF;position:absolute;top:300px;left:200px;padding:10px;border:2px solid #E2E2E2;z-Index:9999}
 </style>
 
 <title>Eagle 관리자페이지</title>
@@ -33,7 +34,7 @@
 			    <input type="text" id="datepicker1" style="height: 40px;"> ~
 			    <input type="text" id="datepicker2" style="height: 40px;">
 			    
-			    <button class="ui button" onclick="dateSearch();">
+			    <button class="ui button" onclick="dateSearch();" id="searchBtn">
 				  	조회하기
 				</button>
 			</p>			
@@ -48,6 +49,10 @@
 			<div>
 			</div>
 			<div id=chartArea align="center" style="margin-top: 40px;">
+			<div id="modal">
+			    <div id="chart4" class="chart" style="width:500px;height:324px; margin-top: 50px;"></div>
+			    <button class="js_close">닫기</button>
+			</div>
 			<div id="chart" class="chart" style="width:500px;height:324px; margin-right: 30px;"></div>			
 			<div id="chart1" class="chart" style="width:500px;height:324px;"></div>
 			<div id="chart2" class="chart" style="width:500px;height:324px; margin-right: 30px; margin-top: 50px;"></div>
@@ -68,7 +73,18 @@
 <script type="text/javascript" src="../eg/js/plugins/jqplot.barRenderer.js"></script>
 <script type="text/javascript" src="../eg/js/plugins/jqplot.categoryAxisRenderer.js"></script>
  <script src="../eg/js/jquery-ui.min.js"></script>
+ <script type="text/javascript" src="../eg/js/Example.Modal.js"></script>
  <script>
+
+	  
+	// 모달 창 여는 버튼에 이벤트 걸기
+	
+	  
+	// 모달 창 안에 있는 확인 버튼에 이벤트 걸기
+	/* $("#confirm_button").click(function() {
+	    alert("나는 모달창이다.");
+	    myModal.hide(); // 모달창 감추기
+	}); */
  jQuery(document).ready(function () {
 		
 		
@@ -246,6 +262,68 @@
 		});
  });
  
+ function dateSearch() {
+	 
+		var datepicker1 = $("#datepicker1").val();
+		var datepicker2 = $("#datepicker2").val();
+		if(datepicker1 == "" || datepicker2 == ""){
+			alert('기간을 정확히 설정해주세요.\n(하루일 경우도 설정해줘야합니다.ex)2019-03-07~2019-03-07)');
+
+		}else{
+			var myModal = new Example.Modal({
+			    id: 'modal'
+			});
+			$("#searchBtn").click(function() {
+			    myModal.show(); // 모달창 보여주기
+			});
+		
+			console.log(datepicker1);
+			console.log(datepicker2);
+			$.ajax({
+				url:"priceDaySearch.sad",
+				type:"get",
+				data:{datepicker1:datepicker1, datepicker2:datepicker2},
+				dataType:"text",
+				contentType : "application/json",
+				success:function(data){
+					var data = JSON.parse(data);
+					console.log(data);
+					var nameArr = new Array();
+					var count = 0;
+					var cateName = '';
+					var cName = data.categoryName;
+					var cCount = data.categoryCount
+					
+					
+					var y = [];
+					var x = [];
+					
+					for(var i=0; i<data.length; i++){
+						y.push(data[i].priceCount);
+						x.push(data[i].categoryName);
+					}
+				    jQuery("#chart4").jqplot([y], {
+				          title:datepicker1+"~"+datepicker2+"(단위:천)"
+				        , seriesDefaults:{
+				              renderer:jQuery.jqplot.BarRenderer
+				            , rendererOptions:{
+				                varyBarColor:true
+				            }
+				        }
+				        , axes:{
+				            xaxis:{
+				                  renderer:jQuery.jqplot.CategoryAxisRenderer     
+					                , ticks:['10이하','11~100','101~1,000','1,001~'] 
+				            }
+				        }
+				    });
+				},
+				error:function(data){
+					alert("에러");
+				}
+			}); 
+		}
+	}
  
  </script>
  
@@ -262,6 +340,8 @@ jQuery.browser = {};
     $(function() {
         $("#datepicker1, #datepicker2").datepicker({
             dateFormat: 'yy-mm-dd'
+            ,changeYear: true //콤보박스에서 년 선택 가능
+            ,changeMonth: true //콤보박스에서 월 선택 가능    
         });
     });
 
