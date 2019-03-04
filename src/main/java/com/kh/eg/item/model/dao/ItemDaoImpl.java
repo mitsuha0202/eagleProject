@@ -9,6 +9,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import com.kh.eg.attachment.model.vo.Attachment;
 import com.kh.eg.category.model.vo.Category;
 import com.kh.eg.item.model.vo.Item;
 import com.kh.eg.member.model.dao.MemberDao;
@@ -25,12 +26,6 @@ public class ItemDaoImpl implements ItemDao {
 		return sqlSession.insert("Item.insertItem",hmap);
 	}
 
-	@Override
-	public int insertAttachment(SqlSessionTemplate sqlSession, HashMap<String, Object> hmap) {
-		System.out.println("attachmentDao");
-		
-		return sqlSession.insert("Item.insertAttachment",hmap);
-	}
 
 	@Override
 	public int selectItemNoNextval(SqlSessionTemplate sqlSession) {
@@ -56,6 +51,12 @@ public class ItemDaoImpl implements ItemDao {
 	public ArrayList<Category> selectMiddleCategory(SqlSessionTemplate sqlSession, String cateNo) {
 		// TODO Auto-generated method stub
 		return (ArrayList)sqlSession.selectList("Item.selectMiddleCategory",cateNo);
+	}
+
+	@Override
+	public int insertAttachment(SqlSessionTemplate sqlSession, Attachment attachment) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("Item.insertAttachment",attachment);
 	}
 	
 }

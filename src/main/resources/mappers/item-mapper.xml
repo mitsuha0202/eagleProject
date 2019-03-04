@@ -88,8 +88,8 @@
 	#{item.deliveryPay},#{item.origin}, 'N' ,#{item.categoryNo},#{item.mid}, #{item.auctionCode} ,#{item.detail},#{item.deliveryPrice},'0',#{item.lucky})
 	</insert>
 	<insert id="insertAttachment">
-	INSERT INTO ATTACHMENT VALUES(AN_SEQ.NEXTVAL, #{attachment.originName},#{attachment.changeName},
-	#{attachment.root},0,'Y',null,#{attachment.itemNo}
+	INSERT INTO ATTACHMENT VALUES(AN_SEQ.NEXTVAL, #{originName},#{changeName},
+	#{root},0,'Y',null,#{itemNo}
 	)
 	</insert>
 	<insert id="insertAuctionDetail">

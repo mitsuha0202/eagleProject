@@ -70,7 +70,7 @@ public class ItemController {
 	
 	
 	@RequestMapping("insertItem.it")
-	public @ResponseBody String insertItem(Item it,Model model,HttpServletRequest request,HttpServletResponse response, @RequestParam(value="photo",required=false)MultipartFile photo,
+	public  String insertItem(Item it,Model model,HttpServletRequest request,HttpServletResponse response, @RequestParam(value="photo",required=false)MultipartFile photo,
 			@RequestParam(value="categoryNo" ,required=false) String cateNo,
 			@RequestParam(value="categoryNo2") String cateNo2,
 			MultipartHttpServletRequest mtf) {
@@ -81,7 +81,7 @@ public class ItemController {
 		
 		String root=request.getSession().getServletContext().getRealPath("resources");
 		Member m=new Member();
-		Attachment att=new Attachment();
+		ArrayList<Attachment> att=new ArrayList<Attachment>();
 		AuctionDetail auctionD=new AuctionDetail();
 		String date=request.getParameter("startDay");
 		
@@ -170,23 +170,35 @@ public class ItemController {
 		
 		List<MultipartFile> fileList=mtf.getFiles("photo");
 		
-		for(MultipartFile mf:fileList) {
-			String originFileName=mf.getOriginalFilename();
+		int count = 0;
+		int level = 0;
+		
+		
+		
+		for(int i=0;i<fileList.size();i++) {
+			Attachment attt=new Attachment();
+			String originFileName=fileList.get(i).getOriginalFilename();
 			String ext=originFileName.substring(originFileName.lastIndexOf("."));
 			String changeName=CommonUtils.getRandomString();
 			String filePath=root+"\\uploadFiles";
+						
+			attt.setOriginName(originFileName);
+			attt.setChangeName(changeName+ext);
+			attt.setRoot(filePath);
 			
-			
-			
-			att.setFileLevel(0);
-			
-			att.setOriginName(originFileName);
-			att.setChangeName(changeName+ext);
-			att.setRoot(filePath);
+			if(count == 0) {
+				level = 0;
+			}
+			else {
+				level = 1;
+			}
+			attt.setFileLevel(level);
+			count++;
+			att.add(attt);
 			
 			try {
-				mf.transferTo(new File(filePath+"\\"+changeName+ext));
-				is.insertItem(hmap);
+				fileList.get(i).transferTo(new File(filePath+"\\"+changeName+ext));
+				
 				
 			} catch (IllegalStateException e) {
 				// TODO Auto-generated catch block
@@ -199,9 +211,10 @@ public class ItemController {
 			}
 			
 		}
-		
-		
+		is.insertItem(hmap);
 		return "redirect:mainPage.au";
+		/*is.insertItem(hmap);
+		return "main/main";*/
 	}
 		
 		

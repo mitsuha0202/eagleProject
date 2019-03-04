@@ -30,15 +30,17 @@ private DataSourceTransactionManager transactionManager;
 		
 		int result=0;
 		int itemNo=id.selectItemNoNextval(sqlSession);
-		((Item)hmap.get("item")).setItemNo(itemNo);
-		
-		System.out.println((Attachment)hmap.get("attachment"));
-		((Attachment)hmap.get("attachment")).setItemNo(itemNo);
+		((Item)hmap.get("item")).setItemNo(itemNo);	
 		((AuctionDetail)hmap.get("auctionDetail")).setItemNo(itemNo);
 		
 		
 		int result1=id.insertItem(sqlSession,hmap);
-		int result2=id.insertAttachment(sqlSession,hmap);
+		ArrayList<Attachment> att= (ArrayList<Attachment>)hmap.get("attachment");
+		int result2=0;
+		for(int i=0;i<att.size();i++) {
+			att.get(i).setItemNo(itemNo);
+			 result2=id.insertAttachment(sqlSession,att.get(i));	
+		}
 		int result3=id.insertAuctionDetail(sqlSession,hmap);
 		
 		
