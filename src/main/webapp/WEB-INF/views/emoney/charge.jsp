@@ -12,6 +12,9 @@
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script type="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <title>pay charge</title>
+<style>
+	
+</style>
 </head>
 <body>
 	<!-- 메뉴바 -->
@@ -26,76 +29,80 @@
 		</div>
 		<br><br>
 
-		<div>
+
 			<td><h5>보유 금액 : <c:out value="${ sessionScope.loginUser.emoney } 원"/></h5></td>
-		</div>
 		<br>
-					<td style = "color : gray; "><h5>결제금액의 90%가 이머니로 충전됩니다.</h5></td>
-		<div class="payChargeArea">
-			<table class="chargeTable">
-					<tr>
-						<div class="btn-group btn-group-toggle" data-toggle="buttons" >							
-							<td>
-							<label class="btn btn-secondary" style="margin: 2px;">
-							<input type="radio" name="amount" id="r1" value="1000" onclick="p1">1000원</label>
-							</td>							
-				            <td>
-							<label class="btn btn-secondary" style="margin: 2px;">
-							<input type="radio" name="amount" id="r2" value="5000" onclick="p2">5000원</label>
-							</td>							
-							<td>
-							<label class="btn btn-secondary" style="margin: 2px;">
-							<input type="radio" name="amount" id="r3" value="10000" onclick="p3">10000원</label>
-							</td>							
-							<td>
-							<label class="btn btn-secondary" style="margin: 2px;">
-							<input type="radio" name="amount" id="r4" value="50000" onclick="p4">50000원</label>
-							</td>							
-							<td>
-							<label class="btn btn-secondary" style="margin: 2px;">
-							<input type="radio" name="amount" id="r5" value="100000" onclick="p5">100000원</label>
-							</td>							
-							</label>
-						</div>
-					</tr>
-					<script>
-						function p1(){
-							var num = Number($("#r1").text());
-							$("#r1").text(num);
-						}
-						function p2(){
-							var num = Number($("#r2").text());
-							$("#r2").text(num);
-						}
-						function p3(){
-							var num = Number($("#r3").text());
-							$("#r3").text(num);
-						}
-						function p4(){
-							var num = Number($("#r4").text());
-							$("#r4").text(num);
-						}
-						function p5(){
-							var num = Number($("#r5").text());
-							$("#r5").text(num);
-						}
-					</script>
-					<br><br><br>					
-					<td><h5><b>충전금액  </b></h5></td>
-					<td id="tdChargeCashMoney"><label id="amount"><h5><b>0</label>원</b></h5></td>		
-					<tr><td><button class="btn btn-warning"  id="chargeAPI" type="button" >카카오페이</button></td></tr>
-			</table>
-		</div>
+			<table class="chargeTable" >
+						<h4><b>충전금액 : </b></h4>
+
+						<div class="btn-group btn-group-toggle" data-toggle="buttons">
+							<tr>
+								 <td>
+									<label  >
+									<input type="button" class="btn btn-secondary btn-lg" name="amount" id="r1" value="1100" onclick="p1" ></label>
+								</td>							
+					            <td>
+									<label  >
+									<input type="button" class="btn btn-secondary btn-lg" name="amount" id="r2" value="5500" onclick="p2" ></label>
+								</td>							
+								<td>
+									<label >
+									<input type="button" class="btn btn-secondary btn-lg" name="amount" id="r3" value="11000" onclick="p3" ></label>
+								</td>							
+								<td>
+									<label  >
+									<input type="button" class="btn btn-secondary btn-lg" name="amount" id="r4" value="55000" onclick="p4" ></label>
+								</td>							
+								<td>
+									<label >
+									<input type="button" class="btn btn-secondary btn-lg" name="amount" id="r5" value="110000" onclick="p5" ></label>
+								</td>
+							</tr>								
+							</div>				
+
+			</table>	
+							<tr>
+								<td id="tdChargeCashMoney"><h3><b>선택한 금액 : <label id="amount">0</label>원 </b></h3></td>
+								<td style = "color : gray; "><h5>선택한 충전 금액중 10%가 카드 수수료로 빠집니다.</h5></td>
+							</tr>
+											
+					<br>		
+					<td><button class="btn btn-warning"  id="chargeAPI" type="button" >카카오페이</button></td>
+
+		
 	</div>
 	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 	<script>
+			function p1(){
+				var num = Number($("#r1").text());
+				$("#r1").text(num);
+			}
+			function p2(){
+				var num = Number($("#r2").text());
+				$("#r2").text(num);
+			}
+			function p3(){
+				var num = Number($("#r3").text());
+				$("#r3").text(num);
+			}
+			function p4(){
+				var num = Number($("#r4").text());
+				$("#r4").text(num);
+			}
+			function p5(){
+				var num = Number($("#r5").text());
+				$("#r5").text(num);
+			}
 			/* memberNo = '${SessionScope.loginUser.memberNo}'; */  
 			memberNo = '${sessionScope.loginUser.mid}';
 			emoney = '${sessionScope.loginUser.emoney}';
 			
-			$("input[type = radio]").click(function(){
-				$("#amount").text($(this).val());				
-				chargeMoney = $(this).val()*(0.9);
+			$("input[type = button]").click(function(){
+				 $("#amount").text($(this).val()); 
+				/* $('input[name=amount]').text($(this).val()); */
+				/* chargeMoney = $(this).val()*(0.9); */
+				chargeMoney = $(this).val();
+				commission = $(this).val()*(0.1);
 				 
 			});
 			
@@ -122,7 +129,8 @@
 		    	    		data: {		    
 		    	    			imp_uid : rsp.imp_uid,
 		    		    		buyer_code : memberNo,
-		    		    		amount : chargeMoney
+		    		    		amount : chargeMoney,
+		    		    		commission : commission
 		    	    		},
 		    	    		success:function(data){
 		    	    			console.log(data);

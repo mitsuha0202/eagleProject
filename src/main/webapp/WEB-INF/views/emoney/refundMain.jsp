@@ -25,7 +25,7 @@
 		<br><br>
 		<tr>
 			<button class="btn btn-secondary btn-lg active" onclick="location.href='charge.em'">충전하기</button>	
-			<button class="btn btn-secondary btn-lg active" onclick="location.href='refund.em'">환급하기</button>		
+			<button class="btn btn-secondary btn-lg active" onclick="location.href='refund.em'">환전하기</button>		
 		</tr>
 		<br>
 		<br>
@@ -33,19 +33,19 @@
 		<table align="center" id="listArea" class="table table-striped"  border:1px; solid #dddddd">
 		 		<thead>
 		 			<tr>
-						<th style="width: 20% background-color:#eeeeee; text-align: center;">환급번호</th>
-						<th style="width: 5% background-color:#eeeeee; text-align: center;">환급날짜</th>
+						<!-- <th style="width: 20% background-color:#eeeeee; text-align: center;">환급번호</th> -->
+						<th style="width: 5% background-color:#eeeeee; text-align: center;">환전날짜</th>
 						<th style="width: 5% background-color:#eeeeee; text-align: center;">금액</th>
-						<!-- <th style="width: 3% background-color:#eeeeee; text-align: center;">사용구분</th> -->
+						<!-- <th style="width: 3% background-color:#eeeeee; text-align: center;">환전상태</th> -->
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach var="e" items="${ list }">
 					<tr align="center">
-						<td>${e.payNo }</td>
+						<%-- <td>${e.payNo }</td> --%>
 						<td>${e.useDay}</td>
-						<td>${e.money}</td>
-						<%-- <td>${e.useStatus}</td> --%>
+						<td>${e.money}원</td>
+						<%-- <td>${e.exchangeYn}</td> --%>
 					</tr>
 					</c:forEach>
 				</tbody>
@@ -56,7 +56,7 @@
 			<thead>
 		 			<tr>
 						<th style="width: 20% background-color:#eeeeee; text-align: center;">환급번호</th>
-						<th style="width: 5% background-color:#eeeeee; text-align: center;">환급날짜</th>
+						<th style="width: 5% background-color:#eeeeee; text-align: center;">환전날짜</th>
 						<th style="width: 5% background-color:#eeeeee; text-align: center;">금액</th>
 						<!-- <th style="width: 3% background-color:#eeeeee; text-align: center;">사용구분</th> -->
 					</tr>

@@ -87,7 +87,7 @@ private emoneyService es;
 	//API에 전송할 값 넣는 메소드
 	@RequestMapping("saveCharge.em")
 	public void saveCharge(@RequestParam(value="buyer_code", required=false) String buyer_code, @RequestParam(value="amount", required=false) int amount,
-			HttpSession session, emoney e, HttpServletRequest request, HttpServletResponse response) throws JsonIOException, IOException {
+			@RequestParam(value="commission", required=false) int commission, HttpSession session, emoney e, HttpServletRequest request, HttpServletResponse response) throws JsonIOException, IOException {
 		
 		Member m = new Member();
 		m = (Member)session.getAttribute("loginUser");
@@ -105,7 +105,7 @@ private emoneyService es;
 		m.setEmoney(amount);
 		System.out.println("buyer_code : " + buyer_code);
 		System.out.println("amount : " + amount);
-		
+		System.out.println("수수료 찍히나? : " + commission );
 		
 		/*int resultA = es.insertEmoney(e);*/
 		int resultB = es.insertMemberEmoney(e);

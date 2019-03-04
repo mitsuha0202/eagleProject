@@ -17,7 +17,7 @@
 	<br>
 	<div class="container">
 		<div class="title">
-			<h1>환급</h1>
+			<h1>환전</h1>
 		</div>
 		<br><br>
 

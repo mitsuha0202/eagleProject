@@ -315,4 +315,10 @@ public interface MyPageService {
 	//구매관리 구매확정 목록 조회
 	ArrayList<PayTable> selectAfterReceiptList(PageInfo pi, String mid);
 
+	//구매관리 배송완료 페이징
+	int getDeliveryCheck(String mid, String itemNo);
+
+	//판매관리 반품 완료 업데이트
+	int returnFinish(String itemNo, String mid);
+
 }

@@ -20,7 +20,7 @@ public class emoney implements java.io.Serializable {
 	private String refundNo;
 	private String dealNo;
 	private String itemNo;
-
+	
 	public emoney() {}
 
 	public String getUseNo() {
@@ -182,11 +182,4 @@ public class emoney implements java.io.Serializable {
 		this.itemNo = itemNo;
 	}
 
-	
-	
-	
-
-	
-	
-	
 }

@@ -138,6 +138,7 @@
       </tbody>
      
     </table>
+    	<button onclick="deliveryCheck();"></button>
 	     <button onclick="noDelivery();">미수령신고</button>
 	</div>
 	
@@ -190,6 +191,22 @@
 	</div>
 	
 	<script>
+		function deliveryCheck() {
+			var sendArr = new Array();
+				var sendCur = new Array();
+				var checkbox = $(".checkChild:checked");
+		        alert("배송완료 처리되었습니다.");
+			 	checkbox.each(function(i){
+			 		var tr = checkbox.parent().parent().eq(i);
+			 		var td = tr.children();
+		            var docNum = td.eq(1).text();
+		            var current = td.eq(3).text();
+		            sendArr.push(docNum);
+		            sendCur.push(current);
+					location.href="deliveryCheck.mp?itemNo=" + sendArr +"," + "&currentPrice=" + sendCur;
+			 	}); 	
+		}	
+	
 		function noDelivery() {
 			var sendArr = new Array();
    			var sendCur = new Array();
