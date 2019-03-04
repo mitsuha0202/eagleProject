@@ -30,5 +30,29 @@ public interface SecondAdminDao {
 	ArrayList<SecondAdmin> categoryPriceMonth(SqlSessionTemplate sqlSession);
 
 	ArrayList<SecondAdmin> categoryPriceYear(SqlSessionTemplate sqlSession);
+
+	ArrayList<SecondAdmin> lastCateDaysTen(SqlSessionTemplate sqlSession);
+
+	ArrayList<SecondAdmin> lastCateDaysHun(SqlSessionTemplate sqlSession);
+
+	ArrayList<SecondAdmin> lastCateDaysMil(SqlSessionTemplate sqlSession);
+
+	ArrayList<SecondAdmin> lastCateDaysMax(SqlSessionTemplate sqlSession);
+
+	ArrayList<SecondAdmin> lastCateWeekTen(SqlSessionTemplate sqlSession);
+
+	ArrayList<SecondAdmin> lastCateWeekHun(SqlSessionTemplate sqlSession);
+
+	ArrayList<SecondAdmin> lastCateWeekMil(SqlSessionTemplate sqlSession);
+
+	ArrayList<SecondAdmin> lastCateWeekMax(SqlSessionTemplate sqlSession);
+	
+	ArrayList<SecondAdmin> lastCateMonthTen(SqlSessionTemplate sqlSession);
+
+	ArrayList<SecondAdmin> lastCateMonthHun(SqlSessionTemplate sqlSession);
+
+	ArrayList<SecondAdmin> lastCateMonthMil(SqlSessionTemplate sqlSession);
+
+	ArrayList<SecondAdmin> lastCateMonthMax(SqlSessionTemplate sqlSession);
 	
 }

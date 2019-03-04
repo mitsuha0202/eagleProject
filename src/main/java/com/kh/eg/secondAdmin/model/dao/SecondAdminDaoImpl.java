@@ -227,4 +227,135 @@ return null;
 		return list;
 	}
 
+	@Override
+	public ArrayList<SecondAdmin> lastCateDaysTen(SqlSessionTemplate sqlSession) {
+		ArrayList<SecondAdmin> list = (ArrayList)sqlSession.selectList("SecondAdmin.categoryName");
+		for(int i =0; i<list.size(); i++) {
+			int result = sqlSession.selectOne("SecondAdmin.categoryPriceCountDaysTen",i+1);
+			list.get(i).setCategoryCount(result);
+		}
+		
+		return list;
+	}
+
+	@Override
+	public ArrayList<SecondAdmin> lastCateDaysHun(SqlSessionTemplate sqlSession) {
+		ArrayList<SecondAdmin> list = (ArrayList)sqlSession.selectList("SecondAdmin.categoryName");
+		for(int i =0; i<list.size(); i++) {
+			int result = sqlSession.selectOne("SecondAdmin.categoryPriceCountDaysHun",i+1);
+			list.get(i).setCategoryCount(result);
+		}
+		
+		return list;
+	}
+
+	@Override
+	public ArrayList<SecondAdmin> lastCateDaysMil(SqlSessionTemplate sqlSession) {
+		ArrayList<SecondAdmin> list = (ArrayList)sqlSession.selectList("SecondAdmin.categoryName");
+		for(int i =0; i<list.size(); i++) {
+			int result = sqlSession.selectOne("SecondAdmin.categoryPriceCountDaysMil",i+1);
+			list.get(i).setCategoryCount(result);
+		}
+		
+		return list;
+	}
+
+	@Override
+	public ArrayList<SecondAdmin> lastCateDaysMax(SqlSessionTemplate sqlSession) {
+		ArrayList<SecondAdmin> list = (ArrayList)sqlSession.selectList("SecondAdmin.categoryName");
+		for(int i =0; i<list.size(); i++) {
+			int result = sqlSession.selectOne("SecondAdmin.categoryPriceCountDaysMax",i+1);
+			list.get(i).setCategoryCount(result);
+		}
+		
+		return list;
+	}
+
+	@Override
+	public ArrayList<SecondAdmin> lastCateWeekTen(SqlSessionTemplate sqlSession) {
+		ArrayList<SecondAdmin> list = (ArrayList)sqlSession.selectList("SecondAdmin.categoryName");
+		for(int i =0; i<list.size(); i++) {
+			int result = sqlSession.selectOne("SecondAdmin.categoryPriceCountWeekTen",i+1);
+			list.get(i).setCategoryCount(result);
+		}
+		
+		return list;
+	}
+
+	@Override
+	public ArrayList<SecondAdmin> lastCateWeekHun(SqlSessionTemplate sqlSession) {
+		ArrayList<SecondAdmin> list = (ArrayList)sqlSession.selectList("SecondAdmin.categoryName");
+		for(int i =0; i<list.size(); i++) {
+			int result = sqlSession.selectOne("SecondAdmin.categoryPriceCountWeekHun",i+1);
+			list.get(i).setCategoryCount(result);
+		}
+		
+		return list;
+	}
+
+	@Override
+	public ArrayList<SecondAdmin> lastCateWeekMil(SqlSessionTemplate sqlSession) {
+		ArrayList<SecondAdmin> list = (ArrayList)sqlSession.selectList("SecondAdmin.categoryName");
+		for(int i =0; i<list.size(); i++) {
+			int result = sqlSession.selectOne("SecondAdmin.categoryPriceCountWeekMil",i+1);
+			list.get(i).setCategoryCount(result);
+		}
+		
+		return list;
+	}
+
+	@Override
+	public ArrayList<SecondAdmin> lastCateWeekMax(SqlSessionTemplate sqlSession) {
+		ArrayList<SecondAdmin> list = (ArrayList)sqlSession.selectList("SecondAdmin.categoryName");
+		for(int i =0; i<list.size(); i++) {
+			int result = sqlSession.selectOne("SecondAdmin.categoryPriceCountWeekMax",i+1);
+			list.get(i).setCategoryCount(result);
+		}
+		
+		return list;
+	}
+	
+	@Override
+	public ArrayList<SecondAdmin> lastCateMonthTen(SqlSessionTemplate sqlSession) {
+		ArrayList<SecondAdmin> list = (ArrayList)sqlSession.selectList("SecondAdmin.categoryName");
+		for(int i =0; i<list.size(); i++) {
+			int result = sqlSession.selectOne("SecondAdmin.categoryPriceCountMonthTen",i+1);
+			list.get(i).setCategoryCount(result);
+		}
+		
+		return list;
+	}
+
+	@Override
+	public ArrayList<SecondAdmin> lastCateMonthHun(SqlSessionTemplate sqlSession) {
+		ArrayList<SecondAdmin> list = (ArrayList)sqlSession.selectList("SecondAdmin.categoryName");
+		for(int i =0; i<list.size(); i++) {
+			int result = sqlSession.selectOne("SecondAdmin.categoryPriceCountMonthHun",i+1);
+			list.get(i).setCategoryCount(result);
+		}
+		
+		return list;
+	}
+
+	@Override
+	public ArrayList<SecondAdmin> lastCateMonthMil(SqlSessionTemplate sqlSession) {
+		ArrayList<SecondAdmin> list = (ArrayList)sqlSession.selectList("SecondAdmin.categoryName");
+		for(int i =0; i<list.size(); i++) {
+			int result = sqlSession.selectOne("SecondAdmin.categoryPriceCountMonthMil",i+1);
+			list.get(i).setCategoryCount(result);
+		}
+		
+		return list;
+	}
+
+	@Override
+	public ArrayList<SecondAdmin> lastCateMonthMax(SqlSessionTemplate sqlSession) {
+		ArrayList<SecondAdmin> list = (ArrayList)sqlSession.selectList("SecondAdmin.categoryName");
+		for(int i =0; i<list.size(); i++) {
+			int result = sqlSession.selectOne("SecondAdmin.categoryPriceCountMonthMax",i+1);
+			list.get(i).setCategoryCount(result);
+		}
+		
+		return list;
+	}
 }

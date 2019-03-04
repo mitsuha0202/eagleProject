@@ -84,6 +84,78 @@ public class SecondAdminSerivceImpl implements SecondAdminService{
 		ArrayList<SecondAdmin> list =sad.categoryPriceYear(sqlSession);
 		return list;
 	}
+
+	@Override
+	public ArrayList<SecondAdmin> lastCateDaysTen() {
+		ArrayList<SecondAdmin> list =sad.lastCateDaysTen(sqlSession);
+		return list;
+	}
+
+	@Override
+	public ArrayList<SecondAdmin> lastCateDaysHun() {
+		ArrayList<SecondAdmin> list =sad.lastCateDaysHun(sqlSession);
+		return list;
+	}
+
+	@Override
+	public ArrayList<SecondAdmin> lastCateDaysMil() {
+		ArrayList<SecondAdmin> list =sad.lastCateDaysMil(sqlSession);
+		return list;
+	}
+
+	@Override
+	public ArrayList<SecondAdmin> lastCateDaysMax() {
+		ArrayList<SecondAdmin> list =sad.lastCateDaysMax(sqlSession);
+		return list;
+	}
+
+	@Override
+	public ArrayList<SecondAdmin> lastCateWeekTen() {
+		ArrayList<SecondAdmin> list =sad.lastCateWeekTen(sqlSession);
+		return list;
+	}
+
+	@Override
+	public ArrayList<SecondAdmin> lastCateWeekHun() {
+		ArrayList<SecondAdmin> list =sad.lastCateWeekHun(sqlSession);
+		return list;
+	}
+
+	@Override
+	public ArrayList<SecondAdmin> lastCateWeekMil() {
+		ArrayList<SecondAdmin> list =sad.lastCateWeekMil(sqlSession);
+		return list;
+	}
+
+	@Override
+	public ArrayList<SecondAdmin> lastCateWeekMax() {
+		ArrayList<SecondAdmin> list =sad.lastCateWeekMax(sqlSession);
+		return list;
+	}
+
+	@Override
+	public ArrayList<SecondAdmin> lastCateMonthTen() {
+		ArrayList<SecondAdmin> list =sad.lastCateMonthTen(sqlSession);
+		return list;
+	}
+
+	@Override
+	public ArrayList<SecondAdmin> lastCateMonthHun() {
+		ArrayList<SecondAdmin> list =sad.lastCateMonthHun(sqlSession);
+		return list;
+	}
+
+	@Override
+	public ArrayList<SecondAdmin> lastCateMonthMil() {
+		ArrayList<SecondAdmin> list =sad.lastCateMonthMil(sqlSession);
+		return list;
+	}
+
+	@Override
+	public ArrayList<SecondAdmin> lastCateMonthMax() {
+		ArrayList<SecondAdmin> list =sad.lastCateMonthMax(sqlSession);
+		return list;
+	}
 	
 	
 }

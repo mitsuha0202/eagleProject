@@ -5,7 +5,7 @@
 	<h1><a href="memberList.ad"><em class="orange font30 bold">Eagle</em> 관리자페이지</a></h1>
 
 	<div class="inner"><!-- inner S -->
-		<ul class="gnbMenu">
+		<ul class="gnbMenu" style="height: 115px;">
 			<li><a href="memberList.ad">회원 관리</a></li>
 			<li><a href="blackList.ad">블랙리스트 관리</a></li>
 			<li><a href="reportList.ad">신고 관리</a></li>

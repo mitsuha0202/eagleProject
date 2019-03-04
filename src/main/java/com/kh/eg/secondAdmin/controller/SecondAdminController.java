@@ -176,6 +176,116 @@ public class SecondAdminController {
 		return "admin/statList3";
 	}
 	
+	@RequestMapping("lastCateDaysTen.sad")
+	public @ResponseBody ArrayList<SecondAdmin> lastCateDaysTen(){
+		ArrayList<SecondAdmin> list = sas.lastCateDaysTen();
+		
+		return list;
+	}
 	
+	@RequestMapping("lastCateDaysHun.sad")
+	public @ResponseBody ArrayList<SecondAdmin> lastCateDaysHun(){
+		ArrayList<SecondAdmin> list = sas.lastCateDaysHun();
+		
+		return list;
+	}
+	
+	@RequestMapping("lastCateDaysMil.sad")
+	public @ResponseBody ArrayList<SecondAdmin> lastCateDaysMil(){
+		ArrayList<SecondAdmin> list = sas.lastCateDaysMil();
+		
+		return list;
+	}
+	
+	@RequestMapping("lastCateDaysMax.sad")
+	public @ResponseBody ArrayList<SecondAdmin> lastCateDaysMax(){
+		ArrayList<SecondAdmin> list = sas.lastCateDaysMax();
+		
+		return list;
+	}
+	
+	@RequestMapping("lastCateWeekTen.sad")
+	public @ResponseBody ArrayList<SecondAdmin> lastCateWeekTen(){
+		ArrayList<SecondAdmin> list = sas.lastCateWeekTen();
+		
+		return list;
+	}
+	
+	@RequestMapping("lastCateWeekHun.sad")
+	public @ResponseBody ArrayList<SecondAdmin> lastCateWeekHun(){
+		ArrayList<SecondAdmin> list = sas.lastCateWeekHun();
+		
+		return list;
+	}
+	
+	@RequestMapping("lastCateWeekMil.sad")
+	public @ResponseBody ArrayList<SecondAdmin> lastCateWeekMil(){
+		ArrayList<SecondAdmin> list = sas.lastCateWeekMil();
+		
+		return list;
+	}
+	
+	@RequestMapping("lastCateWeekMax.sad")
+	public @ResponseBody ArrayList<SecondAdmin> lastCateWeekMax(){
+		ArrayList<SecondAdmin> list = sas.lastCateWeekMax();
+		
+		return list;
+	}
+	
+	@RequestMapping("lastCateMonthTen.sad")
+	public @ResponseBody ArrayList<SecondAdmin> lastCateMonthTen(){
+		ArrayList<SecondAdmin> list = sas.lastCateMonthTen();
+		
+		return list;
+	}
+	
+	@RequestMapping("lastCateMonthHun.sad")
+	public @ResponseBody ArrayList<SecondAdmin> lastCateMonthHun(){
+		ArrayList<SecondAdmin> list = sas.lastCateMonthHun();
+		
+		return list;
+	}
+	
+	@RequestMapping("lastCateMonthMil.sad")
+	public @ResponseBody ArrayList<SecondAdmin> lastCateMonthMil(){
+		ArrayList<SecondAdmin> list = sas.lastCateMonthMil();
+		
+		return list;
+	}
+	
+	@RequestMapping("lastCateMonthMax.sad")
+	public @ResponseBody ArrayList<SecondAdmin> lastCateMonthMax(){
+		ArrayList<SecondAdmin> list = sas.lastCateMonthMax();
+		
+		return list;
+	}
+	
+	@RequestMapping("lastCateYearTen.sad")
+	public @ResponseBody ArrayList<SecondAdmin> lastCateYearTen(){
+		ArrayList<SecondAdmin> list = sas.lastCateYearTen();
+		
+		return list;
+	}
+	
+	@RequestMapping("lastCateYearHun.sad")
+	public @ResponseBody ArrayList<SecondAdmin> lastCateYearHun(){
+		ArrayList<SecondAdmin> list = sas.lastCateYearHun();
+		
+		return list;
+	}
+	
+	@RequestMapping("lastCateYearMil.sad")
+	public @ResponseBody ArrayList<SecondAdmin> lastCateYearMil(){
+		ArrayList<SecondAdmin> list = sas.lastCateYearMil();
+		
+		return list;
+	}
+	
+	@RequestMapping("lastCateYearMax.sad")
+	public @ResponseBody ArrayList<SecondAdmin> lastCateYearMax(){
+		ArrayList<SecondAdmin> list = sas.lastCateYearMax();
+		
+		return list;
+	}
 	
 }
