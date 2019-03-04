@@ -61,4 +61,6 @@ public interface SecondAdminService {
 
 	ArrayList<SecondAdmin> lastCateYearMax();
 
+	ArrayList<SecondAdmin> searchPrice(HashMap<String, String> hmap);
+
 }

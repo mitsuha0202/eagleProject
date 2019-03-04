@@ -157,5 +157,34 @@ public class SecondAdminSerivceImpl implements SecondAdminService{
 		return list;
 	}
 	
+	@Override
+	public ArrayList<SecondAdmin> lastCateYearTen() {
+		ArrayList<SecondAdmin> list =sad.lastCateYearTen(sqlSession);
+		return list;
+	}
+
+	@Override
+	public ArrayList<SecondAdmin> lastCateYearHun() {
+		ArrayList<SecondAdmin> list =sad.lastCateYearHun(sqlSession);
+		return list;
+	}
+
+	@Override
+	public ArrayList<SecondAdmin> lastCateYearMil() {
+		ArrayList<SecondAdmin> list =sad.lastCateYearMil(sqlSession);
+		return list;
+	}
+
+	@Override
+	public ArrayList<SecondAdmin> lastCateYearMax() {
+		ArrayList<SecondAdmin> list =sad.lastCateYearMax(sqlSession);
+		return list;
+	}
+
+	@Override
+	public ArrayList<SecondAdmin> searchPrice(HashMap<String, String> hmap) {
+		ArrayList<SecondAdmin> list = sad.searchPrice(sqlSession, hmap);
+		return list;
+	}
 	
 }

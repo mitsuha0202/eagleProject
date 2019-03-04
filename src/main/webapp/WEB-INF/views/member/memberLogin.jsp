@@ -73,17 +73,17 @@
         <div class = "twelve wide column" style="margin-top:50px;">
 		    <h1 class="ui header" align="center" style="margin-top:150px; margin-bottom:30px; font-size:4rem;">Eagle's Auction</h1>
 			<div class="loginArea" align="center">
-				<form class="ui form" action="login.me" method="post">
+				<form class="ui form" id="loginForm" action="login.me" method="post">
 				  <div class="field">
 				    <label align="left" style="font-size: 1.5em;">아이디</label>
-				    <input type="text" name="userId" placeholder="ID" style="height:50px">
+				    <input type="text" id="userId" name="userId" placeholder="ID" style="height:50px">
 				  </div>
 				  <div class="field">
 				    <label align="left" style="font-size: 1.5em;">비밀번호</label>
-				    <input type="password" name="userPwd" placeholder="PASSWORD" style="height:50px">
+				    <input type="password" id="userPwd" name="userPwd" placeholder="PASSWORD" style="height:50px">
 				  </div>
 				  <div class="ui inverted segment" style="width:500px; height: 108px;">
-		  			<button class="ui inverted button" style="width:450px; font-size: xx-large; padding-top: 15px; ">eagle's Login</button>
+		  			<button class="ui inverted button" id="loginBth" type="button" style="width:450px; font-size: xx-large; padding-top: 15px;" onclick="return login()">eagle's Login</button>
 		  		  </div>
 	  		  	<div>
 				    <a id="kakao-login-btn"></a>
@@ -147,6 +147,18 @@
  		
  		
     </script>
-
+	<script>
+		function login() {
+			var userId = $("#userId").val();
+			var userPwd = $("#userPwd").val();
+			if(userId == "" || userPwd == ""){
+				alert("아이디 또는 비밀번호를 확인해주세요.");
+				return false;
+			}else{
+				$("#loginForm").submit();
+			}
+		}
+	
+	</script>
 </body>
 </html>

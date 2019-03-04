@@ -40,23 +40,80 @@ public class SecondAdminDaoImpl implements SecondAdminDao{
 
 	@Override
 	public ArrayList<SecondAdmin> searchCategory(SqlSessionTemplate sqlSession, HashMap<String, String> hmap) {
-		/*ArrayList<SecondAdmin> list = (ArrayList)sqlSession.selectList("SecondAdmin.categoryName");
+		ArrayList<SecondAdmin> list = (ArrayList)sqlSession.selectList("SecondAdmin.categoryName");
 		
 		for(int i=0; i<list.size();i++) {
-			i = i+1;
-			String si = Integer.toString(i);
-			hmap.put("si", si);
-			int result = sqlSession.selectOne("SecondAdmin.searchCategoryCount",hmap);
-			int isi =Integer.parseInt(si);
-			int isi2 = isi-1;
+			i = i+1; 
+			String cateNO = Integer.toString(i);  
+			hmap.put("cateNO", cateNO); 
+			int result = sqlSession.selectOne("SecondAdmin.searchCategoryCount",hmap); 
+			System.out.println(i+"번쨰 "+result);
+			int isi =Integer.parseInt(cateNO);  
+			int isi2 = isi-1;  
 			list.get(isi2).setCategoryCount(result);
+			i= i-1;
 		}
 		
 		return list;
-	}*/
-return null;
+	
 }
 
+	@Override
+	public ArrayList<SecondAdmin> searchPrice(SqlSessionTemplate sqlSession, HashMap<String, String> hmap) {
+		ArrayList<SecondAdmin> list = (ArrayList)sqlSession.selectList("SecondAdmin.categoryName");
+		
+		int tenS =0;
+		int hunS =0;
+		int mil = 0;
+		int max = 0;
+		for(int i=0; i<list.size();i++) {
+			i=i+1;
+			String cateNo = Integer.toString(i);
+			hmap.put("cateNo", cateNo);
+			int result =sqlSession.selectOne("SecondAdmin.searchPriceTenCount",hmap);
+			tenS += result;
+			int isi =Integer.parseInt(cateNo);  
+			int isi2 = isi-1;  
+			i= i-1;
+		}
+		for(int i=0; i<list.size();i++) {
+			i=i+1;
+			String cateNo = Integer.toString(i);
+			hmap.put("cateNo", cateNo);
+			int result =sqlSession.selectOne("SecondAdmin.searchPriceHunCount",hmap);
+			hunS += result;
+			int isi =Integer.parseInt(cateNo);  
+			int isi2 = isi-1;  
+			i= i-1;
+		}
+		for(int i=0; i<list.size();i++) {
+			i=i+1;
+			String cateNo = Integer.toString(i);
+			hmap.put("cateNo", cateNo);
+			int result =sqlSession.selectOne("SecondAdmin.searchPriceMilCount",hmap);
+			mil += result;
+			int isi =Integer.parseInt(cateNo);  
+			int isi2 = isi-1;  
+			i= i-1;
+		}
+		for(int i=0; i<list.size();i++) {
+			i=i+1;
+			String cateNo = Integer.toString(i);
+			hmap.put("cateNo", cateNo);
+			int result =sqlSession.selectOne("SecondAdmin.searchPriceMaxCount",hmap);
+			max += result;
+			int isi =Integer.parseInt(cateNo);  
+			int isi2 = isi-1;  
+			i= i-1;
+		}
+		int [] arr = {tenS, hunS, mil, max};
+
+		for(int i =0; i<arr.length;i++) {
+			list.get(i).setPriceCount(arr[i]);
+			System.out.println(list.get(i).getPriceCount());
+		}
+		return list;
+	}
 	@Override
 	public ArrayList<SecondAdmin> categoryWeeks(SqlSessionTemplate sqlSession) {
 		ArrayList<SecondAdmin> list = (ArrayList)sqlSession.selectList("SecondAdmin.categoryName");
@@ -358,4 +415,50 @@ return null;
 		
 		return list;
 	}
+	
+	@Override
+	public ArrayList<SecondAdmin> lastCateYearTen(SqlSessionTemplate sqlSession) {
+		ArrayList<SecondAdmin> list = (ArrayList)sqlSession.selectList("SecondAdmin.categoryName");
+		for(int i =0; i<list.size(); i++) {
+			int result = sqlSession.selectOne("SecondAdmin.categoryPriceCountYearTen",i+1);
+			list.get(i).setCategoryCount(result);
+		}
+		
+		return list;
+	}
+
+	@Override
+	public ArrayList<SecondAdmin> lastCateYearHun(SqlSessionTemplate sqlSession) {
+		ArrayList<SecondAdmin> list = (ArrayList)sqlSession.selectList("SecondAdmin.categoryName");
+		for(int i =0; i<list.size(); i++) {
+			int result = sqlSession.selectOne("SecondAdmin.categoryPriceCountYearHun",i+1);
+			list.get(i).setCategoryCount(result);
+		}
+		
+		return list;
+	}
+
+	@Override
+	public ArrayList<SecondAdmin> lastCateYearMil(SqlSessionTemplate sqlSession) {
+		ArrayList<SecondAdmin> list = (ArrayList)sqlSession.selectList("SecondAdmin.categoryName");
+		for(int i =0; i<list.size(); i++) {
+			int result = sqlSession.selectOne("SecondAdmin.categoryPriceCountYearMil",i+1);
+			list.get(i).setCategoryCount(result);
+		}
+		
+		return list;
+	}
+
+	@Override
+	public ArrayList<SecondAdmin> lastCateYearMax(SqlSessionTemplate sqlSession) {
+		ArrayList<SecondAdmin> list = (ArrayList)sqlSession.selectList("SecondAdmin.categoryName");
+		for(int i =0; i<list.size(); i++) {
+			int result = sqlSession.selectOne("SecondAdmin.categoryPriceCountYearMax",i+1);
+			list.get(i).setCategoryCount(result);
+		}
+		
+		return list;
+	}
+
+	
 }

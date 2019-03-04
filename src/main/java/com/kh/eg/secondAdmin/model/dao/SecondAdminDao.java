@@ -55,4 +55,14 @@ public interface SecondAdminDao {
 
 	ArrayList<SecondAdmin> lastCateMonthMax(SqlSessionTemplate sqlSession);
 	
+	ArrayList<SecondAdmin> lastCateYearTen(SqlSessionTemplate sqlSession);
+
+	ArrayList<SecondAdmin> lastCateYearHun(SqlSessionTemplate sqlSession);
+
+	ArrayList<SecondAdmin> lastCateYearMil(SqlSessionTemplate sqlSession);
+
+	ArrayList<SecondAdmin> lastCateYearMax(SqlSessionTemplate sqlSession);
+
+	ArrayList<SecondAdmin> searchPrice(SqlSessionTemplate sqlSession, HashMap<String, String> hmap);
+	
 }

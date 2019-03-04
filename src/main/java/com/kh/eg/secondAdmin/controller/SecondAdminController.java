@@ -108,32 +108,25 @@ public class SecondAdminController {
 		System.out.println("datepicker1:"+datepicker1);
 		System.out.println("datepicker2:"+datepicker2);
 		
-		/*String[] dateArr = datepicker1.split("-");
-		int[] drr = new int[dateArr.length];
-		
-		for(int i=0;i<dateArr.length;i++) {
-			drr[i] = Integer.parseInt(dateArr[i]);
-		}
-		
-		startDay = new java.sql.Date(new GregorianCalendar(drr[0], drr[1]-1, drr[2]).getTimeInMillis());
-		
-		dateArr = datepicker2.split("-");
-		drr = new int[dateArr.length];
-		
-		for(int i=0;i<dateArr.length;i++) {
-			drr[i] = Integer.parseInt(dateArr[i]);
-		}
-		endDay = new java.sql.Date(new GregorianCalendar(drr[0], drr[1]-1, drr[2]).getTimeInMillis());
-		
-		System.out.println(startDay);
-		System.out.println(endDay);
-		HashMap<String, Date> hmap = new HashMap<String, Date>();
-		hmap.put("startDay", startDay);
-		hmap.put("endDay", endDay);*/
 		HashMap<String, String> hmap = new HashMap<String, String>();
 		hmap.put("datepicker1", datepicker1);
 		hmap.put("datepicker2", datepicker2);
 		ArrayList<SecondAdmin> list = sas.searchCategory(hmap);
+		return list;
+	}
+	
+	@RequestMapping("priceDaySearch.sad")
+	public @ResponseBody ArrayList<SecondAdmin> priceSearch(@RequestParam(value="datepicker1") String datepicker1, @RequestParam(value="datepicker2") String datepicker2){
+		
+		Date startDay = null;
+		Date endDay = null;
+		System.out.println("datepicker1:"+datepicker1);
+		System.out.println("datepicker2:"+datepicker2);
+		
+		HashMap<String, String> hmap = new HashMap<String, String>();
+		hmap.put("datepicker1", datepicker1);
+		hmap.put("datepicker2", datepicker2);
+		ArrayList<SecondAdmin> list = sas.searchPrice(hmap);
 		return list;
 	}
 	
