@@ -729,5 +729,19 @@ public class MyPageServiceImpl implements MyPageService{
 
 		return md.selectAfterReceiptList(sqlSession, pi, mid);
 	}
+
+	//구매관리 배송완료 페이징
+	@Override
+	public int getDeliveryCheck(String mid, String itemNo) {
+
+		return md.getDeliveryCheck(sqlSession, mid, itemNo);
+	}
+
+	//판매관리 반품 완료 업데이트
+	@Override
+	public int returnFinish(String itemNo, String mid) {
+		
+		return md.returnFinish(sqlSession, itemNo, mid);
+	}
 	
 }

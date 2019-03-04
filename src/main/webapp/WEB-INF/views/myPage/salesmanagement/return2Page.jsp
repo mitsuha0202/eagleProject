@@ -138,7 +138,7 @@
       </tbody>
      
     </table>
-	     
+	     <button onclick="returnFinish();"></button>
 	</div>
 	
 	<div id="pagingArea" align="center">
@@ -188,5 +188,28 @@
 		<i class="dollar sign icon" id="accountInfo"></i>
 		<h4 class="tutorialIcon2">자주묻는 질문</h4>		
 	</div>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script>
+		function returnFinish() {
+			var sendArr = new Array();
+   			var sendCur = new Array();
+   			var checkbox = $(".checkChild:checked");
+   	        if(window.comfirm("반품된 물품을 받으셨습니까?.")){
+	   		 	checkbox.each(function(i){
+	   		 		var tr = checkbox.parent().parent().eq(i);
+	   		 		var td = tr.children();
+	   	            var docNum = td.eq(1).text();
+	   	            var current = td.eq(3).text();
+	   	            sendArr.push(docNum);
+	   	            sendCur.push(current);
+	 				location.href="returnFinish.mp?itemNo=" + sendArr + "&currentPrice=" + sendCur;
+	   		 	}); 
+   	        }
+   	        else {
+   	        	
+   	        }
+		}
+	</script>
 </body>
 </html>

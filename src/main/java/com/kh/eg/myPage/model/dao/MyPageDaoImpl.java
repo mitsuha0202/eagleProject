@@ -334,10 +334,9 @@ public class MyPageDaoImpl implements MyPageDao{
 		for(int i=0; i<count; i++) {
 			searchList.put("itemNo", String.valueOf(itemNo.get(i).getItemNo()));
 			list = (ArrayList)sqlSession.selectList("MyPage.selectWinBidList", searchList, rowBounds);
-			if(list.get(i).getAuctioncode().equals("AC001")) {
-				/*WinBid winBid = (WinBid)sqlSession.selectOne("MyPage.winBidSelect", searchList);*/
+
+			if(list.get(i).getAuctioncode().equals("AC001") || list.get(i).getAuctioncode().equals("AC003")) {
 					ArrayList<PayTable> temp = (ArrayList)sqlSession.selectList("MyPage.selectWinBidRank", searchList);
-	
 					for(int j=0; j<temp.size(); j++) {
 						if(list.get(i).getBidNo() == temp.get(j).getBidNo()) {
 							list.get(i).setRowBid(temp.get(j).getRowBid());
@@ -345,18 +344,16 @@ public class MyPageDaoImpl implements MyPageDao{
 					}	
 				
 			}else if(list.get(i).getAuctioncode().equals("AC002")) {
-				searchList.put("itemNo", String.valueOf(itemNo.get(i).getItemNo()));
-				/*WinBid winBid = (WinBid)sqlSession.selectOne("MyPage.winBidSelect", searchList);*/
-					ArrayList<PayTable> currentPrice = (ArrayList)sqlSession.selectList("MyPage.selectLuckyWinBid", searchList);
-					ArrayList<Integer> price = new ArrayList<Integer>();
-					for(int j=0; j<currentPrice.size(); j++) {
-						price.add(Integer.parseInt(currentPrice.get(j).getCurrentPrice()));
-					}
+
+				ArrayList<PayTable> currentPrice = (ArrayList)sqlSession.selectList("MyPage.selectLuckyWinBid", searchList);
+				ArrayList<Integer> price = new ArrayList<Integer>();
+				for(int j=0; j<currentPrice.size(); j++) {
+					price.add(Integer.parseInt(currentPrice.get(j).getCurrentPrice()));				
+				}
 					// 오름차순 정렬
-			        Ascending ascending = new Ascending();
-			        Collections.sort(price, ascending);	
-			        list.get(i).setCurrentPrice(String.valueOf(price.get(0)));
-			
+					Ascending ascending = new Ascending();
+					Collections.sort(price, ascending);	
+					list.get(i).setCurrentPrice(String.valueOf(price.get(0)));
 			}
 		}
 		return list;
@@ -441,20 +438,34 @@ public class MyPageDaoImpl implements MyPageDao{
 		for(int i=0; i<list.size(); i++) {
 			PayTable lists = new PayTable();
 			map.put("itemNo", String.valueOf(list.get(i).getItemNo()));
-			//낙찰된 금액 조회해서 제외하기 
-			PayTable pay = sqlSession.selectOne("MyPage.selectFalseBidPay", map);
-			map.put("currentPrice", pay.getCurrentPrice());
-			lists = sqlSession.selectOne("MyPage.countFalseBid", map);
-			
-			if(lists != null) {
-				list.get(i).setItemName(lists.getItemName());
-				list.get(i).setBidNo(lists.getBidNo());
-				list.get(i).setCurrentPrice(lists.getCurrentPrice());
-				list.get(i).setEndDay(lists.getEndDay());
-				list.get(i).setMemberNo(lists.getMemberNo());
-				list.get(i).setSaleMemberName(lists.getSaleMemberName());
+				if(list.get(i).getAuctioncode().equals("AC001") || list.get(i).getAuctioncode().equals("AC003")) {
+				//낙찰된 금액 조회해서 제외하기 
+				PayTable pay = sqlSession.selectOne("MyPage.selectFalseBidPay", map);
+				map.put("currentPrice", pay.getCurrentPrice());
+				lists = sqlSession.selectOne("MyPage.countFalseBid", map);
+				
+				if(lists != null) {
+					list.get(i).setItemName(lists.getItemName());
+					list.get(i).setBidNo(lists.getBidNo());
+					list.get(i).setCurrentPrice(lists.getCurrentPrice());
+					list.get(i).setEndDay(lists.getEndDay());
+					list.get(i).setMemberNo(lists.getMemberNo());
+					list.get(i).setSaleMemberName(lists.getSaleMemberName());
+				}
+	
+			}else if(list.get(i).getAuctioncode().equals("AC002")) {
+				
+				/*WinBid winBid = (WinBid)sqlSession.selectOne("MyPage.winBidSelect", searchList);*/
+					ArrayList<PayTable> currentPrice = (ArrayList)sqlSession.selectList("MyPage.selectLuckyWinBid", map);
+					ArrayList<Integer> price = new ArrayList<Integer>();
+					for(int j=0; j<currentPrice.size(); j++) {
+						price.add(Integer.parseInt(currentPrice.get(j).getCurrentPrice()));
+					}
+					// 오름차순 정렬
+			        Ascending ascending = new Ascending();
+			        Collections.sort(price, ascending);	
+			        list.get(i).setCurrentPrice(String.valueOf(price.get(i)));
 			}
-
 		}
 		return list;
 	}
@@ -1185,6 +1196,36 @@ public class MyPageDaoImpl implements MyPageDao{
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 		
 		return (ArrayList)sqlSession.selectList("MyPage.selectAfterReceiptList", mid, rowBounds);
+	}
+
+	//구매관리 배송완료 페이징
+	@Override
+	public int getDeliveryCheck(SqlSessionTemplate sqlSession, String mid, String itemNo) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		
+		map.put("mid", mid);
+		map.put("itemNo", itemNo);
+		
+		WinBid winBid = sqlSession.selectOne("MyPage.searchDealNo", map);
+		map.put("dealNo", winBid.getDealNo());
+		
+		int result = sqlSession.update("MyPage.deliveryCheckUpdate", map);
+		
+		return result;
+	}
+
+	//판매관리 반품 완료 업데이트
+	@Override
+	public int returnFinish(SqlSessionTemplate sqlSession, String itemNo, String mid) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		
+		map.put("mid", mid);
+		map.put("itemNo", itemNo);
+		
+		WinBid winBid = sqlSession.selectOne("MyPage.searchDealNo", map);
+		map.put("dealNo", winBid.getDealNo());
+		
+		return sqlSession.update("MyPage.updateReturnFinish", map);
 	}
 
 }

@@ -322,12 +322,12 @@
    <!-- 반품 리스트 -->
    <select id="selectReturnList" resultMap="returnResultSet">
       SELECT D.PAYNO, M.MEMBERID, M.PHONE, D.ORDERM, M.ADDRESS, A.ITEMNAME FROM MEMBER M JOIN WINBID W ON (M.MEMBERNO = W.MEMBERNO) 
-      JOIN WINBIDDETAIL D ON(W.DEALNO = D.DEALNO)JOIN AUCTIONITEM A ON (A.ITEMNO = W.ITEMNO) AND ANDDEALSTATUS = 'N'
+      JOIN WINBIDDETAIL D ON(W.DEALNO = D.DEALNO)JOIN AUCTIONITEM A ON (A.ITEMNO = W.ITEMNO) AND ENDDEALSTATUS = 'N'
    </select>
    
    <!-- 반품 거절 -->
    <select id="returnRefuse" resultMap="returnResultSet">
-     UPDATE WINBIDDETAIL SET ANDDEALSTATUS = 'Y' WHERE PAYNO = #{payNo}
+     UPDATE WINBIDDETAIL SET ENDDEALSTATUS = 'Y' WHERE PAYNO = #{payNo}
    </select>
    
 	<!-- 환전 완료 -->
