@@ -611,6 +611,28 @@ public class AdminController {
 		
 	}
 	
+		//반품승인
+		@RequestMapping("returnOk.ad")
+		public String returnOkview(Model model, HttpServletRequest request){
+			String[] check = request.getParameterValues("payNum");
+			System.out.println(check);
+			for(int i = 0; i< check.length; i++) {
+				System.out.println(check[i]);
+			}
+
+			int result;
+
+			try {
+				result = ams.returnOk(check);
+				return "redirect:returnList.ad";
+			} catch (AdMemberselectException e) {
+				e.printStackTrace();
+				model.addAttribute("msg","반품 승인 실패!");
+				return "common/errorPage";
+			}
+			
+		}
+	
 	@RequestMapping("statList1.ad")
 	public String statList1view(){
 		return "admin/statList1";

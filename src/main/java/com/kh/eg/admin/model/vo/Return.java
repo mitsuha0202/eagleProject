@@ -1,16 +1,18 @@
 package com.kh.eg.admin.model.vo;
 
-public class Return {
+public class Return implements java.io.Serializable{
 	private String payNo;
 	private String memberId;
 	private String phone;
 	private String orderm;
 	private String address;
 	private String itemName;
+	private int price;
 	
 	public Return () {}
 
-	public Return(String payNo, String memberId, String phone, String orderm, String address, String itemName) {
+	public Return(String payNo, String memberId, String phone, String orderm, String address, String itemName,
+			int price) {
 		super();
 		this.payNo = payNo;
 		this.memberId = memberId;
@@ -18,6 +20,7 @@ public class Return {
 		this.orderm = orderm;
 		this.address = address;
 		this.itemName = itemName;
+		this.price = price;
 	}
 
 	public String getPayNo() {
@@ -68,11 +71,21 @@ public class Return {
 		this.itemName = itemName;
 	}
 
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
 	@Override
 	public String toString() {
 		return "Return [payNo=" + payNo + ", memberId=" + memberId + ", phone=" + phone + ", orderm=" + orderm
-				+ ", address=" + address + ", itemName=" + itemName + "]";
+				+ ", address=" + address + ", itemName=" + itemName + ", price=" + price + "]";
 	}
+
+	
 
 	
 }
