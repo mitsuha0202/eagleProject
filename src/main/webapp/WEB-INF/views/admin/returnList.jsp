@@ -19,22 +19,41 @@
 			
 			<div class="flo_left mt30 mb30">
 				<span><a class="mbtn db" href="#">승인</a></span>
-				<span><a class="mbtn rd" href="#">거절</a></span>
+				<span><a class="mbtn rd" onclick="refuse();">거절</a></span>
 			</div>
+			
+			<script>
+				function refuse(){
+					var payNum = $("input[name=check]:checked");
+					var payNumcheck = "";
+					for(var i = 0; i < payNum.length; i++){
+						payNumcheck+="payNum="+payNum[i].value;
+						if(i<payNum.length-1){
+							payNumcheck+="&";
+						}
+					}
+					
+					location.href = "returnRefuse.ad?" + payNumcheck;
+				}
+			</script>
+			
+			
 
 			<table class="boardList mt20">
 				<caption>반품관리 리스트입니다.</caption>
 				<colgroup>
 					<col style="width:8%;"><!-- No -->
+					<col style="width:10%;"><!--  -->
 					<col style="width:12%;"><!--  -->
 					<col style="width:12%;"><!--  -->
 					<col style="width:12%;"><!--  -->
 					<col style="width:24%;"><!--  -->
-					<col style="width:24%;"><!--  -->
+					<col style="width:12%;"><!--  -->
 				</colgroup>
 				<thead>
 					<tr>
 						<th scope="col">선택</th>
+						<th scope="col">구매번호</th>
 						<th scope="col">구매자 아이디</th>
 						<th scope="col">연락처</th>
 						<th scope="col">배송상태</th>
@@ -49,8 +68,9 @@
 					<c:forEach var="b" items="${ list }">
 					<tr>
 						<td>
-							<input name="check"value="${ b.memberId }" type="checkbox">
+							<input name="check"value="${ b.payNo }" type="checkbox">
 						</td>
+						<td>${ b.payNo }</td>
 						<td>${ b.memberId }</td>
 						<td>${ b.phone }</td>
 						<td>${ b.orderm }</td>
