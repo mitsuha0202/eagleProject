@@ -120,11 +120,9 @@
           <th class="firstTd">낙찰가</th>
           <th class="firstTd">마감일</th>
           <th class="firstTd">판매자</th>    
-          <c:forEach var="b" items="${ list }">
-          <c:if test="${ '거래신청' eq b.orderM }">
-          	<th class="firstTd">거래신청유무</th>
-          </c:if>
-          </c:forEach>
+          <th class="firstTd">거래신청</th>
+ 
+
           
         </tr>
       </thead>
@@ -141,13 +139,16 @@
 	               <td>${ b.saleMemberName }</td>      
 	               <c:if test="${  b.orderM eq '거래신청' }">
 	               	<td>Y</td>
+	               </c:if>
+	               <c:if test="${ b.orderM eq NULL }">
+	               	<td>N</td>
 	               </c:if>                      
 	            </tr>
 	         </c:forEach>
         </c:if>
         <c:if test="${ empty list }">
         	 <tr>
-	          <td colspan="8"><h5>검색된 내용이 없습니다.</h5></td>	      
+	          <td colspan="7"><h5>검색된 내용이 없습니다.</h5></td>	      
         	</tr>
         </c:if>
         
@@ -194,7 +195,7 @@
 		</div>
 	
 	<!-- 하단 div영역 -->
-	<div class="tutorialDiv">
+	<!-- <div class="tutorialDiv">
 		<br>
 		<h4 class="tutorialText1">고객센터 상담전화</h4>
 		<br><br>
@@ -205,7 +206,7 @@
 		<h4 class="tutorialIcon1" onclick="egAuctionInfo.mp">사이트이용안내</h4>
 		<i class="dollar sign icon" id="accountInfo"></i>
 		<h4 class="tutorialIcon2">자주묻는 질문</h4>		
-	</div> 
+	</div>  -->
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script>

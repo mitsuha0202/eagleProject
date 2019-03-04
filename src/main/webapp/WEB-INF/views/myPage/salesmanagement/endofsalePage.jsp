@@ -110,7 +110,7 @@
         <tr>
             <th class="firstTd">물품번호</th>
           <th class="firstTd">물품명</th>
-          <th class="firstTd">현재가</th>
+          <th class="firstTd">낙찰가</th>
           <th class="firstTd">낙찰자</th>
           <th class="firstTd">마감일</th>
           

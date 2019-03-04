@@ -146,8 +146,6 @@ public class StatusController {
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
 		
-		System.out.println("list: " + list);
-		
 		return "myPage/management/purchaseendPage";
 	}
 	
@@ -245,11 +243,23 @@ public class StatusController {
 		
 	//구매현황상세페이지 - 구매 물품 거래 진행중 페이지 - 수령이후/송금예정
 		@RequestMapping("afterreceipt.mp")
-		public String afterreceiptPage(@RequestParam(defaultValue="1") int currentPage, HttpSession session, Model model, Member m) {
+		public String afterreceiptPage(@RequestParam(defaultValue="1") int currentPage, @RequestParam(value="itemNo", required=false) String itemNo, HttpSession session, Model model, Member m) {
+			ArrayList<PayTable> list = null;
+			PageInfo pi = null;
 			m = (Member)session.getAttribute("loginUser");
-			int listCount = ms.getAfterSend(m.getMid());
-			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-			ArrayList<PayTable> list = ms.selectAfterSend(m.getMid(), pi);
+			
+			if(itemNo != null && !itemNo.equals("")) {
+				itemNo = itemNo.substring(0, itemNo.length()-1);
+				int listCount = ms.getAfterReceipt(m.getMid(), itemNo);
+				pi = Pagination.getPageInfo(currentPage, listCount);			
+			}else {			
+				int listCount = ms.getAfterReceiptNoParam(m.getMid());
+				pi = Pagination.getPageInfo(currentPage, listCount);
+			}			
+			list = ms.selectAfterReceiptList(pi, m.getMid());
+			
+			model.addAttribute("list", list);
+			model.addAttribute("pi", pi);
 			return "myPage/management/afterreceiptPage";
 			
 		}

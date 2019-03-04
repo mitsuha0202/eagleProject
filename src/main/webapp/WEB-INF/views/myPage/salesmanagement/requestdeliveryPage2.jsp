@@ -81,9 +81,9 @@
 	<hr class="firstLine">
 	<h1>판매관리(판매 물품 거래 진행중)</h1>
 	
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" 
+	<!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" 
    aria-labelledby="myModalLabel" aria-hidden="true">
-   <div class="modal-dialog"><!--  큰창:<div class="modal-dialog modal-lg"> 작은창 :<div class="modal-dialog modal-sm">  -->
+   <div class="modal-dialog"> 큰창:<div class="modal-dialog modal-lg"> 작은창 :<div class="modal-dialog modal-sm"> 
       <div class="modal-content">
          <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" 
@@ -107,7 +107,7 @@
       </div> 
    </div> 
 </div>
-	<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+	<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"> -->
 
 
     <div class="buyStatus">
@@ -140,7 +140,8 @@
       
       <thead>
         <tr>
-             <th class="firstTd">물품번호</th>
+          <td class="firstTd">선택</td>
+          <th class="firstTd">물품번호</th>
           <th class="firstTd">물품명</th>
           <th class="firstTd">현재가</th>
           <th class="firstTd">낙찰자</th>
@@ -153,6 +154,7 @@
         <c:if test="${ !empty list }">
 	      <c:forEach var="b" items="${ list }">
 	            <tr> 
+	            	<td><input type="radio" class="checkChild" name="gender"></td>
 	               <td>${ b.itemNo }</td>
 	               <td>${ b.itemName }</td>
 	               <td>${ b.currentPrice }</td>
