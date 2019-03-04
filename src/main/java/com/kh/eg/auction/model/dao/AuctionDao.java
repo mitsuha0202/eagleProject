@@ -48,6 +48,10 @@ public interface AuctionDao {
 
 	ArrayList<Member> mainMember(SqlSessionTemplate sqlSession);
 
+	ArrayList<Item> mainItem1(SqlSessionTemplate sqlSession);
+
+	ArrayList<Item> mainItem2(SqlSessionTemplate sqlSession);
+
 	/*Object selectAttachment(SqlSessionTemplate sqlSession, int itemNo);*/
 
 	

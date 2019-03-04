@@ -129,13 +129,13 @@ h4 {
 			<!-- <div id="grid" class="ui grid" style="display:inline-block;"> -->
 			<div id="firstColumn">
 				<c:forEach var="i" items="${list1}">
-
+				
 					<div id="addDiv" class="four wide column"
 						style="display: inline-block;">
-						<div>
+						<div onclick="itemClick('${i.itemNo}','${i.auctionCode}')">
 							<div class="may" style="width: 300px;">
 
-								<img src="resources/uploadFiles/${i.atta.changeName}"
+								<img  src="resources/uploadFiles/${i.atta.changeName}"
 									style="width: 300px; height: 200px;">
 							</div>
 							<table class="ui basic table" style="width: 250px;">
@@ -159,17 +159,29 @@ h4 {
 
 						</div>
 					</div>
+					<input type="hidden" name="itemNo" value="${i.itemNo}">
+					<input type="hidden" name="auctionCode" value="${i.auctionCode}">									
 				</c:forEach>
 			</div>
+			
 
 		</div>
 
 
 	</div>
+	
+	
+	
 
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script type="text/javascript">
+	
+	
+	
+	
+	
+	
 		//카테고리 클릭 했을 때
 		$(".thclass")
 				.click(
@@ -196,6 +208,7 @@ h4 {
 												var $tr1 = $("<tr>");
 												var $tr2 = $("<tr class='tr'>");
 												var $td1 = $("<td colspan='2'>");
+												
 												$td1.text("입찰    "+ data[i].bidCount+ " 건");
 												var $td2 = $("<td>");
 												$td2.text("조회   "+ data[i].itemcount+ "회");
@@ -209,8 +222,14 @@ h4 {
 												$td5.text("남은 시간");
 												var $td6 = $("<td>");
 												$td6.text("00");
-												var $div=$("<div>");
+												/* var $input1=$("<input type='hidden' name='itemNo' value='"+data[i].itemNo+"'>");
+												var $input2=$("<input type='hidden' name='auctionCode' value='"+data[i].auctionCode+"'>"); */
+											
+												var $div=$("<div onclick='itemClick('"+data[i].itemNo+"','"+data[i].auctionCode+"')'>");
+												
 												var $addDiv = $("<div id='addDiv' class='four wide column' style='display:inline-block;'>");
+											
+												
 												$tr2.append($td1);
 												$tr2.append($td2);
 												$tr3.append($td3);
@@ -225,7 +244,10 @@ h4 {
 												$div1.append($img);
 												$div.append($div1);
 												$div.append($table);
+												/* $div.append($input1);
+												$div.append($input2); */
 												$addDiv.append($div);
+												
 											
 												var $firstcolumn = $("#firstColumn");
 												$firstcolumn.append($addDiv);
@@ -291,6 +313,8 @@ h4 {
 										$td6.text("00");
 										var $div=$("<div>");
 										var $addDiv = $("<div id='addDiv' class='four wide column' style='display:inline-block;'>");
+										var $input1=$("<input type='hidden' name='itemNo' value='"+data[i].itemNo+"'>");
+										var $input2=$("<input type='hidden' name='auctionCode' value='"+data[i].auctionCode+"'>");
 										$tr2.append($td1);
 										$tr2.append($td2);
 										$tr3.append($td3);
@@ -306,6 +330,9 @@ h4 {
 										$div.append($div1);
 										$div.append($table);
 										$addDiv.append($div);
+										$addDiv.append($input1);
+										$addDiv.append($input2);
+									
 									
 										var $firstcolumn = $("#firstColumn");
 										$firstcolumn.append($addDiv);
@@ -345,6 +372,34 @@ h4 {
 
 							});
 						});
+		
+
+/* 		
+	$(".itemClick").click(function(itemNo){
+			
+		
+			var itemNo=$("input[name=itemNo]").val(); 
+			var auctionCode=$("input[name=auctionCode]").val();
+		
+		
+			console.log(itemNo);
+			console.log(auctionCode);
+			
+			location.href="auctionDetail.bi?itemNo="+itemNo+"&auctionCode="+auctionCode;
+			
+		}); */
+		function itemClick(itemNo,auctionCode) {
+			
+			 /*  var auctionCode=$("input[name=auctionCode]").val();   */
+			
+			console.log(itemNo);
+			console.log(auctionCode);
+			
+			location.href="auctionDetail.bi?itemNo="+itemNo+"&auctionCode="+auctionCode;
+		}
+		
+		
+		
 	</script>
 
 

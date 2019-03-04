@@ -125,4 +125,16 @@ public class AuctionServiceImpl implements AuctionService {
 		return ad.mainMember(sqlSession);
 	}
 
+	@Override
+	public ArrayList<Item> selectItemM1() {
+		// TODO Auto-generated method stub
+		return ad.mainItem1(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Item> selectItemM2() {
+		// TODO Auto-generated method stub
+		return  ad.mainItem2(sqlSession);
+	}
+
 }

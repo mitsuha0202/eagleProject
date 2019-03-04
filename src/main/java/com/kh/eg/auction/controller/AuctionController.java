@@ -253,8 +253,81 @@ public class AuctionController {
 			}
 		}
 		
-		ArrayList<Item> list5 = list1;
-		ArrayList<Item> list6= list1;
+		
+		//리스트
+		list2=as.selectBidM();
+		ArrayList<Item> list5=as.selectItemM1();
+		for(int i=0;i<list1.size();i++) {
+			int count=0;
+			for(int j=0;j<list2.size();j++) {
+				if(list2.get(j).getItemNo()==(list5.get(i).getItemNo())) {
+					count++;
+				}
+			}
+			list5.get(i).setBidCount(count);
+
+		};
+		list3=as.selectAttachmentM();
+
+		for(int i=0;i<list5.size();i++) {
+			for(int j=0;j<list3.size();j++) {
+				if(list5.get(i).getItemNo()==(list3.get(j).getItemNo())) {
+					list5.get(i).setAtta(list3.get(j));break;
+				}
+			}
+		};
+
+		
+		list4= as.selectMemberM();
+		
+		for(int i=0;i<list5.size();i++) {
+			for(int j=0;j<list4.size();j++) {
+				if(list5.get(i).getMid().equals(list4.get(j).getMid())) {
+					list5.get(i).setMemberName(list4.get(j));break;
+				}
+			}
+		}
+
+		
+		
+		
+		//스페셜
+		list2=as.selectBidM();
+		ArrayList<Item> list6=as.selectItemM2();
+		for(int i=0;i<list6.size();i++) {
+			int count=0;
+			for(int j=0;j<list2.size();j++) {
+				if(list2.get(j).getItemNo()==(list6.get(i).getItemNo())) {
+					count++;
+				}
+			}
+			list6.get(i).setBidCount(count);
+
+		};
+		list3=as.selectAttachmentM();
+
+		for(int i=0;i<list6.size();i++) {
+			for(int j=0;j<list3.size();j++) {
+				if(list6.get(i).getItemNo()==(list3.get(j).getItemNo())) {
+					list6.get(i).setAtta(list3.get(j));break;
+				}
+			}
+		};
+
+		
+		list4= as.selectMemberM();
+		System.out.println(list4);
+		for(int i=0;i<list6.size();i++) {
+			for(int j=0;j<list4.size();j++) {
+				if(list6.get(i).getMid().equals(list4.get(j).getMid())) {
+					list6.get(i).setMemberName(list4.get(j));break;
+				}
+			}
+		}
+		
+		
+		
+		
 		
 		
 		model.addAttribute("list1",list1);
