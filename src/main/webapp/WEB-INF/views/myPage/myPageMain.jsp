@@ -20,9 +20,9 @@
 	}
 	/* 이름부분 div */
 	.mpUserDiv{
-		background-color: #205181;
+		background-color: #168;
 		text-align: center;
-		border: 1px solid black;
+		border: 1px solid #ddd;
 		position: absolute;
 		left: 70px;
 		top: 260px;
@@ -32,7 +32,7 @@
 	/* 이름부분 div 버튼 */
 	.mpUserDivBtn {
 		text-align: center;
-		background-color: #205181;
+		background-color: #168;
 		border: 1px solid white;
 		color:white;
 		border-radius: 10px;
@@ -44,7 +44,7 @@
 	/* 쪽지함 div */
 	.mpMessageDiv{
 		text-align: center;
-		border: 1px solid black;
+		border: 1px solid #ddd;
 		position: absolute;
 		top: 260px;
 		left: 409px;
@@ -54,7 +54,7 @@
 	/* 쪽지함 div 버튼 */
 	.mpMessageDivBtn{
 		text-align: center;
-		background-color: #205181;
+		background-color: #168;
 		border: 1px solid white;
 		color:white;
 		border-radius: 10px;
@@ -66,7 +66,7 @@
 	/* 사이버머니 div */
 	.mpMoneyDiv{
 		text-align: center;
-		border: 1px solid black;
+		border: 1px solid #ddd;
 		position: absolute;
 		top: 260px;
 		left: 748px;
@@ -76,7 +76,7 @@
 	/* 사이버머니 div 버튼 */
 	.mpMoneyDivAccountBtn{
 		text-align: center;
-		background-color: #205181;
+		background-color: #168;
 		border: 1px solid white;
 		color:white;
 		border-radius: 10px;
@@ -88,7 +88,7 @@
 	/* 사이버머니 div 버튼 */
 	.mpMoneyDivSendBtn{
 		text-align: center;
-		background-color: #205181;
+		background-color: #168;
 		border: 1px solid white;
 		color:white;
 		border-radius: 10px;
@@ -99,7 +99,7 @@
 	/* 사이버머니 div 버튼 */
 	.mpMoneyDivGiveBtn{
 		text-align: center;
-		background-color: #205181;
+		background-color: #168;
 		border: 1px solid white;
 		color:white;
 		border-radius: 10px;
@@ -110,7 +110,7 @@
 	/* 위시리스트 div */
 	.mpWishListDiv{
 		text-align: center;
-		border: 1px solid black;
+		border: 1px solid #ddd;
 		position: absolute;
 		top: 260px;
 		left: 1087px;
@@ -120,7 +120,7 @@
 	/* 위시리스트 div 버튼 */
 	.mpWishListDivBtn{
 		text-align: center;
-		background-color: #205181;
+		background-color: #168;
 		border: 1px solid white;
 		color:white;
 		border-radius: 10px;
@@ -136,15 +136,53 @@
 		top: 460px;
 	}
 	/* 구매현황 테이블 div */
-	.buyStatus{
+	/* .buyStatus{
 		position: absolute;
 		left: 70px;
 		top: 515px;
-	}
+	} */
 	/* 구매현황 테이블, 판매현황 테이블 */
-	.buyStatusTable, tr, td{
+	/* .buyStatusTable, tr, td{
 		border: 1px solid black;
 		text-align: center;
+		width: 1355px;
+		height: 50px;
+	} */
+	
+	.buyStatusTable {
+	  border-collapse: collapse;
+	  border-top: 3px solid #168;
+	  position: absolute;
+		left: 70px;
+		top: 515px;
+		
+		text-align: center;
+		width: 1355px;
+		height: 50px;
+	}  
+	.buyStatusTable th {
+	  color: #168;
+	  background: #f0f6f9;
+	  text-align: center;
+		width: 1355px;
+		height: 50px;
+	}
+	.buyStatusTable th, .buyStatusTable td {
+	  padding: 10px;
+	  border: 1px solid #ddd;
+	  text-align: center;
+		width: 1355px;
+		height: 50px;
+	}
+	.buyStatusTable th:first-child, .buyStatusTable td:first-child {
+	  border-left: 0;
+	  text-align: center;
+		width: 1355px;
+		height: 50px;
+	}
+	.buyStatusTable th:last-child, .buyStatusTable td:last-child {
+	  border-right: 0;
+	  text-align: center;
 		width: 1355px;
 		height: 50px;
 	}
@@ -161,8 +199,8 @@
 	/* 판매현황 테이블 div */
 	.saleStatus{
 		position: absolute;
-		left: 70px;
-		top: 780px;
+		left: 5px;
+		top: 280px;
 	}
 	/* 하단 div 영역 */
 	.tutorialDiv{
@@ -216,7 +254,7 @@
 	/* 구매현황 버튼 */
 	.purchasestatus{
 		text-align: center;
-		background-color: #205181;
+		background-color: #168;
 		border: 1px solid white;
 		color:white;
 		border-radius: 10px;
@@ -232,7 +270,7 @@
 	/* 판매현황 버튼 */
 	.salesstatus{
 		text-align: center;
-		background-color: #205181;
+		background-color: #168;
 		border: 1px solid white;
 		color:white;
 		border-radius: 10px;
@@ -270,6 +308,11 @@
 		top: 140px;
 		left: 860px;
 	}
+	
+/* -------------------------------------------------------------------- */
+
+	
+	
 </style>
 </head>
 <body>
