@@ -46,7 +46,7 @@
 	<insert id="refundMemberEmoney" parameterType="emoney" >
 		INSERT
 		INTO EMONEYR
-		VALUES(MRN_SEQ.NEXTVAL, SYSDATE, #{money}, 'R', #{memberNo}, NULL )
+		VALUES(MRN_SEQ.NEXTVAL, SYSDATE, #{money}, 'R', #{memberNo}, NULL  )
 	</insert>
 	
 	<select id="selectEmoneyeSq" resultType="_int">
@@ -83,9 +83,9 @@
 	
 	<!-- 환급 목록 조회용 쿼리 -->
 	<select id="refundList" resultMap="emoneyResultSet">
-		SELECT USENO, USEDAY, MONEY, USESTATUS, MEMBERNO, PAYNO
-		FROM EMONEYR
-		WHERE MEMBERNO = #{memberNo} AND USESTATUS = 'R'
+		SELECT R.USENO, R.USEDAY, R.MONEY, R.USESTATUS, R.MEMBERNO, R.PAYNO
+		FROM EMONEYR R 
+		WHERE R.MEMBERNO = #{memberNo} AND USESTATUS = 'R'
 	</select>
 	
 	<select id="selectCurrval" resultMap="emoneyResultSet">
