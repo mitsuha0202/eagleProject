@@ -102,7 +102,7 @@
 	<!-- 결제시 보유 이머니 업데이트 -->
 	<update id="updateEmoney" parameterType="java.lang.Integer">
 		UPDATE MEMBER 
-		SET EMONEY = (EMONEY + #{emoney, jdbcType=NUMERIC})
+		SET EMONEY = (EMONEY + (#{emoney, jdbcType=NUMERIC}*(0.9)))
 		WHERE MEMBERNO = #{mid} 
 	
 	</update>
