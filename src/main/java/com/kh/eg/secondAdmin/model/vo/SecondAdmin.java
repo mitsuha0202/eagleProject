@@ -9,18 +9,20 @@ public class SecondAdmin implements java.io.Serializable{
 	private int categoryCount;
 	private String categoryNo;
 	private String upperCNO;
+	private int priceCount;
 	
 	public SecondAdmin() {}
 
 	public SecondAdmin(String memberId, String memberPwd, String categoryName, int categoryCount, String categoryNo,
-			String upperCNO) {
+			String upperCNO, int priceCount) {
 		super();
-		this.MemberId = memberId;
-		this.MemberPwd = memberPwd;
+		MemberId = memberId;
+		MemberPwd = memberPwd;
 		this.categoryName = categoryName;
 		this.categoryCount = categoryCount;
 		this.categoryNo = categoryNo;
 		this.upperCNO = upperCNO;
+		this.priceCount = priceCount;
 	}
 
 	public String getMemberId() {
@@ -71,11 +73,24 @@ public class SecondAdmin implements java.io.Serializable{
 		this.upperCNO = upperCNO;
 	}
 
+	public int getPriceCount() {
+		return priceCount;
+	}
+
+	public void setPriceCount(int priceCount) {
+		this.priceCount = priceCount;
+	}
+
 	@Override
 	public String toString() {
 		return "SecondAdmin [MemberId=" + MemberId + ", MemberPwd=" + MemberPwd + ", categoryName=" + categoryName
-				+ ", categoryCount=" + categoryCount + ", categoryNo=" + categoryNo + ", upperCNO=" + upperCNO + "]";
+				+ ", categoryCount=" + categoryCount + ", categoryNo=" + categoryNo + ", upperCNO=" + upperCNO
+				+ ", priceCount=" + priceCount + "]";
 	}
+
+	
+
+	
 	
 	
 

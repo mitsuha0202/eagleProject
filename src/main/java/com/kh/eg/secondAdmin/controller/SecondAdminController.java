@@ -137,6 +137,44 @@ public class SecondAdminController {
 		return list;
 	}
 	
+	@RequestMapping("categoryPriceDays.sad")
+	public @ResponseBody ArrayList<SecondAdmin> categoryPriceDays() {
+		ArrayList<SecondAdmin> list = sas.categoryPriceDays();
+		
+		
+		return list;
+	}
+	
+	@RequestMapping("categoryPriceWeek.sad")
+	public @ResponseBody ArrayList<SecondAdmin> categoryPriceWeek() {
+		ArrayList<SecondAdmin> list = sas.categoryPriceWeek();
+		
+		
+		return list;
+	}
+	
+	@RequestMapping("categoryPriceMonth.sad")
+	public @ResponseBody ArrayList<SecondAdmin> categoryPriceMonth() {
+		ArrayList<SecondAdmin> list = sas.categoryPriceMonth();
+		
+		
+		return list;
+	}
+	
+	@RequestMapping("categoryPriceYear.sad")
+	public @ResponseBody ArrayList<SecondAdmin> categoryPriceYear() {
+		ArrayList<SecondAdmin> list = sas.categoryPriceYear();
+		
+		
+		return list;
+	}
+	
+	@RequestMapping("statList3.sad")
+	public String statList3() {
+		
+		
+		return "admin/statList3";
+	}
 	
 	
 	

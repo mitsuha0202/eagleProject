@@ -39,8 +39,9 @@
 			</p>			
 			<div class="tabBigBox btab_2ea mt40">
 				<ul>
-					<li><a href="statList1.ad">카테고리별 통계</a></li>
-					<li class="on"><a href="statList2.ad">경매금액별 통계</a></li>
+					<li style="width:33%"><a href="statList1.ad">카테고리별 통계</a></li>
+					<li class="on" style="width:33%"><a href="statList2.ad">경매금액별 통계</a></li>
+					<li class style="width:33%"><a href="statList3.sad">카테고리별 금액통계</a></li>
 				</ul>
 			</div>
 
@@ -71,8 +72,8 @@
  jQuery(document).ready(function () {
 		
 		
-	 	$.ajax({
-			url:"CategoryPriceDays.sad",
+	 $.ajax({
+			url:"categoryPriceDays.sad",
 			type:"get",
 			dataType:"text",
 			contentType : "application/json",
@@ -90,11 +91,11 @@
 				var x = [];
 				
 				for(var i=0; i<data.length; i++){
-					y.push(data[i].categoryCount);
+					y.push(data[i].priceCount);
 					x.push(data[i].categoryName);
 				}
 			    jQuery("#chart").jqplot([y], {
-			          title:"Days"
+			          title:"Days(단위:천)"
 			        , seriesDefaults:{
 			              renderer:jQuery.jqplot.BarRenderer
 			            , rendererOptions:{
@@ -104,7 +105,137 @@
 			        , axes:{
 			            xaxis:{
 			                  renderer:jQuery.jqplot.CategoryAxisRenderer     
-				                , ticks:x 
+				                , ticks:['10이하','11~100','101~1,000','1,001~'] 
+			            }
+			        }
+			    });
+			},
+			error:function(data){
+				alert("에러");
+			}
+		});
+	 
+	 $.ajax({
+			url:"categoryPriceWeek.sad",
+			type:"get",
+			dataType:"text",
+			contentType : "application/json",
+			success:function(data){
+				var data = JSON.parse(data);
+				console.log(data);
+				var nameArr = new Array();
+				var count = 0;
+				var cateName = '';
+				var cName = data.categoryName;
+				var cCount = data.categoryCount
+				
+				
+				var y = [];
+				var x = [];
+				
+				for(var i=0; i<data.length; i++){
+					y.push(data[i].priceCount);
+					x.push(data[i].categoryName);
+				}
+			    jQuery("#chart1").jqplot([y], {
+			          title:"Week(단위:천)"
+			        , seriesDefaults:{
+			              renderer:jQuery.jqplot.BarRenderer
+			            , rendererOptions:{
+			                varyBarColor:true
+			            }
+			        }
+			        , axes:{
+			            xaxis:{
+			                  renderer:jQuery.jqplot.CategoryAxisRenderer     
+				                , ticks:['10이하','11~100','101~1,000','1,001~'] 
+			            }
+			        }
+			    });
+			},
+			error:function(data){
+				alert("에러");
+			}
+		});
+	 
+	 $.ajax({
+			url:"categoryPriceMonth.sad",
+			type:"get",
+			dataType:"text",
+			contentType : "application/json",
+			success:function(data){
+				var data = JSON.parse(data);
+				console.log(data);
+				var nameArr = new Array();
+				var count = 0;
+				var cateName = '';
+				var cName = data.categoryName;
+				var cCount = data.categoryCount
+				
+				
+				var y = [];
+				var x = [];
+				
+				for(var i=0; i<data.length; i++){
+					y.push(data[i].priceCount);
+					x.push(data[i].categoryName);
+				}
+			    jQuery("#chart2").jqplot([y], {
+			          title:"Month(단위:천)"
+			        , seriesDefaults:{
+			              renderer:jQuery.jqplot.BarRenderer
+			            , rendererOptions:{
+			                varyBarColor:true
+			            }
+			        }
+			        , axes:{
+			            xaxis:{
+			                  renderer:jQuery.jqplot.CategoryAxisRenderer     
+				                , ticks:['10이하','11~100','101~1,000','1,001~'] 
+			            }
+			        }
+			    });
+			},
+			error:function(data){
+				alert("에러");
+			}
+		});
+	 
+	 
+	 $.ajax({
+			url:"categoryPriceYear.sad",
+			type:"get",
+			dataType:"text",
+			contentType : "application/json",
+			success:function(data){
+				var data = JSON.parse(data);
+				console.log(data);
+				var nameArr = new Array();
+				var count = 0;
+				var cateName = '';
+				var cName = data.categoryName;
+				var cCount = data.categoryCount
+				
+				
+				var y = [];
+				var x = [];
+				
+				for(var i=0; i<data.length; i++){
+					y.push(data[i].priceCount);
+					x.push(data[i].categoryName);
+				}
+			    jQuery("#chart3").jqplot([y], {
+			          title:"Year(단위:천)"
+			        , seriesDefaults:{
+			              renderer:jQuery.jqplot.BarRenderer
+			            , rendererOptions:{
+			                varyBarColor:true
+			            }
+			        }
+			        , axes:{
+			            xaxis:{
+			                  renderer:jQuery.jqplot.CategoryAxisRenderer     
+				                , ticks:['10이하','11~100','101~1,000','1,001~'] 
 			            }
 			        }
 			    });

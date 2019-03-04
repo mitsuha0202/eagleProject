@@ -60,6 +60,30 @@ public class SecondAdminSerivceImpl implements SecondAdminService{
 		ArrayList<SecondAdmin> list =sad.categoryYear(sqlSession);
 		return list;
 	}
+
+	@Override
+	public ArrayList<SecondAdmin> categoryPriceDays() {
+		ArrayList<SecondAdmin> list =sad.categoryPriceDays(sqlSession);
+		return list;
+	}
+
+	@Override
+	public ArrayList<SecondAdmin> categoryPriceWeek() {
+		ArrayList<SecondAdmin> list =sad.categoryPriceWeek(sqlSession);
+		return list;
+	}
+
+	@Override
+	public ArrayList<SecondAdmin> categoryPriceMonth() {
+		ArrayList<SecondAdmin> list =sad.categoryPriceMonth(sqlSession);
+		return list;
+	}
+
+	@Override
+	public ArrayList<SecondAdmin> categoryPriceYear() {
+		ArrayList<SecondAdmin> list =sad.categoryPriceYear(sqlSession);
+		return list;
+	}
 	
 	
 }

@@ -2,6 +2,7 @@ package com.kh.eg.secondAdmin.model.dao;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -85,4 +86,145 @@ return null;
 		}
 		return list;
 	}
+
+	@Override
+	public ArrayList<SecondAdmin> categoryPriceDays(SqlSessionTemplate sqlSession) {
+		ArrayList<SecondAdmin> list = (ArrayList)sqlSession.selectList("SecondAdmin.categoryName");
+		int tenS =0;
+		int hunS =0;
+		int mil = 0;
+		int max = 0;
+		for(int i=0; i<list.size();i++) {
+			int result = sqlSession.selectOne("SecondAdmin.categoryPriceDaysTen",i+1);
+			tenS += result;
+		}
+		for(int i=0; i<list.size();i++) {
+			int result = sqlSession.selectOne("SecondAdmin.categoryPriceDaysHun",i+1);
+			hunS += result;
+		}
+		for(int i=0; i<list.size();i++) {
+			int result = sqlSession.selectOne("SecondAdmin.categoryPriceDaysMil",i+1);
+			mil += result;
+		}
+		
+		for(int i=0; i<list.size();i++) {
+			int result = sqlSession.selectOne("SecondAdmin.categoryPriceDaysMax",i+1);
+			max += result;
+		}
+
+		int [] arr = {tenS, hunS, mil, max};
+
+		for(int i =0; i<arr.length;i++) {
+			list.get(i).setPriceCount(arr[i]);
+			System.out.println(list.get(i).getPriceCount());
+		}
+		
+		return list;
+	}
+
+	@Override
+	public ArrayList<SecondAdmin> categoryPriceWeek(SqlSessionTemplate sqlSession) {
+		ArrayList<SecondAdmin> list = (ArrayList)sqlSession.selectList("SecondAdmin.categoryName");
+		int tenS =0;
+		int hunS =0;
+		int mil = 0;
+		int max = 0;
+		for(int i=0; i<list.size();i++) {
+			int result = sqlSession.selectOne("SecondAdmin.categoryPriceWeekTen",i+1);
+			tenS += result;
+		}
+		for(int i=0; i<list.size();i++) {
+			int result = sqlSession.selectOne("SecondAdmin.categoryPriceWeekHun",i+1);
+			hunS += result;
+		}
+		for(int i=0; i<list.size();i++) {
+			int result = sqlSession.selectOne("SecondAdmin.categoryPriceWeekMil",i+1);
+			mil += result;
+		}
+		
+		for(int i=0; i<list.size();i++) {
+			int result = sqlSession.selectOne("SecondAdmin.categoryPriceWeekMax",i+1);
+			max += result;
+		}
+
+		int [] arr = {tenS, hunS, mil, max};
+
+		for(int i =0; i<arr.length;i++) {
+			list.get(i).setPriceCount(arr[i]);
+			System.out.println(list.get(i).getPriceCount());
+		}
+		
+		return list;
+	}
+
+	@Override
+	public ArrayList<SecondAdmin> categoryPriceMonth(SqlSessionTemplate sqlSession) {
+		ArrayList<SecondAdmin> list = (ArrayList)sqlSession.selectList("SecondAdmin.categoryName");
+		int tenS =0;
+		int hunS =0;
+		int mil = 0;
+		int max = 0;
+		for(int i=0; i<list.size();i++) {
+			int result = sqlSession.selectOne("SecondAdmin.categoryPriceMonthTen",i+1);
+			tenS += result;
+		}
+		for(int i=0; i<list.size();i++) {
+			int result = sqlSession.selectOne("SecondAdmin.categoryPriceMonthHun",i+1);
+			hunS += result;
+		}
+		for(int i=0; i<list.size();i++) {
+			int result = sqlSession.selectOne("SecondAdmin.categoryPriceMonthMil",i+1);
+			mil += result;
+		}
+		
+		for(int i=0; i<list.size();i++) {
+			int result = sqlSession.selectOne("SecondAdmin.categoryPriceMonthMax",i+1);
+			max += result;
+		}
+
+		int [] arr = {tenS, hunS, mil, max};
+
+		for(int i =0; i<arr.length;i++) {
+			list.get(i).setPriceCount(arr[i]);
+			System.out.println(list.get(i).getPriceCount());
+		}
+		
+		return list;
+	}
+
+	@Override
+	public ArrayList<SecondAdmin> categoryPriceYear(SqlSessionTemplate sqlSession) {
+		ArrayList<SecondAdmin> list = (ArrayList)sqlSession.selectList("SecondAdmin.categoryName");
+		int tenS =0;
+		int hunS =0;
+		int mil = 0;
+		int max = 0;
+		for(int i=0; i<list.size();i++) {
+			int result = sqlSession.selectOne("SecondAdmin.categoryPriceYearTen",i+1);
+			tenS += result;
+		}
+		for(int i=0; i<list.size();i++) {
+			int result = sqlSession.selectOne("SecondAdmin.categoryPriceYearHun",i+1);
+			hunS += result;
+		}
+		for(int i=0; i<list.size();i++) {
+			int result = sqlSession.selectOne("SecondAdmin.categoryPriceYearMil",i+1);
+			mil += result;
+		}
+		
+		for(int i=0; i<list.size();i++) {
+			int result = sqlSession.selectOne("SecondAdmin.categoryPriceYearMax",i+1);
+			max += result;
+		}
+
+		int [] arr = {tenS, hunS, mil, max};
+
+		for(int i =0; i<arr.length;i++) {
+			list.get(i).setPriceCount(arr[i]);
+			System.out.println(list.get(i).getPriceCount());
+		}
+		
+		return list;
+	}
+
 }

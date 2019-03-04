@@ -22,5 +22,13 @@ public interface SecondAdminDao {
 	ArrayList<SecondAdmin> categoryMonth(SqlSessionTemplate sqlSession);
 
 	ArrayList<SecondAdmin> categoryYear(SqlSessionTemplate sqlSession);
+
+	ArrayList<SecondAdmin> categoryPriceDays(SqlSessionTemplate sqlSession);
+
+	ArrayList<SecondAdmin> categoryPriceWeek(SqlSessionTemplate sqlSession);
+
+	ArrayList<SecondAdmin> categoryPriceMonth(SqlSessionTemplate sqlSession);
+
+	ArrayList<SecondAdmin> categoryPriceYear(SqlSessionTemplate sqlSession);
 	
 }
