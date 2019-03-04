@@ -18,7 +18,7 @@
 						
 			
 			<div class="flo_left mt30 mb30">
-				<span><a class="mbtn db" href="#">승인</a></span>
+				<span><a class="mbtn db" onclick="returnOk();">승인</a></span>
 				<span><a class="mbtn rd" onclick="refuse();">거절</a></span>
 			</div>
 			
@@ -35,6 +35,20 @@
 					
 					location.href = "returnRefuse.ad?" + payNumcheck;
 				}
+				
+				function returnOk(){
+					var payNum = $("input[name=check]:checked");
+					var payNumcheck = "";
+					for(var i = 0; i < payNum.length; i++){
+						payNumcheck+="payNum="+payNum[i].value;
+						if(i<payNum.length-1){
+							payNumcheck+="&";
+						}
+					}
+					
+					location.href = "returnOk.ad?" + payNumcheck;
+				}
+				
 			</script>
 			
 			
@@ -42,13 +56,14 @@
 			<table class="boardList mt20">
 				<caption>반품관리 리스트입니다.</caption>
 				<colgroup>
-					<col style="width:8%;"><!-- No -->
+					<col style="width:10%;"><!-- No -->
 					<col style="width:10%;"><!--  -->
 					<col style="width:12%;"><!--  -->
 					<col style="width:12%;"><!--  -->
 					<col style="width:12%;"><!--  -->
-					<col style="width:24%;"><!--  -->
-					<col style="width:12%;"><!--  -->
+					<col style="width:30%;"><!--  -->
+					<col style="width:8%;"><!--  -->
+					<col style="width:8%;"><!--  -->
 				</colgroup>
 				<thead>
 					<tr>
@@ -59,6 +74,7 @@
 						<th scope="col">배송상태</th>
 						<th scope="col">주소</th>
 						<th scope="col">경매 물품</th>
+						<th scope="col">낙찰가격</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -76,6 +92,7 @@
 						<td>${ b.orderm }</td>
 						<td>${ b.address }</td>
 						<td>${ b.itemName }</td>
+						<td>${ b.price }</td>
 					</tr>
 					</c:forEach>
 				</tbody>

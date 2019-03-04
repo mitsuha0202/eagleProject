@@ -355,14 +355,31 @@ public class AdMemberDaoImpl implements AdMemberDao{
 		return result;
 	}
 
+	@Override
+	public int returnOk(SqlSessionTemplate session, String payNoCheck) {
+		
+		int result = 0;
+		
+		int result1 = session.update("AdminVo.returnOk", payNoCheck); 
+		int result2 = session.update("AdminVo.buyer", payNoCheck); 
+		int result3 = session.update("AdminVo.seller", payNoCheck); 
+		
+		if(result1 > 0 && result2 > 0 && result3 > 0) {
+			result = 1;
+		}
+		
+		return result;
+	}
+
 	/*@Override
 	public int moneyChange(SqlSessionTemplate session, String memberId, String money) {
 		
 		Map<String, Object> map= new HashMap<String, Object>();
 		
+		map.put("money", money);
 		map.put("memberId", memberId);
 		
-		int result = session.update("AdminVo.delcategory",memberId, money);
+		int result = session.update("AdminVo.delcategory",memberId);
 		
 		return result;
 	}*/
