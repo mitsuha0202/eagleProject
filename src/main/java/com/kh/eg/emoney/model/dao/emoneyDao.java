@@ -38,6 +38,9 @@ public interface emoneyDao {
 	int paymentMember(SqlSessionTemplate sqlSession, Member m, emoney e);
 
 	int paymentInsert(SqlSessionTemplate sqlSession, emoney e, WinBid w);
+	
+	//마이페이지 - 결제(입금요청)
+	int paymentA(SqlSessionTemplate sqlSession, String id, String itemNo, String currentPrice);
 
 
 

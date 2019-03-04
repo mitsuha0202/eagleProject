@@ -170,6 +170,25 @@ public class emoneyDaoImpl implements emoneyDao{
 		
 		return result;
 	}
+	
+	
+	//마이페이지 - 결제(입금요청)
+	@Override
+	public int paymentA(SqlSessionTemplate sqlSession, String id, String itemNo , String currentPrice) {
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("id", id);
+		map.put("itemNo", itemNo);
+		map.put("currentPrice" , currentPrice);
+		
+		int result = sqlSession.insert("emoney.paymentA",map);
+		if(result > 0) {
+			sqlSession.update("emoney.orderm",map);
+		}
+		
+		
+		return result;
+	}
 
 	
 	
