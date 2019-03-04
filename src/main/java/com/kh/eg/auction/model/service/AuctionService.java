@@ -46,5 +46,9 @@ public interface AuctionService {
 
 	ArrayList<Member> selectMemberM();
 
+	ArrayList<Item> selectItemM1();
+
+	ArrayList<Item> selectItemM2();
+
 
 }
