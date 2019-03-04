@@ -29,4 +29,36 @@ public interface SecondAdminService {
 
 	ArrayList<SecondAdmin> categoryPriceYear();
 
+	ArrayList<SecondAdmin> lastCateDaysTen();
+
+	ArrayList<SecondAdmin> lastCateDaysHun();
+
+	ArrayList<SecondAdmin> lastCateDaysMil();
+
+	ArrayList<SecondAdmin> lastCateDaysMax();
+
+	ArrayList<SecondAdmin> lastCateWeekTen();
+
+	ArrayList<SecondAdmin> lastCateWeekHun();
+
+	ArrayList<SecondAdmin> lastCateWeekMil();
+
+	ArrayList<SecondAdmin> lastCateWeekMax();
+	
+	ArrayList<SecondAdmin> lastCateMonthTen();
+
+	ArrayList<SecondAdmin> lastCateMonthHun();
+
+	ArrayList<SecondAdmin> lastCateMonthMil();
+
+	ArrayList<SecondAdmin> lastCateMonthMax();
+
+	ArrayList<SecondAdmin> lastCateYearTen();
+
+	ArrayList<SecondAdmin> lastCateYearHun();
+
+	ArrayList<SecondAdmin> lastCateYearMil();
+
+	ArrayList<SecondAdmin> lastCateYearMax();
+
 }

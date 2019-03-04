@@ -8,7 +8,7 @@
 <script
 	src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 <style>
-	.#chartArea{
+	.chartArea{
 		display:inline-block;	
 	}
 	
@@ -47,12 +47,46 @@
 			</div>
 			<div>
 			</div>
-			<div id=chartArea align="center" style="margin-top: 40px;">
+			<h2 align="center"> Days </h2>
+			<div class=chartArea align="center" style="margin-top: 40px;">
 			<div id="chart" class="chart" style="width:500px;height:324px; margin-right: 30px;"></div>
 			
 			<div id="chart1" class="chart" style="width:500px;height:324px;"></div>
 			 <div id="chart2" class="chart" style="width:500px;height:324px; margin-right: 30px; margin-top: 50px;"></div>
 			<div id="chart3" class="chart" style="width:500px;height:324px; margin-top: 50px;"></div> 
+			</div>
+			
+			<div class="ui divider"></div>
+			
+			<h2 align="center"> Week </h2>
+			<div class=chartArea align="center" style="margin-top: 40px;">
+			<div id="chart4" class="chart" style="width:500px;height:324px; margin-right: 30px;"></div>
+			
+			<div id="chart5" class="chart" style="width:500px;height:324px;"></div>
+			 <div id="chart6" class="chart" style="width:500px;height:324px; margin-right: 30px; margin-top: 50px;"></div>
+			<div id="chart7" class="chart" style="width:500px;height:324px; margin-top: 50px;"></div> 
+			</div>
+			
+			<div class="ui divider"></div>
+			
+			<h2 align="center"> Month </h2>
+			<div class=chartArea align="center" style="margin-top: 40px;">
+			<div id="chart8" class="chart" style="width:500px;height:324px; margin-right: 30px;"></div>
+			
+			<div id="chart9" class="chart" style="width:500px;height:324px;"></div>
+			 <div id="chart10" class="chart" style="width:500px;height:324px; margin-right: 30px; margin-top: 50px;"></div>
+			<div id="chart11" class="chart" style="width:500px;height:324px; margin-top: 50px;"></div> 
+			</div>
+			
+			<div class="ui divider"></div>
+			
+			<h2 align="center"> Year </h2>
+			<div class=chartArea align="center" style="margin-top: 40px;">
+			<div id="chart12" class="chart" style="width:500px;height:324px; margin-right: 30px;"></div>
+			
+			<div id="chart13" class="chart" style="width:500px;height:324px;"></div>
+			 <div id="chart14" class="chart" style="width:500px;height:324px; margin-right: 30px; margin-top: 50px;"></div>
+			<div id="chart15" class="chart" style="width:500px;height:324px; margin-top: 50px;"></div> 
 			</div>
 		</div><!--// contBox E-->
 
@@ -74,7 +108,7 @@ jQuery(document).ready(function () {
 	
 	
  	$.ajax({
-		url:"categoryDays.sad",
+		url:"lastCateDaysTen.sad",
 		type:"get",
 		dataType:"text",
 		contentType : "application/json",
@@ -86,8 +120,6 @@ jQuery(document).ready(function () {
 			var cateName = '';
 			var cName = data.categoryName;
 			var cCount = data.categoryCount
-			
-			
 			var y = [];
 			var x = [];
 			
@@ -96,7 +128,7 @@ jQuery(document).ready(function () {
 				x.push(data[i].categoryName);
 			}
 		    jQuery("#chart").jqplot([y], {
-		          title:"Days"
+		          title:"10,000원 이하"
 		        , seriesDefaults:{
 		              renderer:jQuery.jqplot.BarRenderer
 		            , rendererOptions:{
@@ -117,8 +149,8 @@ jQuery(document).ready(function () {
 	}); 
 
   
- $.ajax({
-	url:"categoryWeeks.sad",
+    $.ajax({
+	url:"lastCateDaysHun.sad",
 	type:"get",
 	dataType:"text",
 	contentType : "application/json",
@@ -140,7 +172,7 @@ jQuery(document).ready(function () {
 			x.push(data[i].categoryName);
 		}
 	    jQuery("#chart1").jqplot([y], {
-	          title:"Week"
+	          title:"10,001원 ~ 100,000원 이하"
 	        , seriesDefaults:{
 	              renderer:jQuery.jqplot.BarRenderer
 	            , rendererOptions:{
@@ -161,8 +193,8 @@ jQuery(document).ready(function () {
 });  
 
 	
- $.ajax({
-		url:"categoryMonth.sad",
+ 	$.ajax({
+		url:"lastCateDaysMil.sad",
 		type:"get",
 		dataType:"text",
 		contentType : "application/json",
@@ -184,7 +216,7 @@ jQuery(document).ready(function () {
 				x.push(data[i].categoryName);
 			}
 		    jQuery("#chart2").jqplot([y], {
-		          title:"Month"
+		          title:"100,001원 ~ 1,000,000원 이하"
 		        , seriesDefaults:{
 		              renderer:jQuery.jqplot.BarRenderer
 		            , rendererOptions:{
@@ -204,8 +236,8 @@ jQuery(document).ready(function () {
 		}
 	});  
 
- $.ajax({
-		url:"categoryYear.sad",
+  $.ajax({
+		url:"lastCateDaysMax.sad",
 		type:"get",
 		dataType:"text",
 		contentType : "application/json",
@@ -227,7 +259,7 @@ jQuery(document).ready(function () {
 				x.push(data[i].categoryName);
 			}
 		    jQuery("#chart3").jqplot([y], {
-		          title:"Year"
+		          title:"1,000,001원 이상"
 		        , seriesDefaults:{
 		              renderer:jQuery.jqplot.BarRenderer
 		            , rendererOptions:{
@@ -245,10 +277,529 @@ jQuery(document).ready(function () {
 		error:function(data){
 			alert("에러");
 		}
+	});
+  
+  /* Day 카테고리 금액별 통계 종료 */
+  
+  $.ajax({
+		url:"lastCateWeekTen.sad",
+		type:"get",
+		dataType:"text",
+		contentType : "application/json",
+		success:function(data){
+			var data = JSON.parse(data);
+			console.log(data);
+			var nameArr = new Array();
+			var count = 0;
+			var cateName = '';
+			var cName = data.categoryName;
+			var cCount = data.categoryCount
+			var y = [];
+			var x = [];
+			
+			for(var i=0; i<data.length; i++){
+				y.push(data[i].categoryCount);
+				x.push(data[i].categoryName);
+			}
+		    jQuery("#chart4").jqplot([y], {
+		          title:"10,000원 이하"
+		        , seriesDefaults:{
+		              renderer:jQuery.jqplot.BarRenderer
+		            , rendererOptions:{
+		                varyBarColor:true
+		            }
+		        }
+		        , axes:{
+		            xaxis:{
+		                  renderer:jQuery.jqplot.CategoryAxisRenderer     
+			                , ticks:x 
+		            }
+		        }
+		    });
+		},
+		error:function(data){
+			alert("에러");
+		}
+	}); 
+
+
+  $.ajax({
+	url:"lastCateWeekHun.sad",
+	type:"get",
+	dataType:"text",
+	contentType : "application/json",
+	success:function(data){
+		var data = JSON.parse(data);
+		console.log(data);
+		var nameArr = new Array();
+		var count = 0;
+		var cateName = '';
+		var cName = data.categoryName;
+		var cCount = data.categoryCount
+		
+		
+		var y = [];
+		var x = [];
+		
+		for(var i=0; i<data.length; i++){
+			y.push(data[i].categoryCount);
+			x.push(data[i].categoryName);
+		}
+	    jQuery("#chart5").jqplot([y], {
+	          title:"10,001원 ~ 100,000원 이하"
+	        , seriesDefaults:{
+	              renderer:jQuery.jqplot.BarRenderer
+	            , rendererOptions:{
+	                varyBarColor:true
+	            }
+	        }
+	        , axes:{
+	            xaxis:{
+	                  renderer:jQuery.jqplot.CategoryAxisRenderer     
+		                , ticks:x 
+	            }
+	        }
+	    });
+	},
+	error:function(data){
+		alert("에러");
+	}
+});  
+
+	
+	$.ajax({
+		url:"lastCateWeekMil.sad",
+		type:"get",
+		dataType:"text",
+		contentType : "application/json",
+		success:function(data){
+			var data = JSON.parse(data);
+			console.log(data);
+			var nameArr = new Array();
+			var count = 0;
+			var cateName = '';
+			var cName = data.categoryName;
+			var cCount = data.categoryCount
+			
+			
+			var y = [];
+			var x = [];
+			
+			for(var i=0; i<data.length; i++){
+				y.push(data[i].categoryCount);
+				x.push(data[i].categoryName);
+			}
+		    jQuery("#chart6").jqplot([y], {
+		          title:"100,001원 ~ 1,000,000원 이하"
+		        , seriesDefaults:{
+		              renderer:jQuery.jqplot.BarRenderer
+		            , rendererOptions:{
+		                varyBarColor:true,
+		            }
+		        }
+		        , axes:{
+		            xaxis:{
+		                  renderer:jQuery.jqplot.CategoryAxisRenderer     
+			                , ticks:x 
+		            }
+		        }
+		    });
+		},
+		error:function(data){
+			alert("에러");
+		}
 	});  
 
+$.ajax({
+		url:"lastCateWeekMax.sad",
+		type:"get",
+		dataType:"text",
+		contentType : "application/json",
+		success:function(data){
+			var data = JSON.parse(data);
+			console.log(data);
+			var nameArr = new Array();
+			var count = 0;
+			var cateName = '';
+			var cName = data.categoryName;
+			var cCount = data.categoryCount
+			
+			
+			var y = [];
+			var x = [];
+			
+			for(var i=0; i<data.length; i++){
+				y.push(data[i].categoryCount);
+				x.push(data[i].categoryName);
+			}
+		    jQuery("#chart7").jqplot([y], {
+		          title:"1,000,001원 이상"
+		        , seriesDefaults:{
+		              renderer:jQuery.jqplot.BarRenderer
+		            , rendererOptions:{
+		                varyBarColor:true
+		            }
+		        }
+		        , axes:{
+		            xaxis:{
+		                  renderer:jQuery.jqplot.CategoryAxisRenderer     
+			                , ticks:x 
+		            }
+		        }
+		    });
+		},
+		error:function(data){
+			alert("에러");
+		}
+	});
+/* Week 카테고리 금액별 통계 종료 */
  
-});	
+$.ajax({
+	url:"lastCateMonthTen.sad",
+	type:"get",
+	dataType:"text",
+	contentType : "application/json",
+	success:function(data){
+		var data = JSON.parse(data);
+		console.log(data);
+		var nameArr = new Array();
+		var count = 0;
+		var cateName = '';
+		var cName = data.categoryName;
+		var cCount = data.categoryCount
+		var y = [];
+		var x = [];
+		
+		for(var i=0; i<data.length; i++){
+			y.push(data[i].categoryCount);
+			x.push(data[i].categoryName);
+		}
+	    jQuery("#chart8").jqplot([y], {
+	          title:"10,000원 이하"
+	        , seriesDefaults:{
+	              renderer:jQuery.jqplot.BarRenderer
+	            , rendererOptions:{
+	                varyBarColor:true
+	            }
+	        }
+	        , axes:{
+	            xaxis:{
+	                  renderer:jQuery.jqplot.CategoryAxisRenderer     
+		                , ticks:x 
+	            }
+	        }
+	    });
+	},
+	error:function(data){
+		alert("에러");
+	}
+}); 
+
+
+$.ajax({
+url:"lastCateMonthHun.sad",
+type:"get",
+dataType:"text",
+contentType : "application/json",
+success:function(data){
+	var data = JSON.parse(data);
+	console.log(data);
+	var nameArr = new Array();
+	var count = 0;
+	var cateName = '';
+	var cName = data.categoryName;
+	var cCount = data.categoryCount
+	
+	
+	var y = [];
+	var x = [];
+	
+	for(var i=0; i<data.length; i++){
+		y.push(data[i].categoryCount);
+		x.push(data[i].categoryName);
+	}
+    jQuery("#chart9").jqplot([y], {
+          title:"10,001원 ~ 100,000원 이하"
+        , seriesDefaults:{
+              renderer:jQuery.jqplot.BarRenderer
+            , rendererOptions:{
+                varyBarColor:true
+            }
+        }
+        , axes:{
+            xaxis:{
+                  renderer:jQuery.jqplot.CategoryAxisRenderer     
+	                , ticks:x 
+            }
+        }
+    });
+},
+error:function(data){
+	alert("에러");
+}
+});  
+
+
+$.ajax({
+	url:"lastCateMonthMil.sad",
+	type:"get",
+	dataType:"text",
+	contentType : "application/json",
+	success:function(data){
+		var data = JSON.parse(data);
+		console.log(data);
+		var nameArr = new Array();
+		var count = 0;
+		var cateName = '';
+		var cName = data.categoryName;
+		var cCount = data.categoryCount
+		
+		
+		var y = [];
+		var x = [];
+		
+		for(var i=0; i<data.length; i++){
+			y.push(data[i].categoryCount);
+			x.push(data[i].categoryName);
+		}
+	    jQuery("#chart10").jqplot([y], {
+	          title:"100,001원 ~ 1,000,000원 이하"
+	        , seriesDefaults:{
+	              renderer:jQuery.jqplot.BarRenderer
+	            , rendererOptions:{
+	                varyBarColor:true,
+	            }
+	        }
+	        , axes:{
+	            xaxis:{
+	                  renderer:jQuery.jqplot.CategoryAxisRenderer     
+		                , ticks:x 
+	            }
+	        }
+	    });
+	},
+	error:function(data){
+		alert("에러");
+	}
+});  
+
+$.ajax({
+	url:"lastCateMonthMax.sad",
+	type:"get",
+	dataType:"text",
+	contentType : "application/json",
+	success:function(data){
+		var data = JSON.parse(data);
+		console.log(data);
+		var nameArr = new Array();
+		var count = 0;
+		var cateName = '';
+		var cName = data.categoryName;
+		var cCount = data.categoryCount
+		
+		
+		var y = [];
+		var x = [];
+		
+		for(var i=0; i<data.length; i++){
+			y.push(data[i].categoryCount);
+			x.push(data[i].categoryName);
+		}
+	    jQuery("#chart11").jqplot([y], {
+	          title:"1,000,001원 이상"
+	        , seriesDefaults:{
+	              renderer:jQuery.jqplot.BarRenderer
+	            , rendererOptions:{
+	                varyBarColor:true
+	            }
+	        }
+	        , axes:{
+	            xaxis:{
+	                  renderer:jQuery.jqplot.CategoryAxisRenderer     
+		                , ticks:x 
+	            }
+	        }
+	    });
+	},
+	error:function(data){
+		alert("에러");
+	}
+});
+/* Month 카테고리 금액별 통계 종료 */
+$.ajax({
+	url:"lastCateYearTen.sad",
+	type:"get",
+	dataType:"text",
+	contentType : "application/json",
+	success:function(data){
+		var data = JSON.parse(data);
+		console.log(data);
+		var nameArr = new Array();
+		var count = 0;
+		var cateName = '';
+		var cName = data.categoryName;
+		var cCount = data.categoryCount
+		var y = [];
+		var x = [];
+		
+		for(var i=0; i<data.length; i++){
+			y.push(data[i].categoryCount);
+			x.push(data[i].categoryName);
+		}
+	    jQuery("#chart12").jqplot([y], {
+	          title:"10,000원 이하"
+	        , seriesDefaults:{
+	              renderer:jQuery.jqplot.BarRenderer
+	            , rendererOptions:{
+	                varyBarColor:true
+	            }
+	        }
+	        , axes:{
+	            xaxis:{
+	                  renderer:jQuery.jqplot.CategoryAxisRenderer     
+		                , ticks:x 
+	            }
+	        }
+	    });
+	},
+	error:function(data){
+		alert("에러");
+	}
+}); 
+
+
+$.ajax({
+url:"lastCateYearHun.sad",
+type:"get",
+dataType:"text",
+contentType : "application/json",
+success:function(data){
+	var data = JSON.parse(data);
+	console.log(data);
+	var nameArr = new Array();
+	var count = 0;
+	var cateName = '';
+	var cName = data.categoryName;
+	var cCount = data.categoryCount
+	
+	
+	var y = [];
+	var x = [];
+	
+	for(var i=0; i<data.length; i++){
+		y.push(data[i].categoryCount);
+		x.push(data[i].categoryName);
+	}
+    jQuery("#chart13").jqplot([y], {
+          title:"10,001원 ~ 100,000원 이하"
+        , seriesDefaults:{
+              renderer:jQuery.jqplot.BarRenderer
+            , rendererOptions:{
+                varyBarColor:true
+            }
+        }
+        , axes:{
+            xaxis:{
+                  renderer:jQuery.jqplot.CategoryAxisRenderer     
+	                , ticks:x 
+            }
+        }
+    });
+},
+error:function(data){
+	alert("에러");
+}
+});  
+
+
+$.ajax({
+	url:"lastCateYearMil.sad",
+	type:"get",
+	dataType:"text",
+	contentType : "application/json",
+	success:function(data){
+		var data = JSON.parse(data);
+		console.log(data);
+		var nameArr = new Array();
+		var count = 0;
+		var cateName = '';
+		var cName = data.categoryName;
+		var cCount = data.categoryCount
+		
+		
+		var y = [];
+		var x = [];
+		
+		for(var i=0; i<data.length; i++){
+			y.push(data[i].categoryCount);
+			x.push(data[i].categoryName);
+		}
+	    jQuery("#chart14").jqplot([y], {
+	          title:"100,001원 ~ 1,000,000원 이하"
+	        , seriesDefaults:{
+	              renderer:jQuery.jqplot.BarRenderer
+	            , rendererOptions:{
+	                varyBarColor:true,
+	            }
+	        }
+	        , axes:{
+	            xaxis:{
+	                  renderer:jQuery.jqplot.CategoryAxisRenderer     
+		                , ticks:x 
+	            }
+	        }
+	    });
+	},
+	error:function(data){
+		alert("에러");
+	}
+});  
+
+$.ajax({
+	url:"lastCateYearMax.sad",
+	type:"get",
+	dataType:"text",
+	contentType : "application/json",
+	success:function(data){
+		var data = JSON.parse(data);
+		console.log(data);
+		var nameArr = new Array();
+		var count = 0;
+		var cateName = '';
+		var cName = data.categoryName;
+		var cCount = data.categoryCount
+		
+		
+		var y = [];
+		var x = [];
+		
+		for(var i=0; i<data.length; i++){
+			y.push(data[i].categoryCount);
+			x.push(data[i].categoryName);
+		}
+	    jQuery("#chart15").jqplot([y], {
+	          title:"1,000,001원 이상"
+	        , seriesDefaults:{
+	              renderer:jQuery.jqplot.BarRenderer
+	            , rendererOptions:{
+	                varyBarColor:true
+	            }
+	        }
+	        , axes:{
+	            xaxis:{
+	                  renderer:jQuery.jqplot.CategoryAxisRenderer     
+		                , ticks:x 
+	            }
+	        }
+	    });
+	},
+	error:function(data){
+		alert("에러");
+	}
+});
+
+
+}); 
 	
 	
 	
