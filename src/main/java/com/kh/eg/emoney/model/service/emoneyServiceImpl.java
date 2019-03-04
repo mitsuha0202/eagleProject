@@ -127,6 +127,15 @@ public class emoneyServiceImpl implements emoneyService {
 		return result;
 	}
 
+	//마이페이지 결제(입금 요청)
+	@Override
+	public int paymentA(String id, String itemNo , String currentPrice) {
+		int result = ed.paymentA(sqlSession,id,itemNo , currentPrice);
+		
+		
+		return result;
+	}
+
 
 	/*@Override
 	public int selectCurrval(emoney e) {

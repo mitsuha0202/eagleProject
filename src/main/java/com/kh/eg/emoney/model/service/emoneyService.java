@@ -32,6 +32,9 @@ public interface emoneyService {
 	int paymentMember(Member m, emoney e);
 
 	int paymentInsert(emoney e, WinBid w);
+	
+	//마이페이지 - 결제 입금요청
+	int paymentA(String id, String itemNo, String currentPrice);
 
 /*	int selectCurrval(emoney e);
 

@@ -96,12 +96,16 @@
 		SELECT SEQ_PRODUCT.NEXTVAL FROM DUAL
 	</select>
 	
-	<!-- <update id="updateEmoney">
-		UPDATE 
-		MEMBER SET M.EMONEY = MONEY EMONEY + #{emoney} 
-		WHERE MEMBERNO = #{memberNo} 
 	
-	</update> -->
+	
+	<!-- 결제완료  -->
+	<insert id="paymentA" parameterType="java.lang.String">
+		INSERT INTO EMONEYC(PAYNO, PAYDAY,CARDNO,AMOUNT,MEMBERNO,PAYSTATUS,REFUNDNO,DEALNO) VALUES(MCN_SEQ.NEXTVAL,SYSDATE,' ',#{currentPrice},#{id},' ',' ',' ')
+	</insert>
+	
+	<update id="orderm" parameterType="java.lang.String">
+		UPDATE WINBIDDETAIL SET ORDERM = '배송요청' WHERE PAYNO = #{id}
+	</update>
 	
 	
 	

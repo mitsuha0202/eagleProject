@@ -141,6 +141,9 @@
 	     
 	</div>
 	
+	
+	
+	
 	<div id="pagingArea" align="center">
 			<c:if test="${ pi.currentPage <= 1 }">
 				[이전] &nbsp;

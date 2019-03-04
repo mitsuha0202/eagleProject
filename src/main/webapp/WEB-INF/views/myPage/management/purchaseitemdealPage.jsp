@@ -213,43 +213,23 @@
 			var sendArr = new Array();
 			var sendCurArr = new Array();
    			var checkbox = $(".checkChild:checked");
-   	        alert("거래가 시작되었습니다.");
+   	        /* alert("거래가 시작되었습니다."); */
+   	        if(window.confirm("거래를 진행하시겠습니까?")){
    		 	checkbox.each(function(i){
    		 		var tr = checkbox.parent().parent().eq(i);
    		 		var td = tr.children();
    	            var docNum = td.eq(2).text();
    	            var curPrice = td.eq(4).text();
-   	            /* sendArr.push(docNum);   	 
-   	            sendCurArr.push(curPrice); */
-   		 	
- 				/* location.href="paymentconfirm.mp?itemNo=" + sendArr +"," + "&currentPrice=" + sendCurArr + ","; */
-   		 	var ok = false;
-   		 	jQuery.ajax({
-   		 		url:"paymentA.em",
-   		 		type: "POST",
-   		 		dataType: "json",
-   		 		data : {
-   		 			docNum : docNum,
-   		 			curPrice : curPrice
-   		 			
-   		 		},
-   		 		success:function(data){
-   		 			console.log(data);
-   		 			if(data > 0){
-   		 				ok = true;
-   		 			}
-   		 		}
+   	            sendArr.push(docNum);   	 
+   	            sendCurArr.push(curPrice); 
    		 		
-   		 	}).done(function (data){
-   		 		if(ok){
-   		 			var msg = '결제되었습니다.';
-   		 			alert(msg);
-   		 		}else{
-   		 			var msg = '결제실패';
-   		 			alert(msg);
-   		 		}
-   		 	}); 
-   		 	});
+ 				location.href="paymentA.em?itemNo=" + sendArr + "&currentPrice=" + sendCurArr;
+ 				
+   		 });
+   		 	}else{
+   		 		
+   		 	}
+   		 	
 		}  
 	</script>
 </body>

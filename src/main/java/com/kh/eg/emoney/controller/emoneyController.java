@@ -157,32 +157,21 @@ private emoneyService es;
 	}
 	
 	@RequestMapping("paymentA.em")
-	public void paymentA( @RequestParam(value="docNum", required=false) String docNum, @RequestParam(value="curPrice", required=false) int curPrice,
-			@RequestParam(value="memberNo", required=false)String memberNo, HttpSession session, emoney e, WinBid w, HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public String paymentA( @RequestParam(value="itemNo") String itemNo,Model model,HttpSession session, @RequestParam(value="currentPrice") String currentPrice , HttpServletRequest request, HttpServletResponse response) {
 		
 		Member m = new Member();
 		m = (Member)session.getAttribute("loginUser");
-		/*m.setMid(memberNo);*/
-		e.setMemberNo(m.getMid());
-		/*e.setAmount(m.getEmoney());*/
-		e.getMemberNo().equals(memberNo);
-		System.out.println("멤버넘버확인 : " + e.getMemberNo());
-		System.out.println("이머니 확인 : " + e.getMoney());
-		e.setItemNo(docNum);
-		System.out.println("아이템넘 : " + e.getItemNo());
-		e.setDealNo(w.getDealNo());
-		System.out.println("dealNo 찍히나 ? : " + e.getDealNo());
-		e.setAmount(curPrice);
-		System.out.println("가져온물품가격 : " + curPrice);
-		m.setEmoney(curPrice);
-		int result1 = es.paymentMember(m,e);
-		int result2 = es.paymentInsert(e,w);
-		
-		int result = result1 + result2;
-		
-		response.setContentType("application/json");
-		response.setCharacterEncoding("utf-8");
-		response.getWriter().println(result + "");
+		String id = m.getMid();
+		System.out.println("멤버 아이디 : " + id);
+		System.out.println("아이템 번호 : " + itemNo);
+		System.out.println("아이템 가격 : " + currentPrice);
+		int result = es.paymentA(id,itemNo,currentPrice);
+		if(result>0) {
+			return "redirect:requestdelivery.mp";
+		}else {
+			model.addAttribute("msg","배송요청 실패");
+			return "common/errorPage";
+		}
 		
 	}
 	
