@@ -391,17 +391,16 @@ public class AdminController {
 	
 	//사이버머니 변경
 	@RequestMapping("moneyChange.ad")
-	public String moneyChangeview(Model model, HttpServletRequest request){
-		String Money = request.getParameter("moneychange");
+	public String moneyChangeview(Model model, HttpServletRequest request) throws AdMemberselectException{
+		String money = request.getParameter("moneychange");
 		String[] check = request.getParameterValues("check");
 
 		for(int i = 0; i< check.length; i++) {
 			System.out.println(check[i]);
 		}
-	
 		int result;
-		
-		return "admin:moneyList.ad";
+		result = ams.moneyChange(check, money);
+		return "redirect:moneyList.ad";
 		
 	}
 

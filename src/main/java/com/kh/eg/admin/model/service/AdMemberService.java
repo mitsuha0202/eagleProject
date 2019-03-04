@@ -76,7 +76,7 @@ public interface AdMemberService {
 
 	int returnOk(String[] check) throws AdMemberselectException;
 
-/*	int moneyChange(String[] check, String money) throws AdMemberselectException;*/
+	int moneyChange(String[] check, String money) throws AdMemberselectException;
 
 
 

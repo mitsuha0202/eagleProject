@@ -270,7 +270,7 @@ public class AdMemberServiceImpl implements AdMemberService{
 		return result;
 	}
 	
-/*	//사이버머니 변경
+	//사이버머니 변경
 	@Override
 	public int moneyChange(String[] check, String money) throws AdMemberselectException {
 		int result = 0;
@@ -280,7 +280,7 @@ public class AdMemberServiceImpl implements AdMemberService{
 		
 		return result;
 	}
-*/
+
 	
 
 	
