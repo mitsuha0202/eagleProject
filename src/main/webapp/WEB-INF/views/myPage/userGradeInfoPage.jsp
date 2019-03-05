@@ -64,27 +64,28 @@
 		font-weight: bold;
 	}
 	.thirdLine{
+		
 		position: absolute;
-		left: 70px;
 		border: 1px solid #205181;
-		top: 94%;
-		width: 90%;
+		top: 76%;
+		width: 100%;
 	}
 	/* 닫기버튼 */
 	.closeBtn{
 		position: absolute;
 		left: 45%;
-		top: 950px;
+		top: 830px;
 		text-align: center;
-		background-color: #205181;
-		border: 1px solid white;
-		color:white;
+		background-color: white;
+		border: 1px solid #205181;
+		color:#205181;
 		border-radius: 10px;
 		width: 150px;
 		height: 40px;
 	    font-size: 16px;
 	    cursor: pointer;
 	}
+	
 </style>
 </head>
 <body>
@@ -101,28 +102,36 @@
 	<!-- 페이지 제목 -->
 	<div class="title"><h1>회원등급 혜택안내</h1></div>
 	
-	<!-- 등급 vip div -->
-	<div class="grade1" onclick="vipClick();">
-		<h3 class="vip">VIP</h3>
-	</div>
-	
-	<!-- 등급 gold div -->
-	<div class="grade2" onclick="goldClick();">
-		<h3 class="vip">GOLD</h3>
-	</div>	
-	
-	<!-- 등급 일반 div -->
-	<div class="grade3" onclick="normalClick();">
-		<h3 class="vip">일반</h3>
-	</div>
-	
-	<!-- 등급div 밑 선 -->	
-	<hr class="secondLine">
-	
-	<!-- 등급에 대한 설명부분 div -->
-	<div class="gradeExplan">
-		<p id="userGradeGuide" class="vipReview">VIP<br>100만원, 6회 이상 구매<br><br>수수료 3%</p>
-	</div>
+	<table class="ui single line table" style="margin-top: 250px; width: 1200px; height: 250px; position: absolute; left: 250px;">
+  <thead>
+    <tr>
+      <th style="text-align: center;">등 급</th>
+      <th style="text-align: center;">구 매 금 액</th>
+      <th style="text-align: center;">구 매 횟 수</th>
+      <th style="text-align: center;">수수료 혜택</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center;">일 반</td>
+      <td style="text-align: center;">-</td>
+      <td style="text-align: center;">-</td>
+      <td style="text-align: center;">수수료 10%</td>
+    </tr>
+    <tr>
+      <td style="text-align: center;">G O L D</td>
+      <td style="text-align: center;">50만원 이상 100만원 미만</td>
+      <td style="text-align: center;">4회 이상</td>
+      <td style="text-align: center;">수수료7%</td>
+    </tr>
+    <tr>
+      <td style="text-align: center;">V I P</td>
+      <td style="text-align: center;">100만원 이상</td>
+      <td style="text-align: center;">6회 이상</td>
+      <td style="text-align: center;">수수료3%</td>
+    </tr>
+  </tbody>
+</table>
 	
 	<!-- 등급 설명div 밑 선 -->
 	<hr class="thirdLine">
