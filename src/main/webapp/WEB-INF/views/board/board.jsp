@@ -72,7 +72,6 @@
 		  </thead>
 		  <tbody>
 		  <c:forEach var="b" items="${ list1 }">
-		   <input type="hidden" id="notice" value= "${b.bid}">
 		    <tr align="center" id="noticeTr" style="color: #3104B4; background-color: #E6E6E6; font-weight: bolder; font-size: 1.4em">
 		      <td class="dark" style="border-left: 1px solid white;" ">※공지※</td>
 		      <td class="dark">${b.bTitle}</td>
@@ -80,15 +79,18 @@
 		      <td class="dark">${b.writeDay}</td>
 		      <td class="dark" style="border-right: 1px solid white;">${b.bCount}</td>
 		    </tr>
+		   <input type="hidden" id="notice" name= listNum value="${b.bid}">
 		  </c:forEach>  
 		  <c:forEach var="b" items="${ list }">
 		    <tr align="center" id="free" style="font-size:1.3em;">
-		      <td style="border-left: 1px solid white;">${b.bid}</td>
+
+		      <td style="border-left: 1px solid white;">${b.rNum}</td>
 		      <td>${b.bTitle}</td>
 		      <td>${b.userName}</td>
 		      <td>${b.writeDay}</td>
 		      <td style="border-right: 1px solid white;">${b.bCount}</td>
 		    </tr>
+		  	<input type="hidden" id="freeboard"  name= listNum value="${b.bid}">
 		  </c:forEach>
 		  </tbody>
 		</table>
@@ -150,7 +152,7 @@
 			</c:if>
 		</div>
 		<div class="btnArea" align="right">
-			<button class="ui black basic button" style="width:200px; font-size: 1.5rem; font-weight: bold; border-width: 3px solid black;" onclick="insertBoard();">글&nbsp;쓰&nbsp;기</button>
+			<button class="ui black basic button" style="width:150px; height:50px; font-size: 1.5rem; font-weight: bold; border-width: 3px solid black;" onclick="insertBoard();">글&nbsp;쓰&nbsp;기</button>
 			
 		</div>
 	</div>
@@ -182,24 +184,20 @@
 			$("#listArea td").mouseenter(function(){
 				 $(this).parent().css({"cursor":"pointer"}) 
 			}).mouseout(function(){
-					/* if($(this).parent("#noticeTr")){
-						$(this).parent().css({"background":"#E6E6E6"});
-					}else{
-						$(this).parent().css({"background":"white"});
-					} */
+						/* $(this).parent().css({"background":"#E6E6E6"}); */
+
 			}).click(function(){
 					var bid=$(this).parent().children().eq(0).text();
-					if(bid.indexOf("공지") != -1){
-						var bid = $("#notice").val();
-					}else{
-						
-					}
 					console.log(bid);
-					location.href="boardSelectOne.bo?bid="+bid;
-				
-				
-				
-				
+					if(bid.indexOf("공지") != -1){
+						 var bid = $(this).parent().next().val();
+						 console.log(bid);
+						  location.href="boardSelectOne.bo?bid="+bid; 
+					}else{
+						var bid = $(this).parent().next().val();
+						console.log(bid);
+						location.href="boardSelectOne.bo?bid="+bid; 
+					} 
 			});
 			
 		})

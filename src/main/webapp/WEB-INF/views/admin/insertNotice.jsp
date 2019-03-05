@@ -70,7 +70,7 @@
 
 	 function set() {
 		if(window.confirm("목록으로 돌아가시겠습니까?")){
-			location.href="goBoard.bo";
+			location.href="noticeList.ad";
 			return false;
 		}else{
 			return false;

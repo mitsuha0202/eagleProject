@@ -133,7 +133,7 @@
 						    <input type="text" name="address" id="address" placeholder="OO시 OO구 OO동" style="height:45px">
 						  </div>
 					  	</td> -->
-					  	<td><input type="text" id="sample5_address" placeholder="주소" name="address" style="height: 46px;"></td>
+					  	<td><input type="text" id="sample5_address" placeholder="주소 검색을 사용하여 입력해주세요." name="address" style="height: 46px;" readonly></td>
 					    <td><button class="ui button" type="button" onclick="return sample5_execDaumPostcode()" value="주소 검색">주소 검색</button><br></td>
 					    <tr>
 					    	<td colspan="2"><div id="map" style="width:600px;height:300px;margin-top:10px;display:none"></div></td>
