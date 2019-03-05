@@ -2,75 +2,45 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>        
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ include file="../../admin/include/common.jsp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="../eg/css/jquery.jqplot.css"/>
+<link rel="stylesheet" href="../eg/css/jquery-ui.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>구매 물품 거래 진행중</title>
 </head>
 <style>
-      /* 구매현황 테이블 div */
-	.buyStatus{
-		position: absolute;
-		left: 70px;
-		top: 515px;
-	}
-	/* 구매현황 테이블, 판매현황 테이블 */
-	.buyStatusTable, tr, td{
-		border: 1px solid black;
-		text-align: center;
-		width: 1355px;
-		height: 50px;
-		cursor: pointer;
-	}
-	/* 테이블 맨윗줄 선 */
-	.firstTd{
-		border-top: 3.5px solid #205181;
-		cursor: pointer;
+
+	 /* 내용들 */
+	.content{
+		padding-top: 80px;
+		padding-left: 100px;
 	}
 	
-	/* 물품검색 조회리스트 */
-	.resultitemlist{
-		border: 1px solid #bcbcbc;
+	.content2{
+		padding-left: 100px;
 	}
-	.tutorialDiv{
-		background-color: lightgray;
-		position: absolute;
-		left: 70px;
-		top: 1020px;
-		width: 1355px;
-		height: 200px;
+	
+	.table{
+		text-align: center;
+		width: 500px;
+		margin-left: auto;
+		margin-right: auto;
 	}
-	.tutorialText1{
-		position: absolute;
-		top: 30px;
-		left: 100px;
-	}
-	.tutorialText2{
-		position: absolute;
-		top: 70px;
-		left: 100px;
-	}
-	.tutorialText3{
-		position: absolute;
-		left: 280px;
-		
-	}
-	.tutorialText4{
-		position: absolute;
-		top: 120px;
-		left: 100px;
-	}
-	.tutorialIcon1{
-		position: absolute;
-		top: 140px;
-		left: 850px;	
-	}
-	.tutorialIcon2{
-		position: absolute;
-		top: 140px;
-		left: 1100px;	
-	}
+	
+	.btnArea{
+    	padding-left: 100px;
+    } 
+	
+	#dealBtn{
+    	text-align: center;
+     	height: 50px;
+    }
+	
 </style>
 <body>
 
@@ -80,46 +50,36 @@
 	<!-- 헤더바 밑 선 -->
 	<hr class="firstLine">
 	<h1>구매관리(구매 물품 거래 진행중)</h1>
-    <div class="buyStatus">
-		<table class="buyStatusTable">
-			<tr>
-				<td class="firstTd" onclick="location.href='purchasestatus.mp'" colspan="2">입찰중물품</td>
-				<td class="firstTd" onclick="location.href='purchaseend.mp'" colspan="2">구매 종료</td>
-				<td class="firstTd" onclick="location.href='purchaseitemdeal.mp'" colspan="2">구매 물품 거래 진행중</td>
-				<td class="firstTd" onclick="location.href='purchaseother.mp'" colspan="2">구매거부/반품/미입금/판매거부/미수령신고</td>
-			</tr>			
-			<tr>
-				<td><h5>거래상태</h5></td>
-				<!-- td태그 오른쪽 선 안보이게 하기  -->
-				<td style="border-right: hidden;" onclick="location.href='purchaseitemdeal.mp'"><h5>입금요청</h5></td>
-				<td style="border-right: hidden;" onclick="location.href='requestdelivery.mp'"><h5>배송요청</h5></td>
-				<td style="border-right: hidden;" onclick="location.href='shipping.mp'"><h5>배송중</h5></td>
-				<td style="border-right: hidden;" onclick="location.href='purchasedecisionwaiting.mp'"><h5>구매결정대기</h5></td>
-				<td style="border-right: hidden;" onclick="location.href='afterreceipt.mp'"><h5>수령이후/송금예정</h5></td>
-				<td onclick="location.href='transactioncomplete.mp'"><h5>거래완료 물품</h5></td>
-			
-			</tr>
-			
-			
-			
-		</table>
+	
+	<div class="tabBigBox btab_2ea mt40" style="margin-left: auto; margin-right: auto; width: 1500px; padding-top: 100px; padding-bottom: 50px;">
+				<ul style="padding-bottom: 100px;">
+					<li style="width:25%;"><a href="purchasestatus.mp">입찰중물품</a></li>
+					<li style="width:25%"><a href="purchaseend.mp">구매종료</a></li>
+					<li style="width:25%"><a href="purchaseitemdeal.mp">구매 물품 거래 진행중</a></li>
+					<li style="width:25%"><a href="purchaseother.mp">구매거부/반품/미입금/판매거부/미수령신고</a></li>
+				</ul>
+				<ul>
+					<li class="on" style="width:20%"><a href="purchaseitemdeal.mp">입금요청</a></li>
+					<li style="width:20%"><a href="requestdelivery.mp">배송요청</a></li>
+					<li style="width:20%"><a href="shipping.mp">배송중</a></li>
+					<li style="width:20%"><a href="purchasedecisionwaiting.mp">구매결정대기</a></li>
+					<li style="width:20%"><a href="transactioncomplete.mp">거래완료</a></li>
+				</ul>
+	</div>
 		
-		 <h5>꼭 읽어주세요! </h5><br>
-	     <h5>구매물품거래진행중인 페이지 입니다.</h5>
-	     <br>
-	     <h5>입금요청 물품에 대해서 모두 ${ fn:length(list) }건이 검색되었습니다.</h5>
+	     <h5 class="content">입금요청 물품에 대해서 모두 ${ fn:length(list) }건이 검색되었습니다.</h5>
 	     
-	     <table class="buyStatusTable">
+	     <table class="table" style="width: 1500px;">
       
       <thead>
         <tr>
-          <td class="firstTd">선택</td>	
-          <th class="firstTd">구분</th>
-          <th class="firstTd">물품번호</th>
-          <th class="firstTd">물품명</th>
-          <th class="firstTd">구매가격</th>
-          <th class="firstTd">낙찰/구매일</th>
-          <th class="firstTd">판매자</th>
+          <td scope="col">선택</td>	
+          <th scope="col">구분</th>
+          <th scope="col">물품번호</th>
+          <th scope="col">물품명</th>
+          <th scope="col">구매가격</th>
+          <th scope="col">낙찰/구매일</th>
+          <th scope="col">판매자</th>
         </tr>
       </thead>
       <tbody>
@@ -144,69 +104,65 @@
       </tbody>
      
     </table>
-	<button onclick="payment();">결제하기</button>
+    <div class="btnArea">
+    	<button id="dealBtn" class="ui black basic button" data-toggle="modal" data-target="#exampleModal">결제하기</button>
 	</div>
 	
-	<div id="pagingArea" align="center">
-			<c:if test="${ pi.currentPage <= 1 }">
-				[이전] &nbsp;
-			</c:if>
-			<c:if test="${ pi.currentPage > 1 }">
-				<c:url var="blistBack" value="purchaseitemdeal.mp">
-					<c:param name="currentPage" value="${ pi.currentPage - 1 }"/>
-				</c:url>
-				<a href="${ blistBack }">[이전]</a> &nbsp;
-			</c:if>
-			
-			<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-				<c:if test="${ p eq pi.currentPage }">
-					<font color="red" size="4"><b>[${ p }]</b></font>
-				</c:if>
-				<c:if test="${ p ne pi.currentPage }">
-					<c:url var="blistCheck" value="purchaseitemdeal.mp">
-						<c:param name="currentPage" value="${ p }"/>
-					</c:url>
-					<a href="${ blistCheck }">${ p }</a>
-				</c:if>
-			</c:forEach>
-			
-			<c:if test="${ pi.currentPage >= pi.maxPage }">
-				&nbsp; [다음]
-			</c:if>
-			<c:if test="${ pi.currentPage < pi.maxPage }">
-				<c:url var="blistEnd" value="purchaseitemdeal.mp">
-					<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
-				</c:url>
-				<a href="${ blistEnd }">&nbsp;[다음]</a>
-			</c:if>
-		</div>	
-	
-	<!-- 하단 div영역 -->
-	<div class="tutorialDiv">
-		<br>
-		<h4 class="tutorialText1">고객센터 상담전화</h4>
-		<br><br>
-		<h4 class="tutorialText2">02-000-0000</h4>
-		<h4 class="tutorialText3">평일 09:00~18:00</h4>&nbsp;<h4 class="tutorialText3">점심 12:00~13:00</h4>
-		<h4 class="tutorialText4">토 일 공휴일 휴무</h4>
-		<i class="clipboard icon" id="auctionInfo" onclick="location.href='egAuctionInfo.mp'"></i>
-		<h4 class="tutorialIcon1" onclick="egAuctionInfo.mp">사이트이용안내</h4>
-		<i class="dollar sign icon" id="accountInfo"></i>
-		<h4 class="tutorialIcon2">자주묻는 질문</h4>		
+	 <!-- Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">결제하시겠습니까?</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+	        <button type="button" class="btn btn-primary" onclick="payment();">결제하기</button>
+	      </div>
+	    </div>
+	  </div>
 	</div>
+	
+	<div id="pagingArea" class="numbox mt50">
+         <c:if test="${ pi.currentPage <= 1 }">
+            <span class="prevnc">이전</span>
+         </c:if>
+         <c:if test="${ pi.currentPage > 1 }">
+            <c:url var="blistBack" value="purchaseitemdeal.mp">
+               <c:param name="currentPage" value="${ pi.currentPage - 1}"/>
+            </c:url>
+            <span><a class="prev" href="${ blistBack }">이전</a></span>
+         </c:if>
+         
+         <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+            <c:if test="${ p eq pi.currentPage }">
+               <span><a class="num on" href="${ blistCheck }" style="background-color: #168;">${p}</a></span>
+            </c:if>
+            <c:if test="${ p ne pi.currentPage }">
+               <c:url var="blistCheck" value="purchaseitemdeal.mp">
+                  <c:param name="currentPage" value="${p}"/>
+               </c:url>
+               <span><a class="num" href="${ blistCheck }">${ p }</a></span>
+            </c:if>
+         </c:forEach>
+         
+         <c:if test="${ pi.currentPage >= pi.maxPage }">
+            <span class="nextnc">다음</span>
+         </c:if>
+         <c:if test="${ pi.currentPage < pi.maxPage }">
+            <c:url var="blistEnd" value="purchaseitemdeal.mp">
+               <c:param name="currentPage" value="${ pi.currentPage + 1}"/>
+            </c:url>
+            <span><a class="next" href="${ blistEnd }">다음</a></span>
+         </c:if>
+      </div>
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 	<script>
-		$(function() {
-			if("${ fn:length(list) }" != 0){
-				alert("입금요청이 있습니다.");
-			}else {
-				alert("입금요청된 물품이 없습니다.");
-			}
-		});
-		memberNo = '${sessionScope.loginUser.mid}';
-		emoney = '${sessionScope.loginUser.emoney}';
 		
 		//결제페이지로 넘기기
 		function payment() {
@@ -214,7 +170,7 @@
 			var sendCurArr = new Array();
    			var checkbox = $(".checkChild:checked");
    	        /* alert("거래가 시작되었습니다."); */
-   	        if(window.confirm("거래를 진행하시겠습니까?")){
+   	       
    		 	checkbox.each(function(i){
    		 		var tr = checkbox.parent().parent().eq(i);
    		 		var td = tr.children();
@@ -226,10 +182,7 @@
  				location.href="paymentA.em?itemNo=" + sendArr + "&currentPrice=" + sendCurArr;
  				
    		 });
-   		 	}else{
-   		 		
    		 	}
-   		 	
 		}  
 	</script>
 </body>

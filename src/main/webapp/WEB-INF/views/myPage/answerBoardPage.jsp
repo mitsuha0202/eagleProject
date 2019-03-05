@@ -183,26 +183,26 @@
 				<a href="${blistEnd}">&nbsp;[다음]</a>
 			</c:if>
 		</div>
-<script>
-
-
-$("td[name=boardresult]").click(function(){
-	
-	answerboardno = $(this).parent().children().eq(0).text();
-	location.href='answerPageDetail.mp?answerboardno='+answerboardno;
-});
-
-function searchBoard(){
-	var searchCondition = $("#searchCondition").val();
-	var searchValue = $("#search").val();
-	console.log(searchCondition);
-	console.log(searchValue);
-	location.href ="searchreanswer.mp?searchCondition="+searchCondition+"&searchValue="+searchValue;
-	
-}
-
-
-</script>
+		<script>
+		
+		
+			$("td[name=boardresult]").click(function(){
+				
+				answerboardno = $(this).parent().children().eq(0).text();
+				location.href='answerPageDetail.mp?answerboardno='+answerboardno;
+			});
+			
+			function searchBoard(){
+				var searchCondition = $("#searchCondition").val();
+				var searchValue = $("#search").val();
+				console.log(searchCondition);
+				console.log(searchValue);
+				location.href ="searchreanswer.mp?searchCondition="+searchCondition+"&searchValue="+searchValue;
+				
+			}
+		
+		
+		</script>
 
 
 </html>

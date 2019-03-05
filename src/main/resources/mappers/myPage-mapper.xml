@@ -342,7 +342,7 @@
 	
 	<!-- 입찰중인 물품 조회 -->
 	<select id="selectContinueBidList" resultMap="payTableResultSet" parameterType="java.lang.String">
-		SELECT I.ITEMNO, I.ITEMNAME, B.BIDNO, B.CURRENTPRICE, M.MEMBERNAME, TO_CHAR(A.ENDDAY,'YYYY/MM/DD HH24:MI:SS') AS ENDDAY, I.AUCTIONCODE, A.EXITYN
+		SELECT I.ITEMNO, I.ITEMNAME, B.BIDNO, B.CURRENTPRICE, M.MEMBERNAME AS SMEMBERNAME, TO_CHAR(A.ENDDAY,'YYYY/MM/DD HH24:MI:SS') AS ENDDAY, I.AUCTIONCODE, A.EXITYN
 		FROM BID B
 		JOIN AUCTIONITEM I ON(B.ITEMNO = I.ITEMNO)
 		JOIN MEMBER M ON(I.MEMBERNO = M.MEMBERNO)
@@ -1271,4 +1271,11 @@
 		WHERE DEALNO = #{dealNo}
 	</update>
 	
+	<!-- 구매관리 거래신청 yn -->
+	<select id="searchWinList" resultMap="payTableResultSet" parameterType="java.lang.String">
+		SELECT ITEMNO, ORDERM 
+		FROM WINBID W
+		JOIN WINBIDDETAIL D ON(W.DEALNO = D.DEALNO)
+		WHERE W.MEMBERNO = #{mid}
+	</select>
 </mapper>

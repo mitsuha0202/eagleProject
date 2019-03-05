@@ -230,7 +230,8 @@
 			var sendArr = new Array();
    			var sendCur = new Array();
    			var checkbox = $(".checkChild:checked");
-   	        alert("배송이 시작되었습니다.");
+   	        /* alert("배송이 시작되었습니다."); */
+   	        if(window.confirm("배송 하시겠습니까?")){
    		 	checkbox.each(function(i){
    		 		var tr = checkbox.parent().parent().eq(i);
    		 		var td = tr.children();
@@ -240,6 +241,9 @@
    	            sendCur.push(current);
  				location.href="shipping2.mp?itemNo=" + sendArr +"," + "&currentPrice=" + sendCur;
    		 	}); 		
+   	        }else {
+   	        	
+   	        }
 		}
 	</script>
 </body>

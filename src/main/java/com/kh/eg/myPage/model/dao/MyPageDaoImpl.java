@@ -1228,4 +1228,11 @@ public class MyPageDaoImpl implements MyPageDao{
 		return sqlSession.update("MyPage.updateReturnFinish", map);
 	}
 
+	//구매관리 거래신청 yn 
+	@Override
+	public ArrayList<PayTable> searchWinList(SqlSessionTemplate sqlSession, String mid) {
+		
+		return (ArrayList)sqlSession.selectList("MyPage.searchWinList", mid);
+	}
+
 }

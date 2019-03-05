@@ -1,76 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>     
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>    
+<%@ include file="../../admin/include/common.jsp" %>        
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="../eg/css/jquery.jqplot.css"/>
+<link rel="stylesheet" href="../eg/css/jquery-ui.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>배송중</title>
 </head>
 <style>
-      /* 구매현황 테이블 div */
-	.buyStatus{
-		position: absolute;
-		left: 70px;
-		top: 515px;
-	}
-	/* 구매현황 테이블, 판매현황 테이블 */
-	.buyStatusTable, tr, td{
-		border: 1px solid black;
-		text-align: center;
-		width: 1355px;
-		height: 50px;
-		cursor: pointer;
-	}
-	/* 테이블 맨윗줄 선 */
-	.firstTd{
-		border-top: 3.5px solid #205181;
-		cursor: pointer;
+    
+    /* 내용들 */
+	.content{
+		padding-top: 80px;
+		padding-left: 100px;
 	}
 	
-	/* 물품검색 조회리스트 */
-	.resultitemlist{
-		border: 1px solid #bcbcbc;
+	.content2{
+		padding-left: 100px;
 	}
-	.tutorialDiv{
-		background-color: lightgray;
-		position: absolute;
-		left: 70px;
-		top: 1020px;
-		width: 1355px;
-		height: 200px;
+	
+	.table{
+		text-align: center;
+		width: 500px;
+		margin-left: auto;
+		margin-right: auto;
 	}
-	.tutorialText1{
-		position: absolute;
-		top: 30px;
-		left: 100px;
-	}
-	.tutorialText2{
-		position: absolute;
-		top: 70px;
-		left: 100px;
-	}
-	.tutorialText3{
-		position: absolute;
-		left: 280px;
-		
-	}
-	.tutorialText4{
-		position: absolute;
-		top: 120px;
-		left: 100px;
-	}
-	.tutorialIcon1{
-		position: absolute;
-		top: 140px;
-		left: 850px;	
-	}
-	.tutorialIcon2{
-		position: absolute;
-		top: 140px;
-		left: 1100px;	
-	}
+    
 </style>
 <body>
 
@@ -195,7 +156,8 @@
 			var sendArr = new Array();
 				var sendCur = new Array();
 				var checkbox = $(".checkChild:checked");
-		        alert("배송완료 처리되었습니다.");
+		        /* alert("배송완료 처리되었습니다."); */
+		        if(window.confirm("배송완료로 처리하시겠습니까?")){
 			 	checkbox.each(function(i){
 			 		var tr = checkbox.parent().parent().eq(i);
 			 		var td = tr.children();
@@ -205,13 +167,17 @@
 		            sendCur.push(current);
 					location.href="deliveryCheck.mp?itemNo=" + sendArr +"," + "&currentPrice=" + sendCur;
 			 	}); 	
+			 	else {
+			 		}
+			 	}
 		}	
 	
 		function noDelivery() {
 			var sendArr = new Array();
    			var sendCur = new Array();
    			var checkbox = $(".checkChild:checked");
-   	        alert("미수령신고가 신청되었습니다.");
+   	        /* alert("미수령신고가 신청되었습니다."); */
+   	        if(window.confirm("미수령 신고 하시겠습니까?")){
    		 	checkbox.each(function(i){
    		 		var tr = checkbox.parent().parent().eq(i);
    		 		var td = tr.children();
@@ -221,6 +187,9 @@
    	            sendCur.push(current);
  				location.href="notreceving.mp?itemNo=" + sendArr +"," + "&currentPrice=" + sendCur;
    		 	}); 	
+   	        }else {
+   	        	
+   	        }
 		}
 	</script>
 </body>

@@ -203,7 +203,8 @@
 		function finish() {
 			var sendArr = new Array();
    			var checkbox = $(".checkChild:checked");
-   	        alert("구매확정 되었습니다.");
+   	        /* alert("구매확정 되었습니다."); */
+   	        if(window.confirm("구매확정 하시겠습니까?")){
    		 	checkbox.each(function(i){
    		 		var tr = checkbox.parent().parent().eq(i);
    		 		var td = tr.children();
@@ -211,12 +212,16 @@
    	            sendArr.push(docNum);
  				location.href="afterreceipt.mp?itemNo=" + sendArr +",";
    		 	}); 		
+   	        }else {
+   	        	
+   	        }
 		}
 		
 		function back() {
 			var sendArr = new Array();
    			var checkbox = $(".checkChild:checked");
-   	        alert("반품신청 되었습니다.");
+   	        /* alert("반품신청 되었습니다."); */
+   	        if(window.confirm("반품신청 하시겠습니까?")){
    		 	checkbox.each(function(i){
    		 		var tr = checkbox.parent().parent().eq(i);
    		 		var td = tr.children();
@@ -224,6 +229,9 @@
    	            sendArr.push(docNum);
  				location.href="purchaseitemdeal.mp?itemNo=" + sendArr +",";
    		 });
+   	        }else {
+   	        	
+   	        }
 		}
 	</script>
 </body>
