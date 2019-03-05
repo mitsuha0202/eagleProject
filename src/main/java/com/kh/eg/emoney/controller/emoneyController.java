@@ -156,6 +156,7 @@ private emoneyService es;
 		
 	}
 	
+	//입금요청에서 배송요청갈때
 	@RequestMapping("paymentA.em")
 	public String paymentA( @RequestParam(value="itemNo") String itemNo,Model model,HttpSession session, @RequestParam(value="currentPrice") String currentPrice , HttpServletRequest request, HttpServletResponse response) {
 		

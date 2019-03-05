@@ -107,6 +107,13 @@
 		UPDATE WINBIDDETAIL SET ORDERM = '배송요청' WHERE PAYNO = #{id}
 	</update>
 	
+	<update id="pricedown" parameterType="java.lang.String">
+		UPDATE MEMBER SET EMONEY = EMONEY - #{currentPrice} WHERE MEMBERNO = #{id}
+	</update>
+	
+	<update id="priceup" parameterType="java.lang.String">
+		UPDATE MEMBER SET EMONEY = EMONEY + #{currentPrice} WHERE MEMBERNO = (SELECT M.MEMBERNO FROM MEMBER M JOIN AUCTIONITEM A ON(M.MEMBERNO = A.MEMBERNO) WHERE A.ITEMNO = #{itemNo})
+	</update>
 	
 	
 
