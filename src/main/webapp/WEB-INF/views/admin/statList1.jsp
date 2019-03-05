@@ -15,7 +15,13 @@
 	.chart{
 		display: inline-block;
 	}
-	#modal {display:none;background-color:#FFFFFF;position:absolute;top:300px;left:200px;padding:10px;border:2px solid #E2E2E2;z-Index:9999}
+	#modal {display:none;background-color:#FFFFFF;position:absolute;top:200px;left:300px;padding:10px;border:2px solid #E2E2E2;z-Index:9999}
+	
+	#modal_overlay{
+		width: 1200 px;
+		height: 800 px;
+	}
+	
 </style>
 <title>Eagle 관리자페이지</title>
 </head>
@@ -49,9 +55,10 @@
 			<div>
 			</div>
 			<div id=chartArea align="center" style="margin-top: 40px;">
+			<!-- <div id="modal_overlay" style="width: 1200px; position: absolute; top: 0px; left: 0px; opacity: 0.5; background-color: rgb(0, 0, 0); z-index: 999; height: 800px;"></div> -->
 			<div id="modal">
-			    <div id="chart4" class="chart" style="width:500px;height:324px; margin-top: 50px;"></div>
-			    <button class="js_close">닫기</button>
+			    <div id="chart4" class="chart" style="width:500px;height:324px; margin-left: 20px;"></div>
+			    <button class="js_close ui black basic button" style="font-weight: bold;">닫기</button>
 			</div>
 			<div id="chart" class="chart" style="width:500px;height:324px; margin-right: 30px;"></div>		
 			<div id="chart1" class="chart" style="width:500px;height:324px;"></div>

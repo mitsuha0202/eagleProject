@@ -53,13 +53,14 @@
 }
 
 #more-icon {
-	font-size: 18px;
+	font-size: 40px;
 }
 
 #more-txt {
 	color: rgb(50, 50, 50);
 	font-family: 'Nanum Gothic', sans-serif;
 	font-weight: 800;
+	font-size: xx-large;
 }
 
 #tour-price {
@@ -79,6 +80,7 @@ table {
 }
 td {
 	border: 1px solid black;
+	width: 50%;
 }
 .may {
 	height:200px;
@@ -99,6 +101,7 @@ td {
 			<!-- 내용 넣기 -->
 			<br> <br> <br>
 			<div class="chu">
+
 				<h1 class="pre">Eagle's Auction 추천경매</h1>
 				<div id="more1" class="more-div" style="display: inline-block; float: right">
 					<i class="chevron circle right icon" id="more-icon"></i> <font
@@ -109,19 +112,19 @@ td {
 					var abc=1;
 					console.log(abc);
 				</script>
-				<div id="firstColumn">
+				<div id="firstColumn" align="center">
 				
 				<c:forEach var="i" items="${list1}">
 							
 					<div id="addDiv" class="four wide column"
 						style="display: inline-block;">
-						<div>
+						<div style="margin-right: 40px;">
 							<div class="may" style="width: 300px;">
 
 								<img src="resources/uploadFiles/${i.atta.changeName}"
 									style="width: 300px; height: 200px;">
 							</div>
-							<table class="ui basic table" style="width: 250px;">
+							<table class="ui basic table" style="width: 300px; margin-top: 0px; margin-bottom: 30px;">
 								<tr>
 								</tr>
 								<tr class="tr">
@@ -147,25 +150,27 @@ td {
 		
 			<br>
 			<div class="chu">
+
 				<h1 class="pre">Eagle's Auction 인기경매</h1>
 
 				
 
+
 				</div>
 				<hr>
-				<div id="firstColumn">
+				<div id="firstColumn" align="center">
 				
 				<c:forEach var="i" items="${list5}">
 							
 					<div id="addDiv" class="four wide column"
 						style="display: inline-block;">
-						<div>
+						<div style="margin-right: 40px;">
 							<div class="may" style="width: 300px;">
 
 								<img src="resources/uploadFiles/${i.atta.changeName}"
 									style="width: 300px; height: 200px;">
 							</div>
-							<table class="ui basic table" style="width: 250px;">
+							<table class="ui basic table" style="width: 300px; margin-top: 0px; margin-bottom: 30px;">
 								<tr>
 								</tr>
 								<tr class="tr">

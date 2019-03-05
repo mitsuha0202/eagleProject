@@ -25,6 +25,7 @@
 			   var id = naver_id_login.getProfileData('id');
 			   var email = naver_id_login.getProfileData('email');
 			   var name = naver_id_login.getProfileData('name');
+			   alert("이글스 옥션에 오신걸 환영합니다!");
 			   location.href="naverLogin.me?id="+id+"&email="+email+"&name="+name+"&password=0202"; 
 			  }
     </script>
