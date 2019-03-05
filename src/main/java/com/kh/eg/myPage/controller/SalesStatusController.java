@@ -1,6 +1,7 @@
 package com.kh.eg.myPage.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.servlet.http.HttpSession;
 
@@ -32,7 +33,7 @@ public class SalesStatusController {
 			int listCount = ms.getSaleStatus(m.getMid());
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 			ArrayList<PayTable> list = ms.selectSaleStatusList(pi, m.getMid());
-
+			Collections.sort(list);
 			model.addAttribute("list", list);
 			model.addAttribute("pi", pi);
 			return "myPage/salesmanagement/salesstatusMainPage";
@@ -47,7 +48,7 @@ public class SalesStatusController {
 			int listCount = ms.getEndOfSale(m.getMid());
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 			ArrayList<PayTable> list = ms.selectEndOfSaleList(pi, m.getMid());
-			
+			Collections.sort(list);
 			model.addAttribute("list", list);
 			model.addAttribute("pi", pi);
 			return "myPage/salesmanagement/endofsalePage";
@@ -59,7 +60,7 @@ public class SalesStatusController {
 			int listCount = ms.getBidderItem(m.getMid());
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 			ArrayList<PayTable> list = ms.selectBidderItemList(pi, m.getMid());
-			
+			Collections.sort(list);
 			model.addAttribute("list", list);
 			model.addAttribute("pi", pi);
 			return "myPage/salesmanagement/bidderitemPage";
@@ -84,6 +85,7 @@ public class SalesStatusController {
 					}
 					
 					list = ms.selectSalesItemProgressList(pi, m.getMid());
+					Collections.sort(list);
 					model.addAttribute("list", list);
 					model.addAttribute("pi", pi);
 					return "myPage/salesmanagement/purchaseitemdealPage2";
@@ -98,7 +100,7 @@ public class SalesStatusController {
 					int listCount = ms.getRequestDeliverySale(m.getMid());
 					PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 					list = ms.selectRequestDeliverySaleList(pi, m.getMid());
-
+					Collections.sort(list);
 					model.addAttribute("list", list);
 					model.addAttribute("pi", pi);
 					return "myPage/salesmanagement/requestdeliveryPage2";
@@ -121,6 +123,7 @@ public class SalesStatusController {
 					}
 					
 					list = ms.selectShippingSaleList(pi, m.getMid());
+					Collections.sort(list);
 					model.addAttribute("list", list);
 					model.addAttribute("pi", pi);
 					return "myPage/salesmanagement/shippingPage2";
@@ -133,7 +136,7 @@ public class SalesStatusController {
 					int listCount = ms.getSaleWaiting(m.getMid());
 					PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 					ArrayList<PayTable> list = ms.selectSaleWaitingList(pi, m.getMid());
-					
+					Collections.sort(list);
 					model.addAttribute("list", list);
 					model.addAttribute("pi", pi);
 					
@@ -147,14 +150,14 @@ public class SalesStatusController {
 					int listCount = ms.getAfterReceipt2(m.getMid());
 					PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 					ArrayList<PayTable> list = ms.selectAfterReceipt2List(pi, m.getMid());
-					
+					Collections.sort(list);
 					model.addAttribute("list", list);
 					model.addAttribute("pi", pi);
 					
-					return "myPage/salesmanagement/afterreceiptPage2";
+					return "myPage/salesmanagement/transactioncompletePage2";
 				}
 				
-			//구매현황상세페이지 - 판매 물품 거래 진행중 페이지 - 거래완료 물품
+			/*//구매현황상세페이지 - 판매 물품 거래 진행중 페이지 - 거래완료 물품
 				@RequestMapping("transactioncomplete2.mp")
 				public String transactioncompletePage2(@RequestParam(defaultValue="1") int currentPage, HttpSession session, Model model, Member m) {
 					m = (Member)session.getAttribute("loginUser");
@@ -166,7 +169,7 @@ public class SalesStatusController {
 					model.addAttribute("pi", pi);
 					
 					return "myPage/salesmanagement/transactioncompletePage2";
-				}	
+				}	*/
 
 //-------------------------------------------구매거부/반품/미입금/판매거부/미수령신고 페이지----------------------------
 				//구매거부
@@ -176,7 +179,7 @@ public class SalesStatusController {
 					int listCount = ms.getSaleOther(m.getMid());
 					PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 					ArrayList<PayTable> list = ms.selectSaleOtherList(pi, m.getMid());
-					
+					Collections.sort(list);
 					model.addAttribute("list", list);
 					model.addAttribute("pi", pi);
 					
@@ -190,7 +193,7 @@ public class SalesStatusController {
 					int listCount = ms.getReturnSale(m.getMid());
 					PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 					ArrayList<PayTable> list = ms.selectReturnSaleList(pi, m.getMid());
-					
+					Collections.sort(list);
 					model.addAttribute("list", list);
 					model.addAttribute("pi", pi);
 					return "myPage/salesmanagement/return2Page";
@@ -203,7 +206,7 @@ public class SalesStatusController {
 					int listCount = ms.getPaymentSale(m.getMid());
 					PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 					ArrayList<PayTable> list = ms.selectPaymentSaleList(pi, m.getMid());
-					
+					Collections.sort(list);
 					model.addAttribute("list", list);
 					model.addAttribute("pi", pi);
 					
@@ -226,6 +229,7 @@ public class SalesStatusController {
 					}
 					
 					list = ms.selectRefuseToSell2List(pi, m.getMid());
+					Collections.sort(list);
 					model.addAttribute("list", list);
 					model.addAttribute("pi", pi);
 					
@@ -239,7 +243,7 @@ public class SalesStatusController {
 					int listCount = ms.getNotReceving2(m.getMid());
 					PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 					ArrayList<PayTable> list = ms.selectNotReceiving2List(pi, m.getMid());
-					
+					Collections.sort(list);
 					model.addAttribute("list", list);
 					model.addAttribute("pi", pi);
 					

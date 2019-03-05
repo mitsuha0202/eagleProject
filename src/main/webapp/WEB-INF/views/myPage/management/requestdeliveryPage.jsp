@@ -45,7 +45,7 @@
 				<ul style="padding-bottom: 100px;">
 					<li style="width:25%;"><a href="purchasestatus.mp">입찰중물품</a></li>
 					<li style="width:25%"><a href="purchaseend.mp">구매종료</a></li>
-					<li style="width:25%"><a href="purchaseitemdeal.mp">구매 물품 거래 진행중</a></li>
+					<li class="on" style="width:25%"><a href="purchaseitemdeal.mp">구매 물품 거래 진행중</a></li>
 					<li style="width:25%"><a href="purchaseother.mp">구매거부/반품/미입금/판매거부/미수령신고</a></li>
 				</ul>
 				<ul>
@@ -53,7 +53,7 @@
 					<li class="on" style="width:20%"><a href="requestdelivery.mp">배송요청</a></li>
 					<li style="width:20%"><a href="shipping.mp">배송중</a></li>
 					<li style="width:20%"><a href="purchasedecisionwaiting.mp">구매결정대기</a></li>
-					<li style="width:20%"><a href="transactioncomplete.mp">거래완료</a></li>
+					<li style="width:20%"><a href="afterreceipt.mp">거래완료</a></li>
 				</ul>
 	</div>
 
@@ -84,7 +84,7 @@
         </c:if>
         <c:if test="${ empty list }">
         	 <tr>
-	          <td colspan="8"><h5>검색된 내용이 없습니다.</h5></td>	      
+	          <td colspan="5"><h5>검색된 내용이 없습니다.</h5></td>	      
         	</tr>
         </c:if>          
       </tbody>

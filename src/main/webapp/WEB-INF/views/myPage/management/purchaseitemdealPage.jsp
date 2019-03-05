@@ -47,15 +47,11 @@
 <!-- 헤더바 -->
 	<jsp:include page="../../common/header.jsp"/>
 	
-	<!-- 헤더바 밑 선 -->
-	<hr class="firstLine">
-	<h1>구매관리(구매 물품 거래 진행중)</h1>
-	
 	<div class="tabBigBox btab_2ea mt40" style="margin-left: auto; margin-right: auto; width: 1500px; padding-top: 100px; padding-bottom: 50px;">
 				<ul style="padding-bottom: 100px;">
 					<li style="width:25%;"><a href="purchasestatus.mp">입찰중물품</a></li>
 					<li style="width:25%"><a href="purchaseend.mp">구매종료</a></li>
-					<li style="width:25%"><a href="purchaseitemdeal.mp">구매 물품 거래 진행중</a></li>
+					<li class="on" style="width:25%"><a href="purchaseitemdeal.mp">구매 물품 거래 진행중</a></li>
 					<li style="width:25%"><a href="purchaseother.mp">구매거부/반품/미입금/판매거부/미수령신고</a></li>
 				</ul>
 				<ul>
@@ -63,7 +59,7 @@
 					<li style="width:20%"><a href="requestdelivery.mp">배송요청</a></li>
 					<li style="width:20%"><a href="shipping.mp">배송중</a></li>
 					<li style="width:20%"><a href="purchasedecisionwaiting.mp">구매결정대기</a></li>
-					<li style="width:20%"><a href="transactioncomplete.mp">거래완료</a></li>
+					<li style="width:20%"><a href="afterreceipt.mp">거래완료</a></li>
 				</ul>
 	</div>
 		
@@ -166,6 +162,10 @@
 		
 		//결제페이지로 넘기기
 		function payment() {
+			if(!$(".checkChild:checked").val()){
+				alert("물품을 선택해주세요.");
+				location.reload();
+			}else{
 			var sendArr = new Array();
 			var sendCurArr = new Array();
    			var checkbox = $(".checkChild:checked");
@@ -179,9 +179,8 @@
    	            sendArr.push(docNum);   	 
    	            sendCurArr.push(curPrice); 
    		 		
- 				location.href="paymentA.em?itemNo=" + sendArr + "&currentPrice=" + sendCurArr;
- 				
-   		 });
+ 				location.href="paymentA.em?itemNo=" + sendArr + "&currentPrice=" + sendCurArr; 				
+   		 		});
    		 	}
 		}  
 	</script>

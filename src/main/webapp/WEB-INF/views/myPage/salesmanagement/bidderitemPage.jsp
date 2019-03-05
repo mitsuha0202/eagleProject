@@ -1,120 +1,77 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>            
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>     
+<%@ include file="../../admin/include/common.jsp" %>        
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="../eg/css/jquery.jqplot.css"/>
+<link rel="stylesheet" href="../eg/css/jquery-ui.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>거래신청된 낙찰물품</title>
 </head>
 <style>
-      /* 구매현황 테이블 div */
-	.buyStatus{
-		position: absolute;
-		left: 70px;
-		top: 515px;
-	}
-	/* 구매현황 테이블, 판매현황 테이블 */
-	.buyStatusTable, tr, td{
-		border: 1px solid black;
+    .table{
 		text-align: center;
-		width: 1355px;
-		height: 50px;
-		cursor: pointer;
-	}
-	/* 테이블 맨윗줄 선 */
-	.firstTd{
-		border-top: 3.5px solid #205181;
-		cursor: pointer;
+		width: 500px;
+		margin-left: auto;
+		margin-right: auto;
 	}
 	
-	/* 물품검색 조회리스트 */
-	.resultitemlist{
-		border: 1px solid #bcbcbc;
+	/* 내용들 */
+	.content{
+		padding-top: 80px;
+		padding-left: 100px;
 	}
-	.tutorialDiv{
-		background-color: lightgray;
-		position: absolute;
-		left: 70px;
-		top: 1020px;
-		width: 1355px;
-		height: 200px;
-	}
-	.tutorialText1{
-		position: absolute;
-		top: 30px;
-		left: 100px;
-	}
-	.tutorialText2{
-		position: absolute;
-		top: 70px;
-		left: 100px;
-	}
-	.tutorialText3{
-		position: absolute;
-		left: 280px;
-		
-	}
-	.tutorialText4{
-		position: absolute;
-		top: 120px;
-		left: 100px;
-	}
-	.tutorialIcon1{
-		position: absolute;
-		top: 140px;
-		left: 850px;	
-	}
-	.tutorialIcon2{
-		position: absolute;
-		top: 140px;
-		left: 1100px;	
-	}
+	
+	.btnArea{
+    	padding-left: 100px;
+  
+    } 
+	  
+    #dealBtn{
+    	text-align: center;
+     	height: 50px;
+    }
+    
+    #noPayBtn{
+    	text-align: center;
+    	height: 50px;
+    }
 </style>
 <body>
 
 <!-- 헤더바 -->
 	<jsp:include page="../../common/header.jsp"/>
 	
-	<!-- 헤더바 밑 선 -->
-	<hr class="firstLine">
-	<h1>판매관리(판매진행중)</h1>
-    <div class="buyStatus">
-		<table class="buyStatusTable">
-			<tr>
-				<td class="firstTd" onclick="location.href='salesstatus.mp'">판매진행중</td>
-				<td class="firstTd" onclick="location.href='endofsale.mp'">판매 종료</td>
-				<td class="firstTd" onclick="location.href='salesitemprogress.mp'">판매 물품 거래 진행중</td>
-				<td class="firstTd" onclick="location.href='salesother.mp'">구매거부/반품/미입금/판매거부/미수령신고</td>
-			</tr>			
-			<tr>
-				<td><h5>판매진행물품</h5></td>
-				<!-- td태그 오른쪽 선 안보이게 하기  -->
-				<td style="border-right: hidden;" onclick="location.href='endofsale.mp'"><h5>경매종료된 물품</h5></td>
-				<td style="border-right: hidden;" onclick="location.href='bidderitem.mp'"><h5>거래신청 있는 물품</h5></td>
-				
-			</tr>
-			
-			
-			
-		</table>
+	<div class="tabBigBox btab_2ea mt40" style="margin-left: auto; margin-right: auto; width: 1500px; padding-top: 100px; padding-bottom: 50px;">
+				<ul style="padding-bottom: 100px;">
+					<li style="width:25%;"><a href="salesstatus.mp">판매진행중</a></li>
+					<li style="width:25%"><a href="endofsale.mp">판매종료</a></li>
+					<li style="width:25%"><a href="salesitemprogress.mp">판매 물품 거래 진행중</a></li>
+					<li style="width:25%"><a href="salesother.mp">구매거부/반품/미입금/판매거부/미수령신고</a></li>
+				</ul>
+				<ul>
+					<li style="width:25%"><a href="endofsale.mp">경매낙찰물품</a></li>
+					<li class="on" style="width:25%"><a href="bidderitem.mp">거래신청 있는 물품</a></li>
+				</ul>
+		</div>
 		
-		 <h5>꼭 읽어주세요! </h5><br>
-	     <h5>현재 진행중인 물품으로 경매현황을 파악 하실 수 있습니다.</h5>
-	     <br>
-	     <h5>거래신청자가 있는 물품에 대해서 모두 ${ fn:length(list) }개가 검색되었습니다.</h5>
+	     <h5 class="content">거래신청자가 있는 물품에 대해서 모두 ${ fn:length(list) }개가 검색되었습니다.</h5>
 	     
-	     <table class="buyStatusTable">
+	     <table class="table" style="width: 1500px;">
       
       <thead>
         <tr>
-        	<th class="firstTd">선택</th>	
-            <th class="firstTd">물품번호</th>
-          <th class="firstTd">물품명</th>
-          <th class="firstTd">현재가</th>
-          <th class="firstTd">낙찰자</th>
-          <th class="firstTd">마감일</th>
+        	<th scope="col">선택</th>	
+            <th scope="col">물품번호</th>
+          <th scope="col">물품명</th>
+          <th scope="col">현재가</th>
+          <th scope="col">낙찰자</th>
+          <th scope="col">마감일</th>
         </tr>
       </thead>
       <tbody>
@@ -138,57 +95,79 @@
       </tbody>
      
     </table>
-	     <button onclick="dealNo();">거래하기</button>
-	     <button class="noSale">판매거부</button>
-	</div>
-	
-	<div id="pagingArea" align="center">
-			<c:if test="${ pi.currentPage <= 1 }">
-				[이전] &nbsp;
-			</c:if>
-			<c:if test="${ pi.currentPage > 1 }">
-				<c:url var="blistBack" value="bidderitem.mp">
-					<c:param name="currentPage" value="${ pi.currentPage - 1 }"/>
-				</c:url>
-				<a href="${ blistBack }">[이전]</a> &nbsp;
-			</c:if>
-			
-			<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-				<c:if test="${ p eq pi.currentPage }">
-					<font color="red" size="4"><b>[${ p }]</b></font>
-				</c:if>
-				<c:if test="${ p ne pi.currentPage }">
-					<c:url var="blistCheck" value="bidderitem.mp">
-						<c:param name="currentPage" value="${ p }"/>
-					</c:url>
-					<a href="${ blistCheck }">${ p }</a>
-				</c:if>
-			</c:forEach>
-			
-			<c:if test="${ pi.currentPage >= pi.maxPage }">
-				&nbsp; [다음]
-			</c:if>
-			<c:if test="${ pi.currentPage < pi.maxPage }">
-				<c:url var="blistEnd" value="bidderitem.mp">
-					<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
-				</c:url>
-				<a href="${ blistEnd }">&nbsp;[다음]</a>
-			</c:if>
+    	<div class="btnArea">
+			<button id="dealBtn" class="ui black basic button" data-toggle="modal" data-target="#exampleModal">거래하기</button>
+			<button id="noPayBtn" class="ui orange basic button" data-toggle="modal" data-target="#noPay">판매거부</button>
 		</div>
-	
-	<!-- 하단 div영역 -->
-	<div class="tutorialDiv">
-		<br>
-		<h4 class="tutorialText1">고객센터 상담전화</h4>
-		<br><br>
-		<h4 class="tutorialText2">02-000-0000</h4>
-		<h4 class="tutorialText3">평일 09:00~18:00</h4>&nbsp;<h4 class="tutorialText3">점심 12:00~13:00</h4>
-		<h4 class="tutorialText4">토 일 공휴일 휴무</h4>
-		<i class="clipboard icon" id="auctionInfo" onclick="location.href='egAuctionInfo.mp'"></i>
-		<h4 class="tutorialIcon1" onclick="egAuctionInfo.mp">사이트이용안내</h4>
-		<i class="dollar sign icon" id="accountInfo"></i>
-		<h4 class="tutorialIcon2">자주묻는 질문</h4>		
+
+	 <!-- Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">거래하시겠습니까?</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+	        <button type="button" class="btn btn-primary" onclick="dealNo();">거래하기</button>
+	      </div>
+	    </div>
+	  </div>
 	</div>
+
+	<div class="modal fade" id="noPay" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">판매거부하시겠습니까?</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+	        <button type="button" class="btn btn-primary" onclick="noSale();">판매거부하기</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	<div id="pagingArea" class="numbox mt50">
+         <c:if test="${ pi.currentPage <= 1 }">
+            <span class="prevnc">이전</span>
+         </c:if>
+         <c:if test="${ pi.currentPage > 1 }">
+            <c:url var="blistBack" value="bidderitem.mp">
+               <c:param name="currentPage" value="${ pi.currentPage - 1}"/>
+            </c:url>
+            <span><a class="prev" href="${ blistBack }">이전</a></span>
+         </c:if>
+         
+         <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+            <c:if test="${ p eq pi.currentPage }">
+               <span><a class="num on" href="${ blistCheck }" style="background-color: #168;">${p}</a></span>
+            </c:if>
+            <c:if test="${ p ne pi.currentPage }">
+               <c:url var="blistCheck" value="bidderitem.mp">
+                  <c:param name="currentPage" value="${p}"/>
+               </c:url>
+               <span><a class="num" href="${ blistCheck }">${ p }</a></span>
+            </c:if>
+         </c:forEach>
+         
+         <c:if test="${ pi.currentPage >= pi.maxPage }">
+            <span class="nextnc">다음</span>
+         </c:if>
+         <c:if test="${ pi.currentPage < pi.maxPage }">
+            <c:url var="blistEnd" value="bidderitem.mp">
+               <c:param name="currentPage" value="${ pi.currentPage + 1}"/>
+            </c:url>
+            <span><a class="next" href="${ blistEnd }">다음</a></span>
+         </c:if>
+      </div>
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script>
@@ -197,7 +176,6 @@
    			var sendCur = new Array();
    			var checkbox = $(".checkChild:checked");
    	        /* alert("거래가 진행되었습니다."); */
-   	        if(window.confirm("거래진행 하시겠습니까?")){
    		 	checkbox.each(function(i){
    		 		var tr = checkbox.parent().parent().eq(i);
    		 		var td = tr.children();
@@ -207,23 +185,17 @@
    	            sendCur.push(current);
  				location.href="salesitemprogress.mp?itemNo=" + sendArr +"," + "&currentPrice=" + sendCur;
    		 	}); 		 	
-   	        }else {
-   	        	
-   	        }
 		}
-		$(".noSale").click(function () {
-			var answer = confirm("판매거부하시겠습니까?");
-			if(answer == true){
-				noSale();
-			}
-		});
 		
 		function noSale() {
-			var sendArr = new Array();
-   			var sendCur = new Array();
-   			var checkbox = $(".checkChild:checked");
-   	        alert("판매거부가 신청되었습니다.");
-   		 	checkbox.each(function(i){
+			if(!$(".checkChild:checked").val()){
+				alert("물품을 선택해주세요.");
+				location.reload();
+			}else{
+				var sendArr = new Array();
+   				var sendCur = new Array();
+   				var checkbox = $(".checkChild:checked");
+   		 		checkbox.each(function(i){
    		 		var tr = checkbox.parent().parent().eq(i);
    		 		var td = tr.children();
    	            var docNum = td.eq(1).text();
@@ -231,7 +203,8 @@
    	            sendArr.push(docNum);
    	            sendCur.push(current);
  				location.href="refusetosell2.mp?itemNo=" + sendArr +"," + "&currentPrice=" + sendCur;
-   		 	}); 		 	
+   		 		}); 
+			}
 		}
 	</script>
 </body>

@@ -52,12 +52,8 @@ import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 			//유저번호 받기위해 
 		    m = (Member)session.getAttribute("loginUser");
 		    String memberNo= m.getMid();
-		    System.out.println("아이디 : " + memberNo);
-		    ArrayList<RatingMyPage> list = ms.selectRating(memberNo);
-		    
-		    
+		    ArrayList<RatingMyPage> list = ms.selectRating(memberNo);		    		    
 		    String rating;
-		    System.out.println("list가 왔느냐 : " + list.size());
 		    if(list != null) {
 			    if(list.get(0).getAmount()>=1000000 && list.get(0).getCount()>=6) {
 			    	

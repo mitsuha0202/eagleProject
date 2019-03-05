@@ -169,7 +169,7 @@ public interface MyPageDao {
 	ArrayList<PayTable> selectPurChaseNoParam(SqlSessionTemplate sqlSession, PageInfo pi, String mid);
 
 	//반품 페이징
-	int getReturn(SqlSessionTemplate sqlSession, String mid, String itemNo, String currentPrice);	
+	int getReturn(SqlSessionTemplate sqlSession, String mid, String itemNo);	
 
 	//반품 매개변수 없는 페이징
 	int getReturnNoParam(SqlSessionTemplate sqlSession, String mid);

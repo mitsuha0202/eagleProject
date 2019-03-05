@@ -38,64 +38,6 @@
 		padding-left: 100px;
 	}
 	
-      /* 구매현황 테이블 div */
-	/* .buyStatus{
-		position: absolute;
-		left: 70px;
-		top: 515px;
-	} */
-	/* 구매현황 테이블, 판매현황 테이블 */
-	/* .buyStatusTable, tr, td{
-		border: 1px solid black;
-		text-align: center;
-		width: 1355px;
-		height: 50px;
-		cursor: pointer;
-	} */
-	
-	/* 물품검색 조회리스트 
-	.resultitemlist{
-		border: 1px solid #bcbcbc;
-	}
-	.tutorialDiv{
-		background-color: lightgray;
-		position: absolute;
-		left: 70px;
-		top: 1020px;
-		width: 1355px;
-		height: 200px;
-	}
-	.tutorialText1{
-		position: absolute;
-		top: 30px;
-		left: 100px;
-	}
-	.tutorialText2{
-		position: absolute;
-		top: 70px;
-		left: 100px;
-	}
-	.tutorialText3{
-		position: absolute;
-		left: 280px;
-		
-	}
-	.tutorialText4{
-		position: absolute;
-		top: 120px;
-		left: 100px;
-	}
-	.tutorialIcon1{
-		position: absolute;
-		top: 140px;
-		left: 850px;	
-	}
-	.tutorialIcon2{
-		position: absolute;
-		top: 140px;
-		left: 1100px;	
-	} */
-	
 </style>
 <body>
 
@@ -104,7 +46,7 @@
 	
 		<div class="tabBigBox btab_2ea mt40" style="margin-left: auto; margin-right: auto; width: 1500px; padding-top: 100px; padding-bottom: 50px;">
 				<ul style="padding-bottom: 100px;">
-					<li style="width:25%;"><a href="purchasestatus.mp">입찰중물품</a></li>
+					<li class="on" style="width:25%;"><a href="purchasestatus.mp">입찰중물품</a></li>
 					<li style="width:25%"><a href="purchaseend.mp">구매종료</a></li>
 					<li style="width:25%"><a href="purchaseitemdeal.mp">구매 물품 거래 진행중</a></li>
 					<li style="width:25%"><a href="purchaseother.mp">구매거부/반품/미입금/판매거부/미수령신고</a></li>
