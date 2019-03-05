@@ -55,8 +55,13 @@
 						blackListcheck+="&";
 						}
 					}
-					console.log(blackListcheck);
-					location.href = "blackListoff.ad?" + blackListcheck;
+					if(checkUser.length==0){
+			               alert("회원을 선택해주세요.")
+			            }else{
+			            	location.href = "blackListoff.ad?" + blackListcheck;  
+			            }
+					
+					
 				}
 			</script>
 

@@ -281,6 +281,16 @@ public class AdMemberServiceImpl implements AdMemberService{
 		return result;
 	}
 
+	@Override
+	public int auctionDel(String[] check) throws AdMemberselectException {
+		int result = 0;
+		for(int i = 0; i <check.length; i++) {
+			result += amd.auctionDel(sqlSession, check[i]);
+		}
+		
+		return result;
+	}
+
 	
 
 	

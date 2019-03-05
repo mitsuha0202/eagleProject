@@ -78,7 +78,12 @@
 					var size = $("#size").val();
 					var division = $("#division").val();
 					
-					location.href = "addcategory.ad?category=" + category + "&size=" + size + "&division=" + division;
+					if(category==0||size==0){
+			               alert("카테고리를 선택해주세요.")
+			            }else{
+			            	location.href = "addcategory.ad?category=" + category + "&size=" + size + "&division=" + division;
+			            }
+					
 				}
 			</script>
 			<script>

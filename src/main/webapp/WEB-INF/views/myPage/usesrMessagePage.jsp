@@ -265,7 +265,7 @@
 			$(this).css({"background":"white"});
 		}).click(function() {
 			var docno = $(this).parent().children().eq(1).text();
-			location.href="detailMessage.mp?docno=" + docno; 
+			location.href="detailMessage.mp?boardNo=" + docno; 
 		}); 
    </script>
 </body>

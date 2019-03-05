@@ -37,6 +37,7 @@
 				</colgroup>
 				<thead>
 					<tr>
+						<th scope="col">문의번호</th>
 						<th scope="col">회원 아이디</th>
 						<th scope="col">날짜</th>
 						<th scope="col">연락처</th>
@@ -52,12 +53,13 @@
 					<tr>
 							<c:forEach var="b" items="${ list }">
 					<tr>
+						<td>${ b.boardNo }</td>
 						<td>${ b.memberId }</td>
 						<td>${ b.writeDay }</td>
 						<td>${ b.phone }</td>
 						<td>${ b.reply }</td>
 						<td>${ b.title }</td>
-						<td><a class="mbtn bl" onclick="">상세보기</a></td>
+						<td><a class="mbtn bl" onclick="detail('${ b.boardNo }');">상세보기</a></td>
 					</tr>
 					</c:forEach>
 				</tbody>
@@ -108,14 +110,15 @@
 
 </div><!--// Wrap E-->	
 	
-	<!-- 	<script>
-				function detail(){
-					
-					location.href = "boardSelectOne.bo?;
+		<script>
+				function detail(boardNo){
+					console.log(boardNo);
+					var admin = 1;
+					location.href = "detailMessage.mp?docNo=" + boardNo +"&admin=" + admin;
 					
 				}
 				
-		</script> -->
+		</script>
 
 
 

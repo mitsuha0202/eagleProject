@@ -395,6 +395,18 @@ public class AdMemberDaoImpl implements AdMemberDao{
 		return result;
 	}
 
+	@Override
+	public int auctionDel(SqlSessionTemplate session, String itemNo) {
+		
+		Map<String, Object> map= new HashMap<String, Object>();
+		
+		map.put("itemNo", itemNo);
+		
+		int result = session.update("AdminVo.auctionDel", map);
+		
+		return result;
+	}
+
 	
 
 

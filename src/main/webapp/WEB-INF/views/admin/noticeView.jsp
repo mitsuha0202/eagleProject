@@ -1,9 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
 <%@ include file="../admin/include/common.jsp" %>
 
 
 <title>Eagle 관리자페이지</title>
+<style>
+	#mytextarea{
+		width : 900;
+		height: 900;
+	}
+</style>
 </head>
 <body>
 <div id="Wrap"><!-- Wrap S -->
@@ -12,12 +18,12 @@
 
 	<div id="container"><!-- container S -->
 
-		<div class="tit">&bull; 공지사항관리</div>
+		<div class="tit">&bull; 문의 관리</div>
 
 		<div class="contBox mt30"><!-- contBox S -->
 				
 			<table class="boardWrite mt30"><!-- boardWrite S-->
-			<caption>공지사항관리 리스트입니다.</caption>
+			<caption>문의 답변 페이지 입니다.</caption>
 			<colgroup>
 				<col style="width:20%;">
 				<col style="width:%;">
@@ -25,23 +31,25 @@
 			<tbody>
 			<tr>
 				<th scope="row">제목</th>
-				<td>공지사항입니다~~!!!!!!!!!!!!!!!</td>
+				<td>${ myBoard.title }</td>
 			</tr>
 			<tr>
 				<th scope="row">문의 내용</th>
 				<td class="minh100 clfix">
-					공지사항 테스트 내용<br>
-					공지사항 테스트 내용<br>
-					공지사항 테스트 내용<br>
-					공지사항 테스트 내용<br>
+					${ myBoard.boardContents }
 				</td>
 			</tr>
 			</tbody>
 		</table><!--// boardWrite E-->
-
+		<div class="contBox mt30">
+			<textarea id="mytextarea" style="margin: 0px; width: 1196px; height: 204px;">						
+			</textarea>
+		</div>
+		
+		
 		<div class="tcen mt30">
-			<span><a class="bbtn or" href="#">작성완료<a></span>
-			<span><a class="bbtn bk" href="#">취소<a></span>
+			<span><a class="bbtn or" onclick="">작성완료<a></span>
+			<span><a class="bbtn bk" href="postList.ad">취소<a></span>
 		</div>
 
 		</div><!--// contBox E-->

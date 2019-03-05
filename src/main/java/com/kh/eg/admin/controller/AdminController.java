@@ -469,10 +469,35 @@ public class AdminController {
 			return "admin/reportList";
 		} catch (AdMemberselectException e) {
 			e.printStackTrace();
-			model.addAttribute("msg","회원 조회 실패!");
+			model.addAttribute("msg","신고 조회 실패!");
 			return "common/errorPage";
 
 		} 
+	}
+	
+	//신고게시물 삭제
+	@RequestMapping("auctionDel.ad")
+	public String auctionDelview(Model model, HttpServletRequest request){
+		
+		String[] check = request.getParameterValues("check");
+		
+		for(int i = 0; i< check.length; i++) {
+			System.out.println(check[i]);
+		}
+		
+		int result;
+		
+		try {
+			result = ams.auctionDel(check);
+			
+			return "redirect:reportList.ad";
+		} catch (AdMemberselectException e) {
+			e.printStackTrace();
+			model.addAttribute("msg","신고게시물 삭제 실패!");
+			return "common/errorPage";
+		}
+		
+		
 	}
 
 
