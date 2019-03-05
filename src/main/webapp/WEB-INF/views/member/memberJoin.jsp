@@ -209,9 +209,14 @@
 			                if (data.result > 0) {
 			                    alert("아이디가 존재합니다. 다른 아이디를 입력해주세요.");     
 			                } else {
-			                	alert("사용가능한 아이디입니다.")
+			                	if(window.confirm("한번 등록한 아이디는 변경 할 수 없습니다.\n"+userId+"사용하시겠습니까?")){
 			                    var idCheckBtn = $("#idCheckBtn").text("확인완료").attr("disabled",true);
-			                	var idCkNum =$("#idCkNum").text(1);        
+			    				$("#userId").attr("readOnly",true);
+			                	/* $("#userId").attr("disabled",true); */
+			                	var idCkNum =$("#idCkNum").text(1);
+			                	}else{
+			                		
+			                	}
 			                }
 			            },
 			            error : function(error) {
@@ -242,6 +247,8 @@
 					}else{
 						alert("인증 번호가 전송 되었습니다.메일을 확인해주세요.")
 						var emailCheck = $("#emailCheck").text(data.key);
+						$("#email").attr("readOnly",true);
+						/* $("#email").attr("disabled",true); */
 					}
 				},
 				error : function(error) {
@@ -259,6 +266,7 @@
 				alert("인증 완료!")
 				var emailConfirmBtn =$("#emailConfirmBtn").text("인증완료").attr("disabled",true);
 				var emailCkNum =$("#emailCkNum").text(1);
+				$("#emailBtn").attr("disabled",true);
 			}else{
 				alert("인증번호가 올바르지 않습니다.");
 			}
@@ -325,7 +333,7 @@
 				$("#email").focus();
 				return false;
 			}else{
-				alert("회원가입 성공!")
+				alert("회원가입이 완료되었습니다.")
 				$("#joinForm").submit();
 				return true;
 			}
