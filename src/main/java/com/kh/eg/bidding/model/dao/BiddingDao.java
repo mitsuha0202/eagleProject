@@ -51,6 +51,8 @@ public interface BiddingDao {
 
 	int updateRealTime(SqlSessionTemplate sqlSession, ItemDetail i);
 
+	int insertQuestion(SqlSessionTemplate sqlSession, Board b);
+
 
 
 

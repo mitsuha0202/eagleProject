@@ -417,25 +417,7 @@ h4 {
 			location.href="auctionDetail.bi?itemNo="+itemNo+"&auctionCode="+auctionCode;
 		}); 
 		
-	 	$(document).ready(function(){
 	 	
-	 		$.ajax({
-	 			url:"selectCount.au",
-	 			type:"get",
-	 			dataType:"text",
-	 			contentType:"application/json",
-	 			success:function(data) {
-	 				var data=JSON.parse(data);
-	 				console.log(data);
-	 				var count=0;
-	 				var cCount=data.
-	 				
-	 			}
-	 			
-	 		});
-	 		
-	 		
-	 	});
 	 	
 		
 		
