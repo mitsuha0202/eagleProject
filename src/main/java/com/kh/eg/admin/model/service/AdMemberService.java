@@ -78,6 +78,8 @@ public interface AdMemberService {
 
 	int moneyChange(String[] check, String money) throws AdMemberselectException;
 
+	int auctionDel(String[] check) throws AdMemberselectException;
+
 
 
 

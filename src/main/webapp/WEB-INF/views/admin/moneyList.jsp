@@ -155,8 +155,11 @@
 						check+="&";
 					}
 				}
-	         	location.href = "moneyChange.ad?" + check +"&moneychange=" + moneychange;	
-	         
+	         	if(checkUser.length==0){
+	                alert("회원을 선택해주세요.")
+	             }else{
+	                location.href = "moneyChange.ad?" + check +"&moneychange=" + moneychange;   
+	             }
 	         }
 		</script>
 		

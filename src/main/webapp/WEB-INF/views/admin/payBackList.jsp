@@ -32,7 +32,12 @@
 							payBackcheck+="&";
 						}
 					}
-					location.href = "payBackY.ad?" + payBackcheck;
+					if(checkUser.length==0){
+			               alert("회원을 선택해주세요.")
+			            }else{
+			            	location.href = "payBackY.ad?" + payBackcheck;
+			            }
+					
 				}
 				
 				function payBackX(){
@@ -44,7 +49,12 @@
 							payBackcheck+="&";
 						}
 					}
-					location.href = "payBackX.ad?" + payBackcheck;
+					if(checkUser.length==0){
+			               alert("회원을 선택해주세요.")
+			            }else{
+			            	location.href = "payBackX.ad?" + payBackcheck;
+			            }
+					
 				}
 				
 			</script>

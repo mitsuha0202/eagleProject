@@ -55,6 +55,7 @@
 	</resultMap>
 	
 	<resultMap type="com.kh.eg.admin.model.vo.Post" id="postResultSet">
+		<result property="boardNo" column="BOARDNO" />
 		<result property="memberId" column="MEMBERID" />
 		<result property="writeDay" column="WRITEDAY" />
 		<result property="phone" column="PHONE" />
@@ -230,17 +231,17 @@
 	
 	<!-- 신고리스트 페이징 -->
 	<select id="reportCount" resultType="_int">
-		SELECT COUNT(DISTINCT N.ITEMNAME) FROM ATTACHMENT A JOIN REPORT R ON(A.ITEMNO = R.ITEMNO)JOIN AUCTIONITEM N ON(A.ITEMNO = N.ITEMNO) JOIN MEMBER M ON(R.MEMBERNO = M.MEMBERNO)
+		SELECT COUNT(DISTINCT N.ITEMNAME) FROM ATTACHMENT A JOIN REPORT R ON(A.ITEMNO = R.ITEMNO)JOIN AUCTIONITEM N ON(A.ITEMNO = N.ITEMNO) JOIN MEMBER M ON(R.MEMBERNO = M.MEMBERNO) WHERE DELETEYN = 'N'
 	</select>
 	
 	<!-- 신고리스트 -->
 	<select id="selectReportList" resultMap="reportResultSet">
-		SELECT DISTINCT A.ITEMNO, R.REPORTCOUNT, N.ITEMNAME, M.MEMBERID, R.BOARDSTATUS FROM ATTACHMENT A JOIN REPORT R ON(A.ITEMNO = R.ITEMNO)JOIN AUCTIONITEM N ON(A.ITEMNO = N.ITEMNO) JOIN MEMBER M ON(R.MEMBERNO = M.MEMBERNO)
+		SELECT DISTINCT A.ITEMNO, R.REPORTCOUNT, N.ITEMNAME, M.MEMBERID, R.BOARDSTATUS FROM ATTACHMENT A JOIN REPORT R ON(A.ITEMNO = R.ITEMNO)JOIN AUCTIONITEM N ON(A.ITEMNO = N.ITEMNO) JOIN MEMBER M ON(R.MEMBERNO = M.MEMBERNO) WHERE DELETEYN = 'N'
 	</select>
 	
 	<!-- 검색결과 회원목록 페이징 카운트 -->
 	<select id="searchReportListCount" resultType="_int" parameterType="com.kh.eg.admin.model.vo.SearchCondition">
-		SELECT COUNT(*) FROM ATTACHMENT A JOIN REPORT R ON(A.ITEMNO = R.ITEMNO)JOIN AUCTIONITEM N ON(A.ITEMNO = N.ITEMNO) JOIN MEMBER M ON(R.MEMBERNO = M.MEMBERNO)
+		SELECT COUNT(*) FROM ATTACHMENT A JOIN REPORT R ON(A.ITEMNO = R.ITEMNO)JOIN AUCTIONITEM N ON(A.ITEMNO = N.ITEMNO) JOIN MEMBER M ON(R.MEMBERNO = M.MEMBERNO) WHERE DELETEYN = 'N'
 		<choose>
 			<when test="userId != null">
 				AND MEMBERID = #{userId}
@@ -310,7 +311,7 @@
 	
 	<!-- 문의 리스트 -->
 	<select id="selectPostList" resultMap="postResultSet">
-		SELECT M.MEMBERID, B.WRITEDAY, M.PHONE, B.REPLYSTATUS, B.TITLE FROM BOARD B JOIN MEMBER M ON (B.MEMBERNO = M.MEMBERNO) 
+		SELECT B.BOARDNO, M.MEMBERID, B.WRITEDAY, M.PHONE, B.REPLYSTATUS, B.TITLE FROM BOARD B JOIN MEMBER M ON (B.MEMBERNO = M.MEMBERNO) 
 		WHERE BOARDSTATUS = 'ONEBYONE' AND REPLYSTATUS = 'Y'
 	</select>
 	
@@ -370,6 +371,11 @@
 	<!-- 사이버머니 변경 -->
 	<select id="moneyChange" parameterType="map">
 		UPDATE MEMBER SET EMONEY = #{eMoney} WHERE MEMBERID = #{memberId}
+	</select> 
+	
+	<!-- 신고게시물  삭제 -->
+	<select id="auctionDel" parameterType="map">
+		UPDATE AUCTIONITEM SET DELETEYN = 'Y' WHERE ITEMNO = #{itemNo}
 	</select> 
 	
 	

@@ -106,7 +106,8 @@ public class MyPageDaoImpl implements MyPageDao{
 	@Override
 	public MyPageBoard selectOneBoard(SqlSessionTemplate sqlSession, String boardNo) {
 		MyPageBoard myBoard = sqlSession.selectOne("MyPage.selectOneBoard", boardNo);
-		myBoard.setrContents((String)sqlSession.selectOne("MyPage.selectOneReply", myBoard.getBoardNo()));
+		MyPageBoard temp = sqlSession.selectOne("MyPage.selectOneReply", myBoard.getBoardNo());
+		myBoard.setrContents(temp.getrContents());
 		return myBoard;
 
 	}
