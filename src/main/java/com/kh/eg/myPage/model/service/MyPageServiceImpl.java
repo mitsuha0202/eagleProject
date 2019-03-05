@@ -389,9 +389,9 @@ public class MyPageServiceImpl implements MyPageService{
 
 	//반품 페이징
 	@Override
-	public int getReturn(String mid, String itemNo, String currentPrice) {
+	public int getReturn(String mid, String itemNo) {
 
-		return md.getReturn(sqlSession, mid, itemNo, currentPrice);
+		return md.getReturn(sqlSession, mid, itemNo);
 	}
 
 	//반품 목록 조회

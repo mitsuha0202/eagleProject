@@ -668,11 +668,10 @@ public class MyPageDaoImpl implements MyPageDao{
 
 	//반품 페이징 
 	@Override
-	public int getReturn(SqlSessionTemplate sqlSession, String mid, String itemNo, String currentPrice) {
+	public int getReturn(SqlSessionTemplate sqlSession, String mid, String itemNo) {
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("mid", mid);
 		map.put("itemNo", itemNo);
-		map.put("currentPrice", currentPrice);
 		map.put("saleMemberNo", (String)sqlSession.selectOne("MyPage.selectSaleMemberNo", map));
 		
 		int result1 = sqlSession.insert("MyPage.returnInsert", map);

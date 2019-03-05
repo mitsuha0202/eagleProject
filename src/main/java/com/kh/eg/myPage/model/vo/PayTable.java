@@ -1,6 +1,6 @@
 package com.kh.eg.myPage.model.vo;
 
-public class PayTable {
+public class PayTable implements Comparable<PayTable>{
 	private int itemNo;
 	private int bidNo;
 	private String itemName;
@@ -179,6 +179,16 @@ public class PayTable {
 				+ ", saleMemberNo=" + saleMemberNo + ", saleMemberName=" + saleMemberName + ", rowBid=" + rowBid
 				+ ", startDay=" + startDay + ", endDay=" + endDay + ", endYn=" + endYn + ", auctioncode=" + auctioncode
 				+ ", deliveryPay=" + deliveryPay + ", orderM=" + orderM + "]";
+	}
+
+	@Override
+	public int compareTo(PayTable pay) {
+		if(this.itemNo < pay.getItemNo()) {
+			return 1;
+		}else if (this.itemNo > pay.getItemNo()) {
+			return -1;
+		}
+		return 0;
 	}
 	
 }

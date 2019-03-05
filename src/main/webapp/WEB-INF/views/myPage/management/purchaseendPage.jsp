@@ -55,7 +55,7 @@
 	<div class="tabBigBox btab_2ea mt40" style="margin-left: auto; margin-right: auto; width: 1500px; padding-top: 100px; padding-bottom: 50px;">
 				<ul style="padding-bottom: 100px;">
 					<li style="width:25%;"><a href="purchasestatus.mp">입찰중물품</a></li>
-					<li style="width:25%"><a href="purchaseend.mp">구매종료</a></li>
+					<li class="on" style="width:25%"><a href="purchaseend.mp">구매종료</a></li>
 					<li style="width:25%"><a href="purchaseitemdeal.mp">구매 물품 거래 진행중</a></li>
 					<li style="width:25%"><a href="purchaseother.mp">구매거부/반품/미입금/판매거부/미수령신고</a></li>
 				</ul>
@@ -110,7 +110,6 @@
     </table>
     	     
     <div class="btnArea">
-		<!-- <button id="dealBtn" class="ui black basic button" onclick="itemNo();">거래하기</button> -->
 		<button id="dealBtn" class="ui black basic button" data-toggle="modal" data-target="#exampleModal">거래하기</button>
 		<button id="noPayBtn" class="ui orange basic button" data-toggle="modal" data-target="#noPay">구매거부</button>
 	</div>
@@ -210,28 +209,35 @@
 		});
 	
 		function itemNo() {
-   			var sendArr = new Array();
-   			var sendCur = new Array();
-   			var checkbox = $(".checkChild:checked");   			
-   
-   		 	checkbox.each(function(i){
-   		 	var tr = checkbox.parent().parent().eq(i);
-   			var td = tr.children();
-   	        var docNum = td.eq(1).text();
-   	        var current = td.eq(3).text();
-   	        td.eq(6).text("Y");
-   	        sendArr.push(docNum);
-   	        sendCur.push(current);
- 			location.href="insertDeal.mp?itemNo=" + sendArr +"," + "&currentPrice=" + sendCur; 
-   		 	}); 
+			if(!$(".checkChild:checked").val()){
+				alert("물품을 선택해주세요.");
+				location.reload();
+			}else{
+	   			var sendArr = new Array();
+	   			var sendCur = new Array();
+	   			var checkbox = $(".checkChild:checked");   			
+	   
+	   		 	checkbox.each(function(i){
+	   		 	var tr = checkbox.parent().parent().eq(i);
+	   			var td = tr.children();
+	   	        var docNum = td.eq(1).text();
+	   	        var current = td.eq(3).text();
+	   	        td.eq(6).text("Y");
+	   	        sendArr.push(docNum);
+	   	        sendCur.push(current);
+	 			location.href="insertDeal.mp?itemNo=" + sendArr +"," + "&currentPrice=" + sendCur; 
+	   		 	}); 
+			}
 		}
-		
 		function noPay() {
-			var sendArr = new Array();
-   			var sendCur = new Array();
-   			var checkbox = $(".checkChild:checked");
-			if(window.confirm("구매거부하시겠습니까?")){
-   		 	checkbox.each(function(i){
+			if(!$(".checkChild:checked").val()){
+				alert("물품을 선택해주세요.");
+				location.reload();
+			}else{
+				var sendArr = new Array();
+	   			var sendCur = new Array();
+	   			var checkbox = $(".checkChild:checked");
+	   		 	checkbox.each(function(i){
    		 		var tr = checkbox.parent().parent().eq(i);
    		 		var td = tr.children();
    	            var docNum = td.eq(1).text();
@@ -239,9 +245,7 @@
    	            sendArr.push(docNum);
    	            sendCur.push(current);
  				location.href="purchaseother.mp?itemNo=" + sendArr +"," + "&currentPrice=" + sendCur;
-   		 	}); 	
-			}else{
-				
+   		 		}); 	
 			}
 		}
 		

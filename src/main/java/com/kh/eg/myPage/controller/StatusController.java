@@ -42,11 +42,10 @@ public class StatusController {
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		ArrayList<PayTable> list = ms.selectPayList(pi, m.getMid());
 		
-		for(int i=0; i<list.size(); i++) {
-			/*Three three = new Three();			
-			list.get(i).setCurrentPrice((three.toNumFormat(Integer.parseInt(list.get(i).getCurrentPrice()))));*/
+		/*Three three = new Three();			
+		list.get(i).setCurrentPrice((three.toNumFormat(Integer.parseInt(list.get(i).getCurrentPrice()))));*/
+		Collections.sort(list);
 			
-		}
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
 		return "myPage/management/purchasestatusMainPage";
@@ -85,10 +84,7 @@ public class StatusController {
 			}
 			
 		}
-		for(int i=0; i<list.size(); i++) {
-			/*Three three = new Three();			
-			list.get(i).setCurrentPrice((three.toNumFormat(Integer.parseInt(list.get(i).getCurrentPrice()))));*/
-		}
+		Collections.sort(list);
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
 		return "myPage/management/firstPurchasestatus";
@@ -117,6 +113,7 @@ public class StatusController {
 				list.remove(i);
 			}
 		}
+		Collections.sort(list);
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
 		return "myPage/management/secondbiditemPage";
@@ -143,6 +140,7 @@ public class StatusController {
 				}
 			}
 		}
+		Collections.sort(list);
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
 		
@@ -164,14 +162,14 @@ public class StatusController {
 				i -= 1;
 			}
 		}
-		System.out.println(list);
+			
 		for(int i=0; i<list.size(); i++) {
 			if(list.get(i).getAuctioncode().equals("AC002")) {
 				list.remove(i);
 				break;
 			}
 		}
-
+		Collections.sort(list);
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
 		return "myPage/management/unsuccessbidPage";
@@ -198,6 +196,7 @@ public class StatusController {
 			int listCount = ms.getPayContinueList(m.getMid());
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 			ArrayList<PayTable> list = ms.selectPayContinueList(pi, m.getMid());
+			Collections.sort(list);
 			model.addAttribute("list", list);				
 			model.addAttribute("pi", pi);
 			
@@ -215,6 +214,7 @@ public class StatusController {
 				ArrayList<PayTable> list = ms.selectDelivery(m.getMid(), pi);
 
 				if(list != null) {
+					Collections.sort(list);
 					model.addAttribute("list", list);
 					model.addAttribute("pi", pi);
 				}
@@ -229,6 +229,7 @@ public class StatusController {
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);	
 			ArrayList<PayTable> list = ms.selectShipping(m.getMid(), pi);
 			if(list != null) {
+				Collections.sort(list);
 				model.addAttribute("list", list);
 				model.addAttribute("pi", pi);
 			}
@@ -243,6 +244,7 @@ public class StatusController {
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);	
 			ArrayList<PayTable> list = ms.selectWaiting(m.getMid(), pi);
 			if(list != null) {
+				Collections.sort(list);
 				model.addAttribute("list", list);
 				model.addAttribute("pi", pi);
 			}
@@ -265,22 +267,26 @@ public class StatusController {
 				pi = Pagination.getPageInfo(currentPage, listCount);
 			}			
 			list = ms.selectAfterReceiptList(pi, m.getMid());
-			
+			Collections.sort(list);
 			model.addAttribute("list", list);
 			model.addAttribute("pi", pi);
-			return "myPage/management/afterreceiptPage";
+			return "myPage/management/transactioncompletePage";
 			
 		}
 		
-	//구매현황상세페이지 - 구매 물품 거래 진행중 페이지 - 거래완료 물품
+	/*//구매현황상세페이지 - 구매 물품 거래 진행중 페이지 - 거래완료 물품
 		@RequestMapping("transactioncomplete.mp")
 		public String transactioncompletePage(@RequestParam(defaultValue="1") int currentPage, HttpSession session, Model model, Member m) {
 			m = (Member)session.getAttribute("loginUser");
 			int listCount = ms.getTransactionComplete(m.getMid());
 			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 			ArrayList<PayTable> list = ms.selectTransactionComplete(m.getMid(), pi);
+			
+			model.addAttribute("list", list);
+			model.addAttribute("pi", pi);
+			
 			return "myPage/management/transactioncompletePage";
-		}
+		}*/
 	
 //-------------------------------구매거부/반품/미입금/판매거부/미수령신고------------------------------------------------------
 
@@ -298,7 +304,7 @@ public class StatusController {
 			int listCount = ms.getPurchaseOtherNoparam(m.getMid());
 			pi = Pagination.getPageInfo(currentPage, listCount);
 		}
-		
+		Collections.sort(list);
 		list = ms.selectPurChaseNoParam(pi, m.getMid());
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
@@ -307,19 +313,20 @@ public class StatusController {
 	
 	//구매거부/반품/미입금/판매거부/미수령신고 - 반품
 	@RequestMapping("return.mp")
-	public String returnPage(@RequestParam(value="itemNo", required=false) String itemNo, @RequestParam(value="currentPrice", required=false) String currentPrice, @RequestParam(defaultValue="1") int currentPage, HttpSession session, Model model, Member m) {
+	public String returnPage(@RequestParam(value="itemNo", required=false) String itemNo, @RequestParam(defaultValue="1") int currentPage, HttpSession session, Model model, Member m) {
 		m = (Member)session.getAttribute("loginUser");
 		ArrayList<PayTable> list = null;
 		PageInfo pi = null;
 			
-		if(itemNo != null && !itemNo.equals("") && currentPrice != null && !currentPrice.equals("")) {
-			int listCount = ms.getReturn(m.getMid(), itemNo, currentPrice);
+		if(itemNo != null && !itemNo.equals("")) {
+			int listCount = ms.getReturn(m.getMid(), itemNo);
 			pi = Pagination.getPageInfo(currentPage, listCount);			
 		}else {
 			int listCount = ms.getReturnNoparam(m.getMid());
 			pi = Pagination.getPageInfo(currentPage, listCount);
 		}
 		list = ms.selectReturnList(pi, m.getMid());
+		Collections.sort(list);
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
 		return "myPage/management/returnPage";
@@ -341,6 +348,7 @@ public class StatusController {
 		}
 			
 		list = ms.selectNoPaymentList(pi, m.getMid());
+		Collections.sort(list);
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
 			
@@ -355,6 +363,7 @@ public class StatusController {
 		int listCount = ms.getRefuseSell(m.getMid());
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		ArrayList<PayTable> list = ms.selectRefuseSellList(pi, m.getMid());
+		Collections.sort(list);
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
 						
@@ -377,6 +386,7 @@ public class StatusController {
 		}
 			
 		list = ms.selectNotReceivingList(pi, m.getMid());
+		Collections.sort(list);
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
 		
@@ -398,6 +408,7 @@ public class StatusController {
 	public @ResponseBody ArrayList<PayTable> searchWinList(HttpSession session, Member m) {
 		m = (Member)session.getAttribute("loginUser");
 		ArrayList<PayTable> list = ms.searchWinList(m.getMid());
+		Collections.sort(list);
 		return list;
 	}
 }

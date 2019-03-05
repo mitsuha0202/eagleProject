@@ -169,7 +169,7 @@ public interface MyPageService {
 	ArrayList<PayTable> selectPurChaseNoParam(PageInfo pi, String mid);
 
 	//반품 페이징 처리
-	int getReturn(String mid, String itemNo, String currentPrice);
+	int getReturn(String mid, String itemNo);
 
 	//반품 페이징 처리
 	int getReturnNoparam(String mid);
