@@ -378,4 +378,6 @@ FROM AUCTIONITEM A JOIN AUCTIONDETAIL AD ON(A.ITEMNO=AD.ITEMNO)
 where ITEMNAME LIKE '%한정%'or ITEMNAME like '%패키지%'or ITEMNAME like '%유니크%'or ITEMNAME like '%스페셜%'or ITEMNAME like '%희귀%') 
 WHERE RNUM BETWEEN 1 AND 8 ORDER BY ICOUNT DESC
 	</select>
+	
+
 </mapper>
