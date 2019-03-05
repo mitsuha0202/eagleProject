@@ -83,48 +83,54 @@ private emoneyService es;
 		
 		}
 		
-		
-	//API에 전송할 값 넣는 메소드
-	@RequestMapping("saveCharge.em")
-	public void saveCharge(@RequestParam(value="buyer_code", required=false) String buyer_code, @RequestParam(value="amount", required=false) int amount,
-			@RequestParam(value="commission", required=false) int commission, HttpSession session, emoney e, HttpServletRequest request, HttpServletResponse response) throws JsonIOException, IOException {
-		
-		Member m = new Member();
-		m = (Member)session.getAttribute("loginUser");
-		
-		e.setMemberNo(m.getMid());
-		e.setMoney(m.getEmoney());
-		
-		System.out.println("eMemberNo=mMid "+e.getMemberNo());
-		System.out.println("eMoney=mEmoney " + e.getMoney());
-		
-		e.getMemberNo().equals(buyer_code);
-		/*e.setMemberNo(buyer_code);*/
-		/*e.setAmount(amount);*/
-		e.setMoney(amount);
-		m.setEmoney(amount);
-		System.out.println("buyer_code : " + buyer_code);
-		System.out.println("amount : " + amount);
-		System.out.println("수수료 찍히나? : " + commission );
-		
-		/*int resultA = es.insertEmoney(e);*/
-		int resultB = es.insertMemberEmoney(e);
-		
-		/*int result1 = resultA + resultB;*/
-		/*int result = resultA + resultB;*/
-		
-		int resultC = es.updateEmoney(m,e);
-		
-		/*int result = resultA + resultB + resultC;*/
-		int result = resultB + resultC;
-		
-		response.setContentType("application/json");
-		response.setCharacterEncoding("utf-8");
-		response.getWriter().println(result + "");
-		/*new Gson().toJson(result, response.getWriter());*/
-		
+		//API에 전송할 값 넣는 메소드
+		@RequestMapping("saveCharge.em")
+		public String saveCharge(@RequestParam(value="buyer_code", required=false) String buyer_code, @RequestParam(value="amount", required=false) int amount,
+				HttpSession session, emoney e, HttpServletRequest request, HttpServletResponse response) throws JsonIOException, IOException {
+			
+			Member m = new Member();
+			m = (Member)session.getAttribute("loginUser");
+			String id = m.getMid();
+			e.setMemberNo(id);
+			e.setMoney(m.getEmoney());
+			
+			System.out.println("eMemberNo=mMid "+e.getMemberNo());
+			System.out.println("eMoney=mEmoney " + e.getMoney());
+			
+			e.getMemberNo().equals(buyer_code);
+			/*e.setMemberNo(buyer_code);*/
+			/*e.setAmount(amount);*/
+			e.setMoney(amount);
+			/*m.setEmoney(e.getMoney());*/
+			
+			System.out.println("buyer_code : " + buyer_code);
+			System.out.println("amount : " + amount);
+			System.out.println("memberEmoney : " + m.getEmoney());
+			/*int resultA = es.insertEmoney(e);*/
+			int resultB = es.insertMemberEmoney(e);
+			
+			/*int result1 = resultA + resultB;*/
+			/*int result = resultA + resultB;*/
+			
+			/*int resultC = es.updateEmoney(m);*/
+			int resultC = es.updateEmoney(id,buyer_code, amount);
+			System.out.println("memberEMoney2 : " + m.getEmoney());
+			/*int result = resultA + resultB + resultC;*/
+			int result = resultB + resultC;
+			if(result > 0) {			
+				response.setContentType("application/json");
+				response.setCharacterEncoding("utf-8");
+				/*response.getWriter().println(result + "");*/
+				m.setEmoney(m.getEmoney());
+				System.out.println("memberEMoney3 : " + m.getEmoney());
+				return "redirect:charge.em";
+			}else {
+				return "common/errorPage";
+			}
+			
+			
 
-	}
+		}
 	
 	@RequestMapping("refundMemberEmoney.em")
 	public void refundMemberEmoney( @RequestParam(value="refundEmoney", required=false) int refundEmoney,
@@ -140,7 +146,7 @@ private emoneyService es;
 		
 		e.setMoney(refundEmoney);		
 		System.out.println("리펀드머니찍히나? : " + refundEmoney);
-		m.setEmoney(refundEmoney);
+		/*m.setEmoney(refundEmoney);*/
 		int result1 = es.refundMemberEmoney(e);
 		int result4 = es.refundEmoneyeInsert(e);
 		/*int result3 = es.selectEmoneyeSq(e);*/
@@ -149,12 +155,15 @@ private emoneyService es;
 		/*int result = result1 + result2 + result3 + result4;*/
 		/*int result = result1 + result4 + result3;*/
 		int result = result1 + result4;
-		
-		response.setContentType("application/json");
-		response.setCharacterEncoding("utf-8");
-		response.getWriter().println(result + "");
+	
+			response.setContentType("application/json");
+			response.setCharacterEncoding("utf-8");
+			response.getWriter().println(result + "");
 		
 	}
+	
+	
+	
 	
 	//입금요청에서 배송요청갈때
 	@RequestMapping("paymentA.em")
@@ -178,7 +187,7 @@ private emoneyService es;
 	
 	
 	//결제하기 버튼 클릭시 결제 페이지
-	@RequestMapping("charge.em")
+	@RequestMapping(value="charge.em", method = RequestMethod.GET)
 	public String charge() {
 		return "emoney/charge";
 	}

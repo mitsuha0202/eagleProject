@@ -29,8 +29,9 @@
 		</div>
 		<br><br>
 
-
-			<td><h5>보유 금액 : <c:out value="${ sessionScope.loginUser.emoney } 원"/></h5></td>
+			
+			<td><h5>보유 금액 : <c:out value="${ sessionScope.loginUser.emoney } 원" /></h5></td>
+			
 		<br>
 			<table class="chargeTable" >
 						<h4><b>충전금액 : </b></h4>
@@ -95,72 +96,71 @@
 			}
 			/* memberNo = '${SessionScope.loginUser.memberNo}'; */  
 			memberNo = '${sessionScope.loginUser.mid}';
-			emoney = '${sessionScope.loginUser.emoney}';
+			/* emoney = '${sessionScope.loginUser.emoney}'; */
 			
 			$("input[type = button]").click(function(){
 				 $("#amount").text($(this).val()); 
 				/* $('input[name=amount]').text($(this).val()); */
 				/* chargeMoney = $(this).val()*(0.9); */
 				chargeMoney = $(this).val();
-				commission = $(this).val()*(0.1);
+				
 				 
 			});
-			
+
 			$("#chargeAPI").click(function(){				
-			var IMP = window.IMP;
-			IMP.init('imp79355376');			
-			IMP.request_pay({
-				pg:'kakaopay',
-				pay_method: 'card',
-				merchant_uid: 'merchant_' + new Date().getTime(),
-				name: 'eagle cash',
-				amount: chargeMoney,
-				buyer_code : memberNo
-				
-			}, function(rsp){
-				console.log(rsp);
-		    		if ( rsp.success ) {
-		    			var ok = false;
-		    			
-		    			jQuery.ajax({
-		    				url: "saveCharge.em",
-		    	    		type: "POST",
-		    	    		dataType: "json",
-		    	    		data: {		    
-		    	    			imp_uid : rsp.imp_uid,
-		    		    		buyer_code : memberNo,
-		    		    		amount : chargeMoney,
-		    		    		commission : commission
-		    	    		},
-		    	    		success:function(data){
-		    	    			console.log(data);
-		    	    			if(data > 0){
-		    	    				ok = true;
-		    	    			}
-		    	    		}
-		    				
-		    			}).done(function (data){
-		    				if(ok){
-			    				var msg = '결제가 완료되었습니다.';
-				    			msg += '\n고유ID : ' + rsp.imp_uid;
-				    			msg += '\n상점 거래ID : ' + rsp.merchant_uid;
-				    			msg += '\결제 금액 : ' + rsp.paid_amount;
-				    			msg += '카드 승인번호 : ' + rsp.apply_num;
-				    			
-				    			
-				    			
-				    			alert(msg);
-		    				}else{
-		    					
-		    				}
-		    			});
-		    		}else{
-		    			var msg = '결제 실패';
-						msg += '에러내용 : ' + rsp.error_msg;	    			
-					
-						alert(msg);			
-			}
-		 }); 
+						var IMP = window.IMP;
+						IMP.init('imp79355376');			
+						IMP.request_pay({
+							pg:'kakaopay',
+							pay_method: 'card',
+							merchant_uid: 'merchant_' + new Date().getTime(),
+							name: 'eagle cash',
+							amount: chargeMoney,
+							buyer_code : memberNo
+							
+						}, function(rsp){
+							console.log(rsp);
+					    		if ( rsp.success ) {
+					    			var ok = false;
+					    			
+					    			jQuery.ajax({
+					    				url: "saveCharge.em",
+					    	    		type: "POST",
+					    	    		dataType: "json",
+					    	    		data: {		    
+					    	    			imp_uid : rsp.imp_uid,
+					    		    		buyer_code : memberNo,
+					    		    		amount : chargeMoney,
+					    		    		
+					    	    		},
+					    	    		success:function(data){
+					    	    			console.log(data);
+					    	    			if(data > 0){
+					    	    				ok = true;
+					    	    				page = "charge.em";
+					    	    				location.href= page;
+					    	    			}
+					    	    		}
+					    				
+					    			}).done(function (data){
+					    				if(ok){
+						    				var msg = '결제가 완료되었습니다.';
+							    			msg += '\n고유ID : ' + rsp.imp_uid;
+							    			msg += '\n상점 거래ID : ' + rsp.merchant_uid;
+							    			msg += '\결제 금액 : ' + rsp.paid_amount;
+							    			msg += '카드 승인번호 : ' + rsp.apply_num;				
+							    			alert(msg);
+							    			
+					    				}else{
+					    					
+					    				}
+					    			});
+					    		}else{
+					    			var msg = '결제 실패';
+									msg += '에러내용 : ' + rsp.error_msg;	    			
+								alert(msg);			
+				}
+			 }); 
 		});
 	
 	</script>

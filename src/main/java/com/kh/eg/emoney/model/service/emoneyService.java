@@ -17,7 +17,7 @@ public interface emoneyService {
 
 	int getListCount(emoney e);
 
-	int updateEmoney(Member m, emoney e);
+	int updateEmoney(Member m);
 
 	ArrayList<emoney> refundEmoneyList(PageInfo pi, emoney e);
 
@@ -35,6 +35,8 @@ public interface emoneyService {
 	
 	//마이페이지 - 결제 입금요청
 	int paymentA(String id, String itemNo, String currentPrice);
+
+	int updateEmoney(String id, String buyer_code, int amount);
 
 /*	int selectCurrval(emoney e);
 

@@ -96,7 +96,7 @@
 	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 	<script>
 		memberNo = '${sessionScope.loginUser.mid}';
-		emoney = '${sessionScope.loginUser.emoney}';
+		/* emoney = '${sessionScope.loginUser.emoney}'; */
 		
 		$("input[type = radio]").click(function(){
 			$("#amount").text($(this).val());				
