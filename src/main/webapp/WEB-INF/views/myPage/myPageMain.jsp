@@ -376,16 +376,16 @@
 				<td><h5>미입금</h5></td>
 				<td><h5>판매거부</h5></td>
 			</tr>
-			<tr>
-				<td><h5 class="moneyOrder"></h5></td>
-				<td><h5 class="deliveryOrder"></h5></td>
-				<td><h5 class="delivery"></h5></td>
-				<td><h5 class="payStand"></h5></td>
-				<td><h5 class="payNo"></h5></td>
-				<td><h5 class="returnItem"></h5></td>
-				<td><h5 class="noReceiveItem"></h5></td>
-				<td><h5 class="noReceiveMoney"></h5></td>
-				<td><h5 class="saleNo"></h5></td>
+			<tr id="one">
+				<!-- <td class="one"></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td> -->
 			</tr>
 		</table>
 	</div>
@@ -413,15 +413,15 @@
 				<td><h5>판매거부</h5></td>
 			</tr>
 			<tr>
-				<td><h5 class="moneyOrder2"></h5></td>
-				<td><h5 class="deliveryOrder2"></h5></td>
-				<td><h5 class="delivery2"></h5></td>
-				<td><h5 class="payStand2"></h5></td>
-				<td><h5 class="payNo2"></h5></td>
-				<td><h5 class="returnItem2"></h5></td>
-				<td><h5 class="noReceiveItem2"></h5></td>
-				<td><h5 class="noReceiveMoney2"></h5></td>
-				<td><h5 class="saleNo2"></h5></td>
+				<td><h5 class="two"></h5></td>
+				<td><h5></h5></td>
+				<td><h5></h5></td>
+				<td><h5></h5></td>
+				<td><h5></h5></td>
+				<td><h5></h5></td>
+				<td><h5></h5></td>
+				<td><h5></h5></td>
+				<td><h5></h5></td>
 			</tr>
 		</table>
 	</div>
@@ -471,51 +471,60 @@
 				type:"get",
 				data:{userId:userId},
 				success:function(data){
-
-					for(var i in data){
-						console.log(i);
-						if(userId == i.payNo){
-							if(i.orderM == "입금요청"){
-								$(".moneyOrder").text("1");
-							}else if(i.orderM == "배송요청"){
-								$(".deliveryOrder").text("1");
-							}else if(i.orderM == "배송중"){
-								$(".delivery").text("1");
-							}else if(i.orderM == "구매결정대기"){
-								$(".payStand").text("1");
-							}else if(i.orderM == "구매거부"){
-								$(".payNo").text("1");
-							}else if(i.orderM == "반품"){
-								$(".returnItem").text("1");
-							}else if(i.orderM == "미수령"){
-								$(".noReceiveItem").text("1");
-							}else if(i.orderM == "미입금"){
-								$(".noReceiveMoney").text("1");
-							}else if(i.orderM == "판매거부"){
-								$(".saleNo").text("1");
+					var $tr = $("#one");
+					for(var i = 0; i < 9; i++){
+						var $td = $("<td>");
+						$tr.append($td);
+					}
+					$.each(data, function(i, val) {
+						if(userId == val.payNo){
+							console.log("dd");
+							if(val.orderM == "입금요청"){
+								$tr.children().eq(0).text("1");
+							}else if(val.orderM == "배송요청"){
+								$tr.children().eq(1).text("1");
+							}else if(val.orderM == "배송중"){
+								$tr.children().eq(2).text("1");
+							}else if(val.orderM == "배송완료"){
+								$tr.children().eq(3).text("1");
+							}else if(val.orderM == "구매거부"){
+								$tr.children().eq(4).text("1");
+							}else if(val.orderM == "반품"){
+								$tr.children().eq(5).text("1");
+							}else if(val.orderM == "미수령"){
+								$tr.children().eq(6).text("1");
+							}else if(val.orderM == "미입금"){
+								$tr.children().eq(7).text("1");
+							}else if(val.orderM == "판매거부"){
+								$tr.children().eq(8).text("1");
 							}
 						}else {
-							if(i.orderM == "입금요청"){
-								$(".moneyOrder2").text("1");
-							}else if(i.orderM == "배송요청"){
-								$(".deliveryOrder2").text("1");
-							}else if(i.orderM == "배송중"){
-								$(".delivery2").text("1");
-							}else if(i.orderM == "구매결정대기"){
-								$(".payStand2").text("1");
-							}else if(i.orderM == "구매거부"){
-								$(".payNo2").text("1");
-							}else if(i.orderM == "반품"){
-								$(".returnItem2").text("1");
-							}else if(i.orderM == "미수령"){
-								$(".noReceiveItem2").text("1");
-							}else if(i.orderM == "미입금"){
-								$(".noReceiveMoney2").text("1");
-							}else if(i.orderM == "판매거부"){
-								$(".saleNo2").text("1");
+							var $tr = $("#two");
+							for(var i = 0; i < 9; i++){
+								var $td = $("<td>");
+								$tr.append($td);
+							}
+							if(val.orderM == "입금요청"){
+								$tr.children().eq(0).text("1");
+							}else if(val.orderM == "배송요청"){
+								$tr.children().eq(1).text("1");
+							}else if(val.orderM == "배송중"){
+								$tr.children().eq(2).text("1");
+							}else if(val.orderM == "구매결정대기"){
+								$tr.children().eq(3).text("1");
+							}else if(val.orderM == "구매거부"){
+								$tr.children().eq(4).text("1");
+							}else if(val.orderM == "반품"){
+								$tr.children().eq(5).text("1");
+							}else if(val.orderM == "미수령"){
+								$tr.children().eq(6).text("1");
+							}else if(val.orderM == "미입금"){
+								$tr.children().eq(7).text("1");
+							}else if(val.orderM == "판매거부"){
+								$tr.children().eq(8).text("1");
 							}
 						}
-					}
+					});
 				},
 				/* status는 에러의 상태를 나타냄 */
 				error:function(status){

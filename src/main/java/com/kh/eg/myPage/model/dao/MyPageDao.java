@@ -321,4 +321,7 @@ public interface MyPageDao {
 	//판매관리 반품 완료 업데이트
 	int returnFinish(SqlSessionTemplate sqlSession, String itemNo, String mid);
 
+	//구매관리 거래신청 yn 
+	ArrayList<PayTable> searchWinList(SqlSessionTemplate sqlSession, String mid);
+
 }

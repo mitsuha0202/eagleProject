@@ -196,7 +196,8 @@
 			var sendArr = new Array();
    			var sendCur = new Array();
    			var checkbox = $(".checkChild:checked");
-   	        alert("거래가 진행되었습니다.");
+   	        /* alert("거래가 진행되었습니다."); */
+   	        if(window.confirm("거래진행 하시겠습니까?")){
    		 	checkbox.each(function(i){
    		 		var tr = checkbox.parent().parent().eq(i);
    		 		var td = tr.children();
@@ -206,6 +207,9 @@
    	            sendCur.push(current);
  				location.href="salesitemprogress.mp?itemNo=" + sendArr +"," + "&currentPrice=" + sendCur;
    		 	}); 		 	
+   	        }else {
+   	        	
+   	        }
 		}
 		$(".noSale").click(function () {
 			var answer = confirm("판매거부하시겠습니까?");

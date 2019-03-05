@@ -321,4 +321,7 @@ public interface MyPageService {
 	//판매관리 반품 완료 업데이트
 	int returnFinish(String itemNo, String mid);
 
+	//구매관리 낙찰된 물품 거래신청 yn 
+	ArrayList<PayTable> searchWinList(String mid);
+
 }

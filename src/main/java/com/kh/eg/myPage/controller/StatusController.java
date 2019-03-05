@@ -1,6 +1,7 @@
 package com.kh.eg.myPage.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.servlet.http.HttpSession;
 
@@ -13,11 +14,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.kh.eg.member.model.vo.Member;
+import com.kh.eg.myPage.common.Ascending;
 import com.kh.eg.myPage.common.Pagination;
 import com.kh.eg.myPage.common.Three;
 import com.kh.eg.myPage.model.service.MyPageService;
 import com.kh.eg.myPage.model.vo.PageInfo;
 import com.kh.eg.myPage.model.vo.PayTable;
+
+import oracle.net.aso.a;
 
 @SessionAttributes("loginUser")
 
@@ -41,6 +45,7 @@ public class StatusController {
 		for(int i=0; i<list.size(); i++) {
 			/*Three three = new Three();			
 			list.get(i).setCurrentPrice((three.toNumFormat(Integer.parseInt(list.get(i).getCurrentPrice()))));*/
+			
 		}
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
@@ -138,7 +143,6 @@ public class StatusController {
 				}
 			}
 		}
-		System.out.println("낙찰: " + list);
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
 		
@@ -167,7 +171,7 @@ public class StatusController {
 				break;
 			}
 		}
-		System.out.println(list);
+
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
 		return "myPage/management/unsuccessbidPage";
@@ -387,5 +391,13 @@ public class StatusController {
 		int count = ms.getDeliveryCheck(m.getMid(), itemNo);	
 			
 		return "redirect:purchasedecisionwaiting.mp";
+	}
+	
+	//낙찰물품 거래신청 yn 구분
+	@RequestMapping("searchWinList.mp")
+	public @ResponseBody ArrayList<PayTable> searchWinList(HttpSession session, Member m) {
+		m = (Member)session.getAttribute("loginUser");
+		ArrayList<PayTable> list = ms.searchWinList(m.getMid());
+		return list;
 	}
 }

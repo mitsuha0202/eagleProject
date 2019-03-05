@@ -743,5 +743,11 @@ public class MyPageServiceImpl implements MyPageService{
 		
 		return md.returnFinish(sqlSession, itemNo, mid);
 	}
+
+	@Override
+	public ArrayList<PayTable> searchWinList(String mid) {
+
+		return md.searchWinList(sqlSession, mid);
+	}
 	
 }
