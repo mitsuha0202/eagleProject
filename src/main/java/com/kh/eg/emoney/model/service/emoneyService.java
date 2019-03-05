@@ -36,7 +36,9 @@ public interface emoneyService {
 	//마이페이지 - 결제 입금요청
 	int paymentA(String id, String itemNo, String currentPrice);
 
-	int updateEmoney(String id, String buyer_code, int amount);
+	int selectEmoney(Member m);
+
+	/*int updateEmoney(String id, String buyer_code, int amount, Member m);*/
 
 /*	int selectCurrval(emoney e);
 

@@ -31,6 +31,8 @@
 
 			
 			<td><h5>보유 금액 : <c:out value="${ sessionScope.loginUser.emoney } 원" /></h5></td>
+			<%-- <td><h5>보유 금액 : <c:out value="${ emoney } 원" /></h5></td> --%>
+			
 			
 		<br>
 			<table class="chargeTable" >
@@ -96,7 +98,9 @@
 			}
 			/* memberNo = '${SessionScope.loginUser.memberNo}'; */  
 			memberNo = '${sessionScope.loginUser.mid}';
-			/* emoney = '${sessionScope.loginUser.emoney}'; */
+		/* 	emoney = '${sessionScope.loginUser.emoney}'; 
+			emoney = '$(m.setEmoney(emoney))'; */
+			
 			
 			$("input[type = button]").click(function(){
 				 $("#amount").text($(this).val()); 
@@ -134,11 +138,12 @@
 					    		    		
 					    	    		},
 					    	    		success:function(data){
+					    	    			
 					    	    			console.log(data);
 					    	    			if(data > 0){
 					    	    				ok = true;
-					    	    				page = "charge.em";
-					    	    				location.href= page;
+					    	    				/* page = "charge.em";
+					    	    				location.href= page; */
 					    	    			}
 					    	    		}
 					    				

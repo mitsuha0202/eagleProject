@@ -138,12 +138,24 @@ public class emoneyServiceImpl implements emoneyService {
 
 
 	@Override
-	public int updateEmoney(String id, String buyer_code, int amount) {
-		int result = ed.updateEmoney(sqlSession, id, buyer_code, amount);
-		
-		System.out.println("result3 : " + result);
+	public int selectEmoney(Member m) {
+		int result = ed.selectEmoney(sqlSession, m);
 		return result;
 	}
+
+
+
+
+
+
+
+
+	/*@Override
+	public int updateEmoney(String id, String buyer_code, int amount, Member m) {
+		int result = ed.updateEmoney(sqlSession, id, buyer_code, amount, m);
+		System.out.println("result3 : " + result);
+		return result;
+	}*/
 
 
 

@@ -42,7 +42,9 @@ public interface emoneyDao {
 	//마이페이지 - 결제(입금요청)
 	int paymentA(SqlSessionTemplate sqlSession, String id, String itemNo, String currentPrice);
 
-	int updateEmoney(SqlSessionTemplate sqlSession, String id, String buyer_code, int amount);
+	int selectEmoney(SqlSessionTemplate sqlSession, Member m);
+
+	/*int updateEmoney(SqlSessionTemplate sqlSession, String id, String buyer_code, int amount, Member m);*/
 
 
 

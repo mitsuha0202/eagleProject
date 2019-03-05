@@ -120,6 +120,5 @@
 		WHERE MEMBERNO = #{mid}
 	</update> 
 	
-
 	
 </mapper>

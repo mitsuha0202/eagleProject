@@ -39,18 +39,6 @@ public class emoneyDaoImpl implements emoneyDao{
 		return result;
 	}
 	
-	/*@Override
-	public int updateEmoney(SqlSessionTemplate sqlSession, Member m) {
-		System.out.println("test");
-		HashMap<String, Integer> map = new HashMap<String, Integer>();
-		map.put("mid", Integer.parseInt(m.getMid()));
-		map.put("emoney", m.getEmoney());
-		int result = sqlSession.update("Member.updateEmoney", map);
-		System.out.println("멤버이머니업데이트되나 " + result);
-		m.setEmoney(m.getEmoney());
-		System.out.println("변경되나? : " + m.getEmoney());
-		return result;
-	}*/
 	@Override
 	public int updateEmoney(SqlSessionTemplate sqlSession, Member m) {
 		System.out.println("test");
@@ -63,6 +51,7 @@ public class emoneyDaoImpl implements emoneyDao{
 		System.out.println("변경되나? : " + m.getEmoney());
 		return result;
 	}
+	
 	
 	/*@Override
 	public int updateRefundEmoney(SqlSessionTemplate sqlSession, Member m, emoney e) {
@@ -206,16 +195,24 @@ public class emoneyDaoImpl implements emoneyDao{
 	}
 
 	@Override
-	public int updateEmoney(SqlSessionTemplate sqlSession, String id, String buyer_code, int amount) {
+	public int selectEmoney(SqlSessionTemplate sqlSession, Member m) {
+		int result = sqlSession.selectOne("selectEmoney", m);
+		return result;
+	}
+
+	/*@Override
+	public int updateEmoney(SqlSessionTemplate sqlSession, String id, String buyer_code, int amount, Member m) {
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		map.put("id", Integer.parseInt(id));
 		map.put("buyer_code", Integer.parseInt(buyer_code));
-		map.put("emoney", amount);
+		map.put("amount", amount);
+		
 		int result = sqlSession.update("Member.updateEmoney", map);
 		System.out.println("멤버이머니업데이트되나 " + result);
 		return result;
 		
-	}
+	}*/
+
 
 	
 	
