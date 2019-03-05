@@ -100,7 +100,7 @@ td {
 			<br> <br> <br>
 			<div class="chu">
 				<h1 class="pre">Eagle's Auction 추천경매</h1>
-				<div class="more-div" style="display: inline-block; float: right">
+				<div id="more1" class="more-div" style="display: inline-block; float: right">
 					<i class="chevron circle right icon" id="more-icon"></i> <font
 						id="more-txt">더보기 </font>
 				</div>
@@ -149,9 +149,7 @@ td {
 			<div class="chu">
 				<h1 class="pre">Eagle's Auction 인기경매</h1>
 
-				<div class="more-div" style="display: inline-block; float: right">
-					<i class="chevron circle right icon" id="more-icon"></i> <font
-						id="more-txt">더보기 </font>
+				
 
 				</div>
 				<hr>
@@ -194,9 +192,7 @@ td {
 
 			<div class="chu">
 				<h1 class="pre">Eagle's Auction 스페셜 상품</h1>
-				<div class="more-div" style="display: inline-block; float: right">
-					<i class="chevron circle right icon" id="more-icon"></i> <font
-						id="more-txt">더보기 </font> <br>
+			
 
 
 				</div>
@@ -242,6 +238,20 @@ td {
 		</div>
 		<div class="two wide column"></div>
 </div>
+</div>
+<script>
+
+	$("#more1").click(function(){
+		
+		console.log()
+		location.href="auctionCategory.au";
+		
+	});
+	
+	
+
+
+</script>
 
 </body>
 </html>

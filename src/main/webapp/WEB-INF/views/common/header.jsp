@@ -111,11 +111,11 @@ input:-ms-input-placeholder {
 		</c:if>
 	</div>
 
-	<h1 class="h1">Eagle's Auction</h1>
+	<h1 style="cursor: pointer;"class="h1" id="ea">Eagle's Auction</h1>
 	<div class="btn-group" role="group" aria-label="...">
 
 
-		<div style="width: 180px"></div>
+		<div style="width: 250px"></div>
 
 		<div style="cursor: pointer; width: 150px; font-size: 20px"
 			onclick="location.href='auctionCategory.au'">경매하기</div>
@@ -134,18 +134,18 @@ input:-ms-input-placeholder {
 			onclick="location.href='emoneyMain.em'">사이버머니 결제</div>
 
 		<div style="width: 100px"></div>
-		<div id="in">
-			<input type="text" placeholder="검색어를 입력해주세요" id="searchItem">
-			<button id="searchBtn">검색</button>
-		</div>
+		
 	</div>
 	<script>
 		function goBoard() {
 			location.href = "goBoard.bo";
 		}
-	</script>
+		$("#ea").click(function(){
+			
+			location.href="mainPage.au;"
+		});
 
-
+</script>
 
 </body>
 </html>
