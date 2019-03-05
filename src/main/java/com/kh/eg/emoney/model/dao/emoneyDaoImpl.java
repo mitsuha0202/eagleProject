@@ -184,6 +184,8 @@ public class emoneyDaoImpl implements emoneyDao{
 		int result = sqlSession.insert("emoney.paymentA",map);
 		if(result > 0) {
 			sqlSession.update("emoney.orderm",map);
+			sqlSession.update("emoney.pricedown", map);
+			sqlSession.update("emoney.priceup",map);
 		}
 		
 		

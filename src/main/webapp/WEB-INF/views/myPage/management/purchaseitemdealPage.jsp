@@ -169,21 +169,28 @@
 			var sendArr = new Array();
 			var sendCurArr = new Array();
    			var checkbox = $(".checkChild:checked");
+   			var emoney = '${sessionScope.loginUser.emoney}';
+   			var emoney2 = parseInt(emoney);
+		 		console.log(typeof emoney2);
    	        /* alert("거래가 시작되었습니다."); */
    	       
    		 	checkbox.each(function(i){
+   		 		
    		 		var tr = checkbox.parent().parent().eq(i);
    		 		var td = tr.children();
    	            var docNum = td.eq(2).text();
    	            var curPrice = td.eq(4).text();
+   	           	var curPrice2 = parseInt(curPrice);
+   	            console.log(typeof curPrice2);
    	            sendArr.push(docNum);   	 
    	            sendCurArr.push(curPrice); 
-   		 		
- 				location.href="paymentA.em?itemNo=" + sendArr + "&currentPrice=" + sendCurArr;
- 				
+   		 		 if(curPrice2<=emoney2){
+ 					location.href="paymentA.em?itemNo=" + sendArr + "&currentPrice=" + sendCurArr;
+   		 		}else{
+   		 			window.alert("보유하고 있는 사이버머니가 부족합니다.");
+   		 		} 
    		 });
-   		 	}
-		}  
+   		 	} 
 	</script>
 </body>
 </html>
