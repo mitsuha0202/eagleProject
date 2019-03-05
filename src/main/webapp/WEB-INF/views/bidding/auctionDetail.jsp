@@ -89,6 +89,18 @@
  	#dImage{
  		text-align:center;
  	}
+ 	.boardTr:hover{
+ 		cursor:pointer;
+ 		background:#FAFAFA;
+ 	}
+ 	.boardDiv{
+ 		height:150px;
+ 	}
+ 	.boardP{
+ 		font-size:15px;
+ 		margin-left:30px;
+ 		padding-top:20px;
+ 	}
 </style>
 
 </head>
@@ -378,13 +390,13 @@
 	    	return numStr.replace(/(\d)(?=(?:\d{3})+(?!\d))/g,"$1,");
 	    }
 		var time;
-		var realTime = 10000;
-		
+		var remainTime;
+		var webSocket = new WebSocket('ws://localhost:8001/eg/broadcasting');
 		$(function(){
 			var currentPrice = 0;
 			var bidUnit = 0;
 			var mid = '${sessionScope.loginUser.mid}';
-			var aCode = 'AC003';
+			var aCode = 'AC001';
 			var itemNo;
 			var minPrice;
 			var maxPrice;
@@ -395,7 +407,7 @@
 				url:"auctionDetails.bi",
 				type:"get",
 				async:false,
-				data:{itemNo : "1"},
+				data:{itemNo : "6"},
 				success:function(data){
 					$("#itemNo").text(data.itemNo);
 					$("#startPrice").text(numComma(data.startPrice));
@@ -560,11 +572,16 @@
 							var count = 1;
 							for(var key in data){
 								var $qaTable = $("#qaTable");
-								var $tr = $("<tr>");
+								var $tr = $("<tr class='boardTr'>");
 								var $td1 = $("<td>");
 								var $td2 = $("<td>");
 								var $td3 = $("<td>");
 								var $td4 = $("<td>");
+								var $div = $("<div class='boardDiv'>");
+								var $p = $("<p class='boardP'>");
+								
+								$p.text(data[key].boardContent);
+								$div.append($p);
 								$td1.text(count);
 								$td2.text(data[key].title);
 								$td3.text(data[key].mName);
@@ -574,8 +591,23 @@
 								$tr.append($td3);
 								$tr.append($td4);
 								$qaTable.append($tr);
+								$qaTable.append($div);
 								count++;
+								
+								$(".boardDiv").hide();
 							}
+							var cnt = 0;
+							
+							$(".boardTr").click(function(){
+								if(cnt == 0){
+									$(this).next().show();
+									cnt = 1;
+								}
+								else{
+									$(this).next().hide();
+									cnt = 0;
+								}
+							});
 							
 							console.log("문의게시판 조회 성공");
 						},
@@ -616,6 +648,21 @@
 							},
 							error:function(){
 								console.log("남은시간 조회 실패");
+							}
+						});
+						
+						$.ajax({
+							url:"selectTime.bi",
+							type:"get",
+							async:false,
+							data:{itemNo : itemNo},
+							success:function(data){
+								remainTime = data.endDay;
+								console.log("경매종료 남은시간 조회 성공");
+								console.log("경매 종료까지 " + remainTime);
+							},
+							error:function(){
+								console.log("경매종료 남은시간 조회 실패");
 							}
 						});
 					}
@@ -699,7 +746,7 @@
 													console.log("위시리스트 등록성공");
 												},
 												error:function(){
-													console.log("위시르스트 등록실패");
+													console.log("위시리스트 등록실패");
 												}
 											});
 										}
@@ -741,7 +788,7 @@
 												var message = confirm("입찰정보가 있습니다. 다시 입력하시겠습니까?");
 												if(message == true){
 													var price = prompt(msg,"");
-													if(price >= minPrice && price <= maxPrice){
+													if(price >= minPrice && price <= maxPrice && price != null){
 														/* 행운경매 같은 가격 유무 비교 */
 														$.ajax({
 															url:"compareLuckyPrice.bi",
@@ -784,7 +831,7 @@
 												var price = prompt(msg,"");
 												console.log(price);
 												
-												if(price >= minPrice && price <= maxPrice){
+												if(price >= minPrice && price <= maxPrice && price != null){
 													/* 행운경매 같은 가격 유무 비교 */
 													$.ajax({
 														url:"compareLuckyPrice.bi",
@@ -898,144 +945,199 @@
 						
 						/* 실시간 경매  입찰 */
 						else if(aCode == 'AC003'){
-							$("#wishBtn").hover($("#wishBtn").css('cursor','pointer'),$("#wishBtn").css('cursor','cursor'));
-							$("#remainTime").text("경매 시작");
-							/* 위시리스트 등록 */
-							$("#wishBtn").click(function(){
-								var itemNo = $("#itemNo").text();
-								var mid = '${sessionScope.loginUser.mid}';
-								
-								if(mid == ''){
-									alert("로그인 후 이용해주세요.");
-								}
-								else{
-									$.ajax({
-										url:"compareWish.bi",
-										type:"get",
-										data:{itemNo : itemNo , mNo : mid},
-										success:function(data){
-											console.log("위시리스트 비교 성공");
-											if(data.mNo == "0"){
-												$.ajax({
-													url:"insertWishList.bi",
-													type:"get",
-													data:{itemNo : itemNo , mNo : mid},
-													success:function(data){
-														alert("위시리스트에 등록되었습니다.");
-														console.log("위시리스트 등록성공");
-													},
-													error:function(){
-														console.log("위시르스트 등록실패");
-													}
-												});
-											}
-											else{
-												alert("이미 위시리스트에 등록된 경매물품 입니다.");
-											}
-										},
-										error:function(){
-											console.log("위시리스트 비교 실패");
-										}
-									});
-								}
-							});
-							
-							
-							/* 문의 게시판 등록 */
-							$("#qaBtn").hover($("#qaBtn").css('cursor','pointer'),$("#qaBtn").css('cursor','cursor'));
-							/* $("#qaBtn").click(function)(){
-								
-							} */
-							
-							$("#bidBtn").css('background','#1b5ac2');
-							$("#wishBtn").css('background','#8f784b');
-							$("#qaBtn").css('background','#86899d');
-							$("#bidBtn").hover($("#bidBtn").css('cursor','pointer'),$("#bidBtn").css('cursor','cursor'));
-							$("#wishBtn").hover($("#wishBtn").css('cursor','pointer'),$("#wishBtn").css('cursor','cursor'));
-							$("#qaBtn").hover($("#qaBtn").css('cursor','pointer'),$("#qaBtn").css('cursor','cursor'));
-							
-							var webSocket = new WebSocket('ws://localhost:8001/eg/broadcasting');
-							var inputPrice = "";
-							var msg = "입찰할 금액을 입력하세요.";
-							
-							webSocket.onerror = function(event) {
-						        onError(event)
-						    };
-						    webSocket.onopen = function(event) {
-						        onOpen(event)
-						    };
-						    webSocket.onmessage = function(event) {
-						        onMessage(event)
-						    };	
-							function onMessage(event){
-								var message = event.data.split("|");
-								var sender = message[0];
-								var content = message[1];
-								console.log(message);
-								if(content == ""){
+							if(remainTime > 0){
+								/* 위시리스트 등록 */
+								$("#wishBtn").click(function(){
+									var itemNo = $("#itemNo").text();
+									var mid = '${sessionScope.loginUser.mid}';
 									
-								} else{
-									$("#cPrice").html(sender + " : " + content);
-								}
-							}
-							function onOpen(event){
-								console.log($("#chat_id").val());
-							}
-							function onError(event){
-								alert(event.data);
-							}
-							$("#bidBtn").click(function(){
-								if(mid == ''){
-									alert('로그인 후 경매에 참여하실 수 있습니다.');
-								}
-								else{
-									
-									/* 실시간 경매 최고입찰자 비교 */
-									$.ajax({
-										url:"compareMid.bi",
-										type:"get",
-										async:false,
-										data:{itemNo : itemNo},
-										success:function(data){
-											maxMid = data.memberNo;
-											
-											if(mid != maxMid){
-												inputPrice = prompt(msg,"");
-												
-												if(inputPrice <= nowPrice){
-													alert("현재가 보다 큰 가격을 입력해주세요.");
-												} else {
-													
-													/* 실시간 경매 입찰 */
+									if(mid == ''){
+										alert("로그인 후 이용해주세요.");
+									}
+									else{
+										$.ajax({
+											url:"compareWish.bi",
+											type:"get",
+											data:{itemNo : itemNo , mNo : mid},
+											success:function(data){
+												console.log("위시리스트 비교 성공");
+												if(data.mNo == "0"){
 													$.ajax({
-														url:"realTimeBid.bi",
+														url:"insertWishList.bi",
 														type:"get",
-														async:false,
-														data:{itemNo : itemNo , mNo : mid , price : inputPrice},
+														data:{itemNo : itemNo , mNo : mid},
 														success:function(data){
-															nowPrice = inputPrice;
-															$("#cPrice").html($("#chat_id").val() + " : " + numComma(inputPrice));
-															webSocket.send($("#chat_id").val() + "|" + numComma(inputPrice));
-															inputPrice = "";
-															realTime = 10000;
-															alert("입찰가격이 등록되었습니다.");
+															alert("위시리스트에 등록되었습니다.");
+															console.log("위시리스트 등록성공");
 														},
 														error:function(){
-															console.log("실시간 입찰 실패");
+															console.log("위시르스트 등록실패");
 														}
 													});
 												}
+												else{
+													alert("이미 위시리스트에 등록된 경매물품 입니다.");
+												}
+											},
+											error:function(){
+												console.log("위시리스트 비교 실패");
 											}
-											else{
-												alert("현재 최고가 입찰자입니다.");
-											}
-										},
-										error:function(){
-											console.log("비교 실패");
-										}
-									});
+										});
+									}
+								});
+								
+								
+								/* 문의 게시판 등록 */
+								$("#qaBtn").hover($("#qaBtn").css('cursor','pointer'),$("#qaBtn").css('cursor','cursor'));
+								/* $("#qaBtn").click(function)(){
+									
+								} */
+								
+								/* var webSocket = new WebSocket('ws://localhost:8001/eg/broadcasting'); */
+								var inputPrice = "";
+								var msg = "입찰할 금액을 입력하세요.";
+								
+								webSocket.onerror = function(event) {
+							        onError(event)
+							    };
+							    webSocket.onopen = function(event) {
+							        onOpen(event)
+							    };
+							    webSocket.onmessage = function(event) {
+							        onMessage(event)
+							    };	
+								function onMessage(event){
+									var message = event.data.split("|");
+									var sender = message[0];
+									var content = message[1];
+									var reTime = message[2];
+									
+									console.log(message);
+									if(content == ""){
+										
+									} else{
+										$("#cPrice").html(sender + " : " + content);
+										remainTime = reTime;
+									}
 								}
-							});
+								function onOpen(event){
+									console.log($("#chat_id").val());
+								}
+								function onError(event){
+									alert(event.data);
+								}
+								$("#bidBtn").click(function(){
+									if(mid == ''){
+										alert('로그인 후 경매에 참여하실 수 있습니다.');
+									}
+									else{
+										
+										/* 실시간 경매 최고입찰자 비교 */
+										$.ajax({
+											url:"compareMid.bi",
+											type:"get",
+											async:false,
+											data:{itemNo : itemNo},
+											success:function(data){
+												maxMid = data.memberNo;
+												
+												if(mid != maxMid){
+													inputPrice = prompt(msg,"");
+													
+													if(inputPrice <= nowPrice && inputPrice != null){
+														alert("현재가 보다 큰 가격을 입력해주세요.");
+													} else {
+														
+														/* 실시간 경매 입찰 */
+														$.ajax({
+															url:"realTimeBid.bi",
+															type:"get",
+															async:false,
+															data:{itemNo : itemNo , mNo : mid , price : inputPrice},
+															success:function(data){
+																nowPrice = inputPrice;
+																
+																alert("입찰가격이 등록되었습니다.");
+																
+																var nowTime;
+																/* 현재 서버시간 조회 */
+																$.ajax({
+																	url:"selectTime.bi",
+																	type:"get",
+																	async:false,
+																	data:{itemNo : itemNo},
+																	success:function(data){
+																		nowTime = data.startDay;
+																		nowTime *= 1;
+																		nowTime += 15000;
+																		console.log("ㅇㅇㅇㅇㅇㅇ"+nowTime);
+																		console.log("현재 서버시간 조회 성공");
+																		
+																		/* 실시간 경매 종료시간 증가 */
+																		$.ajax({
+																			url:"updateRealTime.bi",
+																			type:"get",
+																			async:false,
+																			data:{itemNo : itemNo , nowTime : nowTime},
+																			success:function(data){
+																				/* 실시간 경매 남은시간 조회 */
+																				$.ajax({
+																					url:"selectTime.bi",
+																					type:"get",
+																					async:false,
+																					data:{itemNo : itemNo},
+																					success:function(data){
+																						remainTime = data.endDay;
+																						$("#cPrice").html($("#chat_id").val() + " : " + numComma(inputPrice));
+																						webSocket.send($("#chat_id").val() + "|" + numComma(inputPrice) + "|" + remainTime);
+																						inputPrice = "";
+																						console.log("경매종료 남은시간 조회 성공");
+																						console.log("경매 종료까지 " + remainTime);
+																					},
+																					error:function(){
+																						console.log("경매종료 남은시간 조회 실패");
+																					}
+																				});
+																				console.log("종료시간 증가 성공");
+																			},
+																			error:function(){
+																				console.log("종료시간 증가 실패");
+																			}
+																		});
+																	},
+																	error:function(){
+																		console.log("현재 서버시간 조회 실패");
+																	}
+																});
+															},
+															error:function(){
+																console.log("실시간 입찰 실패");
+															}
+														});
+													}
+												}
+												else{
+													alert("현재 최고가 입찰자입니다.");
+												}
+											},
+											error:function(){
+												console.log("비교 실패");
+											}
+										});
+									}
+								});
+								
+							}
+							else{
+								$("#remainTime").text("경매종료");
+								$("#bidBtn").css('background','gray');
+								$("#wishBtn").css('background','gray');
+								$("#qaBtn").css('background','gray');
+								$("#reTime").css('background','gray');
+								$("#bidBtn").hover($("#bidBtn").css('cursor','cursor'),$("#bidBtn").css('cursor','cursor'));
+								$("#wishBtn").hover($("#wishBtn").css('cursor','cursor'),$("#wishBtn").css('cursor','cursor'));
+								$("#qaBtn").hover($("#qaBtn").css('cursor','cursor'),$("#qaBtn").css('cursor','cursor'));
+							}
 						}
 					}
 					console.log("리스트 조회 성공");
@@ -1098,6 +1200,45 @@
 			else{
 				/* 남은시간 스레드 */
 				$(function(){
+					var itemNo = $("#itemNo").text();
+					
+					/* 실시간 경매 남은시간 조회 */
+					$.ajax({
+						url:"selectTime.bi",
+						type:"get",
+						async:false,
+						data:{itemNo : itemNo},
+						success:function(data){
+							remainTime = data.endDay;
+							console.log("경매종료 남은시간 조회 성공");
+							console.log("경매 종료까지 " + remainTime);
+						},
+						error:function(){
+							console.log("경매종료 남은시간 조회 실패");
+						}
+					});
+					
+					if(remainTime > 0 && time < 0){
+						$("#reTime").css('background','#1b5ac2');
+						$("#bidBtn").css('background','#1b5ac2');
+						$("#wishBtn").css('background','#8f784b');
+						$("#qaBtn").css('background','#86899d');
+						$("#bidBtn").hover($("#bidBtn").css('cursor','pointer'),$("#bidBtn").css('cursor','cursor'));
+						$("#wishBtn").hover($("#wishBtn").css('cursor','pointer'),$("#wishBtn").css('cursor','cursor'));
+						$("#qaBtn").hover($("#qaBtn").css('cursor','pointer'),$("#qaBtn").css('cursor','cursor'));
+					}
+					
+					function printRemainTime(){
+						remainTime = remainTime - 1000;								
+						var ms = remainTime / 1000;
+						var day = Math.floor(ms / 86400);
+						var hour = Math.floor((ms % 86400) / 3600);
+						var min = Math.floor((ms % 3600) / 60);
+						var sec = ms % 60;
+						
+						$("#remainTime").text("경매종료 " + day + "일 " + hour + "시간 " + min + "분 " + sec + "초 전");
+					}
+					
 					function printTime(){
 						time = time - 1000;								
 						var ms = time / 1000;
@@ -1116,20 +1257,69 @@
 									printTime();
 								}
 								else if(time == 0){
-									
-									clearInterval(timeId);
-									timeId = null;
-									location.reload();
+									time = time - 1;
 									$("#bidBtn").css('background','#1b5ac2');
 									$("#wishBtn").css('background','#8f784b');
 									$("#qaBtn").css('background','#86899d');
 									$("#bidBtn").hover($("#bidBtn").css('cursor','pointer'),$("#bidBtn").css('cursor','cursor'));
 									$("#wishBtn").hover($("#wishBtn").css('cursor','pointer'),$("#wishBtn").css('cursor','cursor'));
 									$("#qaBtn").hover($("#qaBtn").css('cursor','pointer'),$("#qaBtn").css('cursor','cursor'));
+									alert("경매가 시작되었습니다.");
+									location.reload();
 									console.log(time);
 								}
+								else{
+									if(remainTime > 0){
+										printRemainTime();
+									}
+									else if(remainTime == 0){
+										clearInterval(timeId);
+										timeId = null;
+										$("#remainTime").text("경매종료");
+										$("#bidBtn").css('background','gray');
+										$("#wishBtn").css('background','gray');
+										$("#qaBtn").css('background','gray');
+										$("#reTime").css('background','gray');
+										$("#bidBtn").hover($("#bidBtn").css('cursor','cursor'),$("#bidBtn").css('cursor','cursor'));
+										$("#wishBtn").hover($("#wishBtn").css('cursor','cursor'),$("#wishBtn").css('cursor','cursor'));
+										$("#qaBtn").hover($("#qaBtn").css('cursor','cursor'),$("#qaBtn").css('cursor','cursor'));
+										
+										/* 실시간 경매 최고가 비교 */
+										$.ajax({
+											url:"compareMid.bi",
+											type:"get",
+											async:false,
+											data:{itemNo : itemNo},
+											success:function(data){
+												if('${sessionScope.loginUser.mid}' == data.memberNo){
+													alert("낙찰 되었습니다.");
+												}
+												else{
+													alert("유찰 되었습니다.");
+												}
+											},
+											error:function(){
+												console.log("경매 종료");
+											}
+										});
+										
+										/* 실시간 경매 입찰종료 */
+										$.ajax({
+											url:"auctionFinish.bi",
+											type:"get",
+											data:{itemNo : itemNo},
+											success:function(data){
+												console.log("마감종료 성공");
+											},
+											error:function(){
+												console.log("마감종료 실패");
+											}
+										});
+										location.reload();
+									}
+								}
 							},1000);
-						
+							
 				});	
 			}
 		});

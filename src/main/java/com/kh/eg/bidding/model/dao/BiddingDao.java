@@ -49,6 +49,9 @@ public interface BiddingDao {
 
 	ItemDetail selectRealTime(SqlSessionTemplate sqlSession, String itemNo);
 
+	int updateRealTime(SqlSessionTemplate sqlSession, ItemDetail i);
+
+
 
 
 

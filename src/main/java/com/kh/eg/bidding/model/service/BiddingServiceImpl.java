@@ -178,5 +178,13 @@ private SqlSessionTemplate sqlSession;
 		
 		return i;
 	}
+
+	@Override
+	public int updateRealTime(ItemDetail i) {
+		int result = bd.updateRealTime(sqlSession, i);
+		
+		return result;
+	}
+
 	
 }

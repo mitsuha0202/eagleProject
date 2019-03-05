@@ -48,5 +48,8 @@ public interface BiddingService {
 
 	ItemDetail selectRealTime(String itemNo);
 
+	int updateRealTime(ItemDetail i);
+
+
 
 }
