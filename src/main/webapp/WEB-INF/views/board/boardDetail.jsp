@@ -82,7 +82,7 @@
 			    </tr>
 			  </tfoot>
 			</table>
-			<div class="btnArea" align="right" style="margin-right:250px;">
+			<div class="btnArea" align="right" style="margin-right:150px;">
 				<c:if test="${ sessionScope.loginUser.mid eq b.bMid }">
 				<button class="ui black basic button" style="width:100px; height:50px;" onclick="updateBoard();">글 수정</button>
 				<button class="ui black basic button" style="width:100px; height:50px;" onclick ="deleteBoard();">글 삭제</button>

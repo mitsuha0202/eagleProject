@@ -68,12 +68,7 @@ h4 {
 			<h2 class="h2">경매하기</h2>
 			<div class="ui category search" style="float: right">
 				<div class="ui icon input">
-					<div class="ui action input" style="height: 50px">
-						<input type="text" placeholder="Search...">
-						<button class="ui icon button" style="height: 50px">
-							<i class="search icon" style="height: 50px"></i>
-						</button>
-					</div>
+				
 				</div>
 				<div class="results"></div>
 			</div>
@@ -102,7 +97,10 @@ h4 {
 			</table>
 
 			<br> <br>
-			<h4>모두 0000000개의 물품이 검색되었습니다</h4>
+			<c:forEach items="${list20}">
+			<h4>${list20}모두 개의 물품이 검색되었습니다</h4>
+			</c:forEach>
+			
 			<div class="nay">
 				<div style="font-size: 20px;">
 					<span class="jung"> <input type="hidden" value="1">인기경매순
@@ -132,11 +130,17 @@ h4 {
 				
 					<div id="addDiv" class="four wide column"
 						style="display: inline-block;">
-						<div onclick="itemClick('${i.itemNo}','${i.auctionCode}')">
+						 <div  onclick="itemClick('${i.itemNo}','${i.auctionCode}')">
+						 <input type="hidden" class="itemNo" name="itemNo" value="${i.itemNo}">
+								<input type="hidden" class="auctionCode" name="auctionCode" value="${i.auctionCode}">
+								<input type="hidden" name="deliveryPay" value="${i.deliveryPay}">
+ 								 
+						<!-- <div class="itemClick"> -->
 							<div class="may" style="width: 300px;">
 
 								<img  src="resources/uploadFiles/${i.atta.changeName}"
 									style="width: 300px; height: 200px;">
+								
 							</div>
 							<table class="ui basic table" style="width: 250px;">
 								<tr>
@@ -156,11 +160,10 @@ h4 {
 
 								</tr>
 							</table>
-
+									
 						</div>
 					</div>
-					<input type="hidden" name="itemNo" value="${i.itemNo}">
-					<input type="hidden" name="auctionCode" value="${i.auctionCode}">									
+												
 				</c:forEach>
 			</div>
 			
@@ -222,10 +225,10 @@ h4 {
 												$td5.text("남은 시간");
 												var $td6 = $("<td>");
 												$td6.text("00");
-												/* var $input1=$("<input type='hidden' name='itemNo' value='"+data[i].itemNo+"'>");
-												var $input2=$("<input type='hidden' name='auctionCode' value='"+data[i].auctionCode+"'>"); */
+												var $input1=$("<input type='hidden' class='itemNo' name='itemNo' value='"+data[i].itemNo+"'>");
+												var $input2=$("<input type='hidden'  class='auctionCode' name='auctionCode' value='"+data[i].auctionCode+"'>"); 
 											
-												var $div=$("<div onclick='itemClick('"+data[i].itemNo+"','"+data[i].auctionCode+"')'>");
+												 var $div=$("<div id='itemClick1'>"); 
 												
 												var $addDiv = $("<div id='addDiv' class='four wide column' style='display:inline-block;'>");
 											
@@ -244,8 +247,8 @@ h4 {
 												$div1.append($img);
 												$div.append($div1);
 												$div.append($table);
-												/* $div.append($input1);
-												$div.append($input2); */
+											  	$div.append($input1);
+												$div.append($input2); 
 												$addDiv.append($div);
 												
 											
@@ -258,6 +261,8 @@ h4 {
 												// $add.append($div1);
 												//$add.append($table); 
 												//$addDiv.append($add);   
+												
+												
 											}
 
 											
@@ -311,10 +316,12 @@ h4 {
 										$td5.text("남은 시간");
 										var $td6 = $("<td>");
 										$td6.text("00");
-										var $div=$("<div>");
+									
 										var $addDiv = $("<div id='addDiv' class='four wide column' style='display:inline-block;'>");
-										var $input1=$("<input type='hidden' name='itemNo' value='"+data[i].itemNo+"'>");
-										var $input2=$("<input type='hidden' name='auctionCode' value='"+data[i].auctionCode+"'>");
+										var $input1=$("<input type='hidden' class='itemNo' name='itemNo' value='"+data[i].itemNo+"'>");
+										var $input2=$("<input type='hidden'  class='auctionCode' name='auctionCode' value='"+data[i].auctionCode+"'>"); 
+									
+										 var $div=$("<div id='itemClick1'>"); 
 										$tr2.append($td1);
 										$tr2.append($td2);
 										$tr3.append($td3);
@@ -329,9 +336,10 @@ h4 {
 										$div1.append($img);
 										$div.append($div1);
 										$div.append($table);
+										$div.append($input1);
+										$div.append($input2);
 										$addDiv.append($div);
-										$addDiv.append($input1);
-										$addDiv.append($input2);
+										
 									
 									
 										var $firstcolumn = $("#firstColumn");
@@ -390,14 +398,45 @@ h4 {
 		}); */
 		function itemClick(itemNo,auctionCode) {
 			
-			 /*  var auctionCode=$("input[name=auctionCode]").val();   */
+			/*  var auctionCode=$("input[name=auctionCode]").val();    */
 			
 			console.log(itemNo);
 			console.log(auctionCode);
 			
 			location.href="auctionDetail.bi?itemNo="+itemNo+"&auctionCode="+auctionCode;
+			
 		}
 		
+	 	$(document).on("click","#itemClick1",function(event){
+			
+			var itemNo=$(this).children(".itemNo").val()
+			var auctionCode=$(this).children(".auctionCode").val();
+		
+			console.log(itemNo);
+			console.log(auctionCode);
+			location.href="auctionDetail.bi?itemNo="+itemNo+"&auctionCode="+auctionCode;
+		}); 
+		
+	 	$(document).ready(function(){
+	 	
+	 		$.ajax({
+	 			url:"selectCount.au",
+	 			type:"get",
+	 			dataType:"text",
+	 			contentType:"application/json",
+	 			success:function(data) {
+	 				var data=JSON.parse(data);
+	 				console.log(data);
+	 				var count=0;
+	 				var cCount=data.
+	 				
+	 			}
+	 			
+	 		});
+	 		
+	 		
+	 	});
+	 	
 		
 		
 	</script>

@@ -52,8 +52,12 @@
 						blackListcheck+="&";
 						}
 					}
+					if(checkUser.length==0){
+			               alert("회원을 선택해주세요.")
+			            }else{
+			            	location.href = "blackListChange.ad?" + blackListcheck;
+			            }
 					
-					location.href = "blackListChange.ad?" + blackListcheck;
 				}
 			</script>
 

@@ -79,6 +79,8 @@ public interface AdMemberDao {
 
 	int moneyChange(SqlSessionTemplate sqlSession, String string, String money);
 
+	int auctionDel(SqlSessionTemplate sqlSession, String string);
+
 	
 
 	

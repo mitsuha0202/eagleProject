@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -447,14 +448,17 @@ import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 		
 		//1대1 문의 상세보기
 		@RequestMapping("detailMessage.mp")
-		public String detailMessagePage(HttpServletRequest request, Model model) {
-			String temp = request.getQueryString();
-			String boardNo = temp.substring(6, temp.length());
+		public String detailMessagePage(@RequestParam(value="docNo", required=false) String boardNo, @RequestParam(value="admin", required=false) String admin, HttpServletRequest request, Model model) {
+			System.out.println("boardNo: " + boardNo);
 			MyPageBoard myBoard = ms.selectOneBoard(boardNo);
 			
 			if(myBoard != null) {
 				model.addAttribute("myBoard", myBoard);
-				return "myPage/userMessageDetailPage";
+				if(admin != null) {
+					return "admin/noticeView";
+				}else {
+					return "myPage/userMessageDetailPage";
+				}
 			}else {
 				model.addAttribute("msg", "상세보기 실패");
 				return "common/errorPage";

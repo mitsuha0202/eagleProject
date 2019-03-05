@@ -29,7 +29,12 @@
 					<label for="Keyword"></label><input id="search" name="search" class="wth240" type="search">
 					<a class="sch" onclick="searchBoard();"><img src="resources/images/icoSearch.png" alt="검색" title="검색"></a> 
 				</span>
-			</div>			
+			</div>	
+			<div class="flo_left mt30 mb30">
+				<span><a class="mbtn rd" onclick="auctionDel();">게시글 삭제</a></span>
+			</div>
+			
+					
 			<script>
 				function searchBoard(){
 					var searchCondition = $("#searchCondition").val();
@@ -37,8 +42,9 @@
 					
 					location.href = "searchReportList.ad?searchCondition=" + searchCondition + "&searchValue=" + searchValue;
 				}
+				
 			</script>
-
+			
 
 			<table id="test" class="boardList mt20">
 				<caption>신고 관리 리스트입니다.</caption>
@@ -53,6 +59,7 @@
 				</colgroup>
 				<thead>
 					<tr>
+						<th scope="col">선택</th>
 						<th scope="col">경매 번호</th>
 						<th scope="col">신고 횟수</th>
 						<th scope="col">신고물 제목</th>
@@ -67,6 +74,9 @@
 					</tr> -->
 					<c:forEach var="a" items="${ reportlist }">
 					<tr>
+						<td>
+							<input name="check"value="${ a.itemNo }" type="checkbox">
+						</td>
 						<td>${ a.itemNo }</td>
 						<td>${ a.reportCount }</td>
 						<td>${ a.title }</td>
@@ -127,6 +137,22 @@
 					
 				}
 				
+				function auctionDel(){
+					var check = $("input[name=check]:checked");
+					var checkAuction = "";
+					for(var i = 0; i < check.length; i++){
+						checkAuction+="check="+check[i].value;
+						if(i<check.length-1){
+							checkAuction+="&";
+						}
+					}
+					if(check.length==0){
+			               alert("게시글을 선택해주세요.")
+			            }else{
+			            	location.href = "auctionDel.ad?" + checkAuction;
+			            }
+					
+				}
 		</script>
 
 

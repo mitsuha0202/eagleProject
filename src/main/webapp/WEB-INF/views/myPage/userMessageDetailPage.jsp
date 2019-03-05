@@ -90,7 +90,7 @@
 			</tr>
 			<c:if test="${myBoard.replyStatus eq 'Y'}">
 				<tr>
-					<td colspan="4"><textarea class="form-control" readonly="readonly">${ myBoard.reply }</textarea></td>
+					<td colspan="4"><textarea class="form-control" readonly="readonly">${ myBoard.rContents }</textarea></td>
 				</tr>
 			</c:if>
 		</table>

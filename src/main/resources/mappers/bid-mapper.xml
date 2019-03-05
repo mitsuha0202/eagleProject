@@ -181,4 +181,10 @@
 		FROM AUCTIONDETAIL
 		WHERE ITEMNO = #{itemNo} AND EXITYN = 'N'
   	</select>
+  	
+  	<select id="updateRealTime" parameterType="ItemDetail">
+  		UPDATE AUCTIONDETAIL
+  		SET ENDDAY = TO_DATE(#{endDay},'YYYY-MM-DD HH24:MI:SS')
+  		WHERE ITEMNO = #{itemNo}
+  	</select>
   </mapper>

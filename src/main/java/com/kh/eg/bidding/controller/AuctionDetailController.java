@@ -181,9 +181,10 @@ private BiddingService bs;
 				
 				long time = edM - ndM;
 				String remainTime = String.valueOf(time);
+				String sysDate = String.valueOf(ndM);
 				
 				System.out.println(remainTime);
-				
+				i.setStartDay(sysDate);
 				i.setEndDay(remainTime);
 			} catch (ParseException e) {
 				e.printStackTrace();
@@ -329,6 +330,8 @@ private BiddingService bs;
 		b.setMemberNo(mNo);
 		b.setCurrentPrice(currentPrice);
 		
+		System.out.println(itemNo + mNo + currentPrice);
+		
 		int result = bs.insertRealBid(b);
 		
 		if(result > 0) {
@@ -379,5 +382,30 @@ private BiddingService bs;
 		else {
 			return null;
 		}
+	}
+	@RequestMapping("updateRealTime.bi")
+	public @ResponseBody int updateRealTime(@RequestParam(value="itemNo", required=false) String itemNo, @RequestParam(value="nowTime", required=false) String nowTime, 
+												HttpServletRequest request, HttpServletResponse response) {
+		ItemDetail i = new ItemDetail();
+		
+		SimpleDateFormat sft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		
+		long miliTime = Long.parseLong(nowTime);
+		Date dateTime = new Date(miliTime);
+		
+		String endDay = sft.format(dateTime);
+		
+		i.setItemNo(itemNo);
+		i.setEndDay(endDay);
+		
+		int result = bs.updateRealTime(i);
+		
+		if(result > 0) {
+			return result;
+		}
+		else {
+			return 0;
+		}
+		
 	}
 }

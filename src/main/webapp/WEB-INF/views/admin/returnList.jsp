@@ -32,8 +32,12 @@
 							payNumcheck+="&";
 						}
 					}
+					if(payNum.length==0){
+			               alert("회원을 선택해주세요.")
+			            }else{
+			            	location.href = "returnRefuse.ad?" + payNumcheck;
+			            }
 					
-					location.href = "returnRefuse.ad?" + payNumcheck;
 				}
 				
 				function returnOk(){
@@ -45,8 +49,12 @@
 							payNumcheck+="&";
 						}
 					}
+					if(payNum.length==0){
+			               alert("회원을 선택해주세요.")
+			            }else{
+			            	location.href = "returnOk.ad?" + payNumcheck;   
+			            }
 					
-					location.href = "returnOk.ad?" + payNumcheck;
 				}
 				
 			</script>

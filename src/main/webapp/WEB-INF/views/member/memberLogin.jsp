@@ -82,8 +82,9 @@
 				    <label align="left" style="font-size: 1.5em;">비밀번호</label>
 				    <input type="password" id="userPwd" name="userPwd" placeholder="PASSWORD" style="height:50px">
 				  </div>
-				  <div class="ui inverted segment" style="width:500px; height: 108px;">
-		  			<button class="ui inverted button" id="loginBth" type="button" style="width:450px; font-size: xx-large; padding-top: 15px;" onclick="return login()">eagle's Login</button>
+				  <div  style="width:500px; height: 40px; margin-bottom: 50px;">
+		  			<!-- <button class="ui inverted button" id="loginBth" type="button" style="width:450px; font-size: xx-large; padding-top: 15px;" onclick="return login()">eagle's Login</button> -->
+		  			<button id="loginBtn" class="ui secondary basic button" style="width:496px; font-size: xx-large; padding-top: 15px; font-weight: bold;" onclick="return login()">Eagle's Login</button>
 		  		  </div>
 	  		  	<div>
 				    <a id="kakao-login-btn"></a>
@@ -97,8 +98,8 @@
         </div>
         <div class = "two wide column"></div>
    	</div>
-   	<!-- footer -->
    	
+   	<!-- footer -->
    	<script type='text/javascript'>
    	/*카카오 로그인 연동  */
       //<![CDATA[
@@ -121,7 +122,7 @@
             			Kakao.Auth.logout();
             		}else{
             			location.href="kakaoLogin.me?userId="+userId+"&userEmail="+userEmail+"&password=0202";
-            			alert("카카오 로그인 성공!");
+            			alert("이글스 옥션에 오신걸 환영합니다!");
             		}
             	}
             })
@@ -147,6 +148,7 @@
  		
  		
     </script>
+     
 	<script>
 		function login() {
 			var userId = $("#userId").val();
@@ -155,6 +157,7 @@
 				alert("아이디 또는 비밀번호를 확인해주세요.");
 				return false;
 			}else{
+				alert("이글스 옥션에 오신걸 환영합니다!");
 				$("#loginForm").submit();
 			}
 		}

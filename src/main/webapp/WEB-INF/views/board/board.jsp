@@ -55,7 +55,7 @@
 			</div>
 			<div class="ui icon input" style="height: 50px;">
 			  <input type="search" placeholder="검색할 내용을 입력하세요" id="search" style="width:300px; height: 50px; margin-right: 15px;">
-			  <button class="ui black button" style="width:80px; height: 50px" onclick="searchBoard();">검색</button>
+			  <button class="ui black basic button" style="width:80px; height: 50px; font-size: 15px;" onclick="searchBoard();">검&nbsp;색</button>
 			</div>
 		</div>
 	
@@ -150,7 +150,8 @@
 			</c:if>
 		</div>
 		<div class="btnArea" align="right">
-			<button class="ui black button" style="width:200px; font-size: 1.5rem;" onclick="insertBoard();">글쓰기</button>
+			<button class="ui black basic button" style="width:200px; font-size: 1.5rem; font-weight: bold; border-width: 3px solid black;" onclick="insertBoard();">글&nbsp;쓰&nbsp;기</button>
+			
 		</div>
 	</div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
