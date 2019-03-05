@@ -4,6 +4,7 @@ package com.kh.eg.item.controller;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.tools.ant.types.CommandlineJava.SysProperties;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -95,8 +97,16 @@ public class ItemController {
 		category.setCategoryNo(ccc[0]);
 		it.setCategoryNo(ccc[0]);
 		category.setUpperCategoryNo(cateNo);
+		
+		
+		SimpleDateFormat format1=new SimpleDateFormat("yyyy/mm/dd HH:mm:ss");
+		format1.format(date);
+		format1.format(date1);
+		
+		
+		
 	
-		java.sql.Date day=null;
+		/*java.sql.Date day=null;
 		java.sql.Date day2=null;
 		
 		
@@ -132,7 +142,7 @@ public class ItemController {
 		}
 		
 		auctionD.setStartDay(day);
-		auctionD.setEndDay(day2);
+		auctionD.setEndDay(day2);*/
 		
 		
 		
