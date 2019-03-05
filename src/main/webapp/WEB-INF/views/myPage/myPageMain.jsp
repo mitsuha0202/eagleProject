@@ -20,21 +20,21 @@
 	}
 	/* 이름부분 div */
 	.mpUserDiv{
-		background-color: #168;
+		background-color: white;
 		text-align: center;
 		border: 1px solid #ddd;
 		position: absolute;
 		left: 70px;
 		top: 260px;
 		width: 340px;
-		height: 150px;
+		height: 170px;
 	}
 	/* 이름부분 div 버튼 */
 	.mpUserDivBtn {
 		text-align: center;
-		background-color: #168;
-		border: 1px solid white;
-		color:white;
+		background-color: white;
+		border: 1px solid #2185d0;
+		color:#2185d0;
 		border-radius: 10px;
 		width: 150px;
 		height: 40px;
@@ -49,14 +49,14 @@
 		top: 260px;
 		left: 409px;
 		width: 340px;
-		height: 150px;
+		height: 170px;
 	}
 	/* 쪽지함 div 버튼 */
 	.mpMessageDivBtn{
 		text-align: center;
-		background-color: #168;
-		border: 1px solid white;
-		color:white;
+		background-color: white;
+		border: 1px solid #2185d0;
+		color:#2185d0;
 		border-radius: 10px;
 		width: 150px;
 		height: 40px;
@@ -71,14 +71,14 @@
 		top: 260px;
 		left: 748px;
 		width: 340px;
-		height: 150px;
+		height: 170px;
 	}
 	/* 사이버머니 div 버튼 */
 	.mpMoneyDivAccountBtn{
 		text-align: center;
-		background-color: #168;
-		border: 1px solid white;
-		color:white;
+		background-color: white;
+		border: 1px solid #2185d0;
+		color:#2185d0;
 		border-radius: 10px;
 		width: 150px;
 		height: 40px;
@@ -88,9 +88,9 @@
 	/* 사이버머니 div 버튼 */
 	.mpMoneyDivSendBtn{
 		text-align: center;
-		background-color: #168;
-		border: 1px solid white;
-		color:white;
+		background-color: white;
+		border: 1px solid #2185d0;
+		color:#2185d0;
 		border-radius: 10px;
 		width: 72px;
 		height: 40px;
@@ -99,9 +99,9 @@
 	/* 사이버머니 div 버튼 */
 	.mpMoneyDivGiveBtn{
 		text-align: center;
-		background-color: #168;
-		border: 1px solid white;
-		color:white;
+		background-color: white;
+		border: 1px solid #2185d0;
+		color:#2185d0;
 		border-radius: 10px;
 		width: 72px;
 		height: 40px;
@@ -115,14 +115,15 @@
 		top: 260px;
 		left: 1087px;
 		width: 340px;
-		height: 150px;
+		height: 170px;
+		
 	}
 	/* 위시리스트 div 버튼 */
 	.mpWishListDivBtn{
 		text-align: center;
-		background-color: #168;
-		border: 1px solid white;
-		color:white;
+		background-color: white;
+		border: 1px solid #2185d0;
+		color:#2185d0;
 		border-radius: 10px;
 		width: 150px;
 		height: 40px;
@@ -254,9 +255,9 @@
 	/* 구매현황 버튼 */
 	.purchasestatus{
 		text-align: center;
-		background-color: #168;
-		border: 1px solid white;
-		color:white;
+		background-color: white;
+		border: 1px solid #205181;
+		color:#205181;
 		border-radius: 10px;
 		position: absolute;
 		width: 150px;
@@ -270,9 +271,9 @@
 	/* 판매현황 버튼 */
 	.salesstatus{
 		text-align: center;
-		background-color: #168;
-		border: 1px solid white;
-		color:white;
+		background-color: white;
+		border: 1px solid #205181;
+		color:#205181;
 		border-radius: 10px;
 		position: absolute;
 		width: 150px;
@@ -308,6 +309,13 @@
 		top: 140px;
 		left: 860px;
 	}
+	.ui.basic.button{
+		border-radius: 10px;
+		width: 150px;
+		height: 40px;
+	    font-size: 16px;
+		
+	}
 	
 /* -------------------------------------------------------------------- */
 
@@ -328,35 +336,46 @@
 	<!-- 마이페이지 첫번째네비바 -->
 	<div class="mpUserDiv">
 		<br>
-		<h5 style="color: white"><c:out value="${ sessionScope.loginUser.userName }님"/></h5>
-		<h5 style="color: white">회원등급 <c:out value="${ rating }"/></h5>
-		<h5 style="color: white">사이버머니 <c:out value="${ sessionScope.loginUser.emoney }원"/></h5>
-		<button class="mpUserDivBtn" onclick="location.href='userGradeInfo.mp'">회원등급 혜택안내</button>
+		<h5 style="color: black"><c:out value="${ sessionScope.loginUser.userName }님"/></h5>
+		<h5 style="color: black">회원등급 <c:out value="${ rating }"/></h5>
+		<h5 style="color: black">사이버머니 <c:out value="${ sessionScope.loginUser.emoney }원"/></h5>
+		<!-- <button class="mpUserDivBtn" onclick="location.href='userGradeInfo.mp'">회원등급 혜택안내</button> -->
+		<button class="ui basic button" onclick="location.href='userGradeInfo.mp'">회원등급 혜택</button>
 	</div>
+	
 	<div class="mpMessageDiv">
 		<br>
+		
 		<h5 id="messageCount">쪽지 0건</h5>
-		<button class="mpMessageDivBtn" onclick="location.href='userMessage.mp'">나의 쪽지함</button><br>
+		<!-- <button class="mpMessageDivBtn" onclick="location.href='userMessage.mp'">나의 쪽지함</button> -->
+		<button class="ui basic button" onclick="location.href='userMessage.mp'">나의 쪽지함</button><br><br>
 		<input type="hidden" id="userMid" value="${ sessionScope.loginUser.mid }">
-		<button class="mpMessageDivBtn" onclick="location.href='userInfoUpdatePage.mp'">나의정보수정</button>
+		<!-- <button class="mpMessageDivBtn" onclick="location.href='userInfoUpdatePage.mp'">나의정보수정</button> -->
+		<button class="ui basic button" onclick="location.href='userInfoUpdatePage.mp'">나의정보수정</button><br>
 	</div>
 	<div class="mpMoneyDiv">
 		<br>
 		<h5>사이버머니</h5>
-		<button class="mpMoneyDivAccountBtn" onclick="location.href='userAccount.mp'">계좌관리</button><br>
-		<button class="mpMoneyDivSendBtn">충전</button>
-		<button class="mpMoneyDivGiveBtn">환전</button>
+		<!-- <button class="mpMoneyDivAccountBtn" onclick="location.href='userAccount.mp'">계좌관리</button><br> -->
+		<button class="ui basic button" onclick="location.href='userAccount.mp'">계좌관리</button><br><br>
+		<!-- <button class="mpMoneyDivSendBtn">충전</button> -->
+		<button class="ui basic button send" >충전</button>
+		<!-- <button class="mpMoneyDivGiveBtn">환전</button> -->
+		<button class="ui basic button give" >환전</button>
 	</div>
 	<div class="mpWishListDiv">
 		<br>
 		<h5>위시리스트</h5>
 		<br>
-		<button class="mpWishListDivBtn" onclick="location.href='wishList.mp'">위시리스트 보기</button>
+		<!-- <button class="mpWishListDivBtn" onclick="location.href='wishList.mp'">위시리스트 보기</button> -->
+		<button class="ui basic button" onclick="location.href='wishList.mp'">위시리스트</button><br>
 	</div>
 	
 	<!-- 구매현황 제목 -->
 	<div class="buyTitle"><h2>구매현황</h2></div>
 	<button class="purchasestatus" onclick="location.href='purchasestatus.mp'">구매현황+</button>
+	
+	
 	
 	<!-- 구매현황 테이블 -->
 	<div class="buyStatus">

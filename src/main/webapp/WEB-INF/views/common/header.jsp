@@ -40,7 +40,6 @@
 
 .h1 {
 	display: inline-block;
-	cursor: pointer;
 }
 
 #in {
@@ -86,7 +85,7 @@ input:-ms-input-placeholder {
 			<!-- 로그인 하지 않았을 경우 -->
 			<form action=${ contextPath } /login.me" method="post">
 				<div class="ui inverted menu">
-					<a class="active item"> 현재시간 </a>
+					<a class="active item" id="demo" class="currentTime"> 현재시간 </a>
 					<div style="width: 100px"></div>
 					<a class="item"> 로그인을 하시면 다양한 정보를 보실 수 있습니다 </a>
 					<div class="right" style="width: 800px"></div>
@@ -100,23 +99,25 @@ input:-ms-input-placeholder {
 			<!-- 로그인을 한 경우 -->
 
 			<div class="ui inverted menu">
-				<a class="active item"> 현재시간 </a>
+				<a class="active item" id="demo"> 현재시간 </a>
 				<div style="width: 100px"></div>
 				<a class="item" style="font-size: larger; font-weight: 700px;"> ${sessionScope.loginUser.userName }님 환영합니다. </a>
 				<div class="right" style="width: 800px"></div>
 
 				<a class="item" href="logout.me"> 로그아웃 </a> <a class="item"
 					href="myPageMain.mp"> 마이페이지 </a>
-
+			
 			</div>
 		</c:if>
 	</div>
 
-	<h1 class="h1" onclick="logoMain();">Eagle's Auction</a></h1>
+	<h1 style="cursor: pointer;"class="h1" id="ea">Eagle's Auction</h1>
+	
+	
 	<div class="btn-group" role="group" aria-label="...">
 
 
-		<div style="width: 180px"></div>
+		<div style="width: 250px"></div>
 
 		<div style="cursor: pointer; width: 150px; font-size: 20px"
 			onclick="location.href='auctionCategory.au'">경매하기</div>
@@ -135,21 +136,30 @@ input:-ms-input-placeholder {
 			onclick="location.href='emoneyMain.em'">사이버머니 결제</div>
 
 		<div style="width: 100px"></div>
-		<div id="in">
-			<input type="text" placeholder="검색어를 입력해주세요" id="searchItem">
-			<button id="searchBtn">검색</button>
-		</div>
+		
 	</div>
 	<script>
 		function goBoard() {
 			location.href = "goBoard.bo";
 		}
-		function logoMain() {
-			location.href="mainPage.au";
+		$("#ea").click(function(){
+			
+			location.href="mainPage.au;"
+		});
+		
+		setInterval("myTimer()",1000); //1초에 한번씩 myTimer 함수 실행
+
+		function myTimer()
+		{
+		var d=new Date();
+		var t=d.toLocaleTimeString();
+		document.getElementById("demo").innerHTML=t;
 		}
-	</script>
-
-
+		
+		
+		
+		
+</script>
 
 </body>
 </html>

@@ -12,10 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.context.annotation.RequestScope;
 
 import com.kh.eg.bidding.model.service.BiddingService;
 import com.kh.eg.bidding.model.vo.Attachment;
@@ -31,8 +33,45 @@ public class AuctionDetailController {
 private BiddingService bs;
 	
 	@RequestMapping("auctionDetail.bi")
-	public String goDetail() {
+	public String goDetail(@RequestParam String itemNo, @RequestParam String auctionCode, Model m) {
+		
+		m.addAttribute("itemNo", itemNo);
+		m.addAttribute("auctionCode", auctionCode);
+		
 		return "bidding/auctionDetail";
+	}
+	
+	@RequestMapping("auctionDetailQuestion.bi")
+	public String goQuestion(@RequestParam String itemNo, @RequestParam String aCode, @RequestParam String memberNo, @RequestParam String sMemberNo, Model m) {
+		m.addAttribute("itemNo", itemNo);
+		m.addAttribute("aCode", aCode);
+		m.addAttribute("memberNo", memberNo);
+		m.addAttribute("sMemberNo", sMemberNo);
+		
+		return "bidding/auctionDetailQuestion";
+	}
+	
+	@RequestMapping("insertQuestion.bi")
+	public @ResponseBody int insertQuestion(@RequestParam(value="itemNo", required=false) String itemNo, @RequestParam(value="memberNo", required=false) String memberNo, 
+											@RequestParam(value="sMemberNo", required=false) String sMemberNo, @RequestParam(value="sMemberNo", required=false) String title,
+											@RequestParam(value="boardContent", required=false) String boardContent,
+											HttpServletRequest request, HttpServletResponse response) {
+		Board b = new Board();
+		
+		b.setItemNo(itemNo);
+		b.setmNo(memberNo);
+		b.setsMno(sMemberNo);
+		b.setTitle(title);
+		b.setBoardContent(boardContent);
+		
+		int result = bs.insertQuestion(b);
+		
+		if(result > 0) {
+			return result;
+		}
+		else {
+			return 0;
+		}
 	}
 	
 	@RequestMapping("auctionDetails.bi")
@@ -406,6 +445,5 @@ private BiddingService bs;
 		else {
 			return 0;
 		}
-		
 	}
 }
