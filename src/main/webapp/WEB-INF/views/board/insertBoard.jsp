@@ -45,13 +45,13 @@
 	     		<form action="insertBoard.bo" method="post">
 	     			<table>
 		     			<tr>
-		     					<td colspan="2" align="left"><h1 class="ui header" style="font-size:3rem; margin-top: 50px;">글쓰기</h1>
-		     					<div class="ui divider"></div></td>
-		     					<div class="ui divider"></div>
+		     					<td colspan="2" align="left"><h2 class="ui header" style="font-size:2rem; margin-top: 50px;">자유게시판</h2>
+		     					</td>
+		     					
 		     			</tr>
 	     				<tr>
 		     				<td colspan="2"> <div class="field">
-							    <input type="text" name="bTitle" placeholder="제목을 입력해주세요. 20자이내" style="height:60px; width:1600px;">
+							    <input type="text" name="bTitle" placeholder="제목을 입력해주세요. 20자이내" maxlength="20" style="height:60px; width:1600px;">
 							  </div>
 							</td>
 						</tr>
@@ -61,7 +61,7 @@
 						<tr>
 		     				<td colspan="2">  	
 		     					<div class="field">
-							    <textarea placeholder="내용을 입력해주세요. 300자 이내" name="bContent" style="height: 500px;"></textarea>
+							    <textarea placeholder="내용을 입력해주세요. 300자 이내"  maxlength="300" name="bContent" style="height: 500px;"></textarea>
 							  </div>
 							</td>
 

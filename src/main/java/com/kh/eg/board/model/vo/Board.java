@@ -17,11 +17,13 @@ public class Board implements java.io.Serializable{
 	private String userName;
 	private String itemNo;
 	private ArrayList<Reply> replyList;
+	private int rNum;
 	
 	public Board() {}
 
 	public Board(String bid, String bTitle, String bContent, String bMid, Date writeDay, String bStatus, String bType,
-			String reStatus, int bCount, String sMid, String userName, String itemNo, ArrayList<Reply> replyList) {
+			String reStatus, int bCount, String sMid, String userName, String itemNo, ArrayList<Reply> replyList,
+			int rNum) {
 		super();
 		this.bid = bid;
 		this.bTitle = bTitle;
@@ -36,6 +38,7 @@ public class Board implements java.io.Serializable{
 		this.userName = userName;
 		this.itemNo = itemNo;
 		this.replyList = replyList;
+		this.rNum = rNum;
 	}
 
 	public String getBid() {
@@ -142,13 +145,23 @@ public class Board implements java.io.Serializable{
 		this.replyList = replyList;
 	}
 
+	public int getrNum() {
+		return rNum;
+	}
+
+	public void setrNum(int rNum) {
+		this.rNum = rNum;
+	}
+
 	@Override
 	public String toString() {
 		return "Board [bid=" + bid + ", bTitle=" + bTitle + ", bContent=" + bContent + ", bMid=" + bMid + ", writeDay="
 				+ writeDay + ", bStatus=" + bStatus + ", bType=" + bType + ", reStatus=" + reStatus + ", bCount="
 				+ bCount + ", sMid=" + sMid + ", userName=" + userName + ", itemNo=" + itemNo + ", replyList="
-				+ replyList + "]";
+				+ replyList + ", rNum=" + rNum + "]";
 	}
+
+	
 
 	
 
