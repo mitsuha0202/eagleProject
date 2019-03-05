@@ -101,9 +101,10 @@ td {
 			<!-- 내용 넣기 -->
 			<br> <br> <br>
 			<div class="chu">
-				<div class="titleHeader" style="display: inline-block;">
-				<h1 class="pre" style="font-weight: bold;">Eagle's Auction 추천경매</h1>
-					<i class="chevron circle right icon" id="more-icon" style="margin-left: 900px;"></i> <font
+
+				<h1 class="pre">Eagle's Auction 추천경매</h1>
+				<div id="more1" class="more-div" style="display: inline-block; float: right">
+					<i class="chevron circle right icon" id="more-icon"></i> <font
 						id="more-txt">더보기 </font>
 				</div>
 				<hr>
@@ -149,10 +150,12 @@ td {
 		
 			<br>
 			<div class="chu">
-				<div class="titleHeader" style="display: inline-block;">
-				<h1 class="pre" style="font-weight: bold;">Eagle's Auction 인기경매</h1>
-					<i class="chevron circle right icon" id="more-icon" style="margin-left: 900px;"></i> <font
-						id="more-txt">더보기 </font>
+
+				<h1 class="pre">Eagle's Auction 인기경매</h1>
+
+				
+
+
 				</div>
 				<hr>
 				<div id="firstColumn" align="center">
@@ -194,9 +197,7 @@ td {
 
 			<div class="chu">
 				<h1 class="pre">Eagle's Auction 스페셜 상품</h1>
-				<div class="more-div" style="display: inline-block; float: right">
-					<i class="chevron circle right icon" id="more-icon"></i> <font
-						id="more-txt">더보기 </font> <br>
+			
 
 
 				</div>
@@ -242,6 +243,20 @@ td {
 		</div>
 		<div class="two wide column"></div>
 </div>
+</div>
+<script>
+
+	$("#more1").click(function(){
+		
+		console.log()
+		location.href="auctionCategory.au";
+		
+	});
+	
+	
+
+
+</script>
 
 </body>
 </html>
