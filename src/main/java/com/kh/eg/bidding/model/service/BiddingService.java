@@ -50,6 +50,8 @@ public interface BiddingService {
 
 	int updateRealTime(ItemDetail i);
 
+	int insertQuestion(Board b);
+
 
 
 }

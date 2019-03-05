@@ -138,4 +138,13 @@ public class BiddingDaoImpl implements BiddingDao{
 		return sqlSession.update("ItemDetails.updateRealTime", i);
 	}
 
+	@Override
+	public int insertQuestion(SqlSessionTemplate sqlSession, Board b) {
+		
+		return sqlSession.insert("ItemDetails.insertQuestion", b);
+	}
+
+	
+
+
 }

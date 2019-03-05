@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Attachment implements java.io.Serializable {
-
+ 
 	private String attachmentNo;
 	private String originName;
 	private String changeName;

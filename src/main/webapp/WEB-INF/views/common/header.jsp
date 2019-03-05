@@ -85,7 +85,7 @@ input:-ms-input-placeholder {
 			<!-- 로그인 하지 않았을 경우 -->
 			<form action=${ contextPath } /login.me" method="post">
 				<div class="ui inverted menu">
-					<a class="active item"> 현재시간 </a>
+					<a class="active item" id="demo" class="currentTime"> 현재시간 </a>
 					<div style="width: 100px"></div>
 					<a class="item"> 로그인을 하시면 다양한 정보를 보실 수 있습니다 </a>
 					<div class="right" style="width: 800px"></div>
@@ -99,19 +99,21 @@ input:-ms-input-placeholder {
 			<!-- 로그인을 한 경우 -->
 
 			<div class="ui inverted menu">
-				<a class="active item"> 현재시간 </a>
+				<a class="active item" id="demo"> 현재시간 </a>
 				<div style="width: 100px"></div>
 				<a class="item" style="font-size: larger; font-weight: 700px;"> ${sessionScope.loginUser.userName }님 환영합니다. </a>
 				<div class="right" style="width: 800px"></div>
 
 				<a class="item" href="logout.me"> 로그아웃 </a> <a class="item"
 					href="myPageMain.mp"> 마이페이지 </a>
-
+			
 			</div>
 		</c:if>
 	</div>
 
 	<h1 style="cursor: pointer;"class="h1" id="ea">Eagle's Auction</h1>
+	
+	
 	<div class="btn-group" role="group" aria-label="...">
 
 
@@ -144,7 +146,19 @@ input:-ms-input-placeholder {
 			
 			location.href="mainPage.au;"
 		});
+		
+		setInterval("myTimer()",1000); //1초에 한번씩 myTimer 함수 실행
 
+		function myTimer()
+		{
+		var d=new Date();
+		var t=d.toLocaleTimeString();
+		document.getElementById("demo").innerHTML=t;
+		}
+		
+		
+		
+		
 </script>
 
 </body>
