@@ -417,7 +417,6 @@ h4 {
 			location.href="auctionDetail.bi?itemNo="+itemNo+"&auctionCode="+auctionCode;
 		}); 
 		
-
 		
 		
 	</script>

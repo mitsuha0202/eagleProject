@@ -396,18 +396,20 @@
 			var currentPrice = 0;
 			var bidUnit = 0;
 			var mid = '${sessionScope.loginUser.mid}';
-			var aCode = 'AC001';
-			var itemNo;
+			var aCode = '${auctionCode}';
+			var itemNo = '${itemNo}';
 			var minPrice;
 			var maxPrice;
 			var nowPrice;
+			var sMemberNo;
+			
 			
 			/* 경매정보 리스트 조회  */
 			$.ajax({
 				url:"auctionDetails.bi",
 				type:"get",
 				async:false,
-				data:{itemNo : "6"},
+				data:{itemNo : itemNo},
 				success:function(data){
 					$("#itemNo").text(data.itemNo);
 					$("#startPrice").text(numComma(data.startPrice));
@@ -567,10 +569,13 @@
 					$.ajax({
 						url:"selectQa.bi",
 						type:"get",
+						async:false,
 						data:{itemNo : itemNo},
 						success:function(data){
 							var count = 1;
 							for(var key in data){
+								sMemberNo = data[key].sMno;
+								
 								var $qaTable = $("#qaTable");
 								var $tr = $("<tr class='boardTr'>");
 								var $td1 = $("<td>");
@@ -762,10 +767,11 @@
 							
 							
 							/* 문의 게시판 등록 */
+
 							$("#qaBtn").hover($("#qaBtn").css('cursor','pointer'),$("#qaBtn").css('cursor','cursor'));
-							/* $("#qaBtn").click(function)(){
-								
-							} */
+							$("#qaBtn , #question").click(function(){
+								location.href="auctionDetailQuestion.bi?itemNo=" + itemNo + "&aCode=" + aCode + "&memberNo=" + mid + "&sMemberNo=" + sMemberNo;
+							});
 						}
 						
 						/* 행운경매 입찰 */
@@ -934,6 +940,7 @@
 					}
 					else{
 						if(aCode != 'AC003'){
+							$("#remainTime").text("종료");
 							$("#bidBtn").css('background','gray');
 							$("#wishBtn").css('background','gray');
 							$("#qaBtn").css('background','gray');
@@ -1168,8 +1175,9 @@
 							if(time > 0){
 								printTime();
 							}
-							else{
+							else if(time == 0){
 								clearInterval(timeId);
+								time = time - 1;
 								$("#remainTime").text("종료");
 								$("#bidBtn").css('background','gray');
 								$("#wishBtn").css('background','gray');
@@ -1178,7 +1186,6 @@
 								$("#wishBtn").hover($("#wishBtn").css('cursor','cursor'),$("#wishBtn").css('cursor','cursor'));
 								$("#qaBtn").hover($("#qaBtn").css('cursor','cursor'),$("#qaBtn").css('cursor','cursor'));
 								$("#reTime").css('background','gray');
-								location.reload();
 								
 								
 								/* 입찰종료 */
@@ -1193,6 +1200,7 @@
 										console.log("마감종료 실패");
 									}
 								});
+								location.reload();
 							}
 						},1000);
 				});
