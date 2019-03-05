@@ -26,6 +26,7 @@
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
 	integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
 	crossorigin="anonymous"></script>
+	 <script src="https://rawgit.com/moment/moment/2.2.1/min/moment.min.js"></script>
 
 <style>
 .column {
@@ -182,7 +183,7 @@ display :none;
 						
   							<select name="auctionCode" id="selectBox">	
     						<option value="선택">선택해주세요</option>
-    						<option value="AC003">다운경매</option>
+    						<option value="AC003">실시간경매</option>
     						<option value="AC001">최고가밀봉경매</option>
     						<option value="AC002">행운경매</option>
   								</select>
@@ -214,11 +215,11 @@ display :none;
 				</tr>
 				<tr>
 					<td>경매 시작날짜</td>
-					<td><input type="date" name="startDay"></td>
+					<td><input id="currentDatetime" type="datetime-local"    name="startDay"></td>
 				</tr>
 				<tr>
 					<td>경매 종료날짜</td>
-					<td><input type="date" name="endDay"></td>
+					<td><input  id ="currentDatetime1" type="datetime-local"  name="endDay"></td>
 				</tr>
 			</tbody>
 			
@@ -422,9 +423,24 @@ display :none;
 
 	});
 	
-
-				
-				
+	var kkk=document.getElementById('currentDatetime').value;
+	kkk= new Date().toISOString().slice(0, -1);
+	
+	moment(kkk).format("YYYY-MM-DD HH:mm:ss");
+	
+	
+	
+	document.getElementById('currentDatetime').value= new Date().toISOString().slice(0, -1);
+	document.getElementById('currentDatetime1').value= new Date().toISOString().slice(0, -1);
+	
+	var dateTime=new Date().toISOString().slice(0, -1);
+	
+	var aaa=moment(dateTime).format("YYYY-MM-DD HH:mm:ss");
+	
+	console.log(aaa);
+	//console.log(dateTime);
+	
+	
 				 
 				
 	</script>
