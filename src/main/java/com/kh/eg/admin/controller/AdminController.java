@@ -121,7 +121,7 @@ public class AdminController {
 		cg.setCategoryName(category);
 		cg.setCategoryLevel(bd);
 		cg.setUppercategoryNo(division);
-
+		
 		try {
 			int result = ams.insertCategory(cg);
 			model.addAttribute("result", result);
