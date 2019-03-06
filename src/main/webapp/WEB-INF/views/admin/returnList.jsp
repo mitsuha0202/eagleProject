@@ -92,9 +92,9 @@
 					<c:forEach var="b" items="${ list }">
 					<tr>
 						<td>
-							<input name="check"value="${ b.payNo }!${ b.price }" type="checkbox">
+							<input name="check"value="${ b.dealNo }!${ b.price }" type="checkbox">
 						</td>
-						<td>${ b.payNo }</td>
+						<td>${ b.dealNo }</td>
 						<td>${ b.memberId }</td>
 						<td>${ b.phone }</td>
 						<td>${ b.orderm }</td>
