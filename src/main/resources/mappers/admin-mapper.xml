@@ -64,7 +64,7 @@
 	</resultMap>
 	
 	<resultMap type="com.kh.eg.admin.model.vo.Return" id="returnResultSet">
-	  <result property="payNo" column="PAYNO" />
+	  <result property="dealNo" column="DEALNO" />
       <result property="memberId" column="MEMBERID" />
       <result property="phone" column="PHONE" />
       <result property="orderm" column="ORDERM" />
@@ -347,34 +347,34 @@
    
    <!-- 반품 리스트 -->
    <select id="selectReturnList" resultMap="returnResultSet">
-      SELECT D.PAYNO, M.MEMBERID, M.PHONE, D.ORDERM, M.ADDRESS, A.ITEMNAME, W.PRICE FROM MEMBER M JOIN WINBID W ON (M.MEMBERNO = W.MEMBERNO) 
+      SELECT D.DEALNO, M.MEMBERID, M.PHONE, D.ORDERM, M.ADDRESS, A.ITEMNAME, W.PRICE FROM MEMBER M JOIN WINBID W ON (M.MEMBERNO = W.MEMBERNO) 
       JOIN WINBIDDETAIL D ON(W.DEALNO = D.DEALNO)JOIN AUCTIONITEM A ON (A.ITEMNO = W.ITEMNO) AND ENDDEALSTATUS = 'N' AND D.ORDERM='반품신청'
    </select>
    
    <!-- 반품 승인 낙찰테이블 -->
    <select id="returnOk" parameterType="map">
-     UPDATE WINBIDDETAIL SET ORDERM = '반품완료', ENDDEALSTATUS = 'Y' WHERE PAYNO = #{payNo}
+     UPDATE WINBIDDETAIL SET ORDERM = '반품완료', ENDDEALSTATUS = 'Y' WHERE DEALNO = #{dealNo}
    </select>
    
    <!-- 반품 거절 -->
    <select id="returnRefuse" resultMap="returnResultSet">
-     UPDATE WINBIDDETAIL SET ORDERM = '반품거절', ENDDEALSTATUS = 'Y' WHERE PAYNO = #{payNo}
+     UPDATE WINBIDDETAIL SET ORDERM = '반품거절', ENDDEALSTATUS = 'Y' WHERE DEALNO = #{dealNo}
    </select>
    
    <!-- 반품 승인 구매자 돌려주기 -->
    <select id="buyer" parameterType="map">
-	UPDATE MEMBER SET EMONEY = (SELECT EMONEY FROM MEMBER M JOIN WINBID W ON (M.MEMBERNO = W.MEMBERNO) 
-	JOIN WINBIDDETAIL A ON (A.DEALNO = W.DEALNO) WHERE PAYNO = #{payNo})+#{price}
-	WHERE MEMBERID = (SELECT MEMBERID FROM MEMBER M JOIN WINBID W ON (M.MEMBERNO = W.MEMBERNO) 
-	JOIN WINBIDDETAIL A ON (A.DEALNO = W.DEALNO) WHERE PAYNO = #{payNo})
+	UPDATE MEMBER SET EMONEY = (SELECT EMONEY FROM WINBID W JOIN MEMBER M ON (W.MEMBERNO = M.MEMBERNO)
+	JOIN WINBIDDETAIL D ON (D.dEALNO = W.DEALNO) WHERE D.DEALNO = #{dealNo})+#{price}
+	WHERE MEMBERID = (SELECT MEMBERID FROM WINBID W JOIN MEMBER M ON (W.MEMBERNO = M.MEMBERNO)
+	JOIN WINBIDDETAIL D ON (D.dEALNO = W.DEALNO) WHERE D.DEALNO = #{dealNo})
    </select>
    
    <!-- 반품 승인 판매자 빼기  -->
    <select id="seller" parameterType="map" >
 	UPDATE MEMBER SET EMONEY = (SELECT EMONEY FROM AUCTIONITEM A JOIN MEMBER M ON (A.MEMBERNO = M.MEMBERNO) 
-	JOIN WINBID W ON (W.ITEMNO = A.ITEMNO) JOIN WINBIDDETAIL D ON (D.DEALNO = W.DEALNO) WHERE PAYNO = #{payNo})-#{price}
+	JOIN WINBID W ON (W.ITEMNO = A.ITEMNO) JOIN WINBIDDETAIL D ON (D.DEALNO = W.DEALNO) WHERE D.DEALNO = #{dealNo})-#{price}
 	WHERE MEMBERID = (SELECT MEMBERID FROM AUCTIONITEM A JOIN MEMBER M ON (A.MEMBERNO = M.MEMBERNO) 
-	JOIN WINBID W ON (W.ITEMNO = A.ITEMNO) JOIN WINBIDDETAIL D ON (D.DEALNO = W.DEALNO) WHERE PAYNO = #{payNo})
+	JOIN WINBID W ON (W.ITEMNO = A.ITEMNO) JOIN WINBIDDETAIL D ON (D.DEALNO = W.DEALNO) WHERE D.DEALNO = #{dealNo})
    </select>
    
 	<!-- 환전 완료 -->

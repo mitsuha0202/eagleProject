@@ -1,7 +1,7 @@
 package com.kh.eg.admin.model.vo;
 
 public class Return implements java.io.Serializable{
-	private String payNo;
+	private String dealNo;
 	private String memberId;
 	private String phone;
 	private String orderm;
@@ -11,10 +11,10 @@ public class Return implements java.io.Serializable{
 	
 	public Return () {}
 
-	public Return(String payNo, String memberId, String phone, String orderm, String address, String itemName,
+	public Return(String dealNo, String memberId, String phone, String orderm, String address, String itemName,
 			int price) {
 		super();
-		this.payNo = payNo;
+		this.dealNo = dealNo;
 		this.memberId = memberId;
 		this.phone = phone;
 		this.orderm = orderm;
@@ -23,12 +23,12 @@ public class Return implements java.io.Serializable{
 		this.price = price;
 	}
 
-	public String getPayNo() {
-		return payNo;
+	public String getDealNo() {
+		return dealNo;
 	}
 
-	public void setPayNo(String payNo) {
-		this.payNo = payNo;
+	public void setDealNo(String dealNo) {
+		this.dealNo = dealNo;
 	}
 
 	public String getMemberId() {
@@ -81,11 +81,10 @@ public class Return implements java.io.Serializable{
 
 	@Override
 	public String toString() {
-		return "Return [payNo=" + payNo + ", memberId=" + memberId + ", phone=" + phone + ", orderm=" + orderm
+		return "Return [dealNo=" + dealNo + ", memberId=" + memberId + ", phone=" + phone + ", orderm=" + orderm
 				+ ", address=" + address + ", itemName=" + itemName + ", price=" + price + "]";
 	}
-
+	
 	
 
-	
 }

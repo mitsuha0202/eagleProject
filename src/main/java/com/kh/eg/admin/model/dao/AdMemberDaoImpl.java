@@ -377,13 +377,13 @@ public class AdMemberDaoImpl implements AdMemberDao{
 	@Override
 	public int returnOk(SqlSessionTemplate session, String check) {
 		
-		String payNo=check.split("!")[0];
+		String dealNo=check.split("!")[0];
 		String price=check.split("!")[1];
 		
 		Map<String, Object> map= new HashMap<String, Object>();
 		
 		map.put("price", price);
-		map.put("payNo", payNo);
+		map.put("dealNo", dealNo);
 		
 		int result = 0;
 		
