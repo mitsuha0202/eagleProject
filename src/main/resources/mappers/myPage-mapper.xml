@@ -519,13 +519,13 @@
 	</select>
 	
 	<!-- winbiddetail에 isnert위해 판매자 번호 조회 -->
-	<select id="selectSaleMemberNo" resultType="java.lang.String" parameterType="java.lang.String">
+	<select id="selectSaleMemberNo" resultType="PayTable" parameterType="java.lang.String">
 		SELECT MEMBERNO FROM AUCTIONITEM WHERE ITEMNO = #{itemNo}
 	</select>
 	
 	<!-- winbid에 insert 하기위해 winbiddetail select -->
-	<select id="winBidSelect" resultType="java.lang.String" parameterType="java.lang.String">
-		SELECT DEALNO 
+	<select id="winBidSelect" resultType="WinBid" parameterType="java.lang.String">
+		SELECT DEALNO
 		FROM WINBID
 		WHERE MEMBERNO = #{mid}
 		AND ITEMNO = #{itemNo}
@@ -1295,5 +1295,11 @@
 		FROM WINBID 
 		WHERE MEMBERNO = #{mid}
 		AND ITEMNO = #{itemNo}
+	</select>
+	
+	<select id="selectEmoney" resultMap="memberResultSet" resultType="memberResultSet" parameterType="memberResultSet">
+		SELECT *
+		FROM MEMBER
+		WHERE MEMBERNO = #{mid}
 	</select>
 </mapper>

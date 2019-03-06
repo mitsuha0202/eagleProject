@@ -324,4 +324,6 @@ public interface MyPageDao {
 	//구매관리 거래신청 yn 
 	ArrayList<PayTable> searchWinList(SqlSessionTemplate sqlSession, String mid);
 
+	Member selectEmoney(SqlSessionTemplate sqlSession, Member m);
+
 }

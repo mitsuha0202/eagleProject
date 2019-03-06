@@ -348,7 +348,7 @@
 		<br>
 		<h5 style="color: black"><c:out value="${ sessionScope.loginUser.userName }님"/></h5>
 		<h5 style="color: black"><c:out value="${ rating }"/></h5>
-		<h5 style="color: black">사이버머니 <c:out value="${ sessionScope.loginUser.emoney }원"/></h5>
+		<h5 id="cEmoney" style="color: black"></h5>
 		<!-- <button class="mpUserDivBtn" onclick="location.href='userGradeInfo.mp'">회원등급 혜택안내</button> -->
 		<button class="ui basic button" onclick="location.href='userGradeInfo.mp'">회원등급 혜택</button>
 	</div>
@@ -575,10 +575,25 @@
 				}
 			});
 		});
+		
+		$(function(){
+			$.ajax({
+				url:"selectEmoney.mp",
+				type:"get",
+				data:{memberNo : '${sessionScope.loginUser.mid}'},
+				success:function(data){
+					$("#cEmoney").text("사이버머니 "+ data.emoney + "원");
+					console.log("사이버머니 조회 성공");
+				},
+				error:function(){
+					console.log("사이버머니 조회 실패");
+				}
+			});
+		});
 	</script>
 	<div id="footer">
       <div style="width:200px"></div>
-      <%-- <jsp:include page="../myPage/common/myPageFooter.jsp" /> --%>
+      <jsp:include page="../myPage/common/myPageFooter.jsp" />
       </div>
 </body>
 </html>

@@ -569,5 +569,16 @@ import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 			
 			return list;
 		}
-		
-	}
+
+		@RequestMapping("selectEmoney.mp")
+		public @ResponseBody Member selectEmoney(@RequestParam(value="memberNo") String memberNo) {
+			Member m = new Member();
+			Member mi = null;
+			
+			m.setMid(memberNo);
+			
+			mi = ms.selectEmoney(m);
+			
+			return mi;
+		}
+}
