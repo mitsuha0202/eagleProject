@@ -68,5 +68,4 @@ public class Report implements java.io.Serializable{
 	}
 
 	
-	
 }

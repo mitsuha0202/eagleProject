@@ -112,8 +112,9 @@
 	
 		<script>
 				function detail(boardNo){
-					console.log(boardNo);
+					
 					var admin = 1;
+					
 					location.href = "detailMessage.mp?docNo=" + boardNo +"&admin=" + admin;
 					
 				}
