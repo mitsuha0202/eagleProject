@@ -59,7 +59,7 @@
 			</table>
 					<tr>						
 					<td id="tdChargeCashMoney"><h3><b>선택한 금액 : <label id="amount">0</label>원 </b></h3></td>
-					<td ></td>					
+					<td><button class="btn btn-outline-success"  id="refundFunction" type="button" >결제하기</button></td>					
 					</tr>				
 			</div>
 
@@ -69,7 +69,7 @@
 		<table align="center" id="listArea" class="table table-striped"  border:1px; solid #dddddd">
 		 		<thead>
 		 			<tr>
-						<!-- <th style="width: 20% background-color:#eeeeee; text-align: center;">환급번호</th> -->
+						<th style="width: 20% background-color:#eeeeee; text-align: center;">환전번호</th>
 						<th style="width: 5% background-color:#eeeeee; text-align: center;">환전날짜</th>
 						<th style="width: 5% background-color:#eeeeee; text-align: center;">금액</th>
 						<!-- <th style="width: 3% background-color:#eeeeee; text-align: center;">환전상태</th> -->
@@ -78,7 +78,7 @@
 				<tbody>
 					<c:forEach var="e" items="${ list }">
 					<tr align="center">
-						<%-- <td>${e.payNo }</td> --%>
+						<td>${e.useNo }</td>
 						<td>${e.useDay}</td>
 						<td>${e.money}원</td>
 						<%-- <td>${e.exchangeYn}</td> --%>
@@ -101,9 +101,10 @@
 					 <tr align="center" style="border-bottom: 1px solid #dee2e6;">
 			  	<td colspan="5" style="border-right: 1px solid white; border-left: 1px solid white; font-size: 2.5em;" readonly>결제 정보가 없습니다.</td>
 				</tbody>
-		</c:if>	
+		</c:if>
+	
 		</div>
-		<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 	<script>
 	function p1(){
 		var num = Number($("#r1").text());
