@@ -72,6 +72,30 @@
       <result property="itemName" column="ITEMNAME" />
       <result property="price" column="PRICE" />
    </resultMap>
+   
+   <resultMap type="com.kh.eg.admin.model.vo.Reply" id="replyResultSet">
+	  <result property="commentNo" column="COMMENTNO" />
+      <result property="writeday" column="WRITEDAY" />
+      <result property="contents" column="CONTENTS" />
+      <result property="boardNo" column="BOARDNO" />
+      <result property="memberNo" column="MEMBERNO" />
+      <result property="deletestatus" column="DELETESTATUS" />
+   </resultMap>
+   
+    <resultMap type="com.kh.eg.admin.model.vo.Board" id="boardResultSet">
+	  <result property="boardNo" column="BOARDNO" />
+      <result property="title" column="TITLE" />
+      <result property="boardContent" column="BOARDCONTENT" />
+      <result property="memberNo" column="MEMBERNO" />
+      <result property="wirteDay" column="WRITEDAY" />
+      <result property="delStatus" column="DELETESTATUS" />
+      <result property="boardStatus" column="BOARDSTATUS" />
+      <result property="replyStatus" column="REPLYSTATUS" />
+      <result property="bCount" column="BCOUNT" />
+      <result property="sMemberNo" column="SMEMBERNO" />
+      <result property="itemNo" column="ITEMNO" />
+   </resultMap>
+
 
 	<!-- <select id="loginCheck" resultMap="memberResultSet" parameterType="Member"> 
 		SELECT * FROM MEMBER WHERE MEMBERID = #{userId} AND MEMBERPWD = #{userPwd} 
@@ -306,35 +330,35 @@
 	<!-- 문의 카운트 -->
 	<select id="postListCount" resultType="_int">
 		SELECT COUNT(*) FROM BOARD B JOIN MEMBER M ON (B.MEMBERNO = M.MEMBERNO) 
-		WHERE BOARDSTATUS = 'ONEBYONE' AND REPLYSTATUS = 'Y' AND DELETESTATUS = 'N'
+		WHERE BOARDSTATUS = 'ONEBYONE' AND REPLYSTATUS = 'N' AND DELETESTATUS = 'N'
 	</select>
 	
 	<!-- 문의 리스트 -->
 	<select id="selectPostList" resultMap="postResultSet">
 		SELECT B.BOARDNO, M.MEMBERID, B.WRITEDAY, M.PHONE, B.REPLYSTATUS, B.TITLE FROM BOARD B JOIN MEMBER M ON (B.MEMBERNO = M.MEMBERNO) 
-		WHERE BOARDSTATUS = 'ONEBYONE' AND REPLYSTATUS = 'Y'
+		WHERE BOARDSTATUS = 'ONEBYONE' AND REPLYSTATUS = 'N' AND DELETESTATUS = 'N'
 	</select>
 	
 	<!-- 반품 카운트 -->
    <select id="returnListCount" resultType="_int">
      SELECT COUNT(*) FROM MEMBER M JOIN WINBID W ON (M.MEMBERNO = W.MEMBERNO) 
-      JOIN WINBIDDETAIL D ON(W.DEALNO = D.DEALNO)JOIN AUCTIONITEM A ON (A.ITEMNO = W.ITEMNO) AND ANDDEALSTATUS = 'N' AND D.ORDERM='반품신청'
+      JOIN WINBIDDETAIL D ON(W.DEALNO = D.DEALNO)JOIN AUCTIONITEM A ON (A.ITEMNO = W.ITEMNO) AND ENDDEALSTATUS = 'N' AND D.ORDERM='반품신청'
    </select>
    
    <!-- 반품 리스트 -->
    <select id="selectReturnList" resultMap="returnResultSet">
       SELECT D.PAYNO, M.MEMBERID, M.PHONE, D.ORDERM, M.ADDRESS, A.ITEMNAME, W.PRICE FROM MEMBER M JOIN WINBID W ON (M.MEMBERNO = W.MEMBERNO) 
-      JOIN WINBIDDETAIL D ON(W.DEALNO = D.DEALNO)JOIN AUCTIONITEM A ON (A.ITEMNO = W.ITEMNO) AND ANDDEALSTATUS = 'N' AND D.ORDERM='반품신청'
+      JOIN WINBIDDETAIL D ON(W.DEALNO = D.DEALNO)JOIN AUCTIONITEM A ON (A.ITEMNO = W.ITEMNO) AND ENDDEALSTATUS = 'N' AND D.ORDERM='반품신청'
    </select>
    
    <!-- 반품 승인 낙찰테이블 -->
    <select id="returnOk" parameterType="map">
-     UPDATE WINBIDDETAIL SET ORDERM = '반품완료', ANDDEALSTATUS = 'Y' WHERE PAYNO = #{payNo}
+     UPDATE WINBIDDETAIL SET ORDERM = '반품완료', ENDDEALSTATUS = 'Y' WHERE PAYNO = #{payNo}
    </select>
    
    <!-- 반품 거절 -->
    <select id="returnRefuse" resultMap="returnResultSet">
-     UPDATE WINBIDDETAIL SET ORDERM = '반품거절', ANDDEALSTATUS = 'Y' WHERE PAYNO = #{payNo}
+     UPDATE WINBIDDETAIL SET ORDERM = '반품거절', ENDDEALSTATUS = 'Y' WHERE PAYNO = #{payNo}
    </select>
    
    <!-- 반품 승인 구매자 돌려주기 -->
@@ -377,6 +401,22 @@
 	<select id="auctionDel" parameterType="map">
 		UPDATE AUCTIONITEM SET DELETEYN = 'Y' WHERE ITEMNO = #{itemNo}
 	</select> 
+	
+	<!-- 1대1문의 답변  -->
+	<select id="replyOk" parameterType="map">
+		INSERT INTO reply(commentNo,writeDay,contents,boardNo,memberNo,deleteStatus)
+    	VALUES(RN_SEQ.NEXTVAL,SYSDATE,#{contents},#{boardNo},'1','N')
+	</select> 
+	
+	<!-- 1대1문의 보드상태 변경 -->
+	<select id="replyStatus" parameterType="map">
+		UPDATE BOARD SET REPLYSTATUS = 'Y' WHERE BOARDNO = #{boardNo}
+	</select> 
+	
+	
+	
+	
+	
 	
 	
 </mapper>

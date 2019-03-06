@@ -322,12 +322,30 @@ public class AdMemberDaoImpl implements AdMemberDao{
 		int result = 0;
 		
 		String memberId=check.split("!")[0];
-		String eMoney=check.split("!")[1];
+		double eMoney=Integer.parseInt(check.split("!")[1]);
+		String rating=check.split("!")[2];
+		
+		
 		
 		Map<String, Object> map= new HashMap<String, Object>();
 		
 		map.put("memberId", memberId);
-		map.put("eMoney", Integer.parseInt(eMoney));
+		map.put("eMoney", eMoney);
+		map.put("rating", rating);
+		
+		if(rating == "BRONZE") {
+			eMoney = (int) (eMoney * 0.90);
+		}else
+		if(rating == "SILVER") {
+			eMoney = (int) (eMoney * 0.92);
+		}else
+		if(rating == "GOLD") {
+			eMoney = (int) (eMoney * 0.94);
+		}else
+		if(rating == "DIA") {
+			eMoney = (int) (eMoney * 0.97);
+		}
+		
 		int result1 = session.update("AdminVo.payBackY", memberId);
 		int result2 = session.update("AdminVo.payBackUp", map);
 		
@@ -350,8 +368,9 @@ public class AdMemberDaoImpl implements AdMemberDao{
 
 	@Override
 	public int returnRefuse(SqlSessionTemplate session, String payNoCheck) {
-		int result = session.update("AdminVo.returnRefuse", payNoCheck);
-		
+		String payNo=payNoCheck.split("!")[0];
+		int result = session.update("AdminVo.returnRefuse", payNo);
+		System.out.println(result);
 		return result;
 	}
 
@@ -405,6 +424,26 @@ public class AdMemberDaoImpl implements AdMemberDao{
 		int result = session.update("AdminVo.auctionDel", map);
 		
 		return result;
+	}
+
+	@Override
+	public int replyOk(SqlSessionTemplate session, String contents, String boardNo) {
+		
+		Map<String, Object> map= new HashMap<String, Object>();
+		
+		map.put("contents", contents);
+		map.put("boardNo", boardNo);
+		
+		int result = 0;
+		
+		int result1 = session.insert("AdminVo.replyOk", map);
+		int result2 = session.update("AdminVo.replyStatus", map);
+		
+		if(result1 > 0 && result2 > 0) {
+			result = 1;
+		}
+		
+		return 0;
 	}
 
 	

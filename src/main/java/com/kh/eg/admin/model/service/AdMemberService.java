@@ -80,6 +80,9 @@ public interface AdMemberService {
 
 	int auctionDel(String[] check) throws AdMemberselectException;
 
+	int replyOk(String reply, String boardNo) throws AdMemberselectException;
+
+
 
 
 
