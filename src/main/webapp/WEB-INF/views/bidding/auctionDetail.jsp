@@ -101,6 +101,12 @@
  		margin-left:30px;
  		padding-top:20px;
  	}
+ 	#footer{ position:fixed; 
+	  left:0px; 
+	  bottom:10px; 
+	  height:60px; 
+	  width:100%; 
+	 }
 </style>
 
 </head>
@@ -376,6 +382,10 @@
         </div>
         <div class = "two wide column"></div>
    	</div>
+   	<div id="footer">
+      <div style="width:200px"></div>
+      <jsp:include page="../common/footer.jsp" />
+      </div>
    	
    	<c:if test="${(sessionScope.loginUser.mid ne '') and !(empty sessionScope.loginUser.mid)}">
 	   	<input id="chat_id" type="hidden" value='${sessionScope.loginUser.userId }'>
@@ -391,7 +401,6 @@
 	    }
 		var time;
 		var remainTime;
-		var webSocket = new WebSocket('ws://localhost:8001/eg/broadcasting');
 		$(function(){
 			var currentPrice = 0;
 			var bidUnit = 0;
@@ -921,9 +930,9 @@
 							
 							/* 문의 게시판 등록 */
 							$("#qaBtn").hover($("#qaBtn").css('cursor','pointer'),$("#qaBtn").css('cursor','cursor'));
-							/* $("#qaBtn").click(function)(){
-								
-							} */
+							$("#qaBtn , #question").click(function(){
+								location.href="auctionDetailQuestion.bi?itemNo=" + itemNo + "&aCode=" + aCode + "&memberNo=" + mid + "&sMemberNo=" + sMemberNo;
+							});
 						}
 						
 						else if(aCode == 'AC003'){
@@ -996,11 +1005,11 @@
 								
 								/* 문의 게시판 등록 */
 								$("#qaBtn").hover($("#qaBtn").css('cursor','pointer'),$("#qaBtn").css('cursor','cursor'));
-								/* $("#qaBtn").click(function)(){
-									
-								} */
+								$("#qaBtn , #question").click(function(){
+									location.href="auctionDetailQuestion.bi?itemNo=" + itemNo + "&aCode=" + aCode + "&memberNo=" + mid + "&sMemberNo=" + sMemberNo;
+								});
 								
-								/* var webSocket = new WebSocket('ws://localhost:8001/eg/broadcasting'); */
+								var webSocket = new WebSocket('ws://localhost:8001/eg/broadcasting');
 								var inputPrice = "";
 								var msg = "입찰할 금액을 입력하세요.";
 								
