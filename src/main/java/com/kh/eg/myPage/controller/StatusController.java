@@ -42,6 +42,10 @@ public class StatusController {
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		ArrayList<PayTable> list = ms.selectPayList(pi, m.getMid());
 		
+		for(int i=0; i<list.size(); i++) {
+			if(list.get(i).getOrderM() != null || !list.get(i).getOrderM().equals("거래신청"));
+				list.remove(i);
+		}
 		/*Three three = new Three();			
 		list.get(i).setCurrentPrice((three.toNumFormat(Integer.parseInt(list.get(i).getCurrentPrice()))));*/
 		Collections.sort(list);
@@ -102,7 +106,7 @@ public class StatusController {
 		ArrayList<PayTable> list = new ArrayList<PayTable>();
 		
 		for(int i=0; i<topList.size(); i++) {
-			if(topList.get(i).getRowBid() != 1) {
+			if(topList.get(i).getRowBid() != 1 && topList.get(i).getRowBid() != 0) {
 				list.add(topList.get(i));
 			}
 		}

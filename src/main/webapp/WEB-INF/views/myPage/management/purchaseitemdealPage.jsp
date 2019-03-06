@@ -50,7 +50,7 @@
 	<div class="tabBigBox btab_2ea mt40" style="margin-left: auto; margin-right: auto; width: 1500px; padding-top: 100px; padding-bottom: 50px;">
 				<ul style="padding-bottom: 100px;">
 					<li style="width:25%;"><a href="purchasestatus.mp">입찰중물품</a></li>
-					<li style="width:25%"><a href="purchaseend.mp">구매종료</a></li>
+					<li style="width:25%"><a href="purchaseend.mp">경매종료</a></li>
 					<li class="on" style="width:25%"><a href="purchaseitemdeal.mp">구매 물품 거래 진행중</a></li>
 					<li style="width:25%"><a href="purchaseother.mp">구매거부/반품/미입금/판매거부/미수령신고</a></li>
 				</ul>
@@ -196,8 +196,8 @@
    		 		}else{
    		 			window.alert("보유하고 있는 사이버머니가 부족합니다.");
    		 		} 
-   		 });
-   		 	} 
+   	/* 	 });
+   		 	}  */
 
 	</script>
 </body>

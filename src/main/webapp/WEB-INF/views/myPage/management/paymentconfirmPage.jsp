@@ -84,7 +84,7 @@
 		<table class="buyStatusTable">
 			<tr>
 				<td class="firstTd" onclick="location.href='purchasestatus.mp'" colspan="2">입찰중물품</td>
-				<td class="firstTd" onclick="location.href='purchaseend.mp'" colspan="2">구매 종료</td>
+				<td class="firstTd" onclick="location.href='purchaseend.mp'" colspan="2">경매 종료</td>
 				<td class="firstTd" onclick="location.href='purchaseitemdeal.mp'" colspan="2">구매 물품 거래 진행중</td>
 				<td class="firstTd" onclick="location.href='purchaseother.mp'" colspan="2">구매거부/반품/미입금/판매거부/미수령신고</td>
 			</tr>			

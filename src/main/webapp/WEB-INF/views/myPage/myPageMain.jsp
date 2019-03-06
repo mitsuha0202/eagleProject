@@ -8,6 +8,13 @@
 <title>myPageMain</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
+
+	#footer{ position:fixed; 
+	  left:0px; 
+	  bottom:10px; 
+	  height:60px; 
+	  width:100%; 
+   }
 	/* 페이지 제목 */
 	.title{
 		position: absolute;
@@ -150,9 +157,10 @@
 		height: 50px;
 	} */
 	
-	.buyStatusTable {
+	.buyStatusTable, .saleStatusTable {
+		opacity: 0.8;
 	  border-collapse: collapse;
-	  border-top: 3px solid #168;
+	  border-top: 3px solid #205181;
 	  position: absolute;
 		left: 70px;
 		top: 515px;
@@ -161,27 +169,27 @@
 		width: 1355px;
 		height: 50px;
 	}  
-	.buyStatusTable th {
+	.buyStatusTable th, .saleStatusTable th {
 	  color: #168;
 	  background: #f0f6f9;
 	  text-align: center;
 		width: 1355px;
 		height: 50px;
 	}
-	.buyStatusTable th, .buyStatusTable td {
+	.buyStatusTable th, .buyStatusTable td, .saleStatusTable th, .saleStatusTable td {
 	  padding: 10px;
 	  border: 1px solid #ddd;
 	  text-align: center;
 		width: 1355px;
 		height: 50px;
 	}
-	.buyStatusTable th:first-child, .buyStatusTable td:first-child {
+	.buyStatusTable th:first-child, .buyStatusTable td:first-child, .saleStatusTable th:first-child, .saleStatusTable td:first-child {
 	  border-left: 0;
 	  text-align: center;
 		width: 1355px;
 		height: 50px;
 	}
-	.buyStatusTable th:last-child, .buyStatusTable td:last-child {
+	.buyStatusTable th:last-child, .buyStatusTable td:last-child, .saleStatusTable th:last-child, .saleStatusTable td:last-child {
 	  border-right: 0;
 	  text-align: center;
 		width: 1355px;
@@ -254,6 +262,7 @@
 	}
 	/* 구매현황 버튼 */
 	.purchasestatus{
+		opacity: 0.5;
 		text-align: center;
 		background-color: white;
 		border: 1px solid #205181;
@@ -270,6 +279,7 @@
 	
 	/* 판매현황 버튼 */
 	.salesstatus{
+		opacity: 0.5;
 		text-align: center;
 		background-color: white;
 		border: 1px solid #205181;
@@ -327,9 +337,6 @@
 	<!-- 헤더바 -->
 	<jsp:include page="../common/header.jsp"/>
 	
-	<!-- 헤더바 밑 선 -->
-	<hr class="firstLine">
-	
 	<!-- 마이페이지 제목 -->
 	<div class="title"><h1>마이페이지</h1></div>
 	
@@ -337,7 +344,7 @@
 	<div class="mpUserDiv">
 		<br>
 		<h5 style="color: black"><c:out value="${ sessionScope.loginUser.userName }님"/></h5>
-		<h5 style="color: black">회원등급 <c:out value="${ rating }"/></h5>
+		<h5 style="color: black"><c:out value="${ rating }"/></h5>
 		<h5 style="color: black">사이버머니 <c:out value="${ sessionScope.loginUser.emoney }원"/></h5>
 		<!-- <button class="mpUserDivBtn" onclick="location.href='userGradeInfo.mp'">회원등급 혜택안내</button> -->
 		<button class="ui basic button" onclick="location.href='userGradeInfo.mp'">회원등급 혜택</button>
@@ -395,8 +402,8 @@
 				<td><h5>미입금</h5></td>
 				<td><h5>판매거부</h5></td>
 			</tr>
-			<tr id="one">
-				<!-- <td class="one"></td>
+			<!-- <tr id="one">
+				<td class="one"></td>
 				<td></td>
 				<td></td>
 				<td></td>
@@ -404,8 +411,8 @@
 				<td></td>
 				<td></td>
 				<td></td>
-				<td></td> -->
-			</tr>
+				<td></td> 
+			</tr> -->
 		</table>
 	</div>
 	
@@ -415,7 +422,7 @@
 	
 	<!-- 판매현황 테이블 -->
 	<div class="saleStatus">
-		<table class="buyStatusTable">
+		<table class="saleStatusTable">
 			<tr>
 				<td colspan="5" class="firstTd">주문/배송조회</td>
 				<td colspan="5" class="firstTd">취소/반품/미수령</td>
@@ -431,8 +438,8 @@
 				<td><h5>미입금</h5></td>
 				<td><h5>판매거부</h5></td>
 			</tr>
-			<tr>
-				<td><h5 class="two"></h5></td>
+			<!-- <tr>
+				<td><h5 id="two"></h5></td>
 				<td><h5></h5></td>
 				<td><h5></h5></td>
 				<td><h5></h5></td>
@@ -440,8 +447,8 @@
 				<td><h5></h5></td>
 				<td><h5></h5></td>
 				<td><h5></h5></td>
-				<td><h5></h5></td>
-			</tr>
+				<td><h5></h5></td> 
+			</tr> -->
 		</table>
 	</div>
 	
@@ -490,60 +497,74 @@
 				type:"get",
 				data:{userId:userId},
 				success:function(data){
-					var $tr = $("#one");
-					for(var i = 0; i < 9; i++){
-						var $td = $("<td>");
-						$tr.append($td);
-					}
-					$.each(data, function(i, val) {
-						if(userId == val.payNo){
-							console.log("dd");
-							if(val.orderM == "입금요청"){
-								$tr.children().eq(0).text("1");
-							}else if(val.orderM == "배송요청"){
-								$tr.children().eq(1).text("1");
-							}else if(val.orderM == "배송중"){
-								$tr.children().eq(2).text("1");
-							}else if(val.orderM == "배송완료"){
-								$tr.children().eq(3).text("1");
-							}else if(val.orderM == "구매거부"){
-								$tr.children().eq(4).text("1");
-							}else if(val.orderM == "반품"){
-								$tr.children().eq(5).text("1");
-							}else if(val.orderM == "미수령"){
-								$tr.children().eq(6).text("1");
-							}else if(val.orderM == "미입금"){
-								$tr.children().eq(7).text("1");
-							}else if(val.orderM == "판매거부"){
-								$tr.children().eq(8).text("1");
-							}
-						}else {
-							var $tr = $("#two");
+					for(var i=0; i<data.length; i++){
+						if(userId == data[i].payNo){
+							var $tr = $(".buyStatusTable").append($tr);
 							for(var i = 0; i < 9; i++){
 								var $td = $("<td>");
 								$tr.append($td);
 							}
-							if(val.orderM == "입금요청"){
-								$tr.children().eq(0).text("1");
-							}else if(val.orderM == "배송요청"){
-								$tr.children().eq(1).text("1");
-							}else if(val.orderM == "배송중"){
-								$tr.children().eq(2).text("1");
-							}else if(val.orderM == "구매결정대기"){
-								$tr.children().eq(3).text("1");
-							}else if(val.orderM == "구매거부"){
-								$tr.children().eq(4).text("1");
-							}else if(val.orderM == "반품"){
-								$tr.children().eq(5).text("1");
-							}else if(val.orderM == "미수령"){
-								$tr.children().eq(6).text("1");
-							}else if(val.orderM == "미입금"){
-								$tr.children().eq(7).text("1");
-							}else if(val.orderM == "판매거부"){
-								$tr.children().eq(8).text("1");
-							}
-						}
-					});
+							$.each(data, function(i, val) {																			
+								console.log(val);
+								console.log("구매");
+								console.log("userId" + userId);
+								console.log(val.payNo);
+								if(val.orderM == "입금요청"){
+									$tr.children().eq(1).text("1");
+								}else if(val.orderM == "배송요청"){
+									$tr.children().eq(2).text("1");
+								}else if(val.orderM == "배송중"){
+									$tr.children().eq(3).text("1");
+								}else if(val.orderM == "배송완료"){
+									$tr.children().eq(4).text("1");
+								}else if(val.orderM == "구매거부"){
+									$tr.children().eq(5).text("1");
+								}else if(val.orderM == "반품"){
+									$tr.children().eq(6).text("1");
+								}else if(val.orderM == "미수령"){
+									$tr.children().eq(7).text("1");
+								}else if(val.orderM == "미입금"){
+									$tr.children().eq(8).text("1");
+								}else if(val.orderM == "판매거부"){
+									$tr.children().eq(9).text("1");
+								}
+							});
+						}else {
+							$.each(data, function(i, val) {
+								console.log(val);
+								console.log("판매");
+								console.log("userId" + userId);
+								console.log(val.saleNo);
+								if(val.orderM != "입금요청"){
+									
+								}
+								var $tr = $(".saleStatusTable").append($tr);
+								for(var i = 0; i < 9; i++){
+									var $td = $("<td>");
+									$tr.append($td);
+								}
+								if(val.orderM == "입금요청"){
+									$tr.children().eq(1).text("1");
+								}else if(val.orderM == "배송요청"){
+									$tr.children().eq(2).text("1");
+								}else if(val.orderM == "배송중"){
+									$tr.children().eq(3).text("1");
+								}else if(val.orderM == "배송완료"){
+									$tr.children().eq(4).text("1");
+								}else if(val.orderM == "구매거부"){
+									$tr.children().eq(5).text("1");
+								}else if(val.orderM == "반품"){
+									$tr.children().eq(6).text("1");
+								}else if(val.orderM == "미수령"){
+									$tr.children().eq(7).text("1");
+								}else if(val.orderM == "미입금"){
+									$tr.children().eq(8).text("1");
+								}else if(val.orderM == "판매거부"){
+									$tr.children().eq(9).text("1");
+								}
+							});
+						}			
+					}
 				},
 				/* status는 에러의 상태를 나타냄 */
 				error:function(status){
@@ -552,5 +573,9 @@
 			});
 		});
 	</script>
+	<div id="footer">
+      <div style="width:200px"></div>
+      <jsp:include page="../myPage/common/myPageFooter.jsp" />
+      </div>
 </body>
 </html>

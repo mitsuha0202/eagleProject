@@ -508,9 +508,8 @@ import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 		
 		//문의게시판 상세보기
 		@RequestMapping("queryBoardDetail.mp")
-		public String queryBoardDetail(HttpServletRequest request, Model model) {
-			String temp = request.getQueryString();
-			String boardNo = temp.substring(6, temp.length());
+		public String queryBoardDetail(@RequestParam(value="boardNo") String boardNo, HttpServletRequest request, Model model) {
+			
 			MyPageBoard myBoard = ms.selectOneQuery(boardNo);
 			
 			if(myBoard != null) {
