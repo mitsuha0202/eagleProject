@@ -172,11 +172,14 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script>
 		function dealNo() {
-			var sendArr = new Array();
-   			var sendCur = new Array();
-   			var checkbox = $(".checkChild:checked");
-   	        /* alert("거래가 진행되었습니다."); */
-   		 	checkbox.each(function(i){
+			if(!$(".checkChild:checked").val()){
+				alert("물품을 선택해주세요.");
+				location.reload();
+			}else{
+				var sendArr = new Array();
+   				var sendCur = new Array();
+   				var checkbox = $(".checkChild:checked");
+   		 		checkbox.each(function(i){
    		 		var tr = checkbox.parent().parent().eq(i);
    		 		var td = tr.children();
    	            var docNum = td.eq(1).text();
@@ -184,7 +187,8 @@
    	            sendArr.push(docNum);
    	            sendCur.push(current);
  				location.href="salesitemprogress.mp?itemNo=" + sendArr +"," + "&currentPrice=" + sendCur;
-   		 	}); 		 	
+   		 		}); 		 	
+			}
 		}
 		
 		function noSale() {

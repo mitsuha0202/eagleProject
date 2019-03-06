@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.eg.attachment.model.vo.Attachment;
 import com.kh.eg.auction.model.dao.AuctionDao;
+import com.kh.eg.auction.model.vo.AuctionCount;
 import com.kh.eg.auction.model.vo.PageInfo;
 import com.kh.eg.bidding.model.vo.Bid;
 import com.kh.eg.category.model.vo.Category;
@@ -135,6 +136,12 @@ public class AuctionServiceImpl implements AuctionService {
 	public ArrayList<Item> selectItemM2() {
 		// TODO Auto-generated method stub
 		return  ad.mainItem2(sqlSession);
+	}
+
+	@Override
+	public int selectCount() {
+		// TODO Auto-generated method stub
+		return ad.selectCount(sqlSession);
 	}
 
 }

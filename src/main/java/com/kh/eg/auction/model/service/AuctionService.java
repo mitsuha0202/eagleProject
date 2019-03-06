@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.kh.eg.attachment.model.vo.Attachment;
+import com.kh.eg.auction.model.vo.AuctionCount;
 import com.kh.eg.auction.model.vo.PageInfo;
 import com.kh.eg.bidding.model.vo.Bid;
 import com.kh.eg.category.model.vo.Category;
@@ -49,6 +50,8 @@ public interface AuctionService {
 	ArrayList<Item> selectItemM1();
 
 	ArrayList<Item> selectItemM2();
+
+	int selectCount();
 
 
 }

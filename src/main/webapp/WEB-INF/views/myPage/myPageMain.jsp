@@ -205,7 +205,7 @@
 	}
 	/* 하단 div 영역 */
 	.tutorialDiv{
-		background-color: lightgray;
+		background-color: #F2F2F2;
 		position: absolute;
 		left: 70px;
 		top: 1020px;
@@ -249,8 +249,8 @@
 	}
 	#accountInfo{
 		position: absolute;
-		top: 120px;
-		left: 1250px;
+		top: 10px;
+		left: 1210px;
 	}
 	/* 구매현황 버튼 */
 	.purchasestatus{
@@ -455,7 +455,7 @@
 		<h4 class="tutorialText4">토 일 공휴일 휴무</h4>
 		<i class="clipboard icon" id="auctionInfo" onclick="location.href='egAuctionInfo.mp'"></i>
 		<h4 class="tutorialIcon1" onclick="egAuctionInfo.mp">사이트이용안내</h4>
-		<i class="dollar sign icon" id="accountInfo"></i>
+		<i class="dollar sign icon" id="accountInfo" style="font-size: 90px;"></i>
 		<h4 class="tutorialIcon2">자주묻는 질문</h4>		
 		<!-- 문의게시판 -->
 		<i class="clipboard icon" id="queryBoard" onclick="location.href='queryBoard.mp'"></i>

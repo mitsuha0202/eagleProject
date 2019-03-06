@@ -9,98 +9,47 @@
 
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script> 
 <style>
-	/* 페이지 제목 밑 선 */
-	.firstLine{
-		border: 1px solid #205181;
-	}
 	/* 페이지 제목 */
 	.title{
-		position: absolute;
-		top: 200px;
-		left: 70px;
+		padding-top: 50px;
+		padding-left: 80px;
+		padding-bottom: 60px;
 	}
 	/* 설명 */
 	.userInfoGuide{
-		position: absolute;
-		top: 280px;
-		left: 70px;
+		padding-left: 80px;
+		padding-bottom: 50px;
 	}
-	/* 테이블div */
-	.userInfoArea{
-		position: absolute;
-		top: 350px;
-		left: 70px;
-	}
-	/* 테이블 */
-	/* .userInfoTable, tr, td{
-		border: 1px solid black;
-		text-align: center;
-	} */
-	/* 테이블equalBtn */
-	.userInfoTable{
-		width: 1300px;
-		height: 300px;
-	}
+	
 	#detailAdd{
 		position: absolute;
-		top: 155px;
-		left: 850px;
+		top: 557px;
+		left: 710px;
 	}
 	/* 주소 버튼 */
-	.addBtn{
+	#addBtn{
 		position: absolute;
-		top: 150px;
-		left: 1170px;
+		top: 555px;
+		left: 1030px;
 		text-align: center;
-		background-color: #205181;
-		border: 1px solid white;
-		color:white;
-		border-radius: 10px;
-		width: 100px;
-		height: 40px;
-	    font-size: 16px;
 	}
 	/* 회원탈퇴 버튼 */
-	.deleteBtn{
-		position: absolute;
+	#deleteBtn{
 		top: 263px;
 		left: 450px;
 		text-align: center;
-		background-color: #205181;
-		border: 1px solid white;
-		color:white;
-		border-radius: 10px;
-		width: 90px;
-		height: 33px;
-	    font-size: 16px;
 	}
 	/* 저장버튼 */
-	.saveBtn{
+	#submitBtn{
 		position: absolute;
-		top: 700px;
-		left: 515px;
-		text-align: center;
-		background-color: #205181;
-		border: 1px solid white;
-		color:white;
-		border-radius: 10px;
-		width: 100px;
-		height: 40px;
-	    font-size: 16px;
+		left: 310px;
 	}
 	/* 닫기버튼 */
-	.closeBtn{
+	#closeBtn{
 		position: absolute;
-		top: 700px;
-		left: 800px;
-		text-align: center;
-		background-color: #205181;
-		border: 1px solid white;
-		color:white;
-		border-radius: 10px;
-		width: 100px;
-		height: 40px;
-	    font-size: 16px;
+		left: 610px;
+		height: 35px;
+		width: 105px;
 	}
 </style>
 </head>
@@ -108,18 +57,16 @@
 	<!-- 헤더바 -->
 	<jsp:include page="../common/header.jsp"/>
 	
-	<!-- 헤더바 밑 선 -->
-	<hr class="firstLine">
-	
 	<!-- 페이지 제목 -->
 	<div class="title"><h1>회원정보수정</h1></div>
 	<p class="userInfoGuide">- 기본정보는 필수입력사항입니다. 빠짐없이 채워넣어 주시기 바랍니다.<br>- 정확한 전화번호 및 주소 (이메일 포함)를 입력하셔야 정상적인 거래가 가능하며, 부정확한 개인정보로 인한 책임과 불이익은 회원 본인이 감수하게 되오니 개인정보 입력시 유의하시기 바랍니다.</p>
+	
 	<form action="userInfoUpate.mp" method="post" onsubmit="return check();">
-		<div class="userInfoArea">
-			<table class="userInfoTable">
+
+			<table class="table" style="width: 1500px; margin-left: auto; margin-right: auto;">
 				<tr>
 					<td>비밀번호 변경</td>
-					<td style="width: 850px;"><input type="password" id="pw1" class="form-control" style="width: 700px;" name="userPwd" placeholder="변경할 비밀번호를 숫자로 입력해주세요."><input type="hidden" name="mid" value="${ sessionScope.loginUser.mid }"></td>
+					<td><input type="password" id="pw1" class="form-control" style="width: 700px;" name="userPwd" placeholder="변경할 비밀번호를 숫자로 입력해주세요."><input type="hidden" name="mid" value="${ sessionScope.loginUser.mid }"></td>
 				</tr>
 				<tr>
 					<td>비밀번호 확인</td>
@@ -127,14 +74,11 @@
 				</tr>
 				<tr>
 					<td>이메일</td>
-					<td><input type="email" class="form-control" style="width: 700px;" name="email" value="${ sessionScope.loginUser.email }" readonly="readonly"></td>
+					<td><input type="email" class="form-control" style="width: 700px; background-color: #F5F5F5" name="email" value="${ sessionScope.loginUser.email }" readonly="readonly"></td>
 				</tr>
 				<tr>
 					<td>주소</td>
-					<td><input type="text" id="add" class="form-control" style="width: 380px;" name="address" value="${ m.address }" readonly="readonly"><button type="button" class="addBtn" onclick="return addressModal()">주소검색</button></td>
-				</tr>
-				<tr>
-					<td><input type="text" id="detailAdd" class="form-control" style="width: 300px" name="detailAddress" placeholder="상세주소를 입력해주세요."></td>
+					<td><input type="text" id="add" class="form-control" style="width: 380px; background-color: #F5F5F5" name="address" value="${ m.address }" readonly="readonly"><input type="text" id="detailAdd" class="form-control" style="width: 300px" name="detailAddress" placeholder="상세주소를 입력해주세요."><button type="button"  class="ui black basic button" id="addBtn" onclick="return addressModal()" style="height: 35px; width: 105px;">주소검색</button></td>
 				</tr>
 				<tr>
 					<td>핸드폰</td>
@@ -142,13 +86,17 @@
 				</tr>
 				<tr>
 					<td>회원탈퇴</td>
-					<td><button type="reset" class="deleteBtn" onclick="location.href='userDelete.mp'">탈퇴하기</button></td>
+					<td><button type="reset" class="ui orange basic button" id="deleteBtn" onclick="location.href='userDelete.mp'" style="height: 35px; width: 105px;">탈퇴하기</button></td>
 				</tr>
+			
 			</table>
-		</div>   
-		<button type="submit" class="saveBtn">저장</button>
+		
+		<button type="submit" class="ui black basic button" id="submitBtn" style="height: 35px; width: 105px;">저장</button>
+	
 	</form>
-	<button class="closeBtn" onclick="location.href='myPageMain.mp'">닫기</button>
+	
+	<button class="ui black basic button" id="closeBtn" onclick="location.href='myPageMain.mp'">닫기</button>
+	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script>
 		function addressModal() {
@@ -209,7 +157,7 @@
 				var phone = $("#ph").val();
 				
 				/* 영문과 숫자 혼합해 6~20자 이내 비밀번호 */
-				/* var reg_pwd = /^.*(?=.{6,20})(?=.*[0-9])(?=.*[a-zA-Z]).*$/; */
+				 /* var reg_pwd = /^.*(?=.{6,20})(?=.*[0-9])(?=.*[a-zA-Z]).*$/; */ 
 				
 				/* 숫자만 입력 */
 				var reg_pwd = /^[0-9]*$/;

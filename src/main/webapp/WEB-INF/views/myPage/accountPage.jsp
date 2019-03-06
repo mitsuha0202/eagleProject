@@ -8,59 +8,30 @@
 <meta charset="UTF-8">
 <title>회원 계좌관리</title>
 <style>
+
 	/* 페이지 제목 */
 	.title{
-		position: absolute;
-		left: 70px;
-		top: 200px;
+		padding-top: 50px;
+		padding-left: 80px;
+		padding-bottom: 60px;
 	}
-	/* 페이지 제목 밑 선 */
-	.firstLine{
-		border: 1px solid #205181;
-	}
+	
 	.accountInfo{
-		position: absolute;
-		left: 70px;
-		top: 270px;
+		padding-left: 80px;
+		padding-bottom: 50px;
 	}
-	.accountTableArea{
-		position: absolute;
-		left: 70px;
-		top: 500px;
+	
+	.btnArea{
+		padding-left: 700px;
 	}
-	.accountTable, tr, td{
-		border: 1px solid black;
-		text-align: center;
+	
+	#updateBtn{
+		height: 35px;
+		width: 105px;
 	}
-	.accountTable{
-		width: 1350px;	
-		height: 300px;
-	}
-	.updateBtn{
-		position: absolute;
-		top: 900px;
-		left: 550px;
-		text-align: center;
-		background-color: #205181;
-		border: 1px solid white;
-		color:white;
-		border-radius: 10px;
-		width: 150px;
-		height: 40px;
-	    font-size: 16px;
-	}
-	.closeBtn{
-		position: absolute;
-		top: 900px;
-		left: 750px;
-		text-align: center;
-		background-color: #205181;
-		border: 1px solid white;
-		color:white;
-		border-radius: 10px;
-		width: 150px;
-		height: 40px;
-	    font-size: 16px;
+	#closeBtn{
+		height: 35px;
+		width: 105px;
 	}
 </style>
 </head>
@@ -78,24 +49,24 @@
 		<p>본인 명의의 계좌를 등록하여 주시기 바랍니다 (아이디 실명에 한하여 송금이 가능합니다.)<br>처음 계좌를 등록하시는 경우 계좌변경을 클릭해 등록해주세요.<br>계좌를 입력하지 않은 경우 물품 배송정보 확인 및 반품신청을 하실 수 없습니다.</p>
 	</div>
 	
-	<div class="accountTableArea">
-		<table class="accountTable">
+	
+		<table class="table" style="width: 1000px; margin-left: auto; margin-right: auto;">
 			<c:if test="${ !empty maccount }">
 			<tr>
 				<td>은행명</td>
-				<td><input type="text" class="form-control" value="${ maccount.bankName }" readonly="readonly"></td>
+				<td><input type="text" class="form-control" value="${ maccount.bankName }" readonly="readonly" style="background-color: #FFFFFF"></td>
 			</tr>
 			<tr>
 				<td>계좌번호</td>
-				<td><input type="text" class="form-control" value="${ maccount.accountNo }" readonly="readonly"></td>
+				<td><input type="text" class="form-control" value="${ maccount.accountNo }" readonly="readonly" style="background-color: #FFFFFF"></td>
 			</tr>
 			<tr>
 				<td>예금주</td>
-				<td><input type="text" class="form-control" value="${ maccount.memberName }" readonly="readonly"></td>
+				<td><input type="text" class="form-control" value="${ maccount.memberName }" readonly="readonly" style="background-color: #FFFFFF"></td>
 			</tr>
 			<tr>
 				<td>등록일</td>
-				<td><input type="text" class="form-control" value="${ maccount.createDay }" readonly="readonly"></td>
+				<td><input type="text" class="form-control" value="${ maccount.createDay }" readonly="readonly" style="background-color: #FFFFFF"></td>
 			</tr>
 			</c:if>
 			<c:if test="${ empty maccount }">
@@ -104,8 +75,10 @@
          		</tr>
 			</c:if>
 		</table>
-	</div>
-	<button class="updateBtn" onclick="location.href='accountUpdate.mp'">계좌변경</button>
-	<button class="closeBtn" onclick="location.href='myPageMain.mp'">닫기</button>
+	<div class="btnArea">
+		<button class="ui orange basic button" id="updateBtn" onclick="location.href='accountUpdate.mp'">계좌변경</button>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<button class="ui black basic button" id="closeBtn" onclick="location.href='myPageMain.mp'">닫기</button>
+	</div>	
 </body>
 </html>

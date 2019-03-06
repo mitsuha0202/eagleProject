@@ -304,8 +304,8 @@ public class StatusController {
 			int listCount = ms.getPurchaseOtherNoparam(m.getMid());
 			pi = Pagination.getPageInfo(currentPage, listCount);
 		}
-		Collections.sort(list);
 		list = ms.selectPurChaseNoParam(pi, m.getMid());
+		Collections.sort(list);
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
 		return "myPage/management/purchaseotherPage";

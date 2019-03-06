@@ -379,5 +379,8 @@ where ITEMNAME LIKE '%한정%'or ITEMNAME like '%패키지%'or ITEMNAME like '%�
 WHERE RNUM BETWEEN 1 AND 8 ORDER BY ICOUNT DESC
 	</select>
 	
+	<select id="selectCount" resultType="_int">
+		SELECT COUNT(*) FROM AUCTIONITEM
+	</select>
 
 </mapper>

@@ -260,7 +260,7 @@
 		FROM BOARD B
         JOIN MEMBER M ON(B.SMEMBERNO = M.MEMBERNO)
 		WHERE B.DELETESTATUS = 'N' 
-		AND B.BOARDSTATUS = 'RECEIVEBOARD' 
+		AND B.BOARDSTATUS = 'QUESTIONBOARD' 
 		AND B.MEMBERNO = #{memberNo} 
 		ORDER BY WRITEDAY DESC
 	</select>
@@ -269,7 +269,7 @@
 	<select id="selectOneQuery" resultMap="myPageOneResultSet" parameterType="java.lang.String">
 		SELECT * FROM BOARD 
 		WHERE DELETESTATUS = 'N'
-		AND BOARDSTATUS = 'RECEIVEBOARD'
+		AND BOARDSTATUS = 'QUESTIONBOARD'
 		AND BOARDNO = #{boardNo}
 	</select>
 	
@@ -279,7 +279,7 @@
 		FROM BOARD B  
         JOIN MEMBER M ON(B.SMEMBERNO = M.MEMBERNO)
 		WHERE B.DELETESTATUS = 'N' 
-		AND B.BOARDSTATUS = 'RECEIVEBOARD' 
+		AND B.BOARDSTATUS = 'QUESTIONBOARD' 
 		AND B.MEMBERNO = #{memberNo}	
 		<choose>
 			<when test="writer != null">
@@ -297,7 +297,7 @@
 		FROM BOARD B
         JOIN MEMBER M ON(B.SMEMBERNO = M.MEMBERNO)
 		WHERE B.DELETESTATUS = 'N' 
-		AND B.BOARDSTATUS = 'RECEIVEBOARD' 
+		AND B.BOARDSTATUS = 'QUESTIONBOARD' 
 		AND B.MEMBERNO = #{memberNo} 
 		<choose>
 			<when test="writer != null">
