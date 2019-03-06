@@ -235,7 +235,7 @@ display :none;
 				<td>비용부담</td>
 				<td><input type="radio" name="deliveryPay" value="선결제" id="pre">선결제&nbsp;&nbsp;
 				<input type="radio" name="deliveryPay" value="착불" id="after">착불
-				&nbsp;&nbsp;<input type="radio" name="deliveryPay" id="free" value="무료">무료
+				
 				<br>
 				 비용 <input type="text" id="preP" name="deliveryPrice">원 
 				</td>
@@ -307,6 +307,18 @@ display :none;
 			$('.layer2').show();
 		}
 	});
+	$("#selectBox").change(function(){
+		
+		var state=$("#selectBox option:selected").val();
+		if(state=='AC003') {
+			$('#currentDatetime1').hide();
+			
+		}else {
+			$('#currentDatetime1').show();
+			
+		}
+		
+	})
 	
 	
 	
