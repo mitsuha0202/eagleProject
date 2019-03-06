@@ -291,6 +291,16 @@ public class AdMemberServiceImpl implements AdMemberService{
 		return result;
 	}
 
+	@Override
+	public int replyOk(String reply, String boardNo) throws AdMemberselectException {
+		int result = 0;
+		
+		result = amd.replyOk(sqlSession, reply, boardNo);
+
+		return result;
+	}
+
+
 	
 
 	

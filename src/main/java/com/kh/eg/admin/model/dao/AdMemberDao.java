@@ -81,6 +81,8 @@ public interface AdMemberDao {
 
 	int auctionDel(SqlSessionTemplate sqlSession, String string);
 
+	int replyOk(SqlSessionTemplate sqlSession, String reply, String boardNo);
+
 	
 
 	

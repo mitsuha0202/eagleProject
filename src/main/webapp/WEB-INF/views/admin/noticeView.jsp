@@ -4,6 +4,7 @@
 
 
 <title>Eagle 관리자페이지</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <style>
 	#mytextarea{
 		width : 900;
@@ -30,6 +31,10 @@
 			</colgroup>
 			<tbody>
 			<tr>
+				<th scope="row">글 번호</th>
+				<td>${ myBoard.boardNo }</td>
+			</tr>
+			<tr>
 				<th scope="row">제목</th>
 				<td>${ myBoard.title }</td>
 			</tr>
@@ -48,18 +53,24 @@
 		
 		
 		<div class="tcen mt30">
-			<span><a class="bbtn or" onclick="">작성완료<a></span>
-			<span><a class="bbtn bk" href="postList.ad">취소<a></span>
+			<span><a class="bbtn or" onclick="reply('${ myBoard.boardNo }');">작성완료</a></span>
+			<span><a class="bbtn bk" href="postList.ad">취소</a></span>
 		</div>
-
+	
 		</div><!--// contBox E-->
 
 	</div><!--// container E-->
 
 	<%@ include file="include/footer.jsp" %>
-
+	
 
 </div><!--// Wrap E-->
-
+		<script>
+			function reply(boardNo){
+				var reply = $("#mytextarea").val();
+				console.log(boardNo);
+				location.href = "reply.ad?reply=" + reply +"&boardNo=" + boardNo;
+			} 
+		</script>
 </body>
 </html>
