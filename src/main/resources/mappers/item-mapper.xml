@@ -89,7 +89,7 @@
 	</insert>
 	<insert id="insertAttachment">
 	INSERT INTO ATTACHMENT VALUES(AN_SEQ.NEXTVAL, #{originName},#{changeName},
-	#{root},0,'Y',null,#{itemNo}
+	'resources/uploadFiles/',#{fileLevel},'product',null,#{itemNo}
 	)
 	</insert>
 	<insert id="insertAuctionDetail">
