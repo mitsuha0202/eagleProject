@@ -97,9 +97,9 @@ h4 {
 			</table>
 
 			<br> <br>
-			<c:forEach items="${list20}">
-			<h4>${list20}모두 개의 물품이 검색되었습니다</h4>
-			</c:forEach>
+
+			<h4 class="countText"></h4>
+		
 			
 			<div class="nay">
 				<div style="font-size: 20px;">
@@ -423,13 +423,11 @@ h4 {
 	 			url:"selectCount.au",
 	 			type:"get",
 	 			dataType:"text",
-	 			contentType:"application/json",
 	 			success:function(data) {
-	 				var data=JSON.parse(data);
-	 				console.log(data);
-	 				var count=0;
-	 				var cCount=data.
+	 				$(".countText").text(data+"개가 검색되었습니다.");
 	 				
+	 			},error:function(error){
+	 				console.log("에러" + error);
 	 			}
 	 			
 	 		});

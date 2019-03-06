@@ -6,6 +6,7 @@ import java.util.HashMap;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.eg.attachment.model.vo.Attachment;
+import com.kh.eg.auction.model.vo.AuctionCount;
 import com.kh.eg.bidding.model.vo.Bid;
 import com.kh.eg.category.model.vo.Category;
 import com.kh.eg.item.model.vo.Item;
@@ -51,6 +52,8 @@ public interface AuctionDao {
 	ArrayList<Item> mainItem1(SqlSessionTemplate sqlSession);
 
 	ArrayList<Item> mainItem2(SqlSessionTemplate sqlSession);
+
+	int selectCount(SqlSessionTemplate sqlSession);
 
 	/*Object selectAttachment(SqlSessionTemplate sqlSession, int itemNo);*/
 

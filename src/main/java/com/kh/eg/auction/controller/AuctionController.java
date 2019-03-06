@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.kh.eg.attachment.model.vo.Attachment;
 import com.kh.eg.auction.model.service.AuctionService;
 import com.kh.eg.auction.model.service.AuctionServiceImpl;
+import com.kh.eg.auction.model.vo.AuctionCount;
 import com.kh.eg.auction.model.vo.PageInfo;
 import com.kh.eg.auction.model.vo.Pagination;
 import com.kh.eg.bidding.model.vo.Bid;
@@ -340,6 +341,10 @@ public class AuctionController {
 	
 	}
 
-
+	@RequestMapping("selectCount.au")
+	public @ResponseBody int selectCount(Model model) {
+		int count = as.selectCount();
+		return count;
+	}
 
 }

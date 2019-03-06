@@ -1,121 +1,48 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file="../admin/include/common.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="../eg/css/jquery.jqplot.css"/>
+<link rel="stylesheet" href="../eg/css/jquery-ui.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 <meta charset="UTF-8">
 <title>Message</title>
 <style>
-	/* 페이지 제목 밑 선 */
-	.firstLine{
-		border: 1px solid #205181;
-	}
-	/* 페이지 제목 */
 	.title{
-		/* position: absolute;
-		top: 260px;
-		left: 70px; */
+		padding-top: 50px;
+		padding-bottom: 50px;
+		padding-left: 80px;
 	}
-	/* 검색부분 div */
+	
 	.searchArea{
-	/* 	position: absolute; */
-		background-color: lightgray;
-		top: 340px;
-		left: 70px;
-		width: 90%;
-		height: 100px;
+		padding-left: 500px;
+		padding-bottom: 80px;
 	}
-	/* 검색 select태그부분 영역 */
-	.selectSize{
-		/* position: absolute; */
-		top: 33%;
-		left: 10%;
-		width: 9%;
+	
+	#searchCondition{
+		width: 100px;
 	}
-	/* 검색 input태그부분 */
-	.inputSize{
-		/* position: absolute; */
-		top: 33%;
-		left: 20%;
-		width: 30%;
+	
+	#searchValue{
+		position: absolute;
+		top: 300px;
+		left: 600px;
+		width: 300px;
 	}
-	/* 검색버튼 */
-	.searchBtn{
-		/* position: absolute; */
-		left: 52%;
-		top: 33%;
+	
+	#searchBtn{
+		position: absolute;
 		text-align: center;
-		background-color: #205181;
-		border: 1px solid white;
-		color:white;
-		border-radius: 10px;
-		width: 80px;
-		height: 35px;
-	    font-size: 16px;
+		top: 300px;
+		left: 905px;
 	}
-	/* 테이블 div */
-	.messageTableArea{
-		/* position: absolute; */
-		top: 67%;
-		left: 70px;
-	}
-	/* 테이블 */
-	.messageTable, tr, td{
-		border: 1px solid black;
-		text-align: center;
-		width: 1350px;
-		height: 70px;
-	}
-	/* 첫번째 td */
-	.firstTd{
-		background-color: #205181;
-		color: white;
-	}
-	/* 버튼영역 */
+	
 	.btnArea{
-		/* position: absolute; */
-		top: 800px;
-		left: 70px;
-	}
-	/* 삭제, 문의버튼 */
-	.deleteBtn, .queryBtn{
-/* 		position: absolute; */
-		text-align: center;
-		background-color: #205181;
-		border: 1px solid white;
-		color:white;
-		border-radius: 10px;
-		width: 150px;
-		height: 40px;
-	    font-size: 16px;
-
-	}
-	.queryBtn{
-		left: 1100px;
-	}
-	/* 닫기버튼 */
-	.closeBtn{
-		/* position: absolute; */
-		top: 100px;
-		left: 1100px;
-		text-align: center;
-		background-color: #205181;
-		border: 1px solid white;
-		color:white;
-		border-radius: 10px;
-		width: 150px;
-		height: 40px;
-	    font-size: 16px;
-	}
-	#checkAll, .checkChild{
-		width: 17px;
-		height: 17px;	
-	}
-	#pagingArea{
-		/* position: absolute; */
-		top: 1000px;
-		left: 45%;
+		padding-left: 80px;
 	}
 </style>
 </head>
@@ -128,24 +55,25 @@
 	<hr class="firstLine">
 	
 	<!-- 페이지 제목 -->
-	<div class="title"><h1>쪽지보관함</h1></div>
+	<div class="title"><h1>1대1 문의게시판</h1></div>
 	<c:if test="${ !empty sessionScope.loginUser }">
+	
 	<!-- 검색부분 div -->
 	<div class="searchArea">
 		<div class="selectSize">
-			<select class="form-control" id="searchId">
-	  		<option>쪽지제목</option>
+			<select class="form-control" id="searchCondition">
+	  		<option>쪽지제목</option>	  		
 			</select>
 		</div>
 		<div class="inputSize">
-			<input class="form-control" id="searchContent" placeholder="검색할 내용을 입력해주세요.">
+			<input class="form-control" id="searchValue" placeholder="검색할 내용을 입력해주세요.">
+			<button class="ui black basic button" onclick="search();" id="searchBtn" style="height: 35px; width: 80px;">검색</button>
 		</div>
-		<button class="searchBtn" onclick="search();">검색</button>
 	</div>
 	
 	<!-- 검색결과 테이블 -->
-   <div class="messageTableArea">
-      <table class="messageTable">
+	
+      <table class="table" style="width: 1500px; margin-left: auto; margin-right: auto;">
          <tr>
             <td class="firstTd"><input type="checkbox" id="checkAll" onclick="check();"></td>
             <td class="firstTd"><h5>번호</h5></td>
@@ -158,13 +86,13 @@
             <tr>
                <td><input type="checkbox" class="checkChild"></td> 
                <td name="choice">${ b.boardNo }</td>
-               <td>${ b.title }</td>
-               <td>${ b.writeDay }</td>
+               <td name="choice">${ b.title }</td>
+               <td name="choice">${ b.writeDay }</td>
                <c:if test="${ b.replyStatus eq 'Y'}">
-                  <td><h5>답변완료</h5></td>
+                  <td name="choice"><h5>답변완료</h5></td>
                </c:if>
                <c:if test="${ b.replyStatus eq 'N' }">
-                  <td><h5>답변대기</h5></td>
+                  <td name="choice"><h5>답변대기</h5></td>
                </c:if>                  
             </tr>
          </c:forEach>
@@ -175,13 +103,13 @@
          	</tr>
          </c:if>
       </table>
-   </div>
+
 	
 	<!-- 버튼 div -->
 	<div class="btnArea">
-		<button class="deleteBtn" onclick="listDelete();">삭제</button>
-		<button class="queryBtn" onclick="location.href='onebyone.mp'">문의하기</button>
-		<button class="closeBtn" onclick="location.href='myPageMain.mp'">닫기</button>
+		<button class="ui orange basic button"  data-toggle="modal" data-target="#exampleModal" style="height: 35px; width: 80px;">삭제</button>
+		<button class="ui black basic button" data-target="#oneByOne" style="height: 35px; width: 105px;" onclick="location.href='onebyone.mp'">문의하기</button>
+		<button class="ui black basic button"  data-target="#closeMessage" style="height: 35px; width: 80px;"onclick="location.href='myPageMain.mp'">닫기</button>
 	</div>
 	</c:if>
    <c:if test="${ empty sessionScope.loginUser }">
@@ -189,9 +117,27 @@
       <jsp:forward page="../common/errorPage.jsp"/>
    </c:if>
    
-   <div id="pagingArea" align="center">
+   <!-- Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">삭제하시겠습니까?</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+	        <button type="button" class="btn btn-primary" onclick="listDelete();">삭제하기</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+   <div id="pagingArea" class="numbox mt50">
 			<c:if test="${ pi.currentPage <= 1 }">
-				[이전]&nbsp;
+				<span class="prevnc">이전</span>
 			</c:if>
 			<c:if test="${ pi.currentPage > 1 }">
 				<c:url var="blistBack" value="/searchMessage.mp">
@@ -199,12 +145,12 @@
 					<c:param name="searchValue" value="${searchValue}"/>
 					<c:param name="currentPage" value="${pi.currentPage - 1}"/>
 				</c:url>
-				<a href = "${ blistBack }">[이전]</a> &nbsp;
+				<span><a class="prev" href="${ blistBack }">이전</a></span>
 			</c:if>
 			
 			<c:forEach var="p" begin="${ pi.startPage  }" end = "${pi.endPage}">
 				<c:if test="${ p eq pi.currentPage }">
-					<font color="red" size="4"><b>[${p}]</b></font>
+					<span><a class="num on" href="${ blistCheck }" style="background-color: #168;">${p}</a></span>
 				</c:if>
 				<c:if test="${ p ne pi.currentPage }">
 					<c:url var="blistCheck" value = "searchMessage.mp">
@@ -212,13 +158,13 @@
 						<c:param name="searchValue" value="${searchValue}"/>
 						<c:param name="currentPage" value="${p}"/>
 					</c:url>
-					<a href="${blistCheck}">${p}</a>
+					<span><a class="num" href="${ blistCheck }">${ p }</a></span>
 				</c:if>
 			
 			</c:forEach>
 		
 			<c:if test="${ pi.currentPage >= pi.maxPage }">
-				&nbsp; [다음]
+				 <span class="nextnc">다음</span>
 			</c:if>
 			<c:if test="${pi.currentPage < pi.maxPage }">
 				<c:url var="blistEnd" value="searchMessage.mp">
@@ -226,7 +172,7 @@
 					<c:param name="searchValue" value="${searchValue}"/>
 					<c:param name="currentPage" value="${ pi.currentPage + 1 }"></c:param>
 				</c:url>
-				<a href="${blistEnd}">&nbsp;[다음]</a>
+				<span><a class="next" href="${ blistEnd }">다음</a></span>
 			</c:if>
 		</div>
    
@@ -250,7 +196,6 @@
    		 		var td = tr.children();
    	            var docNum = td.eq(1).text();
    	            sendArr.push(docNum);
-   	            alert("1대1 문의글 삭제완료");
  				location.href="deleteMessage.mp?deleteNum=" + sendArr +",";
    		 	}); 		 	
 		}
@@ -258,7 +203,7 @@
    		/* 검색 */
    		function search() {
 			var searchCondition = $("#searchCondition").val();
-			var searchValue = $("#searchId").val();			
+			var searchValue = $("#searchValue").val();			
 			console.log(searchCondition);
 			console.log(searchValue);	
 			location.href = "searchMessage.mp?searchCondition="+searchCondition+"&searchValue="+searchValue;
@@ -266,13 +211,12 @@
    		
    		/* 상세보기  */
    		$("td[name=choice]").mouseenter(function() {
-			$(this).css({"cursor":"pointer"});
+			$(this).css({"cursor":"pointer","background-color":"#EFFBFB"});
 		}).mouseout(function() {
-			/* $(this).parent().css({"background":"white"}); */
+			$(this).css({"background":"white"});
 		}).click(function() {
 			var docno = $(this).parent().children().eq(1).text();
-			console.log(docno);
-			location.href="detailMessage.mp?docno=" + docno; 
+			location.href="detailMessage.mp?docNo=" + docno; 
 		}); 
    </script>
 </body>
