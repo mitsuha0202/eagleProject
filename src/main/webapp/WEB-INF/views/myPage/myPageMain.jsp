@@ -8,6 +8,13 @@
 <title>myPageMain</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
+	#footer{ position:fixed; 
+     left:0px; 
+     bottom:10px; 
+     height:60px; 
+     width:100%; 
+     color: black;
+   }
 	/* 페이지 제목 */
 	.title{
 		position: absolute;
@@ -210,7 +217,7 @@
 		left: 70px;
 		top: 1020px;
 		width: 1355px;
-		height: 200px;
+		height: 40px;
 	}
 	.tutorialText1{
 		position: absolute;
@@ -448,7 +455,7 @@
 	<!-- 하단 div영역 -->
 	<div class="tutorialDiv">
 		<br>
-		<h4 class="tutorialText1">고객센터 상담전화</h4>
+		<!-- <h4 class="tutorialText1">고객센터 상담전화</h4>
 		<br><br>
 		<h4 class="tutorialText2">02-000-0000</h4>
 		<h4 class="tutorialText3">평일 09:00~18:00</h4>&nbsp;<h4 class="tutorialText3">점심 12:00~13:00</h4>
@@ -457,12 +464,12 @@
 		<h4 class="tutorialIcon1" onclick="egAuctionInfo.mp">사이트이용안내</h4>
 		<i class="dollar sign icon" id="accountInfo" style="font-size: 90px;"></i>
 		<h4 class="tutorialIcon2">자주묻는 질문</h4>		
-		<!-- 문의게시판 -->
+		문의게시판
 		<i class="clipboard icon" id="queryBoard" onclick="location.href='queryBoard.mp'"></i>
-		<h4 class="tutorialIcon3">문의게시판</h4>
-		<!-- 문의받은 게시판 -->
+		<h4 class="tutorialIcon3" onclick="location.href='queryBoard.mp'">문의게시판</h4>
+		문의받은 게시판
 		<i class="clipboard icon" id="answerBoard" onclick="location.href='answerBoard.mp'"></i>
-		<h4 class="tutorialIcon4">문의받은게시판</h4>
+		<h4 class="tutorialIcon4" onclick="location.href='answerBoard.mp'" >문의받은게시판</h4> -->
 	</div>
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -552,5 +559,9 @@
 			});
 		});
 	</script>
+	<div id="footer">
+      <div style="width:200px"></div>
+      <jsp:include page="../myPage/common/myPageFooter.jsp" />
+      </div>
 </body>
 </html>

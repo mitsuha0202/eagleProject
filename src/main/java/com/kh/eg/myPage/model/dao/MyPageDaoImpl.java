@@ -539,7 +539,7 @@ public class MyPageDaoImpl implements MyPageDao{
 		if(list != null) {
 			if(list.get(0).getAmount()>=1000000 && list.get(0).getCount()>=6) {
 				result = sqlSession.update("MyPage.selectMemberRatingVip",memberNo);
-			}else if(list.get(0).getAmount()<1000000 && list.get(0).getCount()<6 && list.get(0).getAmount()>=500000 && list.get(0).getCount()>=2) {
+			}else if(list.get(0).getAmount()<1000000 && list.get(0).getCount()<6 && list.get(0).getAmount()>=500000 && list.get(0).getCount()>=4) {
 				result = sqlSession.update("MyPage.selectMemberRatingGold",memberNo);
 			}else {
 				result = sqlSession.update("MyPage.selectMemberRatingNormal",memberNo);

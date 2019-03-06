@@ -254,7 +254,7 @@ td {
 		
 		<div id="footer">
 		<div style="width:200px"></div>
-		<jsp:include page="../common/footer.jsp" />
+		<%-- <jsp:include page="../common/footer.jsp" / --%>>
 		</div>
 
 <script>

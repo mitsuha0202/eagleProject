@@ -66,7 +66,7 @@ import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 						return "myPage/myPageMain";
 					
 			    }
-			    else if(list.get(0).getAmount()<1000000 && list.get(0).getCount()<6 && list.get(0).getAmount()>=500000 && list.get(0).getCount()>=2) {
+			    else if(list.get(0).getAmount()<1000000 && list.get(0).getCount()<6 && list.get(0).getAmount()>=500000 && list.get(0).getCount()>=4) {
 			    	rating = "GOLD";
 			    	
 			    	
@@ -76,7 +76,7 @@ import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 					
 			    }
 			    else {
-			    	rating = "일반";
+			    	rating = "BRONZE";
 			    
 			    	
 						model.addAttribute("list",list);

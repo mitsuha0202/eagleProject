@@ -113,7 +113,7 @@
   </thead>
   <tbody>
     <tr>
-      <td style="text-align: center;">일 반</td>
+      <td style="text-align: center;">B R O N Z E</td>
       <td style="text-align: center;">-</td>
       <td style="text-align: center;">-</td>
       <td style="text-align: center;">수수료 10%</td>

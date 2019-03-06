@@ -53,12 +53,12 @@
 	
 	<!-- AOP를 이용하여 위의 txAdvice를 적용시키기 위해 pointcut 등록 -->
 	<!-- pointcut : advice가 weaving될 위치 -->
-	<aop:config proxy-target-class="true">
+	 <aop:config proxy-target-class="true">
 		<aop:pointcut expression="execution(* com.kh.eg..*ServiceImpl.*(..))" 
 						id="serviceMethod"/>
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethod"
 					id="transactionAdvisor"/>
-	</aop:config>
+	</aop:config> 
 	
 	
 	 <!-- 메일 보내기 (SEND) -->
