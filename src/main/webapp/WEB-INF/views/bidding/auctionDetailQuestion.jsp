@@ -60,6 +60,12 @@
  	#div2{
  		font-size:30px;
  	}
+ 	#footer{ position:fixed; 
+	  left:0px; 
+	  bottom:10px; 
+	  height:60px; 
+	  width:100%; 
+   }
 </style>
 <body>
 
@@ -101,13 +107,19 @@
 			<br><br><br>
 		</div>
 	</div>
+	<div id="footer">
+      <div style="width:200px"></div>
+      <jsp:include page="../common/footer.jsp" />
+      </div>
+      
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
 
 	$(function(){
+		var itemNo = '${itemNo}';
+		var aCode = '${aCode}';
 		$("#insertBtn").click(function(){
-			var itemNo = '${itemNo}';
-			var aCode = '${aCode}';
 			var memberNo = '${memberNo}';
 			var sMemberNo = '${sMemberNo}';
 			var title = $("#title").val();
@@ -129,13 +141,9 @@
 		});
 		
 		$("#cancelBtn").click(function(){
-			if(window.confirm("목록으로 돌아가시겠습니까?")){
+			swal("Hello world!").then((value) => {
 				location.href="auctionDetail.bi?itemNo=" + itemNo + "&auctionCode=" + aCode;
-				return false;	
-			}
-			else{
-				return false;
-			}
+			});	
 		});
 	});
 
