@@ -519,12 +519,12 @@
 	</select>
 	
 	<!-- winbiddetail에 isnert위해 판매자 번호 조회 -->
-	<select id="selectSaleMemberNo" resultType="PayTable" parameterType="java.lang.String">
+	<select id="selectSaleMemberNo" resultType="java.lang.String" parameterType="java.lang.String">
 		SELECT MEMBERNO FROM AUCTIONITEM WHERE ITEMNO = #{itemNo}
 	</select>
 	
 	<!-- winbid에 insert 하기위해 winbiddetail select -->
-	<select id="winBidSelect" resultType="WinBid" parameterType="java.lang.String">
+	<select id="winBidSelect" resultType="java.lang.String" parameterType="java.lang.String">
 		SELECT DEALNO 
 		FROM WINBID
 		WHERE MEMBERNO = #{mid}
@@ -700,13 +700,13 @@
 	</select>
 	
 	<!-- 반품winbid에 insert -->
-	<insert id="returnInsert" parameterType="java.lang.String">
-		INSERT INTO WINBID VALUES(#{mid}, #{itemNo}, TN_SEQ.NEXTVAL, #{currentPrice})
-	</insert>
+	<update id="returnInsert" parameterType="java.lang.String">
+		UPDATE WINBIDDETAIL SET ORDERM = '반품신청' WHERE MEMBERNO = #{mid} AND ITEMNO = #{itemNo} AND PRICE = #{currentPrice}
+	</update>
 
 	<!-- 반품 winbidDetail에 insert -->
 	<insert id="returnDetailInsert" parameterType="java.lang.String">
-		INSERT INTO WINBIDDETAIL VALUES(#{dealNo}, '반품신청', '거래중', 'N', #{mid}, NULL, NULL, #{saleMemberNo}, NULL)
+		UPDATE WINBIDDETAIL SET ORDERM = '반품신청' WHERE DEALNO = #{dealNo}
 	</insert>
 	
 	<!-- 반품 페이징 처리 -->
@@ -715,7 +715,7 @@
 		FROM WINBID W 
 		JOIN WINBIDDETAIL B ON(W.DEALNO = B.DEALNO)
 		WHERE W.MEMBERNO = #{mid}
-		AND B.ORDERM = '반품중'
+		AND B.ORDERM = '반품신청'
 	</select>
 	
 	
@@ -730,7 +730,7 @@
 		JOIN MEMBER M ON(A.MEMBERNO = M.MEMBERNO)
 		WHERE D.EXITYN = 'Y'
 		AND B.MEMBERNO = #{mid}
-        AND T.ORDERM = '반품중'
+        AND T.ORDERM = '반품신청'
 	</select>
 	
 	<!-- 미입금 winbid에 insert -->
@@ -1278,5 +1278,22 @@
 		FROM WINBID W
 		JOIN WINBIDDETAIL D ON(W.DEALNO = D.DEALNO)
 		WHERE W.MEMBERNO = #{mid}
+	</select>
+	
+	<!-- 낙찰된 것 거르기 -->
+	<select id="searchOrderM" resultType="java.lang.String" parameterType="java.lang.String">
+		SELECT ORDERM 
+		FROM WINBID W
+		JOIN WINBIDDETAIL D ON(W.DEALNO = D.DEALNO)
+		WHERE W.ITEMNO = #{itemNo}
+		
+	</select>
+	
+	<!-- 반품 금액조회 -->
+	<select id="selectCurrentPrice" resultType="java.lang.String" parameterType="java.lang.String">
+		SELECT PRICE 
+		FROM WINBID 
+		WHERE MEMBERNO = #{mid}
+		AND ITEMNO = #{itemNo}
 	</select>
 </mapper>

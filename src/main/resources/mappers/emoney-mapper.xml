@@ -99,12 +99,15 @@
 	
 	
 	<!-- 결제완료  -->
+	<select id="searchDealNo" resultType="java.lang.String" parameterType="java.lang.String">
+		SELECT DEALNO FROM WINBID WHERE MEMBERNO = #{id} AND ITEMNO = #{itemNo}
+	</select>
 	<insert id="paymentA" parameterType="java.lang.String">
 		INSERT INTO EMONEYC(PAYNO, PAYDAY,CARDNO,AMOUNT,MEMBERNO,PAYSTATUS,REFUNDNO,DEALNO) VALUES(MCN_SEQ.NEXTVAL,SYSDATE,' ',#{currentPrice},#{id},' ',' ',' ')
 	</insert>
 	
 	<update id="orderm" parameterType="java.lang.String">
-		UPDATE WINBIDDETAIL SET ORDERM = '배송요청' WHERE PAYNO = #{id}
+		UPDATE WINBIDDETAIL SET ORDERM = '배송요청' WHERE PAYNO = #{id} AND DEALNO = #{dealNo}
 	</update>
 	
 	<update id="pricedown" parameterType="java.lang.String">

@@ -58,8 +58,8 @@
 							</div>					
 			</table>
 					<tr>						
-					<td id="tdChargeCashMoney"><h3><b>선택한 금액 : <label id="amount">0</label>원 </b></h3></td>
-					<td ></td>					
+					<td id="tdChargeCashMoney"><h3><b>선택한 금액 : <label id="amount">0</label>원 </b></h3></td>	
+					<td><button class="btn btn-outline-success"  id="refundFunction" type="button" >결제하기</button></td>			
 					</tr>				
 			</div>
 
