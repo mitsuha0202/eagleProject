@@ -118,7 +118,7 @@ private JavaMailSender mailSender;
 				emailCheck(@RequestParam String email,
 						HttpServletResponse response) throws MessagingException{
 		
-		/*System.out.println("여기 찍히냐??");
+		System.out.println("여기 찍히냐??");
 		int result = 0;
 		
 		result = ms.emailDuplicationCheck(email);
@@ -150,9 +150,9 @@ private JavaMailSender mailSender;
 				e.printStackTrace();
 			}
 			return hmap;
-		}*/
+		}
 		
-		HashMap<String, Object> hmap = new HashMap<String, Object>();
+		/*HashMap<String, Object> hmap = new HashMap<String, Object>();
 			try {
 				
 				String key = new TempKey().getKey(5, false);
@@ -173,7 +173,7 @@ private JavaMailSender mailSender;
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			return hmap;
+			return hmap;*/
 	}
 	
 	@RequestMapping("kakaoLogin.me")
