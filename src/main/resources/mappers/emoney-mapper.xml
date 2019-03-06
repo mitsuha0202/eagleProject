@@ -86,6 +86,7 @@
 		SELECT R.USENO, R.USEDAY, R.MONEY, R.USESTATUS, R.MEMBERNO, R.PAYNO
 		FROM EMONEYR R 
 		WHERE R.MEMBERNO = #{memberNo} AND USESTATUS = 'R'
+		ORDER BY R.USENO DESC
 	</select>
 	
 	<select id="selectCurrval" resultMap="emoneyResultSet">

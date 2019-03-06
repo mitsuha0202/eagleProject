@@ -393,6 +393,7 @@
    	
    	<!-- footer -->
 </body>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script>
 		function numComma(num){
@@ -695,7 +696,7 @@
 								var itemNo = $("#itemNo").text();
 								var maxMid = null;
 								if(mid == ''){
-									alert("로그인 후 이용하실 수 있습니다.");
+									swal("로그인 후 이용하실 수 있습니다.");
 								}
 								else{
 									$.ajax({
@@ -720,7 +721,7 @@
 														$("#cPrice").text(numComma(currentPrice));
 														sPrice = currentPrice;
 														
-														alert("입찰이 완료되었습니다.");
+														swal("입찰이 완료되었습니다.");
 														console.log("입찰 성공");
 													},
 													error:function(){
@@ -728,7 +729,7 @@
 													}
 												});
 											}else{
-												alert("이미 최고가 입찰자입니다.");
+												swal("이미 최고가 입찰자입니다.");
 											}
 										},
 										error:function(){
@@ -756,7 +757,7 @@
 												type:"get",
 												data:{itemNo : itemNo , mNo : mid},
 												success:function(data){
-													alert("위시리스트에 등록되었습니다.");
+													swal("위시리스트에 등록되었습니다.");
 													console.log("위시리스트 등록성공");
 												},
 												error:function(){
@@ -765,7 +766,7 @@
 											});
 										}
 										else{
-											alert("이미 위시리스트에 등록된 경매물품 입니다.");
+											swal("이미 위시리스트에 등록된 경매물품 입니다.");
 										}
 									},
 									error:function(){
@@ -791,7 +792,7 @@
 							var msg = "입찰할 금액을 입력하세요. ( " + startPrice + " ~ " + upPrice + " 사이 가격을 입력하세요.) ";
 							$("#bidBtn").click(function(){
 								if(mid == ''){
-									alert("로그인 후 이용하실 수 있습니다.");
+									swal("로그인 후 이용하실 수 있습니다.");
 								}else{
 									/* 행운경매 입찰정보 비교 */
 									$.ajax({
@@ -813,7 +814,7 @@
 																console.log("가격 비교 성공");
 																
 																if(price == data.currentPrice){
-																	alert("이미 등록된 입찰가 입니다.");
+																	swal("이미 등록된 입찰가 입니다.");
 																}
 																else{
 																	/* 행운경매 입찰 업데이트 */
@@ -822,11 +823,11 @@
 																		type:"get",
 																		data:{itemNo : itemNo , mNo : mid , price : price},
 																		success:function(data){
-																			alert("입찰가 수정이 완료되었습니다.");
+																			swal("입찰가 수정이 완료되었습니다.");
 																			console.log("행운경매 입찰수정 성공");
 																		},
 																		error:function(){
-																			alert("입찰가 수정에 실패하셨습니다.");
+																			swal("입찰가 수정에 실패하셨습니다.");
 																			console.log("행운경매 입찰수정 실패");
 																		}
 																	});
@@ -838,7 +839,7 @@
 														});
 													}
 													else{
-														alert("입찰 범위에 맞는 가격을 입력해주세요.");
+														swal("입찰 범위에 맞는 가격을 입력해주세요.");
 													}
 												}
 											}
@@ -856,7 +857,7 @@
 															console.log("가격 비교 성공");
 															
 															if(price == data.currentPrice){
-																alert("이미 등록된 입찰가 입니다.");
+																swal("이미 등록된 입찰가 입니다.");
 															}else{
 																/* 행운경매 입찰 */
 																$.ajax({
@@ -864,7 +865,7 @@
 																	type:"get",
 																	data:{itemNo : itemNo , mNo : mid , price : price},
 																	success:function(data){
-																		alert("입찰에 성공하셨습니다.");
+																		swal("입찰에 성공하셨습니다.");
 																		console.log("행운경매 입찰에 성공하셨습니다.");
 																	},
 																	error:function(){
@@ -879,7 +880,7 @@
 													});
 													
 												}else{
-													alert("입찰 범위에 맞는 가격을 입력해주세요.");
+													swal("입찰 범위에 맞는 가격을 입력해주세요.");
 												}
 											}
 											console.log("행운경매 입찰정보 비교 성공");
@@ -909,7 +910,7 @@
 												type:"get",
 												data:{itemNo : itemNo , mNo : mid},
 												success:function(data){
-													alert("위시리스트에 등록되었습니다.");
+													swal("위시리스트에 등록되었습니다.");
 													console.log("위시리스트 등록성공");
 												},
 												error:function(){
@@ -918,7 +919,7 @@
 											});
 										}
 										else{
-											alert("이미 위시리스트에 등록된 경매물품 입니다.");
+											swal("이미 위시리스트에 등록된 경매물품 입니다.");
 										}
 									},
 									error:function(){
@@ -968,7 +969,7 @@
 									var mid = '${sessionScope.loginUser.mid}';
 									
 									if(mid == ''){
-										alert("로그인 후 이용해주세요.");
+										swal("로그인 후 이용해주세요.");
 									}
 									else{
 										$.ajax({
@@ -983,7 +984,7 @@
 														type:"get",
 														data:{itemNo : itemNo , mNo : mid},
 														success:function(data){
-															alert("위시리스트에 등록되었습니다.");
+															swal("위시리스트에 등록되었습니다.");
 															console.log("위시리스트 등록성공");
 														},
 														error:function(){
@@ -992,7 +993,7 @@
 													});
 												}
 												else{
-													alert("이미 위시리스트에 등록된 경매물품 입니다.");
+													swal("이미 위시리스트에 등록된 경매물품 입니다.");
 												}
 											},
 											error:function(){
@@ -1040,14 +1041,13 @@
 									console.log($("#chat_id").val());
 								}
 								function onError(event){
-									alert(event.data);
+									swal(event.data);
 								}
 								$("#bidBtn").click(function(){
 									if(mid == ''){
-										alert('로그인 후 경매에 참여하실 수 있습니다.');
+										swal('로그인 후 경매에 참여하실 수 있습니다.');
 									}
 									else{
-										
 										/* 실시간 경매 최고입찰자 비교 */
 										$.ajax({
 											url:"compareMid.bi",
@@ -1061,7 +1061,7 @@
 													inputPrice = prompt(msg,"");
 													
 													if(inputPrice <= nowPrice && inputPrice != null){
-														alert("현재가 보다 큰 가격을 입력해주세요.");
+														swal("현재가 보다 큰 가격을 입력해주세요.");
 													} else {
 														
 														/* 실시간 경매 입찰 */
@@ -1073,7 +1073,7 @@
 															success:function(data){
 																nowPrice = inputPrice;
 																
-																alert("입찰가격이 등록되었습니다.");
+																swal("입찰가격이 등록되었습니다.");
 																
 																var nowTime;
 																/* 현재 서버시간 조회 */
@@ -1086,7 +1086,6 @@
 																		nowTime = data.startDay;
 																		nowTime *= 1;
 																		nowTime += 15000;
-																		console.log("ㅇㅇㅇㅇㅇㅇ"+nowTime);
 																		console.log("현재 서버시간 조회 성공");
 																		
 																		/* 실시간 경매 종료시간 증가 */
@@ -1096,6 +1095,7 @@
 																			async:false,
 																			data:{itemNo : itemNo , nowTime : nowTime},
 																			success:function(data){
+																				
 																				/* 실시간 경매 남은시간 조회 */
 																				$.ajax({
 																					url:"selectTime.bi",
@@ -1133,7 +1133,7 @@
 													}
 												}
 												else{
-													alert("현재 최고가 입찰자입니다.");
+													swal("현재 최고가 입찰자입니다.");
 												}
 											},
 											error:function(){
@@ -1281,16 +1281,15 @@
 									$("#bidBtn").hover($("#bidBtn").css('cursor','pointer'),$("#bidBtn").css('cursor','cursor'));
 									$("#wishBtn").hover($("#wishBtn").css('cursor','pointer'),$("#wishBtn").css('cursor','cursor'));
 									$("#qaBtn").hover($("#qaBtn").css('cursor','pointer'),$("#qaBtn").css('cursor','cursor'));
-									alert("경매가 시작되었습니다.");
-									location.reload();
-									console.log(time);
+									swal("경매가 시작되었습니다.").then((value) => {
+										location.reload();
+									});
 								}
 								else{
 									if(remainTime > 0){
 										printRemainTime();
 									}
 									else if(remainTime == 0){
-										clearInterval(timeId);
 										timeId = null;
 										$("#remainTime").text("경매종료");
 										$("#bidBtn").css('background','gray');
@@ -1301,24 +1300,6 @@
 										$("#wishBtn").hover($("#wishBtn").css('cursor','cursor'),$("#wishBtn").css('cursor','cursor'));
 										$("#qaBtn").hover($("#qaBtn").css('cursor','cursor'),$("#qaBtn").css('cursor','cursor'));
 										
-										/* 실시간 경매 최고가 비교 */
-										$.ajax({
-											url:"compareMid.bi",
-											type:"get",
-											async:false,
-											data:{itemNo : itemNo},
-											success:function(data){
-												if('${sessionScope.loginUser.mid}' == data.memberNo){
-													alert("낙찰 되었습니다.");
-												}
-												else{
-													alert("유찰 되었습니다.");
-												}
-											},
-											error:function(){
-												console.log("경매 종료");
-											}
-										});
 										
 										/* 실시간 경매 입찰종료 */
 										$.ajax({
@@ -1332,7 +1313,30 @@
 												console.log("마감종료 실패");
 											}
 										});
-										location.reload();
+										
+										/* 실시간 경매 최고가 비교 */
+										$.ajax({
+											url:"compareMid.bi",
+											type:"get",
+											async:false,
+											data:{itemNo : itemNo},
+											success:function(data){
+												if('${sessionScope.loginUser.mid}' == data.memberNo){
+													swal("낙찰 되었습니다.").then((value) => {
+														location.reload();
+													});
+												}
+												else{
+													swal("유찰 되었습니다.").then((value) => {
+														location.reload();
+													});
+												}
+											},
+											error:function(){
+												console.log("경매 종료");
+											}
+										});
+										clearInterval(timeId);
 									}
 								}
 							},1000);
