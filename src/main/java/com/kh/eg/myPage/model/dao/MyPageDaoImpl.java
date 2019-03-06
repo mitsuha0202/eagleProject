@@ -226,9 +226,8 @@ public class MyPageDaoImpl implements MyPageDao{
 				int count = sqlSession.selectOne("MyPage.bidCount", searchList);
 				list.get(i).setBidCount(count);
 				
-				if(list.get(i).getAuctioncode().equals("AC001") || list.get(i).getAuctioncode().equals("AC003")) {
-					ArrayList<PayTable> temp = (ArrayList)sqlSession.selectList("MyPage.searchBidRank", searchList);
-					
+				if(list.get(i).getAuctioncode().equals("AC001") || list.get(i).getAuctioncode().equals("AC003")) {					
+					ArrayList<PayTable> temp = (ArrayList)sqlSession.selectList("MyPage.searchBidRank", searchList);					
 					for(int j=0; j<temp.size(); j++) {
 						if(list.get(i).getBidNo() == temp.get(j).getBidNo()) {
 							list.get(i).setRowBid(temp.get(j).getRowBid());
@@ -337,7 +336,11 @@ public class MyPageDaoImpl implements MyPageDao{
 		for(int i=0; i<count; i++) {
 			searchList.put("itemNo", String.valueOf(itemNo.get(i).getItemNo()));
 			list = (ArrayList)sqlSession.selectList("MyPage.selectWinBidList", searchList, rowBounds);
-
+			
+			if(sqlSession.selectOne("MyPage.searchOrderM", searchList) != null) {
+				list.get(i).setOrderM((String)sqlSession.selectOne("MyPage.searchOrderM", searchList));
+			}
+			
 			if(list.get(i).getAuctioncode().equals("AC001") || list.get(i).getAuctioncode().equals("AC003")) {
 					ArrayList<PayTable> temp = (ArrayList)sqlSession.selectList("MyPage.selectWinBidRank", searchList);
 					for(int j=0; j<temp.size(); j++) {
@@ -670,23 +673,20 @@ public class MyPageDaoImpl implements MyPageDao{
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("mid", mid);
 		map.put("itemNo", itemNo);
+		map.put("currentPrice", (String)sqlSession.selectOne("MyPage.selectCurrentPrice", map));
 		map.put("saleMemberNo", (String)sqlSession.selectOne("MyPage.selectSaleMemberNo", map));
 		
-		int result1 = sqlSession.insert("MyPage.returnInsert", map);
-		
-		int result2 = 0;
-		
-		if(result1 > 0) {
-			map.put("dealNo", (String)sqlSession.selectOne("MyPage.winBidSelect", map));
-		}
+		int result1 = 0;
+	
+		map.put("dealNo", (String)sqlSession.selectOne("MyPage.winBidSelect", map));
 		
 		if(map.get("dealNo") != null) {
-			result2 = sqlSession.insert("MyPage.returnDetailInsert", map);
+			result1 = sqlSession.update("MyPage.returnDetailInsert", map);
 		}
 		
 		int count = 0;
 		
-		if(result2 > 0) {
+		if(result1 > 0) {
 			count = sqlSession.selectOne("MyPage.getReturn", map);
 		}
 		return count;

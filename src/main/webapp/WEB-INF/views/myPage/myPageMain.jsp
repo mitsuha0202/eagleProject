@@ -533,6 +533,11 @@
 								}
 							});
 						}else {
+							var $tr = $(".saleStatusTable").append($tr);
+							for(var i = 0; i < 9; i++){
+								var $td = $("<td>");
+								$tr.append($td);
+							}
 							$.each(data, function(i, val) {
 								console.log(val);
 								console.log("판매");
@@ -540,12 +545,7 @@
 								console.log(val.saleNo);
 								if(val.orderM != "입금요청"){
 									
-								}
-								var $tr = $(".saleStatusTable").append($tr);
-								for(var i = 0; i < 9; i++){
-									var $td = $("<td>");
-									$tr.append($td);
-								}
+								}								
 								if(val.orderM == "입금요청"){
 									$tr.children().eq(1).text("1");
 								}else if(val.orderM == "배송요청"){
@@ -578,7 +578,7 @@
 	</script>
 	<div id="footer">
       <div style="width:200px"></div>
-      <jsp:include page="../myPage/common/myPageFooter.jsp" />
+      <%-- <jsp:include page="../myPage/common/myPageFooter.jsp" /> --%>
       </div>
 </body>
 </html>

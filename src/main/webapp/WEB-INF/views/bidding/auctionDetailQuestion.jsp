@@ -130,8 +130,9 @@
 				type:"get",
 				data:{itemNo : itemNo , memberNo : memberNo , sMemberNo : sMemberNo , title : title , boardContent : content},
 				success:function(data){
-					alert("문의게시판 작성이 완료되었습니다.");
-					location.href="auctionDetail.bi?itemNo=" + itemNo + "&auctionCode=" + aCode;
+					swal("문의게시판 작성이 완료되었습니다!").then((value) => {
+						location.href="auctionDetail.bi?itemNo=" + itemNo + "&auctionCode=" + aCode;
+					});
 					console.log("문의게시판 작성 성공");
 				},
 				error:function(){
@@ -141,9 +142,9 @@
 		});
 		
 		$("#cancelBtn").click(function(){
-			swal("Hello world!").then((value) => {
+			swal("상세페이지로 돌아갑니다.").then((value) => {
 				location.href="auctionDetail.bi?itemNo=" + itemNo + "&auctionCode=" + aCode;
-			});	
+			});
 		});
 	});
 

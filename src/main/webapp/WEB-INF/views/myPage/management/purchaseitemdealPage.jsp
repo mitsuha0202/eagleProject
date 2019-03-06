@@ -195,16 +195,6 @@
    		 	}
 		}  
 
-
-   		 		 if(curPrice2<=emoney2){
- 					location.href="paymentA.em?itemNo=" + sendArr + "&currentPrice=" + sendCurArr;
-   		 		}else{
-   		 			window.alert("보유하고 있는 사이버머니가 부족합니다.");
-   		 		} 
-   	 	 });
-   		 	}  
-
-
 	</script>
 </body>
 </html>

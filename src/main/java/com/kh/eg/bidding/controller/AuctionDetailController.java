@@ -389,9 +389,6 @@ private BiddingService bs;
 		
 		
 		if(i != null) {
-			System.out.println(i.getStartDay());
-			System.out.println(i.getEndDay());
-			
 			String nowDay = i.getStartDay();
 			String endDay = i.getEndDay();
 			
@@ -404,13 +401,8 @@ private BiddingService bs;
 				long ndM = nd.getTime();
 				long edM = ed.getTime();
 				
-				System.out.println(ndM);
-				System.out.println(edM);
-				
 				long time = ndM - edM;
 				String remainTime = String.valueOf(time);
-				
-				System.out.println(remainTime);
 				
 				i.setStartDay(remainTime);
 			} catch (ParseException e) {
@@ -422,6 +414,7 @@ private BiddingService bs;
 			return null;
 		}
 	}
+	
 	@RequestMapping("updateRealTime.bi")
 	public @ResponseBody int updateRealTime(@RequestParam(value="itemNo", required=false) String itemNo, @RequestParam(value="nowTime", required=false) String nowTime, 
 												HttpServletRequest request, HttpServletResponse response) {
