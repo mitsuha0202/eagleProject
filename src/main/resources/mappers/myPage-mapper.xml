@@ -359,8 +359,9 @@
 	
 	<!-- 입찰순위 조회 -->
 	<select id="searchBidRank" resultMap="payTableResultSet" parameterType="java.lang.String">
-		SELECT RANK() OVER (ORDER BY CURRENTPRICE DESC) AS RANKING, BIDNO, CURRENTPRICE, ITEMNO, MEMBERNO 
+		SELECT RANK() OVER (ORDER BY CURRENTPRICE DESC) AS RANKING, BIDNO, CURRENTPRICE, ITEMNO, M.MEMBERNAME 
 		FROM BID 
+        JOIN MEMBER M ON(BID.MEMBERNO = M.MEMBERNO)
 		WHERE ITEMNO = #{itemNo}
 	</select>
 	
@@ -435,7 +436,7 @@
 		JOIN AUCTIONDETAIL A ON(B.ITEMNO = A.ITEMNO)
        	WHERE I.ITEMNO = #{itemNo}
 		AND A.EXITYN = 'Y'
-        AND B.CURRENTPRICE > I.LUCKY
+        AND B.CURRENTPRICE >= I.LUCKY
 		ORDER BY B.BIDNO ASC
 	</select>
 	
@@ -443,8 +444,7 @@
 	<select id="selectFalseBidPay" resultType="PayTable" parameterType="java.lang.String">
 		SELECT MAX(CURRENTPRICE) AS CURRENTPRICE
 		FROM BID 
-		WHERE MEMBERNO = #{mid}
-		AND ITEMNO = #{itemNo}
+		WHERE ITEMNO = #{itemNo}
 	</select>
 	
 	<!-- 낙찰받지 못한 물품 나머지 조회 -->
@@ -834,7 +834,7 @@
 			
 	<!-- 판매관리 목록 조회 -->
 	<select id="selectSaleStatusList" resultMap="payTableResultSet" parameterType="java.lang.String">
-		SELECT DISTINCT A.ITEMNO, A.ITEMNAME, B.BIDNO, D.STARTDAY, D.ENDDAY, D.EXITYN
+		SELECT DISTINCT A.ITEMNO, A.ITEMNAME, D.STARTDAY, D.ENDDAY, D.EXITYN
 		FROM AUCTIONITEM A 
 		JOIN AUCTIONDETAIL D ON(A.ITEMNO = D.ITEMNO)
 		JOIN BID B ON(D.ITEMNO = B.ITEMNO)
@@ -852,7 +852,7 @@
 	
 	<!-- 판매관리 경매종료 목록 조회 -->
 	<select id="selectEndOfSaleList" resultMap="payTableResultSet" parameterType="java.lang.String">
-		SELECT DISTINCT A.ITEMNO, A.ITEMNAME, B.BIDNO, D.STARTDAY, M.MEMBERNAME, D.ENDDAY, D.EXITYN
+		SELECT DISTINCT A.ITEMNO, A.ITEMNAME, D.STARTDAY, D.ENDDAY, D.EXITYN
 		FROM AUCTIONITEM A 
 		JOIN AUCTIONDETAIL D ON(A.ITEMNO = D.ITEMNO)
 		JOIN BID B ON(D.ITEMNO = B.ITEMNO)

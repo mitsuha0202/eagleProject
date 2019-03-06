@@ -56,7 +56,7 @@
 	<div class="tabBigBox btab_2ea mt40" style="margin-left: auto; margin-right: auto; width: 1500px; padding-top: 100px; padding-bottom: 50px;">
 				<ul style="padding-bottom: 100px;">
 					<li style="width:25%;"><a href="purchasestatus.mp">입찰중물품</a></li>
-					<li style="width:25%"><a href="purchaseend.mp">구매종료</a></li>
+					<li style="width:25%"><a href="purchaseend.mp">경매종료</a></li>
 					<li class="on" style="width:25%"><a href="purchaseitemdeal.mp">구매 물품 거래 진행중</a></li>
 					<li style="width:25%"><a href="purchaseother.mp">구매거부/반품/미입금/판매거부/미수령신고</a></li>
 				</ul>
@@ -75,6 +75,7 @@
       
       <thead>
         <tr>
+        	<td scope="col">선택</td>	
           <th class="firstTd">물품번호</th>
           <th class="firstTd">물품명</th>
           <th class="firstTd">구매가격</th>
@@ -86,6 +87,7 @@
         <c:if test="${ !empty list }">
 	      <c:forEach var="b" items="${ list }">
 	            <tr>
+	            	<td><input type="radio" class="checkChild" name="gender"></td>
 	               <td>${ b.itemNo }</td>
 	               <td>${ b.itemName }</td>
 	               <td>${ b.currentPrice }</td>

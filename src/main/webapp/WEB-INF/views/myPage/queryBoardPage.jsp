@@ -176,12 +176,12 @@
 		
    		/* 상세보기  */
    		$("td[name=choice]").mouseenter(function() {
-			$(this).css({"cursor":"pointer","background-color":"lightgray"});
+			$(this).css({"cursor":"pointer","background-color":"#EFFBFB"});
 		}).mouseout(function() {
 			$(this).css({"background":"white"});
 		}).click(function() {
 			var docno = $(this).parent().children().eq(1).text();
-			location.href="detailMessage.mp?docno=" + docno; 
+			location.href="queryBoardDetail.mp?boardNo=" + docno; 
 		}); 
    	</script>
 </body>

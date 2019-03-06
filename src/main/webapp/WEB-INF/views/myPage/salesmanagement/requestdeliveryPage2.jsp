@@ -96,7 +96,7 @@
      
     </table>
     <div class="btnArea">
-    	<button id="dealBtn" class="ui black basic button" data-toggle="modal" data-target="#exampleModal">결제하기</button>
+    	<button id="dealBtn" class="ui black basic button" data-toggle="modal" data-target="#exampleModal">배송하기</button>
 	</div>
 	     
 	<!-- Modal -->
@@ -104,14 +104,14 @@
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h5 class="modal-title" id="exampleModalLabel">결제하시겠습니까?</h5>
+	        <h5 class="modal-title" id="exampleModalLabel">배송하시겠습니까?</h5>
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	          <span aria-hidden="true">&times;</span>
 	        </button>
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-	        <button type="button" class="btn btn-primary" onclick="delivery();">결제하기</button>
+	        <button type="button" class="btn btn-primary" onclick="delivery();">배송하기</button>
 	      </div>
 	    </div>
 	  </div>

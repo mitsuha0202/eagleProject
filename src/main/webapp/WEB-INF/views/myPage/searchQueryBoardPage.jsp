@@ -1,104 +1,64 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ include file="../admin/include/common.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="../eg/css/jquery.jqplot.css"/>
+<link rel="stylesheet" href="../eg/css/jquery-ui.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 <meta charset="UTF-8">
 <title>문의게시판</title>
 <style>
-	/* 페이지 제목 */
-	.title{
-		position: absolute;
-		left: 70px;
-		top: 200px;
-	}
-	/* 페이지 제목 밑 선 */
-	.firstLine{
-		border: 1px solid #205181;
-	}
+
 	/* 문의게시판 설명div */
 	.queryInfo{
-		position: absolute;
-		left: 70px;
-		top: 350px;
-		background-color: lightgray;
-		width: 1350px;
-		height: 130px;
+		padding-top: 100px;
+		padding-left: 80px;
 	}
-	/* 테이블밖 div */
-	.queryTableArea{
-		position: absolute;
-		left: 70px;
-		top: 550px;
-	}
-	/* 테이블, tr, td */
-	.queryTable, tr, td{
-		border: 1px solid black;
-		text-align: center;
-	}
-	/* 테이블 */
-	.queryTable{
-		width: 1350px;
-		height: 150px;
-	}
-	/* 첫번째 td */
-	.td1{
-		border-top: 2.5px solid black;
-	}
-	.closeBtn{
-		position: absolute;
-		top: 800px;
-		left: 670px;
-		text-align: center;
-		background-color: #205181;
-		border: 1px solid white;
-		color:white;
-		border-radius: 10px;
-		width: 150px;
-		height: 40px;
-	    font-size: 16px;
-	}
-	/* 검색부분 div */
+	
+		/* 검색부분 div */
 	/* 검색 select태그부분 영역 */
 	.selectSize{
-		position: absolute;
-		top: 180px;
-		left: 25%;
-		width: 9%;
+		padding-top: 50px;
+		padding-left: 80px;
 	}
+	
+	/* 테이블밖 div */
+	.queryTableArea{
+		padding-top: 80px;
+		text-align: center;
+	}
+	
+	.btnArea{
+		padding-left: 800px;
+	}
+
+	#closeBtn{
+		height: 35px;
+		width: 105px;
+	}
+	
 	/* 검색 input태그부분 */
 	.inputSize{
 		position: absolute;
-		top: 180px;
-		left: 35%;
-		width: 30%;
+		top: 374px;
+		left: 235px;
+		width: 400px;
 	}
 	/* 검색버튼 */
-	.searchBtn{
+	#searchBtn{
 		position: absolute;
-		left: 65%;
-		top: 180px;
-		text-align: center;
-		background-color: #205181;
-		border: 1px solid white;
-		color:white;
-		border-radius: 10px;
-		width: 80px;
-		height: 35px;
-	    font-size: 16px;
+		top: 1px;
+		left: 405px;
 	}
 </style>
 </head>
 <body>
 	<!-- 헤더바 -->
 	<jsp:include page="../common/header.jsp"/>
-	
-	<!-- 헤더바 밑 선 -->
-	<hr class="firstLine">
-	
-	<!-- 마이페이지 제목 -->
-	<div class="title"><h1>문의게시판</h1></div>
 	
 	<!-- 문의게시판 설명div -->	
 	<div class="queryInfo">
@@ -107,8 +67,21 @@
 		<p>&nbsp; &bull; 경매진행중에 문의한 게시판에서는 진행중인 물품에 문의한 모든 내용을 이곳에서 판매자의 답변을 확인 하실 수 있습니다.<br>&nbsp; &bull; 경매종료 후에 문의한 게시판에서는 낙찰받은 물품에 대해서 문의/협의(반품)사항에 대해 질문후 답변내용 확인 하실 수 있습니다.</p>
 	</div>
 	
+	<!-- 검색부분 div -->
+			<div class="selectSize">
+				<select id=searchCondition class="form-control" style="width: 150px;">
+		  		<option>제목</option>
+		  		<option>판매자</option>
+				</select>
+			</div>
+			<div class="inputSize">	
+				<input class="form-control" id="searchValue" placeholder="내용을 입력해주세요.">
+				<button class="ui black basic button" id="searchBtn" onclick="search();" style="width: 105px; height: 35px;">검색</button>
+			</div>
+
+	
 	<div class="queryTableArea">
-		<table class="queryTable">
+		<table class="table" style="width: 1300px; margin-left: auto; margin-right: auto;">
 			<tr>
 				<td class="firstTd"><input type="checkbox" id="checkAll" onclick="check();"></td>
 				<td class="td1">번호</td>
@@ -142,23 +115,14 @@
          	</tr>
          </c:if>
 		</table>
-		
-		<!-- 검색부분 div -->
-			<div class="selectSize">
-				<select id=searchCondition class="form-control">
-		  		<option>제목</option>
-		  		<option>판매자</option>
-				</select>
-			</div>
-			<div class="inputSize">
-				<input class="form-control" id="searchValue" placeholder="내용을 입력해주세요.">
-			</div>
-			<button class="searchBtn" onclick="search();">검색</button>
+		</div>
+	<div class="btnArea">
+		<button class="ui black basic button" id="closeBtn" onclick="location.href='myPageMain.mp'">닫기</button>
 	</div>
 	
-	<div id="pagingArea" align="center">
+	<div id="pagingArea" class="numbox mt50">
 			<c:if test="${ pi.currentPage <= 1 }">
-				[이전] &nbsp;
+				<span class="prevnc">이전</span>
 			</c:if>
 			<c:if test="${ pi.currentPage > 1 }">
 				<c:url var="blistBack" value="userMessage.mp">
@@ -166,12 +130,12 @@
 					<c:param name="searchValue" value="${searchValue}"/>
 					<c:param name="currentPage" value="${ pi.currentPage - 1 }"/>
 				</c:url>
-				<a href="${ blistBack }">[이전]</a> &nbsp;
+				<span><a class="prev" href="${ blistBack }">이전</a></span>
 			</c:if>
 			
 			<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
 				<c:if test="${ p eq pi.currentPage }">
-					<font color="red" size="4"><b>[${ p }]</b></font>
+					<span><a class="num on" href="${ blistCheck }" style="background-color: #168;">${p}</a></span>
 				</c:if>
 				<c:if test="${ p ne pi.currentPage }">
 					<c:url var="blistCheck" value="userMessage.mp">
@@ -179,12 +143,12 @@
 					<c:param name="searchValue" value="${searchValue}"/>
 						<c:param name="currentPage" value="${ p }"/>
 					</c:url>
-					<a href="${ blistCheck }">${ p }</a>
+					<span><a class="num" href="${ blistCheck }">${ p }</a></span>
 				</c:if>
 			</c:forEach>
 			
 			<c:if test="${ pi.currentPage >= pi.maxPage }">
-				&nbsp; [다음]
+				<span class="nextnc">다음</span>
 			</c:if>
 			<c:if test="${ pi.currentPage < pi.maxPage }">
 				<c:url var="blistEnd" value="userMessage.mp">
@@ -192,11 +156,9 @@
 					<c:param name="searchValue" value="${searchValue}"/>
 					<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
 				</c:url>
-				<a href="${ blistEnd }">&nbsp;[다음]</a>
+				<span><a class="next" href="${ blistEnd }">다음</a></span>
 			</c:if>
 		</div>
-	
-	<button class="closeBtn" onclick="location.href='myPageMain.mp'">닫기</button>
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
    <script>
