@@ -187,4 +187,8 @@
   		SET ENDDAY = TO_DATE(#{endDay},'YYYY-MM-DD HH24:MI:SS')
   		WHERE ITEMNO = #{itemNo}
   	</select>
+  	
+  	<select id="insertQuestion" parameterType="ItemBoard">
+  		INSERT INTO BOARD VALUES(BN_SEQ.NEXTVAL , #{title} , #{boardContent} , #{mNo} , SYSDATE , 'N' , 'QUESTIONBOARD' , 'N' , 0 , #{sMno} , #{itemNo})
+  	</select>
   </mapper>

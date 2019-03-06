@@ -22,6 +22,7 @@
 			
 			<div class="flo_left mt30 mb30">
 				<span><a class="mbtn bk" href="insertNoticeView.bo">작성하기</a></span>
+				<span><a class="mbtn bk" onclick="noticeContent();">내용보기</a></span>
 				<span><a class="mbtn rd" onclick="deleteNotice();">삭제</a></span>
 			</div>
 
@@ -84,10 +85,23 @@
 				
 			}
 		}
-		
-		
-		
-		
+	}
+	
+	function noticeContent() {
+		var bidArr = [];
+		$("input[name=check]:checked").each(function(){
+			bidArr.push($(this).val());
+		});
+		if(bidArr.length == 0){
+			alert("내용을 확인하고 싶은 공지사항을 선택해주세요.")
+		}else{
+			if(bidArr.length > 1){
+				alert("하나만 선택해주세요.")
+			}else{
+				var bid = bidArr[0];
+				location.href="boardSelectOne.bo?bid="+bid;
+			}
+		}
 	}
 </script>
 </body>

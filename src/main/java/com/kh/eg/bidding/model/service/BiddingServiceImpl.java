@@ -186,5 +186,12 @@ private SqlSessionTemplate sqlSession;
 		return result;
 	}
 
+	@Override
+	public int insertQuestion(Board b) {
+		int result = bd.insertQuestion(sqlSession, b);
+		
+		return result;
+	}
+
 	
 }

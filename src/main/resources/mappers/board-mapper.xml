@@ -15,6 +15,7 @@
 		<result property="bCount" column="BCOUNT"/>
 		<result property="sMid" column="SMEMBERNO"/>
 		<result property="itemNo" column="ITEMNO"/>
+		<result property="rNum" column="RNUM"/>
 		<result property="userName" column="MEMBERNAME"/>
 	</resultMap>
 	
@@ -68,12 +69,9 @@
 	
 	<!-- 게시물 목록 조회용 쿼리문 -->
 	<select id="selectBoardList" resultMap="boardResultSet">
-		SELECT *
-		FROM BOARD B
-		JOIN MEMBER M ON(B.MEMBERNO = M.MEMBERNO)
-		WHERE B.DELETESTATUS = 'N'
-		AND BOARDSTATUS = 'FREEBOARD'
-		ORDER BY WRITEDAY DESC
+		SELECT RNUM,BOARDNO,TITLE, BOARDCONTENT, MEMBERNO, WRITEDAY,DELETESTATUS, BOARDSTATUS, REPLYSTATUS,BCOUNT, MEMBERNAME FROM
+	    (SELECT ROWNUM RNUM,B.BOARDNO, B.TITLE, B.BOARDCONTENT, B.MEMBERNO, B.WRITEDAY, B.DELETESTATUS, B.BOARDSTATUS, B.REPLYSTATUS, B.BCOUNT, M.MEMBERNAME FROM BOARD B JOIN MEMBER M ON(B.MEMBERNO = M.MEMBERNO)) 
+	    WHERE DELETESTATUS = 'N' AND BOARDSTATUS = 'FREEBOARD' ORDER BY WRITEDAY DESC
 	</select>
 	
 	

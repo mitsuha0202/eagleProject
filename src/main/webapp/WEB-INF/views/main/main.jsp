@@ -36,6 +36,9 @@
 	crossorigin="anonymous"></script>
 
 <style>
+
+body {min-width: 1000px; height: 100%;}
+
 .column {
 	height: 100%;
 }
@@ -86,13 +89,19 @@ td {
 	height:200px;
 	border:1px solid black;
 }
-
+#footer{ position:fixed; 
+  left:0px; 
+  bottom:10px; 
+  height:60px; 
+  width:100%; 
+   }
 </style>
 
 
 </head>
 <body>
 	<jsp:include page="../common/header.jsp" />
+	
 	<!-- 해당 페이지를 view_template파일과 다른 경로에 만들었다면 include path를 수정해야합니 -->
 	<div class="ui grid">
 		<div class="two wide column"></div>
@@ -152,10 +161,6 @@ td {
 			<div class="chu">
 
 				<h1 class="pre">Eagle's Auction 인기경매</h1>
-
-				
-
-
 				</div>
 				<hr>
 				<div id="firstColumn" align="center">
@@ -238,12 +243,20 @@ td {
 				</c:forEach>
 			</div>
 			
+			<div style="width:200px"></div>
+			
+			
 </div>
+
+			<div class="two wide column"></div>
 			
 		</div>
-		<div class="two wide column"></div>
-</div>
-</div>
+		
+		<div id="footer">
+		<div style="width:200px"></div>
+		<jsp:include page="../common/footer.jsp" />
+		</div>
+
 <script>
 
 	$("#more1").click(function(){

@@ -79,42 +79,42 @@ h4 {
 				<thead>
 					<tr>
 
-						<th class="thclass"><input type="hidden" value="8">전체보기</th>
-						<th class="thclass"><input type="hidden" value="1">미술</th>
-						<th class="thclass"><input type="hidden" value="2">음악앨범</th>
-						<th class="thclass"><input type="hidden" value="3">의류</th>
+						<th style="cursor: pointer;" class="thclass"><input type="hidden" value="8">전체보기</th>
+						<th style="cursor: pointer;" class="thclass"><input type="hidden" value="1">미술</th>
+						<th style="cursor: pointer;" class="thclass"><input type="hidden" value="2">음악앨범</th>
+						<th style="cursor: pointer;"class="thclass"><input type="hidden" value="3">의류</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<th class="thclass"><input type="hidden" value="4">생활가전</th>
-						<th class="thclass"><input type="hidden" value="5">비디오게임</th>
-						<th class="thclass"><input type="hidden" value="6">피규어</th>
-						<th class="thclass"><input type="hidden" value="7">레고</th>
+						<th style="cursor: pointer;" class="thclass"><input type="hidden" value="4">생활가전</th>
+						<th style="cursor: pointer;" class="thclass"><input type="hidden" value="5">비디오게임</th>
+						<th style="cursor: pointer;" class="thclass"><input type="hidden" value="6">피규어</th>
+						<th style="cursor: pointer;" class="thclass"><input type="hidden" value="7">레고</th>
 					</tr>
 				</tbody>
 
 			</table>
 
 			<br> <br>
-
-			<h4 class="countText"></h4>
-		
+			  
+			  
+			  
 			
 			<div class="nay">
 				<div style="font-size: 20px;">
-					<span class="jung"> <input type="hidden" value="1">인기경매순
-					</span>&nbsp;|&nbsp; <span class="jung"> <input type="hidden"
+					<span style="cursor: pointer;"class="jung"> <input type="hidden" value="1">인기경매순
+					</span>&nbsp;|&nbsp; <span style="cursor: pointer;" class="jung"> <input type="hidden"
 						value="2">마감임박순
-					</span>&nbsp;|&nbsp; <span class="jung"> <input type="hidden"
+					</span >&nbsp;|&nbsp; <span style="cursor: pointer;" class="jung"> <input type="hidden"
 						value="3">신규경매순
-					</span>&nbsp;|&nbsp; <span class="jung"> <input type="hidden"
+					</span>&nbsp;|&nbsp; <span style="cursor: pointer;" class="jung"> <input type="hidden"
 						value="4">높은가격순
-					</span>&nbsp;|&nbsp; <span class="jung"> <input type="hidden"
+					</span>&nbsp;|&nbsp; <span style="cursor: pointer;" class="jung"> <input type="hidden"
 						value="5">낮은가격순
-					</span>&nbsp;|&nbsp; <span class="jung"> <input type="hidden"
+					</span>&nbsp;|&nbsp; <span style="cursor: pointer;" class="jung"> <input type="hidden"
 						value="6">조회많은순
-					</span>&nbsp;|&nbsp; <span class="jung"> <input type="hidden"
+					</span>&nbsp;|&nbsp; <span style="cursor: pointer;" class="jung"> <input type="hidden"
 						value="7">입찰많은순
 					</span>
 
@@ -417,24 +417,6 @@ h4 {
 			location.href="auctionDetail.bi?itemNo="+itemNo+"&auctionCode="+auctionCode;
 		}); 
 		
-	 	$(document).ready(function(){
-	 	
-	 		$.ajax({
-	 			url:"selectCount.au",
-	 			type:"get",
-	 			dataType:"text",
-	 			success:function(data) {
-	 				$(".countText").text(data+"개가 검색되었습니다.");
-	 				
-	 			},error:function(error){
-	 				console.log("에러" + error);
-	 			}
-	 			
-	 		});
-	 		
-	 		
-	 	});
-	 	
 		
 		
 	</script>
@@ -446,5 +428,12 @@ h4 {
 
 
 	<!-- footer -->
+	
+	
+	
+	
+	
+	
 </body>
+
 </html>

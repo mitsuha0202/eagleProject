@@ -90,7 +90,7 @@ public class MyPageDaoImpl implements MyPageDao{
 	public int wishListDelete(SqlSessionTemplate sqlSession, int[] wishlistno) {
 		int result = 0;
 		for(int i=0; i<wishlistno.length; i++) {
-			result = sqlSession.update("MyPage.deleteWishList",wishlistno[i]);
+			result = sqlSession.delete("MyPage.deleteWishList",wishlistno[i]);
 		}
 		return result;
 	}
