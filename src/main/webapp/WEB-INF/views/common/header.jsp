@@ -133,7 +133,7 @@ input:-ms-input-placeholder {
 		</c:if>
 		<div style="width: 150px; font-size: 20px" class="board" onclick="location='goBoard.bo'">자유게시판</div>
 		<div style="width: 150px; font-size: 20px"
-			onclick="location.href='emoneyMain.em'">사이버머니 결제</div>
+			onclick="location.href='charge.em'">사이버머니 결제</div>
 
 		<div style="width: 100px"></div>
 		

@@ -44,10 +44,10 @@ public class emoneyServiceImpl implements emoneyService {
 	}
 	
 	@Override
-	public int updateEmoney(Member m, emoney e) {
-		int result = ed.updateEmoney(sqlSession, m, e);
+	public int updateEmoney(Member m) {
+		int result = ed.updateEmoney(sqlSession, m);
 		
-		System.out.println("result3 : " + result);
+		System.out.println("result3 여긴가? : " + result);
 		return result;
 	}
 
@@ -133,6 +133,14 @@ public class emoneyServiceImpl implements emoneyService {
 		int result = ed.paymentA(sqlSession,id,itemNo , currentPrice);
 		
 		
+		return result;
+	}
+
+
+	@Override
+	public int selectEmoney(String buyer_code) {
+		int result = ed.selectEmoney(sqlSession, buyer_code);
+		System.out.println("버이어코드2 : "+buyer_code);
 		return result;
 	}
 
