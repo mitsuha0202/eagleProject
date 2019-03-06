@@ -22,7 +22,7 @@
 		<br><br>
 
 		<div>
-			<td><h4>보유 이머니 : <c:out value="${ sessionScope.loginUser.emoney } 원"/></h4></td>
+			<%-- <td><h4>보유 이머니 : <c:out value="${ sessionScope.loginUser.emoney } 원"/></h4></td> --%>
 			
 			<%-- <td>${  }</td> --%>
 			
@@ -82,11 +82,11 @@
 					
 					</script>
 					<br>					
-					<td>환급금액  </td>
+					<td>환전금액  </td>
 					<td id="tdChargeCashMoney"><label id="amount">0</label>원</td>					
 					<tr>
 						<br>						
-							<button class="btn btn-secondary" id="refundFunction" type="button" >환급신청</button>
+							<button class="btn btn-secondary" id="refundFunction" type="button" >환전신청</button>
 							<br><br>
 					</tr>
 				</table>

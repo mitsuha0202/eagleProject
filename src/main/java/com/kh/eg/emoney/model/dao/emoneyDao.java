@@ -29,7 +29,7 @@ public interface emoneyDao {
 	
 	int selectNextval(SqlSessionTemplate sqlSession, emoney e);
 
-	int updateEmoney(SqlSessionTemplate sqlSession, Member m, emoney e);
+	int updateEmoney(SqlSessionTemplate sqlSession, Member m);
 
 	int selectEmoneyeSq(SqlSessionTemplate sqlSession, emoney e);
 
@@ -41,6 +41,8 @@ public interface emoneyDao {
 	
 	//마이페이지 - 결제(입금요청)
 	int paymentA(SqlSessionTemplate sqlSession, String id, String itemNo, String currentPrice);
+
+	int selectEmoney(SqlSessionTemplate sqlSession, String buyer_code);
 
 
 

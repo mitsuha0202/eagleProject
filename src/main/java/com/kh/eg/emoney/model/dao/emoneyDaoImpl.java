@@ -3,6 +3,7 @@ package com.kh.eg.emoney.model.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.apache.catalina.connector.Request;
 import org.apache.ibatis.session.RowBounds;
 import org.eclipse.jdt.internal.compiler.parser.ParserBasicInformation;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -12,6 +13,7 @@ import com.kh.eg.emoney.model.vo.PageInfo;
 import com.kh.eg.emoney.model.vo.emoney;
 import com.kh.eg.member.model.vo.Member;
 import com.kh.eg.myPage.model.vo.WinBid;
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_COLOR_BURNPeer;
 
 
 @Repository
@@ -40,14 +42,16 @@ public class emoneyDaoImpl implements emoneyDao{
 	}
 	
 	@Override
-	public int updateEmoney(SqlSessionTemplate sqlSession, Member m, emoney e) {
+	public int updateEmoney(SqlSessionTemplate sqlSession, Member m) {
 		System.out.println("test");
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		map.put("mid", Integer.parseInt(m.getMid()));
 		map.put("emoney", m.getEmoney());
-		int result = sqlSession.update("Member.updateEmoney", map);
-		System.out.println("멤버이머니업데이트되나 " + result);
 		
+		int result = sqlSession.update("Member.updateEmoney", map);
+		System.out.println("emoney : " + m.getEmoney());
+		System.out.println("map : " + map);
+		System.out.println("멤버이머니업데이트되나 " + result);
 		return result;
 	}
 	
@@ -188,6 +192,15 @@ public class emoneyDaoImpl implements emoneyDao{
 			sqlSession.update("emoney.priceup",map);
 		}
 		
+		
+		return result;
+	}
+
+	@Override
+	public int selectEmoney(SqlSessionTemplate sqlSession, String buyer_code) {
+		System.out.println("buyer_code : " + buyer_code);
+		System.out.println("버이어코드3 : "+buyer_code);
+		int result = Integer.parseInt((String) sqlSession.selectOne("Member.selectEmoney", buyer_code));
 		
 		return result;
 	}

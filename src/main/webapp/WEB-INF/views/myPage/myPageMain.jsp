@@ -359,9 +359,9 @@
 		<!-- <button class="mpMoneyDivAccountBtn" onclick="location.href='userAccount.mp'">계좌관리</button><br> -->
 		<button class="ui basic button" onclick="location.href='userAccount.mp'">계좌관리</button><br><br>
 		<!-- <button class="mpMoneyDivSendBtn">충전</button> -->
-		<button class="ui basic button send" >충전</button>
+		<button class="ui basic button send" onclick="location.href='charge.em'">충전</button>
 		<!-- <button class="mpMoneyDivGiveBtn">환전</button> -->
-		<button class="ui basic button give" >환전</button>
+		<button class="ui basic button give" onclick="location.href='refundMain.em'">환전</button>
 	</div>
 	<div class="mpWishListDiv">
 		<br>
