@@ -53,7 +53,7 @@ private BiddingService bs;
 	
 	@RequestMapping("insertQuestion.bi")
 	public @ResponseBody int insertQuestion(@RequestParam(value="itemNo", required=false) String itemNo, @RequestParam(value="memberNo", required=false) String memberNo, 
-											@RequestParam(value="sMemberNo", required=false) String sMemberNo, @RequestParam(value="sMemberNo", required=false) String title,
+											@RequestParam(value="sMemberNo", required=false) String sMemberNo, @RequestParam(value="title", required=false) String title,
 											@RequestParam(value="boardContent", required=false) String boardContent,
 											HttpServletRequest request, HttpServletResponse response) {
 		Board b = new Board();

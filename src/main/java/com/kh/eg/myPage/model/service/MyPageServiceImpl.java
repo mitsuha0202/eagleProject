@@ -749,5 +749,14 @@ public class MyPageServiceImpl implements MyPageService{
 
 		return md.searchWinList(sqlSession, mid);
 	}
+
+	@Override
+	public Member selectEmoney(Member m) {
+
+		return md.selectEmoney(sqlSession, m);
+	}
+
+
+	
 	
 }

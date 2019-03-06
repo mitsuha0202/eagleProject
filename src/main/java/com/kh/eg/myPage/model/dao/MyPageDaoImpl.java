@@ -1233,4 +1233,10 @@ public class MyPageDaoImpl implements MyPageDao{
 		return (ArrayList)sqlSession.selectList("MyPage.searchWinList", mid);
 	}
 
+	@Override
+	public Member selectEmoney(SqlSessionTemplate sqlSession, Member m) {
+
+		return sqlSession.selectOne("MyPage.selectEmoney", m);
+	}
+
 }
