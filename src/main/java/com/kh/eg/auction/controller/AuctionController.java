@@ -79,9 +79,9 @@ public class AuctionController {
 		
 		for(Item i : list1) {
 			if(i.getAtta() != null) {
-				System.out.println(i.getItemNo() + ":" + i.getAtta().getChangeName());
+				
 			} else {
-				System.out.println(i.getItemNo() + ":" + i.getAtta());
+			
 			}
 			
 		}
@@ -162,6 +162,7 @@ public class AuctionController {
 		
 		
 		
+		
 		return "auction/auction";
 	}
 	
@@ -195,7 +196,7 @@ public class AuctionController {
 		}
 		
 		ArrayList<Member> list4= as.selectMember1(categoryLevel);
-		System.out.println(list4);
+		
 		for(int i=0;i<list1.size();i++) {
 			for(int j=0;j<list4.size();j++) {
 				if(list1.get(i).getMid().equals(list4.get(j).getMid())) {
@@ -211,8 +212,9 @@ public class AuctionController {
 				}
 			}
 		}
+		System.out.println("list1: " +list1);
 		return list1;
-	
+		
 			
 
 		
@@ -245,7 +247,7 @@ public class AuctionController {
 
 		
 		ArrayList<Member> list4= as.selectMemberM();
-		System.out.println(list4);
+		
 		for(int i=0;i<list1.size();i++) {
 			for(int j=0;j<list4.size();j++) {
 				if(list1.get(i).getMid().equals(list4.get(j).getMid())) {

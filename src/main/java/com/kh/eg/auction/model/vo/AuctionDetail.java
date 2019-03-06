@@ -6,8 +6,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class AuctionDetail implements java.io.Serializable {
-	private Date startDay;
-	private Date endDay;
+	private String startDay;
+	private String endDay;
 	private String exitYN;
 	private int itemNo;
 	
@@ -15,7 +15,32 @@ public class AuctionDetail implements java.io.Serializable {
 	public AuctionDetail() {}
 
 
-	public AuctionDetail(Date startDay, Date endDay, String exitYN, int itemNo) {
+	public String getStartDay() {
+		return startDay;
+	}
+
+
+	public void setStartDay(String startDay) {
+		this.startDay = startDay;
+	}
+
+
+	public String getEndDay() {
+		return endDay;
+	}
+
+
+	public void setEndDay(String endDay) {
+		this.endDay = endDay;
+	}
+
+
+	public String getExitYN() {
+		return exitYN;
+	}
+
+
+	public AuctionDetail(String startDay, String endDay, String exitYN, int itemNo) {
 		super();
 		this.startDay = startDay;
 		this.endDay = endDay;
@@ -28,31 +53,6 @@ public class AuctionDetail implements java.io.Serializable {
 	public String toString() {
 		return "AuctionDetail [startDay=" + startDay + ", endDay=" + endDay + ", exitYN=" + exitYN + ", itemNo="
 				+ itemNo + "]";
-	}
-
-
-	public Date getStartDay() {
-		return startDay;
-	}
-
-
-	public void setStartDay(Date startDay) {
-		this.startDay = startDay;
-	}
-
-
-	public Date getEndDay() {
-		return endDay;
-	}
-
-
-	public void setEndDay(Date endDay) {
-		this.endDay = endDay;
-	}
-
-
-	public String getExitYN() {
-		return exitYN;
 	}
 
 
@@ -69,6 +69,9 @@ public class AuctionDetail implements java.io.Serializable {
 	public void setItemNo(int itemNo) {
 		this.itemNo = itemNo;
 	}
+
+
+	
 	
 	
 }

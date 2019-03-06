@@ -93,7 +93,7 @@
 	)
 	</insert>
 	<insert id="insertAuctionDetail">
-	INSERT INTO AUCTIONDETAIL VALUES(#{auctionDetail.startDay},#{auctionDetail.endDay},'N',#{auctionDetail.itemNo})
+	INSERT INTO AUCTIONDETAIL VALUES(to_date(#{auctionDetail.startDay},'YYYY-MM-DD HH24:MI:SS'),to_date(#{auctionDetail.endDay},'YYYY-MM-DD HH24:MI:SS'),'N',#{auctionDetail.itemNo})
 	
 	
 	</insert>

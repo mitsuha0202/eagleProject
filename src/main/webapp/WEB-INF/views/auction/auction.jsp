@@ -75,30 +75,31 @@ h4 {
 			<br> <br> <br> <br>
 
 			<table class="ui basic table" style="width: 500px;">
+				
+				   <thead>
+               <tr>
 
-				<thead>
-					<tr>
+                  <th style="cursor: pointer;" class="thclass"><input type="hidden" value="8">전체보기</th>
+                  <th style="cursor: pointer;" class="thclass"><input type="hidden" value="1">미술</th>
+                  <th style="cursor: pointer;" class="thclass"><input type="hidden" value="2">음악앨범</th>
+                  <th style="cursor: pointer;"class="thclass"><input type="hidden" value="3">의류</th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr>
+                  <th style="cursor: pointer;" class="thclass"><input type="hidden" value="4">생활가전</th>
+                  <th style="cursor: pointer;" class="thclass"><input type="hidden" value="5">비디오게임</th>
+                  <th style="cursor: pointer;" class="thclass"><input type="hidden" value="6">피규어</th>
+                  <th style="cursor: pointer;" class="thclass"><input type="hidden" value="7">레고</th>
+               </tr>
+            </tbody>
 
-						<th style="cursor: pointer;" class="thclass"><input type="hidden" value="8">전체보기</th>
-						<th style="cursor: pointer;" class="thclass"><input type="hidden" value="1">미술</th>
-						<th style="cursor: pointer;" class="thclass"><input type="hidden" value="2">음악앨범</th>
-						<th style="cursor: pointer;"class="thclass"><input type="hidden" value="3">의류</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<th style="cursor: pointer;" class="thclass"><input type="hidden" value="4">생활가전</th>
-						<th style="cursor: pointer;" class="thclass"><input type="hidden" value="5">비디오게임</th>
-						<th style="cursor: pointer;" class="thclass"><input type="hidden" value="6">피규어</th>
-						<th style="cursor: pointer;" class="thclass"><input type="hidden" value="7">레고</th>
-					</tr>
-				</tbody>
-
+					
 			</table>
 
 			<br> <br>
 			  
-			  
+			  <h4 class="countText"></h4>
 			  
 			
 			<div class="nay">
@@ -154,11 +155,7 @@ h4 {
 									<td colspan="2">판매자 아이디</td>
 									<td>${i.memberName.userId}</td>
 								</tr>
-								<tr class="tr">
-									<td colspan="2">남은 시간</td>
-									<td>00</td>
-
-								</tr>
+								
 							</table>
 									
 						</div>
@@ -220,11 +217,7 @@ h4 {
 												$td3.text("판매자 아이디");
 												var $td4 = $("<td>");
 												$td4.text(data[i].memberName.userId);
-												var $tr4 = $("<tr class='tr'>");
-												var $td5 = $("<td colspan='2'>");
-												$td5.text("남은 시간");
-												var $td6 = $("<td>");
-												$td6.text("00");
+												
 												var $input1=$("<input type='hidden' class='itemNo' name='itemNo' value='"+data[i].itemNo+"'>");
 												var $input2=$("<input type='hidden'  class='auctionCode' name='auctionCode' value='"+data[i].auctionCode+"'>"); 
 											
@@ -237,12 +230,11 @@ h4 {
 												$tr2.append($td2);
 												$tr3.append($td3);
 												$tr3.append($td4);
-												$tr4.append($td5);
-												$tr4.append($td6);
+												
 												$tbody.append($tr1);
 												$tbody.append($tr2);
 												$tbody.append($tr3);
-												$tbody.append($tr4);
+												
 												$table.append($tbody);
 												$div1.append($img);
 												$div.append($div1);
@@ -311,11 +303,7 @@ h4 {
 										$td3.text("판매자 아이디");
 										var $td4 = $("<td>");
 										$td4.text(data[i].memberName.userId);
-										var $tr4 = $("<tr class='tr'>");
-										var $td5 = $("<td colspan='2'>");
-										$td5.text("남은 시간");
-										var $td6 = $("<td>");
-										$td6.text("00");
+										
 									
 										var $addDiv = $("<div id='addDiv' class='four wide column' style='display:inline-block;'>");
 										var $input1=$("<input type='hidden' class='itemNo' name='itemNo' value='"+data[i].itemNo+"'>");
@@ -326,12 +314,11 @@ h4 {
 										$tr2.append($td2);
 										$tr3.append($td3);
 										$tr3.append($td4);
-										$tr4.append($td5);
-										$tr4.append($td6);
+										
 										$tbody.append($tr1);
 										$tbody.append($tr2);
 										$tbody.append($tr3);
-										$tbody.append($tr4);
+									
 										$table.append($tbody);
 										$div1.append($img);
 										$div.append($div1);
@@ -417,6 +404,24 @@ h4 {
 			location.href="auctionDetail.bi?itemNo="+itemNo+"&auctionCode="+auctionCode;
 		}); 
 		
+	 	
+	 	$.ajax({
+	 	url:"selectCount.au",
+			type:"get",
+			dataType:"text",
+			success:function(data) {
+			
+				$(".countText").text("총 물품이 "+data+"개가 검색되었습니다.");
+				
+			},error:function(error){
+				console.log("에러" + error);
+			}
+			
+		});
+	 	
+	 	
+	 	
+	 	
 		
 		
 	</script>
