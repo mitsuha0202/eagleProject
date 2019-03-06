@@ -145,10 +145,11 @@
 	</div>
 	
 	<button class="closeBtn" onclick="location.href='myPageMain.mp'">닫기</button>
-	<button onclick="location.href='answerPageDetail.mp'">임시상세페이지예시</button>
+	
 </body>
+		
 		 <!-- 페이징 버튼 영역 -->
-		<div id="pagingArea" align="center">
+		<%-- <div id="pagingArea" align="center">
 			<c:if test="${ pi.currentPage <= 1 }">
 				[이전]&nbsp;
 			</c:if>
@@ -182,7 +183,7 @@
 				</c:url>
 				<a href="${blistEnd}">&nbsp;[다음]</a>
 			</c:if>
-		</div>
+		</div> --%>
 		<script>
 		
 		

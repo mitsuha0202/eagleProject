@@ -39,8 +39,8 @@ private emoneyService es;
 
 	
 	//사이버머니 결제 메인페이지,리스트도 출력
-	@RequestMapping("emoneyMain.em")
-	public String emoneyMain(@ModelAttribute("emoney") emoney e,
+	@RequestMapping("charge.em")
+	public String chargeMain(@ModelAttribute("emoney") emoney e,
 		@RequestParam(defaultValue="1") int currentPage,
 		HttpServletRequest request, Model model, HttpSession session) {
 		Member m = new Member();
@@ -53,7 +53,7 @@ private emoneyService es;
 		if(list !=null) {
 			model.addAttribute("list", list);
 			model.addAttribute("pi", pi);
-			return "emoney/emoneyMain";			
+			return "emoney/charge";			
 		}else {
 			model.addAttribute("msg", "조회실패");
 			return "common/errorPage";
@@ -113,10 +113,14 @@ private emoneyService es;
 		/*int result1 = resultA + resultB;*/
 		/*int result = resultA + resultB;*/
 		
-		int resultC = es.updateEmoney(m,e);
-		
+		int resultC = es.updateEmoney(m);
+		m = (Member)session.getAttribute("loginUser");
+		System.out.println("버이어코드1 : "+buyer_code);
+		int resultD = es.selectEmoney(buyer_code);
 		/*int result = resultA + resultB + resultC;*/
-		int result = resultB + resultC;
+		session.setAttribute("emoney", resultD);
+		System.out.println("이머니 : " + m.getEmoney());
+		int result = resultB + resultC + resultD;
 		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("utf-8");
@@ -177,11 +181,7 @@ private emoneyService es;
 	}
 	
 	
-	//결제하기 버튼 클릭시 결제 페이지
-	@RequestMapping("charge.em")
-	public String charge() {
-		return "emoney/charge";
-	}
+
 	
 	//환급하기 버튼 클릭시 환급 페이지
 	@RequestMapping("refund.em")

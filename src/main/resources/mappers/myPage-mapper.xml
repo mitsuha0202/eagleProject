@@ -1181,7 +1181,7 @@
 
 <!-- 마이페이지 등급 일반 -->	
 	<update id="selectMemberRatingNormal" parameterType="java.lang.String">
-		UPDATE MEMBER SET RATING = '일반' WHERE MEMBERNO = #{memberNo}
+		UPDATE MEMBER SET RATING = 'BRONZE' WHERE MEMBERNO = #{memberNo}
 	</update>
 	
 	<!-- 마이페이지 메인에 판매자 리스트 -->

@@ -95,7 +95,7 @@
 					<c:forEach var="b" items="${ list }">
 					<tr>
 						<td>
-							<input name="check"value="${ b.memberId }!${ b.eMoney }" type="checkbox">
+							<input name="check"value="${ b.memberId }!${ b.eMoney }!${ b.rating }" type="checkbox">
 						</td>
 						<td>${ b.rating }</td>
 						<td>${ b.memberId }</td>

@@ -145,11 +145,7 @@ td {
 									<td colspan="2">판매자 아이디</td>
 									<td>${i.memberName.userId}</td>
 								</tr>
-								<tr class="tr">
-									<td colspan="2">남은 시간</td>
-									<td>00</td>
-
-								</tr>
+							
 							</table>
 
 						</div>
@@ -187,11 +183,7 @@ td {
 									<td colspan="2">판매자 아이디</td>
 									<td>${i.memberName.userId}</td>
 								</tr>
-								<tr class="tr">
-									<td colspan="2">남은 시간</td>
-									<td>00</td>
-
-								</tr>
+							
 							</table>
 
 						</div>
@@ -231,11 +223,7 @@ td {
 									<td colspan="2">판매자 아이디</td>
 									<td>${i.memberName.userId}</td>
 								</tr>
-								<tr class="tr">
-									<td colspan="2">남은 시간</td>
-									<td>00</td>
-
-								</tr>
+							
 							</table>
 
 						</div>
@@ -254,7 +242,7 @@ td {
 		
 		<div id="footer">
 		<div style="width:200px"></div>
-		<jsp:include page="../common/footer.jsp" />
+		<%-- <jsp:include page="../common/footer.jsp" / --%>>
 		</div>
 
 <script>

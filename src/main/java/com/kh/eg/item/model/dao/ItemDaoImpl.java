@@ -21,8 +21,7 @@ public class ItemDaoImpl implements ItemDao {
 
 	@Override
 	public int insertItem(SqlSessionTemplate sqlSession, HashMap<String, Object> hmap) {
-		System.out.println("다오");
-		System.out.println(hmap);
+		
 		return sqlSession.insert("Item.insertItem",hmap);
 	}
 
@@ -30,7 +29,7 @@ public class ItemDaoImpl implements ItemDao {
 	@Override
 	public int selectItemNoNextval(SqlSessionTemplate sqlSession) {
 		int abc=sqlSession.selectOne("Item.selectItemNo");
-		System.out.println(abc);
+		
 		return abc;
 	
 	}

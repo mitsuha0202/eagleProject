@@ -29,8 +29,8 @@
 		</tr>
 		<br><br>
 		<tr>
-			<button class="btn btn-secondary btn-lg active" onclick="location.href='charge.em'">충전하기</button>	
-			<button class="btn btn-secondary btn-lg active" onclick="location.href='refundMain.em'">환전메인</button>		
+			<button class="btn btn-light btn-lg active" onclick="location.href='charge.em'">충전하기</button>	
+			<button class="btn btn-light btn-lg active" onclick="location.href='refundMain.em'">환전메인</button>		
 		</tr>
 		<br><br>
 		<c:if test="${!empty list}">

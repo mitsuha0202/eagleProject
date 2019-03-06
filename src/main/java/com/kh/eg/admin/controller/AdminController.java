@@ -530,7 +530,7 @@ public class AdminController {
 	}
 
 
-	//공지사항 리스트
+	//문의사항 리스트
 	@RequestMapping("postList.ad")
 	public String postListview(Model model, HttpServletRequest request){
 
@@ -558,7 +558,7 @@ public class AdminController {
 		}
 	}
 
-
+	//공지사항 리스트
 	@RequestMapping("noticeList.ad")
 	public String noticeListview(Model model, HttpServletRequest request){
 
@@ -613,11 +613,11 @@ public class AdminController {
 
 		}
 	}
+	
 	//반품거절
 	@RequestMapping("returnRefuse.ad")
 	public String returnRefuseview(Model model, HttpServletRequest request){
 		String[] check = request.getParameterValues("payNum");
-		System.out.println(check);
 		for(int i = 0; i< check.length; i++) {
 			System.out.println(check[i]);
 		}
@@ -657,6 +657,27 @@ public class AdminController {
 			
 		}
 	
+	//문의 답글
+	@RequestMapping("reply.ad")
+	public String replyview(Model model, HttpServletRequest request){
+		String reply = request.getParameter("reply");
+		String boardNo = request.getParameter("boardNo");
+		
+		int result;
+		
+		try {
+			result = ams.replyOk(reply, boardNo);
+			
+			return "redirect:postList.ad";
+		} catch (AdMemberselectException e) {
+			e.printStackTrace();
+			model.addAttribute("msg","답글 실패!");
+			return "common/errorPage";
+		}
+	}
+		
+		
+		
 	@RequestMapping("statList1.ad")
 	public String statList1view(){
 		return "admin/statList1";

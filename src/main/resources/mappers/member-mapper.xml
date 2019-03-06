@@ -120,6 +120,12 @@
 		WHERE MEMBERNO = #{mid}
 	</update> 
 	
+	<!-- 멤버 이머니 가져오기 -->
+	<select id="selectEmoney"  parameterType="java.lang.String" resultType="string">
+		SELECT EMONEY
+		FROM MEMBER
+		WHERE MEMBERNO = #{mid}
+	</select>
 
 	
 </mapper>

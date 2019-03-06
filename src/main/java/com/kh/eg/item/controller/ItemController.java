@@ -3,9 +3,10 @@ package com.kh.eg.item.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.Date;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
@@ -98,51 +99,50 @@ public class ItemController {
 		it.setCategoryNo(ccc[0]);
 		category.setUpperCategoryNo(cateNo);
 		
-		
-		SimpleDateFormat format1=new SimpleDateFormat("yyyy/mm/dd HH:mm:ss");
-		format1.format(date);
-		format1.format(date1);
-		
-		
-		
 	
-		/*java.sql.Date day=null;
-		java.sql.Date day2=null;
+		
+		String subDate1=date.substring(0,10);
+		String subDate2=date.substring(11,19);
+		String fi=subDate1+" "+subDate2;
+		
+		String subDate3=date1.substring(0,10);
+		String subDate4=date1.substring(11,19);
+		String fi1=subDate3+" "+subDate4;
+		
+		SimpleDateFormat stf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		
 		
 		
-		if(date != "") {
-			String[] dateArr = date.split("-");
-			int[] drr = new int[dateArr.length];
+		if(it.getAuctionCode().equals("AC003")) {
 			
-			for(int i = 0; i < dateArr.length; i++) {
-				drr[i] = Integer.parseInt(dateArr[i]);
+			auctionD.setStartDay(fi);
+			
+			String sd=auctionD.getStartDay();
+			Date nd;
+			try {
+				nd = stf.parse(sd);
+				long mdm=nd.getTime();
+				
+				mdm=mdm+15000L;
+				System.out.println(mdm);
+				Date kjk=new Date(mdm);
+				System.out.println(kjk);
+				String endDay3=stf.format(kjk);
+				System.out.println("end"+endDay3);
+				auctionD.setEndDay(endDay3);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 			
-			day = new java.sql.Date(new GregorianCalendar(drr[0], drr[1] - 1, drr[2]).getTimeInMillis());
-			
-			
+		
 		}else {
-			day = new java.sql.Date(new GregorianCalendar().getTimeInMillis());
+			auctionD.setStartDay(fi);
+			auctionD.setEndDay(fi1);
+			
 		}
 		
-		if(date1 != "") {
-			String[] dateArr = date1.split("-");
-			int[] drr = new int[dateArr.length];
-			
-			for(int i = 0; i < dateArr.length; i++) {
-				drr[i] = Integer.parseInt(dateArr[i]);
-			}
-			
-			day2 = new java.sql.Date(new GregorianCalendar(drr[0], drr[1] - 1, drr[2]).getTimeInMillis());
-			
-			
-		}else {
-			day2 = new java.sql.Date(new GregorianCalendar().getTimeInMillis());
-		}
 		
-		auctionD.setStartDay(day);
-		auctionD.setEndDay(day2);*/
 		
 		
 		
