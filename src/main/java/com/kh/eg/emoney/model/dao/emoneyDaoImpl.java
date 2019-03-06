@@ -184,7 +184,7 @@ public class emoneyDaoImpl implements emoneyDao{
 		map.put("id", id);
 		map.put("itemNo", itemNo);
 		map.put("currentPrice" , currentPrice);
-		
+		map.put("dealNo", (String)sqlSession.selectOne("emoney.searchDealNo", map));
 		int result = sqlSession.insert("emoney.paymentA",map);
 		if(result > 0) {
 			sqlSession.update("emoney.orderm",map);
