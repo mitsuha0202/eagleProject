@@ -1234,9 +1234,9 @@ public class MyPageDaoImpl implements MyPageDao{
 	}
 
 	@Override
-	public Member selectEmoney(SqlSessionTemplate sqlSession, Member m) {
+	public int selectEmoney(SqlSessionTemplate sqlSession, String memberNo) {
 
-		return sqlSession.selectOne("MyPage.selectEmoney", m);
+		return sqlSession.selectOne("MyPage.selectEmoney", memberNo);
 	}
 
 }

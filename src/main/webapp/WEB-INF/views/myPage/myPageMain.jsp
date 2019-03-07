@@ -582,7 +582,7 @@
 				type:"get",
 				data:{memberNo : '${sessionScope.loginUser.mid}'},
 				success:function(data){
-					$("#cEmoney").text("사이버머니 "+ data.emoney + "원");
+					$("#cEmoney").text("사이버머니 "+ data.Emoney + "원");
 					console.log("사이버머니 조회 성공");
 				},
 				error:function(){

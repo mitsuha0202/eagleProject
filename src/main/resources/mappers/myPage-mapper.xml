@@ -1290,16 +1290,16 @@
 	</select>
 	
 	<!-- 반품 금액조회 -->
-	<select id="selectCurrentPrice" resultType="java.lang.String" parameterType="java.lang.String">
+	<select id="selectCurrentPrice" resultType="_int" parameterType="java.lang.String">
 		SELECT PRICE 
 		FROM WINBID 
 		WHERE MEMBERNO = #{mid}
 		AND ITEMNO = #{itemNo}
 	</select>
 	
-	<select id="selectEmoney" resultMap="memberResultSet" resultType="memberResultSet" parameterType="memberResultSet">
-		SELECT *
+	<select id="selectEmoney" resultType="java.lang.String" parameterType="java.lang.String">
+		SELECT EMONEY
 		FROM MEMBER
-		WHERE MEMBERNO = #{mid}
+		WHERE MEMBERNO = #{memberNo}
 	</select>
 </mapper>
