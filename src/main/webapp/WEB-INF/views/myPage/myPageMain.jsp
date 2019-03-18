@@ -508,10 +508,6 @@
 								$tr.append($td);
 							}
 							$.each(data, function(i, val) {																			
-								console.log(val);
-								console.log("구매");
-								console.log("userId" + userId);
-								console.log(val.payNo);
 								if(val.orderM == "입금요청"){
 									$tr.children().eq(1).text("1");
 								}else if(val.orderM == "배송요청"){
@@ -577,12 +573,13 @@
 		});
 		
 		$(function(){
+			var userId = $("#userMid").val();
 			$.ajax({
 				url:"selectEmoney.mp",
 				type:"get",
-				data:{memberNo : '${sessionScope.loginUser.mid}'},
+				data:{userId : userId},
 				success:function(data){
-					$("#cEmoney").text("사이버머니 "+ data.Emoney + "원");
+					$("#cEmoney").text("사이버머니 "+ data + "원");
 					console.log("사이버머니 조회 성공");
 				},
 				error:function(){

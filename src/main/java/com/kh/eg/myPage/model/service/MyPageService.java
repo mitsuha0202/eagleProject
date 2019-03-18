@@ -324,7 +324,7 @@ public interface MyPageService {
 	//구매관리 낙찰된 물품 거래신청 yn 
 	ArrayList<PayTable> searchWinList(String mid);
 
-	int selectEmoney(String memberNo);
+	String selectEmoney(String memberNo);
 
 	
 

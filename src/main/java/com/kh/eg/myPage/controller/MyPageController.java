@@ -571,14 +571,10 @@ import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 		}
 
 		@RequestMapping("selectEmoney.mp")
-		public @ResponseBody HashMap<String, Object> selectEmoney(@RequestParam(value="memberNo") String memberNo) {
-			System.out.println(memberNo);
-			
-			
-			HashMap<String, Object> map = new HashMap<String, Object>(); 
-			int result = ms.selectEmoney(memberNo);
-			map.put("Emoney", result);		
-			
-			return map;
+		public @ResponseBody String selectEmoney(@RequestParam(value="userId") String mid) {
+	
+			String eMoney = ms.selectEmoney(mid);
+				
+			return eMoney;
 		}
 }

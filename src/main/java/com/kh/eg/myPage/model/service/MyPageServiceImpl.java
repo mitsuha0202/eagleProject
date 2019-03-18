@@ -751,9 +751,9 @@ public class MyPageServiceImpl implements MyPageService{
 	}
 
 	@Override
-	public int selectEmoney(String memberNo) {
+	public String selectEmoney(String mid) {
 
-		return md.selectEmoney(sqlSession, memberNo);
+		return md.selectEmoney(sqlSession, mid);
 	}
 
 

@@ -1300,6 +1300,6 @@
 	<select id="selectEmoney" resultType="java.lang.String" parameterType="java.lang.String">
 		SELECT EMONEY
 		FROM MEMBER
-		WHERE MEMBERNO = #{memberNo}
+		WHERE MEMBERNO = #{mid}
 	</select>
 </mapper>
